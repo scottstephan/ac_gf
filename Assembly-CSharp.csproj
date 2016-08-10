@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\gameManager.cs" />
+     <Compile Include="Assets\Scripts\m_gameUIManager.cs" />
      <Compile Include="Assets\Scripts\obj_Answer.cs" />
      <Compile Include="Assets\Scripts\obj_Player.cs" />
+     <Compile Include="Assets\Scripts\util_inputValidator.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5.4.0b19/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class obj_Answer : MonoBehaviour {
 
+    public GameObject thisAnswerMask;
     public string answerText;
     public int id;
 
@@ -17,8 +18,10 @@ public class obj_Answer : MonoBehaviour {
 
     public void initAnswer()
     {
-        //Grab UI components and set them
         gameObject.GetComponent<Text>().text = answerText;
+        hideAnswer();
+        //SET A FONT
+        //SET A NAME
     }
 
     public void setAnswerText(string answerText)
@@ -33,8 +36,16 @@ public class obj_Answer : MonoBehaviour {
 
     public void revealAnswer()
     {
+        thisAnswerMask.SetActive(false);
         //setAnswerState
         //PlayAnim
+    }
+
+    public void hideAnswer()
+    {
+        RectTransform tempAnswerMaskRect = thisAnswerMask.GetComponent<RectTransform>();
+        RectTransform tempAnswerRect = gameObject.GetComponent<RectTransform>();
+        tempAnswerMaskRect.sizeDelta = new Vector2(tempAnswerRect.rect.width, tempAnswerRect.rect.height);
     }
 
     public void setAnswerPosition(Vector3 pos)
