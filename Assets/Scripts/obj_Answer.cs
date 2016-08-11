@@ -7,6 +7,7 @@ public class obj_Answer : MonoBehaviour {
     public GameObject thisAnswerMask;
     public string answerText;
     public int id;
+    public int scoreValue;
 
     public enum E_answerState {
         hidden,
@@ -20,6 +21,7 @@ public class obj_Answer : MonoBehaviour {
     {
         gameObject.GetComponent<Text>().text = answerText;
         hideAnswer();
+        scoreValue = id * 10;
         //SET A FONT
         //SET A NAME
     }
@@ -38,6 +40,7 @@ public class obj_Answer : MonoBehaviour {
     {
         thisAnswerMask.SetActive(false);
         //setAnswerState
+        thisAnswerState = E_answerState.revealed;
         //PlayAnim
     }
 
