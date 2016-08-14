@@ -21,7 +21,7 @@ public class obj_Answer : MonoBehaviour {
     {
         gameObject.GetComponent<Text>().text = answerText;
         hideAnswer();
-        scoreValue = id * 10;
+        scoreValue = (id + 1) * 10;
         //SET A FONT
         //SET A NAME
     }

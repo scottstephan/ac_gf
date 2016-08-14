@@ -19,6 +19,6 @@ public class util_inputValidator : MonoBehaviour
         //Validate & process
         //Pass to GM for logic
         playerInput = playerInput.ToLower();
-        gameManager.checkPlayerInputAgainstAnswers(playerInput);
+        gameManager.instance.inputPhaseEnd(gameManager.E_endOfRoundAction.capturedPlayerInput,playerInput);
     }
 }

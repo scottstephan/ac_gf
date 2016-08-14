@@ -2,10 +2,18 @@
 using System.Collections;
 
 public class obj_Player : MonoBehaviour {
+    public static obj_Player instance;
+
     public string playerName;
     public int numMisses;
     public int numHits;
     public int totalScore;
+
+    void Awake()
+    { //Maintain singleton pattern
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
 
     public void setName(string PName)
     {
@@ -14,11 +22,14 @@ public class obj_Player : MonoBehaviour {
 
     public void playerMissed()
     {
+        Debug.Log("Player missed");
         numMisses++;
-        if(numMisses >= gameManager.maxPlayerMisses)
+        m_scoreAndGameStateManager.instance.updateNumberMissedText(numMisses);
+
+        if (numMisses >= gameManager.maxPlayerMisses)
         {
             Debug.Log("PLAYER HAS EXCEEDED MAX MISSES; ENDING GAME");
-            gameManager.endGame();
+            gameManager.endGame(true);
         }
     }
 
@@ -26,6 +37,12 @@ public class obj_Player : MonoBehaviour {
     {
         numHits++;
         totalScore += score;
+        m_scoreAndGameStateManager.instance.updateScoreText(totalScore.ToString());
+
+        if(numHits == 10)
+        {
+            gameManager.endGame(false);
+        }
     }
 
 }

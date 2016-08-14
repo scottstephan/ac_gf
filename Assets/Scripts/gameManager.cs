@@ -14,16 +14,44 @@ public class gameManager : MonoBehaviour
     public static int numAnswers; //Will probably always be 10
 
     public static obj_Player currentPlayer;
-    public static int maxPlayerMisses = 3; //Should we have a game settings script?
+    public static int maxPlayerMisses = 4; //Should we have a game settings script?
+    public static int numPlayerHits = 0;
+
+    public enum E_gameRoundStatus {
+        waitingToStart,
+        waitingForInput,
+        endOfRound
+    }
+
+    public static E_gameRoundStatus currentRoundStatus;
+
+    public enum E_endOfRoundAction
+    {
+        timerEnded,
+        capturedPlayerInput
+    }
+
+    public enum E_endOfRoundResult
+    {
+        playerHit,
+        playerMiss,
+        timerExpired
+    }
+
+    public E_endOfRoundResult currentRoundEndResult;
+
     void Awake()
     { //Maintain singleton pattern
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-
-        InitGame();
     }
 
-    void InitGame()
+    void Start()
+    {
+       StartCoroutine(InitGame());
+    }
+
+    IEnumerator InitGame()
     {
         masterUICanvas = GameObject.Find("g_UICanvas");
         answerLayoutGrid = GameObject.Find("answerLayoutGrid");
@@ -33,11 +61,86 @@ public class gameManager : MonoBehaviour
         addDebugAnswers();
         //Declare and initalize players
         //Declare and initalize Answers
-        //  createAnswerObjects();
         fillManualAnswerObjects();
-        //Call UI manager to layout board
-     //   m_gameUIManager.layoutAnswersDynamic(); //REMOVED FOR THE SAKE OF SANITY!
-        //Gather up answers
+        currentRoundStatus = E_gameRoundStatus.waitingToStart;
+        m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.gameStartText;
+        //delay before starting round....
+        yield return new WaitForSeconds(2f);
+        //Start the round
+        StartCoroutine(startRound());
+        yield return null;
+    }
+
+    public static void endGame(bool playerHasLost)
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+    IEnumerator startRound()
+    {
+        //Show some ready text
+        m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundStartText;
+        //delay
+        yield return new WaitForSeconds(1.5f);
+        m_scoreAndGameStateManager.instance.roundStatusText.text = "";
+
+        m_scoreAndGameStateManager.instance.setInputFieldAccessibility(true);
+        //Start the timer
+        obj_Timer.instance.setTimer();
+        obj_Timer.instance.startTimer();
+        currentRoundStatus = E_gameRoundStatus.waitingForInput;
+
+        yield return null;
+    }
+
+    IEnumerator endRound(E_endOfRoundResult roundResult)
+    {
+        m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithInputText;
+
+        switch (roundResult)
+        {
+            case E_endOfRoundResult.playerHit:
+                m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithPlayerHit;
+                break;
+            case E_endOfRoundResult.playerMiss:
+                m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithPlayerMiss;
+                break;
+            case E_endOfRoundResult.timerExpired:
+                m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithTimeoutText;
+                break;
+        }
+        yield return new WaitForSeconds(2f);
+       //if game not over...
+        StartCoroutine(startRound());
+       //else endGame
+        yield return null;
+    }
+
+    public void inputPhaseEnd(E_endOfRoundAction endRoundReason, string playerInput = "")
+    {
+        m_scoreAndGameStateManager.instance.setInputFieldAccessibility(false);
+        bool playerHit = false;
+
+        if (endRoundReason == E_endOfRoundAction.capturedPlayerInput)
+        {
+            obj_Timer.instance.stopTimer();
+            playerHit = checkPlayerInputAgainstAnswers(playerInput); //Could be miss/hit
+            currentRoundEndResult = playerHit == true ? E_endOfRoundResult.playerHit : E_endOfRoundResult.playerMiss;
+        }
+        else if (endRoundReason == E_endOfRoundAction.timerEnded)
+        {
+            playerInputTimerEnded();
+            playerHit = false; //Always a miss.
+            currentRoundEndResult = E_endOfRoundResult.timerExpired;
+        }
+
+        StartCoroutine(endRound(currentRoundEndResult));
+    }
+
+    public static void playerInputTimerEnded()
+    {
+        obj_Player.instance.playerMissed();
     }
 
     void createAnswerObjects()
@@ -67,7 +170,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public static void checkPlayerInputAgainstAnswers(string playerAnswer)
+    public static bool checkPlayerInputAgainstAnswers(string playerAnswer)
     {
         bool hasHit = false;
         for(int i = 0; i < roundAnswerStrings.Count; ++i)
@@ -81,6 +184,7 @@ public class gameManager : MonoBehaviour
                         roundAnswers[i].GetComponent<obj_Answer>().revealAnswer();
                         hasHit = true;
                         currentPlayer.playerHit(roundAnswers[i].GetComponent<obj_Answer>().scoreValue);
+                        return true;
                         break;
                     }
                     else
@@ -92,14 +196,17 @@ public class gameManager : MonoBehaviour
             }
             else
             {//No match on this item
-                //Debug.Log("NO HIT");
+                
             }
         }
 
         if (!hasHit)
         {
             currentPlayer.playerMissed();
+            return false;
         }
+
+        return false; //Wtach out for this
     }
 
     void addDebugAnswers()
@@ -116,9 +223,7 @@ public class gameManager : MonoBehaviour
         roundAnswerStrings.Add("Miller");
     }
 
-    public static void endGame()
-    {
-        SceneManager.LoadScene(0);
-    }
 
+
+    //Game works as follows: Pause -> Round Start -> Player Guess || Timer Ends -> Round End -> Pause -> Round Start
 }
