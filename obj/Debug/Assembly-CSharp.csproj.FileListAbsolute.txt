@@ -19,3 +19,15 @@ C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Projects\Unity\GoogleFeud\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Projects\Unity\GoogleFeud\obj\Debug\Assembly-CSharp.dll
 C:\Projects\Unity\GoogleFeud\obj\Debug\Assembly-CSharp.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.CognitoIdentity.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.Core.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.DynamoDBv2.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.IdentityManagement.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.S3.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.SecurityToken.dll
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.CognitoIdentity.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.DynamoDBv2.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.Core.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.SecurityToken.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.S3.pdb
+C:\Projects\Unity\GoogleFeud\Temp\bin\Debug\AWSSDK.IdentityManagement.pdb

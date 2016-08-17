@@ -45,22 +45,54 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Examples\DynamoDBBaseExample.cs" />
+     <Compile Include="Assets\Examples\DynamoDBExample.cs" />
+     <Compile Include="Assets\Examples\HighLevelTableExample.cs" />
+     <Compile Include="Assets\Examples\LowLevelTableExample.cs" />
+     <Compile Include="Assets\Examples\S3Example.cs" />
+     <Compile Include="Assets\Examples\TableQueryAndScanExample.cs" />
      <Compile Include="Assets\Scripts\categorySelect\categorySelectionButtonManager.cs" />
      <Compile Include="Assets\Scripts\categorySelect\m_categorySelectionManager.cs" />
-     <Compile Include="Assets\Scripts\gameManager.cs" />
-     <Compile Include="Assets\Scripts\m_gameUIManager.cs" />
-     <Compile Include="Assets\Scripts\m_scoreAndGameStateManager.cs" />
-     <Compile Include="Assets\Scripts\obj_Answer.cs" />
-     <Compile Include="Assets\Scripts\obj_Player.cs" />
-     <Compile Include="Assets\Scripts\obj_Timer.cs" />
+     <Compile Include="Assets\Scripts\coreGame\gameManager.cs" />
+     <Compile Include="Assets\Scripts\coreGame\m_gameUIManager.cs" />
+     <Compile Include="Assets\Scripts\coreGame\m_scoreAndGameStateManager.cs" />
+     <Compile Include="Assets\Scripts\coreGame\obj_Answer.cs" />
+     <Compile Include="Assets\Scripts\coreGame\obj_Player.cs" />
+     <Compile Include="Assets\Scripts\coreGame\obj_Timer.cs" />
+     <Compile Include="Assets\Scripts\coreGame\util_buildManualGrid.cs" />
+     <Compile Include="Assets\Scripts\coreGame\util_inputValidator.cs" />
+     <Compile Include="Assets\Scripts\entity_games.cs" />
+     <Compile Include="Assets\Scripts\entity_player.cs" />
+     <Compile Include="Assets\Scripts\m_prefsDataManager.cs" />
+     <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
      <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
-     <Compile Include="Assets\Scripts\util_buildManualGrid.cs" />
-     <Compile Include="Assets\Scripts\util_inputValidator.cs" />
+     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
+     <Compile Include="Assets\appManager.cs" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Examples\License.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5.4.0b19/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity 5.4.0b19/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.CognitoIdentity">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.CognitoIdentity.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.Core">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.DynamoDBv2">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.DynamoDBv2.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.IdentityManagement">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.IdentityManagement.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.S3">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.S3.dll</HintPath>
+ </Reference>
+ <Reference Include="AWSSDK.SecurityToken">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.SecurityToken.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

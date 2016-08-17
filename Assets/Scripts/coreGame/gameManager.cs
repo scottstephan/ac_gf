@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public class gameManager : MonoBehaviour
 {
+    public static gameManager instance = null;
+
     public static GameObject masterUICanvas;
     public static GameObject answerLayoutGrid;
     public GameObject answersPrefab;
-    public static gameManager instance = null;
     public static List<string> roundAnswerStrings = new List<string>(); //WILL BE ANSWERS class objects
     public static List<GameObject> roundAnswers = new List<GameObject>();
     public static int numAnswers; //Will probably always be 10
