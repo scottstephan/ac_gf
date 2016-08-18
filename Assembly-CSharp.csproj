@@ -51,6 +51,8 @@
      <Compile Include="Assets\Examples\LowLevelTableExample.cs" />
      <Compile Include="Assets\Examples\S3Example.cs" />
      <Compile Include="Assets\Examples\TableQueryAndScanExample.cs" />
+     <Compile Include="Assets\Scripts\TEST_loadPlayerButton.cs" />
+     <Compile Include="Assets\Scripts\TEST_registerPlayerButton.cs" />
      <Compile Include="Assets\Scripts\categorySelect\categorySelectionButtonManager.cs" />
      <Compile Include="Assets\Scripts\categorySelect\m_categorySelectionManager.cs" />
      <Compile Include="Assets\Scripts\coreGame\gameManager.cs" />

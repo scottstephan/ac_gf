@@ -8,9 +8,13 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Assets.autoCompete.players;
+using System.Delegate;
 
-public class autoCompeteDBHelper : MonoBehaviour
+public class acDBHelper : MonoBehaviour
 {
+    public static acDBHelper instance = null;
+    delegate bool myCallBack(string l_id, string r_id);
+
 
     public enum E_gameTables
     {
@@ -41,6 +45,12 @@ public class autoCompeteDBHelper : MonoBehaviour
         }
     }
 
+    void Awake()
+    { //Maintain singleton pattern
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -53,7 +63,7 @@ public class autoCompeteDBHelper : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            savePlayerToDynamo();
+          //  savePlayerToDynamo(); //Need save v. update logic
         }
     }
 
@@ -96,13 +106,40 @@ public class autoCompeteDBHelper : MonoBehaviour
         });
     }
 
-    void savePlayerToDynamo()
+    public bool checkIfPlayerExistsByID(string id)
+    {
+        myCallBack callBackFunc;
+        callBackFunc = compareIDNumbers;
+
+        entity_players tPlayer = loadPlayerFromDynamoViaID(id); //THE PROBLEM WITH THIS IS THAT THIS IS A NON-SYNCHRONOUS LOAD. It'll return an empty type in the middle.
+        Debug.Log("Submitted ID: " + id + " :: " + tPlayer.playerID);
+
+        if (tPlayer.playerID == id)
+        {
+            Debug.Log("PLAYER ALREADY KNOWN; NOT SAVING NEW RECORD; MOVING TO UPDATE");
+            return true;
+        }
+        else
+        {
+            Debug.Log("PLAYER NOT KNOWN; MOVING TO SAVE RECORD");
+            savePlayerToDynamo(id);
+            return false;
+        }
+
+    }
+
+    public bool compareIDNumbers(string l_id, string r_id)
+    {
+        return true;
+    }
+
+    public void savePlayerToDynamo(string id)
     {
         entity_players newPlayer = new entity_players();
-        newPlayer.playerID = Random.Range(0, 100).ToString();
-        newPlayer.playerName = "TestJones";
-        newPlayer.playerAuthSource = "testing";
-
+        newPlayer.playerID = id;
+        newPlayer.playerName = "DEBUGTEST" + Random.Range(0,999);
+        newPlayer.playerAuthSource = "DEBUG";
+        
         Context.SaveAsync(newPlayer, (result) =>
         {
             if (result.Exception == null)
@@ -113,9 +150,26 @@ public class autoCompeteDBHelper : MonoBehaviour
 
     }
 
-    void loadPlayerFromDynamoViaID(string id)
+    public entity_players loadPlayerFromDynamoViaID(string id)
     {
+        entity_players tempPlayer = new entity_players();
 
+        Debug.Log("TRYING TO LOAD PLAYER FROM DYNAMO VIA ID: " + id);
+        Context.LoadAsync<entity_players>(id,
+        (AmazonDynamoDBResult<entity_players> result) =>
+        {
+            if (result.Exception != null)
+            {
+                Debug.Log("PLAYER ASYNC LOAD ERROR: " + result.Exception.Message);
+                return;
+            }
+            //MAYBE TRY AND INVOKE AFTER TH ASYNC LOAD????
+            tempPlayer = result.Result;
+            Debug.Log("LOADED PLAYER " + tempPlayer.playerName + " FROM ID " + tempPlayer.autoCompeteUsableID);
+            
+        }, null);
+
+        return tempPlayer;
     }
 
     void saveGameToDyanmo(string p1ID, string p2ID)
