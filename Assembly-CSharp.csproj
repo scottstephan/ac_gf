@@ -67,6 +67,8 @@
      <Compile Include="Assets\Scripts\entity_player.cs" />
      <Compile Include="Assets\Scripts\m_prefsDataManager.cs" />
      <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
+     <Compile Include="Assets\Scripts\multiPlayer\m_MPLobby_Matchmake.cs" />
+     <Compile Include="Assets\Scripts\multiPlayer\ui_opponentButtonManager.cs" />
      <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
      <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
      <Compile Include="Assets\appManager.cs" />

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Amazon;
@@ -8,12 +9,11 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Assets.autoCompete.players;
-using System.Delegate;
+using Assets.autoCompete.games;
 
 public class acDBHelper : MonoBehaviour
 {
     public static acDBHelper instance = null;
-    delegate bool myCallBack(string l_id, string r_id);
 
 
     public enum E_gameTables
@@ -106,38 +106,32 @@ public class acDBHelper : MonoBehaviour
         });
     }
 
-    public bool checkIfPlayerExistsByID(string id)
+    public void checkIfPlayerExistsByID(string id, string playerName)
     {
-        myCallBack callBackFunc;
-        callBackFunc = compareIDNumbers;
 
-        entity_players tPlayer = loadPlayerFromDynamoViaID(id); //THE PROBLEM WITH THIS IS THAT THIS IS A NON-SYNCHRONOUS LOAD. It'll return an empty type in the middle.
-        Debug.Log("Submitted ID: " + id + " :: " + tPlayer.playerID);
-
-        if (tPlayer.playerID == id)
+        loadPlayerFromDynamoViaID(id, (bool playerLoaded, entity_players tPlayer) =>
         {
-            Debug.Log("PLAYER ALREADY KNOWN; NOT SAVING NEW RECORD; MOVING TO UPDATE");
-            return true;
-        }
-        else
-        {
-            Debug.Log("PLAYER NOT KNOWN; MOVING TO SAVE RECORD");
-            savePlayerToDynamo(id);
-            return false;
-        }
 
+            Debug.Log("Submitted ID: " + id + " :: " + tPlayer.playerID);
+
+            if (tPlayer.playerID == id)
+            {
+                Debug.Log("PLAYER ALREADY KNOWN; NOT SAVING NEW RECORD; MOVING TO UPDATE");
+                savePlayerToDynamo(id, playerName);
+            }
+            else
+            {
+                Debug.Log("PLAYER NOT KNOWN; MOVING TO SAVE RECORD");
+                savePlayerToDynamo(id, playerName);
+            }
+        });
     }
 
-    public bool compareIDNumbers(string l_id, string r_id)
-    {
-        return true;
-    }
-
-    public void savePlayerToDynamo(string id)
+    public void savePlayerToDynamo(string id, string playerName) //Should just pass in the EP from AppManager
     {
         entity_players newPlayer = new entity_players();
         newPlayer.playerID = id;
-        newPlayer.playerName = "DEBUGTEST" + Random.Range(0,999);
+        newPlayer.playerName = playerName;
         newPlayer.playerAuthSource = "DEBUG";
         
         Context.SaveAsync(newPlayer, (result) =>
@@ -148,11 +142,11 @@ public class acDBHelper : MonoBehaviour
                 Debug.LogError("ERROR SAVING PLAYER OBJECT:" + result.Exception.Message);
         });
 
+        appManager.devicePlayer = newPlayer;
     }
 
-    public entity_players loadPlayerFromDynamoViaID(string id)
+    public void loadPlayerFromDynamoViaID(string id, Action <bool, entity_players> completionBlock)
     {
-        entity_players tempPlayer = new entity_players();
 
         Debug.Log("TRYING TO LOAD PLAYER FROM DYNAMO VIA ID: " + id);
         Context.LoadAsync<entity_players>(id,
@@ -161,20 +155,53 @@ public class acDBHelper : MonoBehaviour
             if (result.Exception != null)
             {
                 Debug.Log("PLAYER ASYNC LOAD ERROR: " + result.Exception.Message);
+                if (completionBlock != null)
+                    completionBlock(false, null);
+
                 return;
             }
             //MAYBE TRY AND INVOKE AFTER TH ASYNC LOAD????
-            tempPlayer = result.Result;
-            Debug.Log("LOADED PLAYER " + tempPlayer.playerName + " FROM ID " + tempPlayer.autoCompeteUsableID);
+            Debug.Log("LOADED PLAYER " + result.Result.playerName + " FROM ID " + result.Result.playerID);
             
-        }, null);
+            if (completionBlock != null)
+                completionBlock(true, result.Result);
 
-        return tempPlayer;
+        }, null);
     }
 
-    void saveGameToDyanmo(string p1ID, string p2ID)
+    public void loadAllPlayers(Action<bool, List<entity_players>> completionBlock)
     {
+        Debug.Log("***LOADING ALL PLAYERS***");
+        List<entity_players> allPlayers = new List<entity_players>();
+        var search = Context.ScanAsync<entity_players>(new ScanCondition("playerName", ScanOperator.IsNotNull));
+        search.GetRemainingAsync(result =>
+        {
+            if(result.Exception != null)
+            {
+                Debug.Log("ALL PLAYER SCAN NOT COMPLETED: " + result.Exception.Message);
+                if (completionBlock != null)
+                    completionBlock(false, null);
+                return;
+            }
 
+            allPlayers = result.Result;
+            if (completionBlock != null)
+                completionBlock(true, allPlayers);
+        }, null);        
+    }
+
+    //******Games*******\
+
+    public void saveGameToDyanmo(entity_games cGame)
+    {
+       
+        Context.SaveAsync(cGame, (result) =>
+        {
+            if (result.Exception == null)
+                Debug.Log("Game SAVED");
+            else
+                Debug.LogError("ERROR SAVING Game OBJECT:" + result.Exception.Message);
+        });
     }
 
     void loadGameFromDynamo()

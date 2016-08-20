@@ -9,6 +9,6 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void categoruSelected()
     {
-        SceneManager.LoadScene(2); //refactor so button isn't responsible
+        appManager.loadScene(appManager.sceneNames.singlePlayer); //refactor so button isn't responsible
     }
 }

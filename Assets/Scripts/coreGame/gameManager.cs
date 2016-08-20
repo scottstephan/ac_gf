@@ -74,7 +74,14 @@ public class gameManager : MonoBehaviour
 
     public static void endGame(bool playerHasLost)
     {
-        SceneManager.LoadScene(0);
+        if (appManager.curLiveGame.isMPGame)
+        {
+            appManager.curLiveGame.p1_Fin = true; ///HERE IS A HUGE FUCK-UP: I don't know which player it is. IF a game is MP, I need to SEEK OUT WHO IS WHO BEFORE I DO THSI   
+            appManager.curLiveGame.p1_score = 500; //As above
+
+            appManager.saveCurGame();
+        }
+        appManager.loadScene(appManager.sceneNames.title);
     }
 
 

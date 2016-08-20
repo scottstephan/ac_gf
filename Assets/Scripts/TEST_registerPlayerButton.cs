@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class TEST_registerPlayerButton : MonoBehaviour {
-
+    public InputField playerNameInput;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,6 +16,6 @@ public class TEST_registerPlayerButton : MonoBehaviour {
 
     public void onRegisterButtonClick()
     {
-        bool isNewPlayer = acDBHelper.instance.checkIfPlayerExistsByID(m_prefsDataManager.getPlayerIDPref());
+        acDBHelper.instance.checkIfPlayerExistsByID(m_prefsDataManager.getPlayerIDPref(), playerNameInput.text);
     }
 }

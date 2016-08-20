@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Assets.autoCompete.players;
 
 public class TEST_loadPlayerButton : MonoBehaviour {
     public Text idStatus;
@@ -16,6 +17,18 @@ public class TEST_loadPlayerButton : MonoBehaviour {
 
     public void onLoadClick()
     {
-        acDBHelper.instance.loadPlayerFromDynamoViaID(m_prefsDataManager.getPlayerIDPref());
+       acDBHelper.instance.loadPlayerFromDynamoViaID(m_prefsDataManager.getPlayerIDPref(), (bool playerLoaded, entity_players tPlayer) =>
+       {
+           if (tPlayer != null)
+           {
+               Debug.Log("VIA LOAD BUTTON: LOADED PLAYER: " + tPlayer.playerName);
+               idStatus.text = tPlayer.playerID + " :: " + tPlayer.playerName;
+               appManager.devicePlayer = tPlayer;
+           }
+           else
+               Debug.Log("VIA LOAD BUTTON: PLAYER NOT FOUND IN DB");
+       });
+
+       
     }
 }
