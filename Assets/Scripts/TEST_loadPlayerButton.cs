@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.UI;
+using Amazon.DynamoDBv2.DataModel;
+using DDBHelper;
 using Assets.autoCompete.players;
 
 public class TEST_loadPlayerButton : MonoBehaviour {
@@ -17,18 +20,25 @@ public class TEST_loadPlayerButton : MonoBehaviour {
 
     public void onLoadClick()
     {
-       acDBHelper.instance.loadPlayerFromDynamoViaID(m_prefsDataManager.getPlayerIDPref(), (bool playerLoaded, entity_players tPlayer) =>
-       {
-           if (tPlayer != null)
-           {
-               Debug.Log("VIA LOAD BUTTON: LOADED PLAYER: " + tPlayer.playerName);
-               idStatus.text = tPlayer.playerID + " :: " + tPlayer.playerName;
-               appManager.devicePlayer = tPlayer;
-           }
-           else
-               Debug.Log("VIA LOAD BUTTON: PLAYER NOT FOUND IN DB");
-       });
+        entity_players tP = new entity_players();
+        tP.playerID = m_prefsDataManager.getPlayerIDPref();
+        
+        DBWorker.Instance.Load(tP, OnPlayerLoaded);
+    }
 
-       
+    static void OnPlayerLoaded(entity_players response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***PLAYER UPDATED FROM REGISTER BUTTON***");
+        Debug.Log("NewPlayerName:" + response.playerName);
+        if (e == null)
+        {
+            appManager.devicePlayer = response;
+            Debug.Log("LOADED THIS PLAYER: " + appManager.devicePlayer.playerName);
+        }
+        else
+        {
+            Debug.Log("***LOAD PLAYER ENCOUNTERED A PROBLEM***");
+            DBTools.PrintException("DBExample Save", e);
+        }
     }
 }

@@ -12,7 +12,11 @@ namespace Assets.autoCompete.games
         [DynamoDBProperty]
         public string player1_id { get; set; }
         [DynamoDBProperty]
+        public string player1_name;
+        [DynamoDBProperty]
         public string player2_id { get; set; } //can i do enum?? guest,fb,google,unauth,auth
+        [DynamoDBProperty]
+        public string player2_name;
         [DynamoDBProperty]
         public bool p1_Fin { get; set; }
         [DynamoDBProperty]
@@ -24,11 +28,13 @@ namespace Assets.autoCompete.games
         [DynamoDBProperty]
         public bool isMPGame { get; set;}
 
-        public void initGame(string gID, string p1Id, string p2Id, bool p1fin, bool p2fin, int p1Score, int p2Score, bool mp)
+        public void initGame(string gID, string p1Id, string p2Id, bool p1fin, bool p2fin, int p1Score, int p2Score, bool mp, string p1Name, string p2Name)
         {
             gameID = gID;
             player1_id = p1Id;
+            player1_name = p1Name;
             player2_id = p2Id;
+            player2_name = p2Name;
             p1_Fin = p1fin;
             p2_Fin = p2fin;
             p1Score = p1_score;

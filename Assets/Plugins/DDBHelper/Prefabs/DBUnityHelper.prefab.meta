@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 595cd7ed029ce534da852b4e9fb7c1bb
+labels:
+- NoSQL
+- SQL
+- AWS
+- DDBHelper
+- DynamoDB
+- Query
+- Save
+- Load
+- Database
+- Amazon
+- Data
+- CRUD
+- ACID
+- Create
+NativeFormatImporter:
+  userData: 

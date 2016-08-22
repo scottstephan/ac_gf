@@ -1,57 +1,132 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Amazon.DynamoDBv2.DataModel;
+using DDBHelper;
 using Assets.autoCompete.players;
 using Assets.autoCompete.games;
+using Amazon.DynamoDBv2.Model;
 
 public class m_MPLobby_Matchmake : MonoBehaviour {
+    public static m_MPLobby_Matchmake instance = null;
+
     public Text txt_curPlayerReadout;
     public GameObject opponentButton;
     public GameObject opponentListParentGrid;
-    public GameObject masterCanvas;
+    public GameObject playerListPanel;
 
     public Vector2 listStartPos;
     public float listYPadding;
     int listIndex;
 
     List<entity_players> allPlayers = new List<entity_players>();
-	// Use this for initialization
-	void Start () {
+    public event DDBScanResponseDelegate OnScanComplete;
+    public event DDBQueryHashKeyOnlyDelegate<appManager.playerGameID> OnP1GameFetchComplete;
+
+    void Awake()
+    { //Maintain singleton pattern
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
+
+    void Start () {
         txt_curPlayerReadout.text = "You: " + appManager.devicePlayer.playerName;
+        OnScanComplete += OnPlayerScanComplete;
+       // OnP1GameFetchComplete += allP1GameQueryComplete;
+
         getAndListAllPlayers();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
+        getAllP1Games();
 	}
 
     void getAndListAllPlayers() {
-        //Get a scan of all player sin DB
-        acDBHelper.instance.loadAllPlayers((bool playerLoaded, List<entity_players> allPlayers) =>
+        Debug.Log("***SCANNING FOR ALL PLAYERS***");
+        DBWorker.Instance.ScanTable("players", OnPlayerScanComplete);  
+    }
+
+    static void OnPlayerScanComplete(List<Dictionary<string, AttributeValue>> response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***LISTING ALL PLAYERS FROM SCAN***");
+        List<entity_players> allPlayers = new List<entity_players>();
+
+        foreach (Dictionary<string, AttributeValue> d in response) //foreach is bugged- Swap it ot when we change this
         {
-            foreach (entity_players ep in allPlayers)
-            {
-                Debug.Log(ep.playerName);
-                GameObject tempButton = Instantiate(opponentButton);
-                tempButton.transform.SetParent(masterCanvas.transform);
-                tempButton.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-                Vector3 buttonPos = new Vector3(listStartPos.x, listStartPos.y - (listYPadding * listIndex), 0);
-                tempButton.GetComponent<RectTransform>().anchoredPosition = buttonPos;
+            entity_players tP = new entity_players();
+            tP.playerName = d["playerName"].S;
+            tP.playerID = d["playerID"].S;
 
-           //     Debug.Log("Setting " + ep.playerName + " to " + buttonPos);
+            allPlayers.Add(tP);
+        }
 
-                ui_opponentButtonManager tempBtnManager = tempButton.GetComponent<ui_opponentButtonManager>();
-                tempBtnManager.opEntity = ep;
+        m_MPLobby_Matchmake.instance.createPlayerListInUI(allPlayers);
+    }
 
-                tempBtnManager.setUpButton();
-                listIndex++;
-            }
-        });
+    void createPlayerListInUI(List<entity_players> allPlayers)
+    {
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            GameObject tButton = Instantiate(opponentButton);
+            tButton.transform.SetParent(opponentListParentGrid.transform);
 
-       
-        //Create a button for each
+            ui_opponentButtonManager tManager = tButton.GetComponent<ui_opponentButtonManager>();
+            tManager.opEntity = allPlayers[i];
+            tManager.setUpButton();
+        }
+    }
+
+    void getAllP1Games()
+    {
+        Debug.Log("***QUERING ALL GAMES INVOLVING P1***");
+        List<string> attToReturn = new List<string>();
+        attToReturn.Add("playerID");
+        attToReturn.Add("gameID");
+        attToReturn.Add("role");
+
+        DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.devicePlayer.playerID, attToReturn, allP1GameQueryComplete,true);
+    }
+
+    static void allP1GameQueryComplete(List<appManager.playerGameID> response, Exception e = null)
+    {
+        Debug.Log("ALL P1 GAMES LOADED");
+        List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
+        for (int i = 0; i < response.Count; i++)
+        {
+            appManager.playerGameID tPGID = new appManager.playerGameID();
+            tPGID.playerID = response[i].playerID;
+            tPGID.gameID = response[i].gameID;
+            tPGID.role = response[i].role;
+
+            Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
+
+            pgID.Add(tPGID); //These ALL of the games this user is currently involved in
+        }
+    }
+
+    /*
+    static void allP1GameQueryComplete(List<Dictionary<string, AttributeValue>> response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
+        for(int i = 0; i < response.Count; i++)
+        {
+            appManager.playerGameID tPGID = new appManager.playerGameID();
+            tPGID.playerID = response[i]["playerID"].S;
+            tPGID.gameID = response[i]["playerID"].S;
+            tPGID.role = response[i]["role"].S;
+
+            Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
+
+            pgID.Add(tPGID); //These ALL of the games this user is currently involved in
+        }
+    }*/
+
+    void getAllGamesP1IsInitiated()
+    {
+        
+    }
+
+    void getAllGamesP1IsChallengedIn()
+    {
 
     }
 }

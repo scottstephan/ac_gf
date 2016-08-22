@@ -27,16 +27,7 @@ public class ui_opponentButtonManager : MonoBehaviour {
    public void onButtonCLick()
     {
         //Create game obj n appManager
-        appManager.createGameObject();
-        //Assign local playe to p1 slot and do general init
-        appManager.curLiveGame.gameID = appManager.generateUniqueGameID(); //need an id schema!
-        appManager.curLiveGame.player1_id = appManager.currentPlayerID; //prim key for player DB
-        appManager.curLiveGame.player2_id = null;
-        appManager.curLiveGame.p1_score = 0;
-        appManager.curLiveGame.p2_score = 0;
-        appManager.curLiveGame.p1_Fin = false;
-        appManager.curLiveGame.p2_Fin = false;
-        appManager.curLiveGame.isMPGame = true;
+        appManager.createGameObject(appManager.currentPlayerID,opEntity.playerID,appManager.devicePlayer.playerName,opEntity.playerName,true);
         appManager.saveCurGame();
         //Load cat scree
         appManager.loadScene(appManager.sceneNames.categorySelect);

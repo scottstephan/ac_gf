@@ -18,10 +18,8 @@ public  static class m_prefsDataManager  {
         string retId = PlayerPrefs.GetString(playerPrefVariables.playerID.ToString());
         if (retId == null || retId == "")
         {
-            string id = appManager.generateUniqueID();
-            Debug.Log("CAN'T FIND LOCAL PLAYER ID; SETTING LOCAL PLAYER ID TO: " + id);
-            setPlayerIDPref(id);
-            return id;
+            Debug.Log("CAN'T FIND LOCAL PLAYER ID");
+            return null;
         }
         else
         {
@@ -34,7 +32,7 @@ public  static class m_prefsDataManager  {
     {
         string storedID = PlayerPrefs.GetString(playerPrefVariables.playerID.ToString());
 
-        if (storedID == appManager.generateUniqueID())
+        if (storedID == appManager.generateUniquePlayerID())
         {
             Debug.Log("STORED PLAYER MATCHES DEVICE PLAYER");
             return true;

@@ -1,0 +1,30 @@
+These will be pretty basic, high level steps.
+
+Here is some reference from the official site
+http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.DynamoDBLocal.html
+
+Prerequisites
+- Java JRE 6+ installed
+-- Either search google for "JRE" or get it here:
+   http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html
+-- Install it
+
+1. Make sure JRE is installed
+2. Download DynamoDBLocal from http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest
+3. Extract .tar.gz file into its own folder.  If you can't extract that type of file, get 7zip, it supports 
+   these file types even on windows:  http://www.7-zip.org/
+4. Open command prompt / shell
+5. Navigate to folder where you just extracted everything
+6. In commmand prompt, use:  java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -port 8000
+   java is the 'command' you're using that is the JRE requirement from above
+   you're giving it a path which is a subdirectory in the location you unpacked everything
+   -jar is the 'jar file' location, again, same directory.  a .jar file is just a java-specific zip file, more or less
+   -port is designating the port to use
+7. Some gobblygook appeared.  Don't close the window else you'll close the local DynamoDB.
+8. In the DBUnityHelper, you can select the port and whether to use DynamoDBLocal
+
+Using DynamoDB Local doesn't care about your Secret Key, so you can make it whatever you like.  It's just a local flat
+file database but is very fast and useful for testing some things; however, the lack of graphical view of objects makes
+it quite difficult at times.  Best for some local testing, or when a firewall is blocking your access to the remote system
+*cough cough work*
+

@@ -18,38 +18,53 @@ using System.Collections;
 using Amazon.DynamoDBv2;
 using UnityEngine.UI;
 using Amazon;
+#if UNITY_5_3_OR_NEWER
+using UnityEngine.SceneManagement;
+#endif
 
 namespace AWSSDK.Examples
 {
-    public class DynamoDBExample : MonoBehaviour
-    {
+	public class DynamoDBExample : MonoBehaviour
+	{
 
-        public Button lowLevelButton;
-        public Button midLevelScanButton;
-        public Button highLevelobjectMapperButton;
+		public Button lowLevelButton;
+		public Button midLevelScanButton;
+		public Button highLevelobjectMapperButton;
 
-        // Use this for initialization
-        void Start()
-        {
-            UnityInitializer.AttachToGameObject(this.gameObject);
-            lowLevelButton.onClick.AddListener(LowLevelListener);
-            midLevelScanButton.onClick.AddListener(MidLevelScanListener);
-            highLevelobjectMapperButton.onClick.AddListener(HighLevelListener);
-        }
+		// Use this for initialization
+		void Start()
+		{
+			UnityInitializer.AttachToGameObject(this.gameObject);
+			lowLevelButton.onClick.AddListener(LowLevelListener);
+			midLevelScanButton.onClick.AddListener(MidLevelScanListener);
+			highLevelobjectMapperButton.onClick.AddListener(HighLevelListener);
+		}
 
-        void LowLevelListener()
-        {
-            Application.LoadLevel(1);
-        }
+		void LowLevelListener()
+		{
+#if UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene(1);
+#else
+			Application.LoadLevel(1);
+#endif
+		}
 
-        void MidLevelScanListener()
-        {
-            Application.LoadLevel(2);
-        }
+		void MidLevelScanListener()
+		{
+#if UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene(2);
+#else
+			Application.LoadLevel(2);
+#endif
+		}
 
-        void HighLevelListener()
-        {
-            Application.LoadLevel(3);
-        }
-    }
+		void HighLevelListener()
+		{
+#if UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene(3);
+#else
+			Application.LoadLevel(3);
+#endif
+		}
+	}
 }

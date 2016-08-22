@@ -14,6 +14,9 @@
 //
 
 using UnityEngine;
+#if UNITY_5_3_OR_NEWER
+using UnityEngine.SceneManagement;
+#endif
 using System.Collections;
 using Amazon.DynamoDBv2;
 using Amazon.CognitoIdentity;
@@ -23,53 +26,57 @@ using Amazon;
 namespace AWSSDK.Examples
 {
 
-    public class DynamoDbBaseExample : MonoBehaviour
-    {
-        public string IdentityPoolId = "";
-        public string CognitoPoolRegion = RegionEndpoint.USEast1.SystemName;
-        public string DynamoRegion = RegionEndpoint.USEast1.SystemName;
+	public class DynamoDbBaseExample : MonoBehaviour
+	{
+		public string IdentityPoolId = "";
+		public string CognitoPoolRegion = RegionEndpoint.USEast1.SystemName;
+		public string DynamoRegion = RegionEndpoint.USEast1.SystemName;
 
-        private RegionEndpoint _CognitoPoolRegion
-        {
-            get { return RegionEndpoint.GetBySystemName(CognitoPoolRegion); }
-        }
+		private RegionEndpoint _CognitoPoolRegion
+		{
+			get { return RegionEndpoint.GetBySystemName(CognitoPoolRegion); }
+		}
 
-        private RegionEndpoint _DynamoRegion
-        {
-            get { return RegionEndpoint.GetBySystemName(DynamoRegion); }
-        }
+		private RegionEndpoint _DynamoRegion
+		{
+			get { return RegionEndpoint.GetBySystemName(DynamoRegion); }
+		}
 
-        private static IAmazonDynamoDB _ddbClient;
+		private static IAmazonDynamoDB _ddbClient;
 
-        private AWSCredentials _credentials;
+		private AWSCredentials _credentials;
 
-        private AWSCredentials Credentials
-        {
-            get
-            {
-                if (_credentials == null)
-                    _credentials = new CognitoAWSCredentials(IdentityPoolId, _CognitoPoolRegion);
-                return _credentials;
-            }
-        }
+		private AWSCredentials Credentials
+		{
+			get
+			{
+				if (_credentials == null)
+					_credentials = new CognitoAWSCredentials(IdentityPoolId, _CognitoPoolRegion);
+				return _credentials;
+			}
+		}
 
-        protected IAmazonDynamoDB Client
-        {
-            get
-            {
-                if (_ddbClient == null)
-                {
-                    _ddbClient = new AmazonDynamoDBClient(Credentials, _DynamoRegion);
-                }
+		protected IAmazonDynamoDB Client
+		{
+			get
+			{
+				if (_ddbClient == null)
+				{
+					_ddbClient = new AmazonDynamoDBClient(Credentials, _DynamoRegion);
+				}
 
-                return _ddbClient;
-            }
-        }
+				return _ddbClient;
+			}
+		}
 
-        protected void BackListener()
-        {
-            Application.LoadLevel(0);
-        }
+		protected void BackListener()
+		{
+#if UNITY_5_3_OR_NEWER
+			SceneManager.LoadScene(0);
+#else
+			Application.LoadLevel(0);
+#endif
+		}
 
-    }
+	}
 }

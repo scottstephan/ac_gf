@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Amazon;
+using Amazon.Util;
+using Amazon.Runtime;
 using Amazon.CognitoIdentity;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
@@ -160,7 +162,7 @@ public class acDBHelper : MonoBehaviour
 
                 return;
             }
-            //MAYBE TRY AND INVOKE AFTER TH ASYNC LOAD????
+
             Debug.Log("LOADED PLAYER " + result.Result.playerName + " FROM ID " + result.Result.playerID);
             
             if (completionBlock != null)
@@ -184,7 +186,7 @@ public class acDBHelper : MonoBehaviour
                 return;
             }
 
-            allPlayers = result.Result;
+            allPlayers = result.Result;//duhhh
             if (completionBlock != null)
                 completionBlock(true, allPlayers);
         }, null);        
@@ -194,7 +196,6 @@ public class acDBHelper : MonoBehaviour
 
     public void saveGameToDyanmo(entity_games cGame)
     {
-       
         Context.SaveAsync(cGame, (result) =>
         {
             if (result.Exception == null)
@@ -209,4 +210,70 @@ public class acDBHelper : MonoBehaviour
 
     }
 
+    public void loadAllActiveGamesDevicePlayerIsIn(Action<bool, List<entity_games>> completionBlock)
+    { //I'm doing a scan here because I can't query without the Primary Key.
+      //But another option is to build a table wherein we store playerIDs next to GameIDs (p1,p2, has & sort). Given that game ID, we could isolate another query
+      //Alternately, we could push new games to user's device so that they're not always poking DB
+      //But for now, a scan...
+        List<entity_games> allGames = new List<entity_games>();
+        Debug.Log("CHECKING ALL GAMES FOR PLAYER ID");
+              
+        AttributeValue p1Id = new AttributeValue { S = appManager.currentPlayerID };
+
+        var search = Context.ScanAsync<entity_games>(new ScanCondition("player1_id",ScanOperator.Equal,p1Id));
+
+        search.GetRemainingAsync(result =>
+        {
+            if (result.Exception != null)
+            {
+                Debug.Log("ALL GAME SCAN NOT COMPLETED: " + result.Exception.Message);
+                if (completionBlock != null)
+                    completionBlock(false, null);
+                return;
+            }
+
+            allGames = result.Result;
+        if (completionBlock != null)
+            completionBlock(true, allGames);
+        }, null);
+    }
+
+   
 }
+
+
+
+
+/*    List<entity_games> allGames = new List<entity_games>();
+        var search = Context.ScanAsync<entity_games>(new ScanCondition("player1_id",Sa));
+        search.GetRemainingAsync(result =>
+        {
+            if (result.Exception != null)
+            {
+                Debug.Log("ALL PLAYER SCAN NOT COMPLETED: " + result.Exception.Message);
+                if (completionBlock != null)
+                    completionBlock(false, null);
+                return;
+            }
+
+            allGames = result.Result;
+            if (completionBlock != null)
+                completionBlock(true, allGames);
+        }, null);
+*/
+
+/*Debug.Log("***SEARCHING FOR ALL GAMES THIS PLAYER IS IN***");
+    string p1id = appManager.currentPlayerID;
+    var request = new QueryRequest
+    {
+        TableName = appManager.tableNames.games_live.ToString(),
+        KeyConditionExpression = "player1_id = :v_p1id",
+        ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+        {
+            {":v_id", new AttributeValue { S = appManager.currentPlayerID }}
+        },
+        ProjectionExpression = "p1_Fin, p1_Score",
+        ConsistentRead = true
+    };
+    var response = _client.QueryAsync(request,);
+*/

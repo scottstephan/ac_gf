@@ -67,13 +67,22 @@
      <Compile Include="Assets\Scripts\entity_player.cs" />
      <Compile Include="Assets\Scripts\m_prefsDataManager.cs" />
      <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
+     <Compile Include="Assets\Scripts\multiPlayer\autoCompeteDBBHelper.cs" />
      <Compile Include="Assets\Scripts\multiPlayer\m_MPLobby_Matchmake.cs" />
      <Compile Include="Assets\Scripts\multiPlayer\ui_opponentButtonManager.cs" />
      <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
      <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
      <Compile Include="Assets\appManager.cs" />
+     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\License.bzip2.txt" />
+     <None Include="Assets\Plugins\DDBHelper\AWSSDK\Examples\License.txt" />
+     <None Include="Assets\Plugins\DDBHelper\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\DDBHelper\ReadMe.txt" />
+     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\Readme.txt" />
+     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\License.zlib.txt" />
      <None Include="Assets\Examples\License.txt" />
+     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\License.txt" />
+     <None Include="Assets\Plugins\DDBHelper\HowToSetupDynamoDBLocal.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5.4.0b19/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -98,6 +107,13 @@
  <Reference Include="AWSSDK.SecurityToken">
  <HintPath>C:/Projects/Unity/GoogleFeud/Assets/AWSSDK/AWSSDK.SecurityToken.dll</HintPath>
  </Reference>
+ <Reference Include="Ionic.Zlib">
+ <HintPath>C:/Projects/Unity/GoogleFeud/Assets/Plugins/DDBHelper/DotNetZip/Ionic.Zlib.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{9FD51FDE-5C69-7D6E-F125-37E456FFA8C1}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
