@@ -114,6 +114,7 @@
     <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\autoCompeteDBBHelper.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\m_MPLobby_Matchmake.cs" />
+    <Compile Include="Assets\Scripts\multiPlayer\ui_existingGameButton.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\ui_opponentButtonManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />

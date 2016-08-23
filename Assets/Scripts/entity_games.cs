@@ -3,7 +3,7 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace Assets.autoCompete.games
 {
-    [DynamoDBTable("games_live")] //players / games_live / games_dead
+    [DynamoDBTable("games_active")] //players / games_live / games_dead
 
     public class entity_games
     {

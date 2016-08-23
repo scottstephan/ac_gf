@@ -42,7 +42,7 @@ public class appManager : MonoBehaviour {
     public enum tableNames
     {
         players,
-        games_live
+        games_active
     }
 
     public static string currentPlayerID;

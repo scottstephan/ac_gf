@@ -21,7 +21,7 @@ public class acDBHelper : MonoBehaviour
     public enum E_gameTables
     {
         players,
-        games_live
+        games_active
     }
 
     public E_gameTables curTableTarget = E_gameTables.players;

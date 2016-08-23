@@ -24,11 +24,13 @@ public class ui_opponentButtonManager : MonoBehaviour {
         opButtonText.text = opEntity.playerName;
     }
 
-   public void onButtonCLick()
+   public void onButtonCLick() 
     {
         //Create game obj n appManager
         appManager.createGameObject(appManager.currentPlayerID,opEntity.playerID,appManager.devicePlayer.playerName,opEntity.playerName,true);
         appManager.saveCurGame();
+        //Save player/gID sets
+        
         //Load cat scree
         appManager.loadScene(appManager.sceneNames.categorySelect);
       
