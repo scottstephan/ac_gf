@@ -119,6 +119,20 @@ public class appManager : MonoBehaviour {
         }
     }
 
+    public static void loadGameEntity(string gameID)
+    {
+        Debug.Log("***LOAD GAME ENTITY FOR " + gameID +"***");
+        entity_games tG = new entity_games();
+        tG.gameID = gameID;
+        DBWorker.Instance.Load<entity_games>(tG, gameLoadComplete);   
+    }
+
+    static void gameLoadComplete(entity_games response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***GAME ENTITY LOAD COMPLETE***");
+        appManager.curLiveGame = response;
+    }
+
     static void createPlayerGameRelationship(string p1ID, string p2ID, string gameID)
     {
         playerGameID p1 = new playerGameID();

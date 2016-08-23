@@ -28,8 +28,8 @@ public class TEST_loadPlayerButton : MonoBehaviour {
 
     static void OnPlayerLoaded(entity_players response, GameObject obj, string nextMethod, Exception e = null)
     {
-        Debug.Log("***PLAYER UPDATED FROM REGISTER BUTTON***");
-        Debug.Log("NewPlayerName:" + response.playerName);
+        Debug.Log("***PLAYER LOADED FROM TEST LOAD BUTTON***");
+        Debug.Log("PlayerName:" + response.playerName);
         if (e == null)
         {
             appManager.devicePlayer = response;

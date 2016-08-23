@@ -13,15 +13,26 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public static m_MPLobby_Matchmake instance = null;
 
     public Text txt_curPlayerReadout;
+
     public GameObject opponentButton;
     public GameObject opponentListParentGrid;
     public GameObject playerListPanel;
+
+    public GameObject gamesInitiatedButton;
+    public GameObject gameInitListParentGrid;
+    public GameObject gamesInitListPanel;
+
+    public GameObject gameChallengedButton;
+    public GameObject gameChallengedParentGrid;
+    public GameObject gameChallengedPanel;
 
     public Vector2 listStartPos;
     public float listYPadding;
     int listIndex;
 
-    List<entity_players> allPlayers = new List<entity_players>();
+    static List<appManager.playerGameID> p1Initiated = new List<appManager.playerGameID>();
+    static List<appManager.playerGameID> p1Challenged = new List<appManager.playerGameID>();
+
     public event DDBScanResponseDelegate OnScanComplete;
     public event DDBQueryHashKeyOnlyDelegate<appManager.playerGameID> OnP1GameFetchComplete;
 
@@ -38,6 +49,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
         getAndListAllPlayers();
         getAllP1Games();
+      //  listAllGamesP1IsInitiated();
 	}
 
     void getAndListAllPlayers() {
@@ -77,7 +89,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void getAllP1Games()
     {
-        Debug.Log("***QUERING ALL GAMES INVOLVING P1***");
+        Debug.Log("***QUERYING ALL GAMES INVOLVING P1***");
         List<string> attToReturn = new List<string>();
         attToReturn.Add("playerID");
         attToReturn.Add("gameID");
@@ -90,6 +102,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     {
         Debug.Log("ALL P1 GAMES LOADED");
         List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
+       
         for (int i = 0; i < response.Count; i++)
         {
             appManager.playerGameID tPGID = new appManager.playerGameID();
@@ -100,32 +113,33 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
 
             pgID.Add(tPGID); //These ALL of the games this user is currently involved in
+
+            if (tPGID.role == appManager.playerRoles.intiated.ToString())
+                p1Initiated.Add(tPGID);
+            else if (tPGID.role == appManager.playerRoles.challenged.ToString())
+                p1Challenged.Add(tPGID);
         }
+
+        m_MPLobby_Matchmake.instance.listAllGamesP1IsInitiated();
+
     }
 
-    /*
-    static void allP1GameQueryComplete(List<Dictionary<string, AttributeValue>> response, GameObject obj, string nextMethod, Exception e = null)
+    void listAllGamesP1IsInitiated()
     {
-        List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
-        for(int i = 0; i < response.Count; i++)
+        Debug.Log("LISTING ALL GAMES P1 INITIATED");
+        for (int i = 0; i < p1Initiated.Count; i++)
         {
-            appManager.playerGameID tPGID = new appManager.playerGameID();
-            tPGID.playerID = response[i]["playerID"].S;
-            tPGID.gameID = response[i]["playerID"].S;
-            tPGID.role = response[i]["role"].S;
+            Debug.Log("LISTING A GAME P1 INITIATED");
+            GameObject tButton = Instantiate(gamesInitiatedButton);
+            tButton.transform.SetParent(gameInitListParentGrid.transform);
 
-            Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
-
-            pgID.Add(tPGID); //These ALL of the games this user is currently involved in
+            ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
+            tManager.gameID = p1Initiated[i].gameID;
+            tManager.loadGameEntity(tManager.gameID);
         }
-    }*/
-
-    void getAllGamesP1IsInitiated()
-    {
-        
     }
 
-    void getAllGamesP1IsChallengedIn()
+    void listAllGamesP1IsChallengedIn()
     {
 
     }

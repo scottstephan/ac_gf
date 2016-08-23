@@ -13,6 +13,11 @@ public class playerSetter : MonoBehaviour {
             //Then confirm the device
             if (m_prefsDataManager.confirmCurrentUserIsStoredUser(id))
                 appManager.currentPlayerID = id;
+            else
+            {
+                appManager.currentPlayerID = appManager.generateUniquePlayerID();
+                m_prefsDataManager.setPlayerIDPref(appManager.currentPlayerID);
+            }
             //Check AWS connect.
 
             //If we're good, check to see if this is a known user in our DB
