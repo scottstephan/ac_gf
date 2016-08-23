@@ -121,12 +121,12 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         }
 
         m_MPLobby_Matchmake.instance.listAllGamesP1IsInitiated();
-
+        m_MPLobby_Matchmake.instance.listAllGamesP1IsChallengedIn();
     }
 
     void listAllGamesP1IsInitiated()
     {
-        Debug.Log("LISTING ALL GAMES P1 INITIATED");
+        Debug.Log("LISTING ALL GAMES P1 INITIATED:" + p1Initiated.Count);
         for (int i = 0; i < p1Initiated.Count; i++)
         {
             Debug.Log("LISTING A GAME P1 INITIATED");
@@ -141,6 +141,16 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void listAllGamesP1IsChallengedIn()
     {
+        Debug.Log("LISTING ALL GAMES P1 CHALLENGED: " + p1Challenged.Count);
+        for (int i = 0; i < p1Challenged.Count; i++)
+        {
+            Debug.Log("LISTING A GAME P1 CHALLENGED");
+            GameObject tButton = Instantiate(gamesInitiatedButton);
+            tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
+            ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
+            tManager.gameID = p1Challenged[i].gameID; //Games should track player role
+            tManager.loadGameEntity(tManager.gameID);
+        }
     }
 }

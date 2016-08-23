@@ -36,7 +36,7 @@ public class ui_existingGameButton : MonoBehaviour {
     {
         Debug.Log("***LOAD GAME ENTITY FOR " + gameID + "***");
         entity_games tG = new entity_games();
-        tG.gameID = gameID; //ISSUE IS HERE OR BELOW
+        tG.gameID = gameID; 
         DBWorker.Instance.Load<entity_games>(tG, gameLoadComplete);
     }
 
