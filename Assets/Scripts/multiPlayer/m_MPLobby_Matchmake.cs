@@ -134,6 +134,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             tButton.transform.SetParent(gameInitListParentGrid.transform);
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
+            tManager.devicePlayerRole = appManager.playerRoles.intiated;
             tManager.gameID = p1Initiated[i].gameID;
             tManager.loadGameEntity(tManager.gameID);
         }
@@ -149,8 +150,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
-            tManager.gameID = p1Challenged[i].gameID; //Games should track player role
+            tManager.devicePlayerRole = appManager.playerRoles.challenged;
+            tManager.gameID = p1Challenged[i].gameID; 
             tManager.loadGameEntity(tManager.gameID);
+           
         }
     }
 }

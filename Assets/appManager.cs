@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 public class appManager : MonoBehaviour {
     public static appManager instance = null;
     public static entity_players devicePlayer;
+    public static playerRoles devicePlayerRoleInCurGame;
 
     public static entity_games curLiveGame; 
 
@@ -26,7 +27,7 @@ public class appManager : MonoBehaviour {
     {
         title,
         categorySelect,
-        singlePlayer,
+        mainRound,
         multiPlayerLobby,
         multiplayerCategorySelect
     }
@@ -156,5 +157,11 @@ public class appManager : MonoBehaviour {
             Debug.Log("***PLAYERGAMEID SAVED***");
         else
             DBTools.PrintException("DBExample Save", e);
+    }
+
+    public static void setCurGame(entity_games cGame, playerRoles p1Role)
+    {
+        curLiveGame = cGame;
+        devicePlayerRoleInCurGame = p1Role;
     }
 }

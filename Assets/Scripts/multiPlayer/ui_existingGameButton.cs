@@ -24,12 +24,14 @@ public class ui_existingGameButton : MonoBehaviour {
 
     public void setUpButton()
     {
-        ButtonText.text = appManager.curLiveGame.player1_name + " vs. " + appManager.curLiveGame.player2_name;
+        ButtonText.text = thisGame.player1_name + " vs. " + thisGame.player2_name;
     }
 
     void onButtonClick()
     {
         //If info is loaded etc....
+        appManager.setCurGame(thisGame, devicePlayerRole);
+        
     }
 
     public void loadGameEntity(string gameID)
@@ -47,7 +49,7 @@ public class ui_existingGameButton : MonoBehaviour {
             DBTools.PrintException("gameLoadComplete", e);
         }
         Debug.Log("***GAME ENTITY LOAD COMPLETE***");
-        appManager.curLiveGame = response;
+        thisGame = response;
         setUpButton();
     }
 }

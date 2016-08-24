@@ -76,11 +76,20 @@ public class gameManager : MonoBehaviour
     {
         if (appManager.curLiveGame.isMPGame)
         {
-            appManager.curLiveGame.p1_Fin = true; ///HERE IS A HUGE FUCK-UP: I don't know which player it is. IF a game is MP, I need to SEEK OUT WHO IS WHO BEFORE I DO THSI   
-            appManager.curLiveGame.p1_score = 500; //As above
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            {
+                appManager.curLiveGame.p1_Fin = true;
+                appManager.curLiveGame.p1_score = currentPlayer.totalScore;
+            }
+            else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+            {
+                appManager.curLiveGame.p2_Fin = true;
+                appManager.curLiveGame.p2_score = currentPlayer.totalScore;
+            }
 
             appManager.saveCurGame();
         }
+
         appManager.loadScene(appManager.sceneNames.title);
     }
 
