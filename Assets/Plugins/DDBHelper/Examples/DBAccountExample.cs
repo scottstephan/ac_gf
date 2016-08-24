@@ -276,14 +276,14 @@ namespace DDBHelper
             name = name.ToLower();
             if (DBUnityHelper.SHOW_DEBUG)
                 Debug.Log("ChangePassword name=" + name);
-
+            
             DBObject tObj = new DBObject(name, DBAccountExample.KEY_RANGE_ACCOUNT);
             tObj.PrepareUpdateString(DBAccountExample.KEY_ACC_PASS, newPassword);
             tObj.PrepareNextMessage(owner, methodName);
             DBWorker.Instance.UpdateItem(DBAccountExample.TABLE_NAME, tObj, tObj.DBObject_OnUpdated);
         }
 
-		/// <summary>
+		/// <summary>   
 		/// This is an example of a player account that would be saved/loaded into DynamoDB
 		/// This is the same code I use for my game.
 		/// </summary>

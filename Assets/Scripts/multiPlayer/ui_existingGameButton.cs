@@ -27,18 +27,19 @@ public class ui_existingGameButton : MonoBehaviour {
         ButtonText.text = thisGame.player1_name + " vs. " + thisGame.player2_name;
     }
 
-    void onButtonClick()
+    public void onButtonClick()
     {
         //If info is loaded etc....
         appManager.setCurGame(thisGame, devicePlayerRole);
-        
+        appManager.loadScene(appManager.sceneNames.mainRound);
     }
 
     public void loadGameEntity(string gameID)
     {
         Debug.Log("***LOAD GAME ENTITY FOR " + gameID + "***");
         entity_games tG = new entity_games();
-        tG.gameID = gameID; 
+        tG.gameID = gameID;
+        tG.gameState = appManager.E_storedGameStates.unstarted.ToString(); //In this case, all games from the lobby are MP games
         DBWorker.Instance.Load<entity_games>(tG, gameLoadComplete);
     }
 

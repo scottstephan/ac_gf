@@ -9,10 +9,14 @@ namespace Assets.autoCompete.games
     {
         [DynamoDBHashKey]
         public string gameID { get; set; }//Hash Key
+        [DynamoDBRangeKey]
+        public string gameState { get; set; }
+        [DynamoDBProperty]
+        public bool isMPGame { get; set; }
         [DynamoDBProperty]
         public string player1_id { get; set; }
         [DynamoDBProperty]
-        public string player1_name;
+        public string player1_name {get; set;}
         [DynamoDBProperty]
         public string player2_id { get; set; } //can i do enum?? guest,fb,google,unauth,auth
         [DynamoDBProperty]
@@ -25,8 +29,7 @@ namespace Assets.autoCompete.games
         public int p1_score { get; set; }
         [DynamoDBProperty]
         public int p2_score { get; set; }
-        [DynamoDBProperty]
-        public bool isMPGame { get; set;}
+        
 
         public void initGame(string gID, string p1Id, string p2Id, bool p1fin, bool p2fin, int p1Score, int p2Score, bool mp, string p1Name, string p2Name)
         {
@@ -40,6 +43,7 @@ namespace Assets.autoCompete.games
             p1Score = p1_score;
             p2Score = p2_score;
             isMPGame = mp;
+            gameState = appManager.E_storedGameStates.unstarted.ToString();
         }
 
 

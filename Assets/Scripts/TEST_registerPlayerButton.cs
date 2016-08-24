@@ -55,5 +55,5 @@ public class TEST_registerPlayerButton : MonoBehaviour {
             DBTools.PrintException("DBExample Save", e);
     }
 
-
+    
 }

@@ -46,6 +46,13 @@ public class appManager : MonoBehaviour {
         games_active
     }
 
+    public enum E_storedGameStates
+    {
+        unstarted,
+        inprogress,
+        complete
+    }
+
     public static string currentPlayerID;
 
     [DynamoDBTable("gamesByPlayer")]

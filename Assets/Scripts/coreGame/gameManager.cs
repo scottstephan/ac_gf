@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.Collections.Generic;      
+using System.Collections.Generic;
+using Amazon.DynamoDBv2.DataModel;
+using DDBHelper;
+using System;
+using Assets.autoCompete.games;
 
 public class gameManager : MonoBehaviour
 {
@@ -72,27 +76,54 @@ public class gameManager : MonoBehaviour
         yield return null;
     }
 
-    public static void endGame(bool playerHasLost)
+    public void endGame(bool playerHasLost)
     {
         if (appManager.curLiveGame.isMPGame)
         {
+            Debug.Log("***MP GAME OVER, UPDATING GAME RECORD***");
+
+            DBObject myObj = new DBObject(appManager.curLiveGame.gameID, appManager.curLiveGame.gameState, false);
+
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
             {
-                appManager.curLiveGame.p1_Fin = true;
-                appManager.curLiveGame.p1_score = currentPlayer.totalScore;
+                myObj.PrepareUpdateBool("p1_Fin", true);
+                myObj.PrepareUpdateString("p1_score", currentPlayer.totalScore.ToString());
+                
+                //   appManager.curLiveGame.p1_Fin = true;
+                // appManager.curLiveGame.p1_score = currentPlayer.totalScore;
             }
             else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             {
-                appManager.curLiveGame.p2_Fin = true;
-                appManager.curLiveGame.p2_score = currentPlayer.totalScore;
+                myObj.PrepareUpdateBool("p2_Fin", true);
+                myObj.PrepareUpdateString("p2_score", currentPlayer.totalScore.ToString());
             }
-
-            appManager.saveCurGame();
+            myObj.PrepareNextMessage(this.gameObject, "gameUpdated");
+            DBWorker.Instance.UpdateItem(appManager.tableNames.games_active.ToString(), myObj, myObj.DBObject_OnUpdated);
+            //appManager.saveCurGame();
         }
-
-        appManager.loadScene(appManager.sceneNames.title);
+        else
+        {
+            Debug.Log("Ending SP Game");
+            appManager.loadScene(appManager.sceneNames.title);
+        }
     }
 
+    private void updateGameRecord_Manual()
+    {
+        entity_games updateGame = new entity_games();
+        //Load the game
+
+        //Change the data
+
+        //Save the game
+    }
+
+    public void gameUpdated()
+    {
+        Debug.Log("***GAME UPDATED***");
+        appManager.loadScene(appManager.sceneNames.title);
+
+    }
 
     IEnumerator startRound()
     {

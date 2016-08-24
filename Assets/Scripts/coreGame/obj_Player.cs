@@ -29,7 +29,7 @@ public class obj_Player : MonoBehaviour {
         if (numMisses >= gameManager.maxPlayerMisses)
         {
             Debug.Log("PLAYER HAS EXCEEDED MAX MISSES; ENDING GAME");
-            gameManager.endGame(true);
+            gameManager.instance.endGame(true);
         }
     }
 
@@ -41,7 +41,7 @@ public class obj_Player : MonoBehaviour {
 
         if(numHits == 10)
         {
-            gameManager.endGame(false);
+            gameManager.instance.endGame(false);
         }
     }
 
