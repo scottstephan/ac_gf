@@ -80,48 +80,81 @@ public class gameManager : MonoBehaviour
     {
         if (appManager.curLiveGame.isMPGame)
         {
-            Debug.Log("***MP GAME OVER, UPDATING GAME RECORD***");
-
-            DBObject myObj = new DBObject(appManager.curLiveGame.gameID, appManager.curLiveGame.gameState, false);
-
-            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
-            {
-                myObj.PrepareUpdateBool("p1_Fin", true);
-                myObj.PrepareUpdateString("p1_score", currentPlayer.totalScore.ToString());
-                
-                //   appManager.curLiveGame.p1_Fin = true;
-                // appManager.curLiveGame.p1_score = currentPlayer.totalScore;
-            }
-            else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
-            {
-                myObj.PrepareUpdateBool("p2_Fin", true);
-                myObj.PrepareUpdateString("p2_score", currentPlayer.totalScore.ToString());
-            }
-            myObj.PrepareNextMessage(this.gameObject, "gameUpdated");
-            DBWorker.Instance.UpdateItem(appManager.tableNames.games_active.ToString(), myObj, myObj.DBObject_OnUpdated);
-            //appManager.saveCurGame();
+            //updateGameRecord_Auto(); //key issues???
+            updateGameRecord_Manual();
         }
         else
         {
             Debug.Log("Ending SP Game");
-            appManager.loadScene(appManager.sceneNames.title);
+            appManager.loadScene(appManager.sceneNames.scoreComp);
         }
     }
 
     private void updateGameRecord_Manual()
     {
         entity_games updateGame = new entity_games();
+        updateGame.gameID = appManager.curLiveGame.gameID;
+        updateGame.gameState = appManager.curLiveGame.gameState;
         //Load the game
+        DBWorker.Instance.Load(updateGame, OnEndGameLoaded);
+    }
 
-        //Change the data
+    private void updateGameRecord_Auto()
+    {
+        Debug.Log("***MP GAME OVER, UPDATING GAME RECORD***");
 
-        //Save the game
+        DBObject myObj = new DBObject(appManager.curLiveGame.gameID, appManager.curLiveGame.gameState, false);
+        List<int> scores = new List<int>();
+
+        scores.Add(currentPlayer.totalScore);
+
+        if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+        {
+            myObj.PrepareUpdateBool("p1_Fin", true);
+            myObj.PrepareUpdateListInt("p1_score", scores);
+
+            //   appManager.curLiveGame.p1_Fin = true;
+            // appManager.curLiveGame.p1_score = currentPlayer.totalScore;
+        }
+        else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+        {
+            myObj.PrepareUpdateBool("p2_Fin", true);
+            myObj.PrepareUpdateListInt("p2_score", scores);
+        }
+        myObj.PrepareNextMessage(this.gameObject, "gameUpdated");
+        DBWorker.Instance.UpdateItem(appManager.tableNames.games_active.ToString(), myObj, myObj.DBObject_OnUpdated);
+        //appManager.saveCurGame();
+    }
+
+    static void OnEndGameLoaded(entity_games response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***LOADED GAME FILE FOR EOG UPDATE***");
+
+        if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated) {
+            response.p1_Fin = true;
+            response.p1_score = currentPlayer.totalScore;
+        } else if( appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+        {
+            response.p2_Fin = true;
+            response.p2_score = currentPlayer.totalScore;
+        }
+
+        DBWorker.Instance.Save(response, OnEndGameSaved);
+    }
+
+    static void OnEndGameSaved(bool success, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***SAVED GAME AT END***");
+        if (e != null)
+            DBTools.PrintException("OnEndGameSaved", e);
+
+        appManager.loadScene(appManager.sceneNames.scoreComp);
     }
 
     public void gameUpdated()
     {
         Debug.Log("***GAME UPDATED***");
-        appManager.loadScene(appManager.sceneNames.title);
+        appManager.loadScene(appManager.sceneNames.scoreComp);
 
     }
 
@@ -223,7 +256,7 @@ public class gameManager : MonoBehaviour
         bool hasHit = false;
         for(int i = 0; i < roundAnswerStrings.Count; ++i)
         {
-            Debug.Log("Looking for " + playerAnswer + "==" + roundAnswerStrings[i]);
+         //   Debug.Log("Looking for " + playerAnswer + "==" + roundAnswerStrings[i]);
             if(playerAnswer == roundAnswerStrings[i].ToLower())
             {//Found a match....
                     if (roundAnswers[i].GetComponent<obj_Answer>().thisAnswerState != obj_Answer.E_answerState.revealed)

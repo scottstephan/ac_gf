@@ -29,7 +29,8 @@ public class appManager : MonoBehaviour {
         categorySelect,
         mainRound,
         multiPlayerLobby,
-        multiplayerCategorySelect
+        multiplayerCategorySelect,
+        scoreComp
     }
 
     public enum authSources
@@ -79,6 +80,12 @@ public class appManager : MonoBehaviour {
     void Start () {
        
 	}
+
+    public static void flushReferences()
+    {
+        curLiveGame = null;
+        //Any other stuff. Leaving player because why bother.
+    }
 
     public static string generateUniquePlayerID()
     {
