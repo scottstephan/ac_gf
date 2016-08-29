@@ -15,7 +15,8 @@ public class obj_backToMenuBtn : MonoBehaviour {
 
     public void onButtonClick()
     {
-        appManager.flushReferences();   
+        appManager.flushReferences();
+
         appManager.loadScene(appManager.sceneNames.title);
     }
 }

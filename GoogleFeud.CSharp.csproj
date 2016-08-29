@@ -97,7 +97,6 @@
     <Compile Include="Assets\Examples\S3Example.cs" />
     <Compile Include="Assets\Examples\TableQueryAndScanExample.cs" />
     <Compile Include="Assets\Scripts\TEST_loadPlayerButton.cs" />
-    <Compile Include="Assets\Scripts\TEST_registerPlayerButton.cs" />
     <Compile Include="Assets\Scripts\categorySelect\categorySelectionButtonManager.cs" />
     <Compile Include="Assets\Scripts\categorySelect\m_categorySelectionManager.cs" />
     <Compile Include="Assets\Scripts\coreGame\gameManager.cs" />
@@ -110,12 +109,18 @@
     <Compile Include="Assets\Scripts\coreGame\util_inputValidator.cs" />
     <Compile Include="Assets\Scripts\entity_games.cs" />
     <Compile Include="Assets\Scripts\entity_player.cs" />
+    <Compile Include="Assets\Scripts\loadScreen\m_loadScreenManager.cs" />
+    <Compile Include="Assets\Scripts\m_loadPanelManager.cs" />
     <Compile Include="Assets\Scripts\m_prefsDataManager.cs" />
+    <Compile Include="Assets\Scripts\m_scorCompManager.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\autoCompeteDBBHelper.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\m_MPLobby_Matchmake.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\ui_existingGameButton.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\ui_opponentButtonManager.cs" />
+    <Compile Include="Assets\Scripts\registerPlayerButton.cs" />
+    <Compile Include="Assets\Scripts\scoreComp\m_scoreCompManager.cs" />
+    <Compile Include="Assets\Scripts\scoreComp\obj_backToMenuBtn.cs" />
     <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
     <Compile Include="Assets\appManager.cs" />

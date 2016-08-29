@@ -29,6 +29,10 @@ namespace Assets.autoCompete.games
         public int p1_score { get; set; }
         [DynamoDBProperty]
         public int p2_score { get; set; }
+        [DynamoDBProperty]
+        public bool p1HasViewedResult { get; set; }
+        [DynamoDBProperty]
+        public bool p2HasViewedResult { get; set; }
         
 
         public void initGame(string gID, string p1Id, string p2Id, bool p1fin, bool p2fin, int p1Score, int p2Score, bool mp, string p1Name, string p2Name)

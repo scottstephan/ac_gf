@@ -18,6 +18,8 @@ public class m_scoreAndGameStateManager : MonoBehaviour {
     public string roundEndWithTimeoutText = "Time over.";
     public string roundEndWithPlayerHit = "You guessed right";
     public string roundEndWithPlayerMiss = "You guessed wrong";
+    public string roundEndWithPlayerHitMax = "Guessed all 10! You win!";
+    public string roundEndWithPlayerHitTwice = "Already guessed that answer!";
     public string gameEndText = "Game over";
     public string gameStartText = "Ready?";
 

@@ -40,6 +40,8 @@ public class gameManager : MonoBehaviour
     {
         playerHit,
         playerMiss,
+        playerHitMax,
+        playerHitTwice,
         timerExpired
     }
 
@@ -80,83 +82,25 @@ public class gameManager : MonoBehaviour
     {
         if (appManager.curLiveGame.isMPGame)
         {
-            //updateGameRecord_Auto(); //key issues???
-            updateGameRecord_Manual();
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            {
+                appManager.curLiveGame.p1_score = currentPlayer.totalScore;
+            }
+            else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+            {
+                appManager.curLiveGame.p2_score = currentPlayer.totalScore;
+            }
+
+            appManager.roundPlayerObject = currentPlayer;
         }
         else
         {
             Debug.Log("Ending SP Game");
-            appManager.loadScene(appManager.sceneNames.scoreComp);
         }
-    }
-
-    private void updateGameRecord_Manual()
-    {
-        entity_games updateGame = new entity_games();
-        updateGame.gameID = appManager.curLiveGame.gameID;
-        updateGame.gameState = appManager.curLiveGame.gameState;
-        //Load the game
-        DBWorker.Instance.Load(updateGame, OnEndGameLoaded);
-    }
-
-    private void updateGameRecord_Auto()
-    {
-        Debug.Log("***MP GAME OVER, UPDATING GAME RECORD***");
-
-        DBObject myObj = new DBObject(appManager.curLiveGame.gameID, appManager.curLiveGame.gameState, false);
-        List<int> scores = new List<int>();
-
-        scores.Add(currentPlayer.totalScore);
-
-        if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
-        {
-            myObj.PrepareUpdateBool("p1_Fin", true);
-            myObj.PrepareUpdateListInt("p1_score", scores);
-
-            //   appManager.curLiveGame.p1_Fin = true;
-            // appManager.curLiveGame.p1_score = currentPlayer.totalScore;
-        }
-        else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
-        {
-            myObj.PrepareUpdateBool("p2_Fin", true);
-            myObj.PrepareUpdateListInt("p2_score", scores);
-        }
-        myObj.PrepareNextMessage(this.gameObject, "gameUpdated");
-        DBWorker.Instance.UpdateItem(appManager.tableNames.games_active.ToString(), myObj, myObj.DBObject_OnUpdated);
-        //appManager.saveCurGame();
-    }
-
-    static void OnEndGameLoaded(entity_games response, GameObject obj, string nextMethod, Exception e = null)
-    {
-        Debug.Log("***LOADED GAME FILE FOR EOG UPDATE***");
-
-        if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated) {
-            response.p1_Fin = true;
-            response.p1_score = currentPlayer.totalScore;
-        } else if( appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
-        {
-            response.p2_Fin = true;
-            response.p2_score = currentPlayer.totalScore;
-        }
-
-        DBWorker.Instance.Save(response, OnEndGameSaved);
-    }
-
-    static void OnEndGameSaved(bool success, GameObject obj, string nextMethod, Exception e = null)
-    {
-        Debug.Log("***SAVED GAME AT END***");
-        if (e != null)
-            DBTools.PrintException("OnEndGameSaved", e);
-
-        appManager.loadScene(appManager.sceneNames.scoreComp);
-    }
-
-    public void gameUpdated()
-    {
-        Debug.Log("***GAME UPDATED***");
         appManager.loadScene(appManager.sceneNames.scoreComp);
 
     }
+
 
     IEnumerator startRound()
     {
@@ -190,6 +134,12 @@ public class gameManager : MonoBehaviour
             case E_endOfRoundResult.timerExpired:
                 m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithTimeoutText;
                 break;
+            case E_endOfRoundResult.playerHitMax:
+                m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithPlayerHitMax;
+                break;
+            case E_endOfRoundResult.playerHitTwice:
+                m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithPlayerHitTwice;
+                break;
         }
         yield return new WaitForSeconds(2f);
        //if game not over...
@@ -208,6 +158,8 @@ public class gameManager : MonoBehaviour
             obj_Timer.instance.stopTimer();
             playerHit = checkPlayerInputAgainstAnswers(playerInput); //Could be miss/hit
             currentRoundEndResult = playerHit == true ? E_endOfRoundResult.playerHit : E_endOfRoundResult.playerMiss;
+            if (currentPlayer.numHits == 10) currentRoundEndResult = E_endOfRoundResult.playerHitMax;
+            //NEED A 3rd CASE: Player hit, BUT they already guessed that, so NO BUENO
         }
         else if (endRoundReason == E_endOfRoundAction.timerEnded)
         {
@@ -254,6 +206,7 @@ public class gameManager : MonoBehaviour
     public static bool checkPlayerInputAgainstAnswers(string playerAnswer)
     {
         bool hasHit = false;
+        bool hasHitAnswerBefore = false;
         for(int i = 0; i < roundAnswerStrings.Count; ++i)
         {
          //   Debug.Log("Looking for " + playerAnswer + "==" + roundAnswerStrings[i]);
@@ -271,7 +224,8 @@ public class gameManager : MonoBehaviour
                     else
                     {//Found a match, but we already got this one.
                         Debug.Log("Match, but already picked this answer. Breaking."); //could also store success picks and spare us the GetComps<>, but the perf implications are so low.
-                        hasHit = true; //Lets the pick pass the logic gate @ end
+                        hasHit = false; //Counts as a miss as per Justin. Should have a special error case for this.
+                        hasHitAnswerBefore = true;
                         break;
                     }
             }

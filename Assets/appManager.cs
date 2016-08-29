@@ -15,7 +15,8 @@ public class appManager : MonoBehaviour {
     public static entity_players devicePlayer;
     public static playerRoles devicePlayerRoleInCurGame;
 
-    public static entity_games curLiveGame; 
+    public static entity_games curLiveGame;
+    public static obj_Player roundPlayerObject;
 
     public enum playerRoles
     {
@@ -25,6 +26,7 @@ public class appManager : MonoBehaviour {
 
     public  enum sceneNames
     {
+        loadScreen,
         title,
         categorySelect,
         mainRound,
@@ -76,14 +78,10 @@ public class appManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     } 
 
-    
-    void Start () {
-       
-	}
-
     public static void flushReferences()
     {
         curLiveGame = null;
+        roundPlayerObject = null;
         //Any other stuff. Leaving player because why bother.
     }
 
@@ -177,5 +175,47 @@ public class appManager : MonoBehaviour {
     {
         curLiveGame = cGame;
         devicePlayerRoleInCurGame = p1Role;
+    }
+
+    public static void updateGameRecord_Manual()
+    {
+        m_loadPanelManager.instance.activateLoadPanel();
+        Debug.Log("**APPMANAGER STARTING MANUAL UPDATE PROCESS");
+        entity_games updateGame = new entity_games();
+        updateGame.gameID = appManager.curLiveGame.gameID;
+        updateGame.gameState = appManager.curLiveGame.gameState;
+        //Load the game
+        DBWorker.Instance.Load(updateGame, OnEndGameLoaded);
+    }
+
+    static void OnEndGameLoaded(entity_games response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***LOADED GAME FILE FOR EOG UPDATE***");
+
+        if(e != null)
+        {
+            DBTools.PrintException("OnEndGameLoaded", e);
+        }
+
+        if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+        {
+            response.p1_Fin = true;
+            response.p1_score = appManager.curLiveGame.p1_score;
+        }
+        else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+        {
+            response.p2_Fin = true;
+            response.p2_score = appManager.curLiveGame.p2_score;
+        }
+        appManager.curLiveGame = response;
+        DBWorker.Instance.Save(response, OnEndGameSaved);
+    }
+
+    static void OnEndGameSaved(bool success, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***SAVED GAME AT END***");
+        m_loadPanelManager.instance.deactivateLoadPanel();
+        if (e != null)
+            DBTools.PrintException("OnEndGameSaved", e);
     }
 }

@@ -43,6 +43,8 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     }
 
     void Start () {
+        m_loadPanelManager.instance.activateLoadPanel();
+        Invoke("removeLoadPanel", 5f);
         txt_curPlayerReadout.text = "You: " + appManager.devicePlayer.playerName;
         OnScanComplete += OnPlayerScanComplete;
        // OnP1GameFetchComplete += allP1GameQueryComplete;
@@ -131,9 +133,11 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         {
             Debug.Log("LISTING A GAME P1 INITIATED");
             GameObject tButton = Instantiate(gamesInitiatedButton);
-            tButton.transform.SetParent(gameInitListParentGrid.transform);
+           // tButton.transform.SetParent(gameInitListParentGrid.transform);
+           
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
+            tManager.parentCanvasTransform = gameInitListParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.intiated;
             tManager.gameID = p1Initiated[i].gameID;
             tManager.loadGameEntity(tManager.gameID);
@@ -147,13 +151,20 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         {
             Debug.Log("LISTING A GAME P1 CHALLENGED");
             GameObject tButton = Instantiate(gamesInitiatedButton);
-            tButton.transform.SetParent(gameChallengedParentGrid.transform);
+           // tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
+            tManager.parentCanvasTransform = gameChallengedParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.challenged;
             tManager.gameID = p1Challenged[i].gameID; 
             tManager.loadGameEntity(tManager.gameID);
            
         }
+    }
+
+    void removeLoadPanel()
+    {
+        //Dumb implementation for now. We'll need full event checkin at the end.
+        m_loadPanelManager.instance.deactivateLoadPanel();
     }
 }
