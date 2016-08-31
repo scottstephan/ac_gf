@@ -161,6 +161,7 @@ public class appManager : MonoBehaviour {
         }
 
         Debug.Log("***DEAD GAME SAVED TO DB***");
+        m_loadPanelManager.instance.deactivateLoadPanel();
     }
 
     public static void deleteCurGame()

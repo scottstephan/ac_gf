@@ -33,7 +33,7 @@ public class ui_existingGameButton : MonoBehaviour {
         else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
            btext = thisGame.player1_name + " vs. " + thisGame.player2_name +" ! View the results!";
         else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
-            btext = thisGame.player1_name + " vs. " + thisGame.player2_name;
+            btext = thisGame.player1_name + " vs. " + thisGame.player2_name +"! Play now!";
         gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
 
         ButtonText.text = btext;
