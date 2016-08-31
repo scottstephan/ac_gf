@@ -82,13 +82,16 @@ public class gameManager : MonoBehaviour
     {
         if (appManager.curLiveGame.isMPGame)
         {
+            Debug.Log("Ending MP Game");
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
             {
                 appManager.curLiveGame.p1_score = currentPlayer.totalScore;
+                appManager.curLiveGame.p1_Fin = true;
             }
             else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             {
                 appManager.curLiveGame.p2_score = currentPlayer.totalScore;
+                appManager.curLiveGame.p2_Fin = true;
             }
 
             appManager.roundPlayerObject = currentPlayer;

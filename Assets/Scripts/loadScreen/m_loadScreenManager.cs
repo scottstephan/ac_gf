@@ -69,7 +69,7 @@ public class m_loadScreenManager : MonoBehaviour {
         if (e == null)
         {
             appManager.devicePlayer = response;
-            Debug.Log("LOADED THIS PLAYER: " + appManager.devicePlayer.playerName);
+            Debug.Log("***LOADED THIS PLAYER: " + appManager.devicePlayer.playerName + "***");
             m_loadScreenManager.instance.playerLoadStatusText.text = "Player loaded from AWS! Going to menu!";
             m_loadScreenManager.instance.loadToMenu();
             m_loadPanelManager.instance.deactivateLoadPanel();

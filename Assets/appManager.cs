@@ -18,6 +18,7 @@ public class appManager : MonoBehaviour {
     public static entity_games curLiveGame;
     public static obj_Player roundPlayerObject;
 
+    public static bool dontUpdateGameRecord = false;
     public enum playerRoles
     {
         intiated,
@@ -56,6 +57,16 @@ public class appManager : MonoBehaviour {
         complete
     }
 
+    public enum E_lobbyGameStatus
+    {
+        init_viewScore,
+        init_playGame,
+        init_viewFinal,
+        challenged_playGame,
+        challenged_waitForInit
+    }
+    public static E_lobbyGameStatus curGameStatus = E_lobbyGameStatus.init_playGame;
+
     public static string currentPlayerID;
 
     [DynamoDBTable("gamesByPlayer")]
@@ -82,6 +93,7 @@ public class appManager : MonoBehaviour {
     {
         curLiveGame = null;
         roundPlayerObject = null;
+        curGameStatus = E_lobbyGameStatus.init_playGame;
         //Any other stuff. Leaving player because why bother.
     }
 
@@ -114,7 +126,7 @@ public class appManager : MonoBehaviour {
             Debug.Log("NO GAME SET IN APP MANAGER; NOT SAVING GAME");
             return;
         }
-        Debug.Log("***SAVING CUR GAME TO DB***");
+        Debug.Log("***TRYING TO SAVE CUR GAME TO DB***");
         DBWorker.Instance.Save(curLiveGame, GameSavedToDB);
 
         createPlayerGameRelationship(curLiveGame.player1_id, curLiveGame.player2_id, curLiveGame.gameID);
@@ -122,14 +134,50 @@ public class appManager : MonoBehaviour {
 
     static void GameSavedToDB(bool success, GameObject obj, string nextMethod, Exception e = null)
     {
-        if(e != null)
+        if (e != null)
         {
-            DBTools.PrintException("DBExample Save",e);
+            DBTools.PrintException("DBExample Save", e);
         }
         else
         {
             Debug.Log("***GAME SUCCESSFULLY SAVED TO DB***");
         }
+
+        m_loadPanelManager.instance.deactivateLoadPanel();
+    }
+
+    public static void saveDeadGame(entity_gamesDead deadGame)
+    {
+        Debug.Log("***TRYING TO SAVE DEAD GAME TO DB***");
+        DBWorker.Instance.Save(deadGame, deadGameSavedToDB);
+    }
+
+    static void deadGameSavedToDB(bool success, GameObject obj, string nextMethod, Exception e = null)
+    {
+        if(e != null)
+        {
+            DBTools.PrintException("deadGameSavedToDB", e);
+            return;
+        }
+
+        Debug.Log("***DEAD GAME SAVED TO DB***");
+    }
+
+    public static void deleteCurGame()
+    {
+        Debug.Log("***TRYING TO DELETE CUR GAME FROM DB***");
+        DBWorker.Instance.Delete(appManager.curLiveGame, LiveGameDeletedFromDB);
+    }
+
+    public static void LiveGameDeletedFromDB(bool success, GameObject obj, string nextMethod, Exception e = null)
+    {
+        if(e != null)
+        {
+            DBTools.PrintException("LiveGameDeletedFromDB", e);
+            return;
+        }
+        Debug.Log("***CUR GAME REMOVED FROM DB***");
+        appManager.curLiveGame = null;
     }
 
     public static void loadGameEntity(string gameID)

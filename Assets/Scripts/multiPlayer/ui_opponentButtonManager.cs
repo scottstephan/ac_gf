@@ -21,21 +21,17 @@ public class ui_opponentButtonManager : MonoBehaviour {
 
     public void setUpButton()
     {
+        if (opEntity.playerID == appManager.currentPlayerID) Destroy(gameObject);
         opButtonText.text = opEntity.playerName;
     }
 
    public void onButtonCLick() 
     {
+        Debug.Log("---GAME BUTTON CLICKED---");
         //Create game obj n appManager
         appManager.createGameObject(appManager.currentPlayerID,opEntity.playerID,appManager.devicePlayer.playerName,opEntity.playerName,true);
-        appManager.saveCurGame();
-        //Save player/gID sets
-
-        //Load cat scree
-
-
+        appManager.curGameStatus = appManager.E_lobbyGameStatus.init_playGame;
         appManager.loadScene(appManager.sceneNames.categorySelect);
-      
     }
 
 

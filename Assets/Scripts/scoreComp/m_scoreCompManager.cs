@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Assets.autoCompete.games;
 
 public class m_scoreCompManager : MonoBehaviour {
     public Text p1Score;
@@ -11,19 +12,24 @@ public class m_scoreCompManager : MonoBehaviour {
 	void Start () {
         updatePlayerView();
         updatePlayerScores();
-        appManager.updateGameRecord_Manual();
+        if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
+            determineGameAction();
+        else
+            m_loadPanelManager.instance.deactivateLoadPanel();
+        //appManager.updateGameRecord_Manual();
+        
 	}
 
-    void updatePlayerView() //DON'T EVER UPDATE UNTIL BOTH PLAYERS ARE DONE. 
+    void updatePlayerView() 
     { //Possible issue here where two players may intersect.
-     /*   if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+        if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
         {
             appManager.curLiveGame.p1HasViewedResult = false;
         }
         else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
         {
             appManager.curLiveGame.p2HasViewedResult = true; //As its V. LIKELY P1 will have seen
-        } */
+        } 
     }
 
     void updatePlayerScores()
@@ -34,6 +40,21 @@ public class m_scoreCompManager : MonoBehaviour {
         string nameSuffix = " score:";
         p1Name.text = namePrefx + appManager.curLiveGame.player1_name + nameSuffix;
         p2Name.text = namePrefx + appManager.curLiveGame.player2_name + nameSuffix;
+    }
+
+    void determineGameAction()
+    {
+        if (appManager.curLiveGame.p1_Fin && appManager.curLiveGame.p2_Fin)
+        {
+            entity_gamesDead deadGame = new entity_gamesDead();
+            deadGame.initGameDead(appManager.curLiveGame);
+            appManager.saveDeadGame(deadGame);
+            appManager.deleteCurGame();
+        }
+        else if(appManager.curLiveGame.p1_Fin && !appManager.curLiveGame.p2_Fin)
+        {
+            appManager.saveCurGame();
+        }
     }
 	
 	// Update is called once per frame

@@ -14,16 +14,7 @@ public class ui_existingGameButton : MonoBehaviour {
     public entity_games thisGame;
     public GameObject parentCanvasTransform;
 
-    public enum lobbyGameStatus
-    {
-        init_viewScore,
-        init_playGame,
-        init_viewFinal,
-        challenged_playGame,
-        challenged_waitForInit
-    }
-
-    public lobbyGameStatus thisGameStatus;
+    public appManager.E_lobbyGameStatus thisGameStatus;
 
 	// Use this for initialization
 	void Start () {
@@ -36,8 +27,16 @@ public class ui_existingGameButton : MonoBehaviour {
 
     public void setUpButton()
     {
-        gameObject.transform.SetParent(parentCanvasTransform.transform);
-        ButtonText.text = thisGame.player1_name + " vs. " + thisGame.player2_name;
+        string btext = "";
+        if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
+            btext = "Waiting for " + thisGame.player2_name + " to finish! Tap to see your score";
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
+           btext = thisGame.player1_name + " vs. " + thisGame.player2_name +" ! View the results!";
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+            btext = thisGame.player1_name + " vs. " + thisGame.player2_name;
+        gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
+
+        ButtonText.text = btext;
     }
 
     public void onButtonClick()
@@ -46,8 +45,14 @@ public class ui_existingGameButton : MonoBehaviour {
         appManager.setCurGame(thisGame, devicePlayerRole);
 
         //IF role is init AND has finished AND NOT has seen, go to scoreComp....
+        if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
+            appManager.loadScene(appManager.sceneNames.scoreComp);
+        //IF role is init annd P2 has finished, view final score
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
+            appManager.loadScene(appManager.sceneNames.scoreComp);
         //Else if role is challenger AND
-        appManager.loadScene(appManager.sceneNames.mainRound);
+        else if(thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+            appManager.loadScene(appManager.sceneNames.mainRound);
     }
 
     public void loadGameEntity(string gameID)
@@ -74,40 +79,21 @@ public class ui_existingGameButton : MonoBehaviour {
     void determineGameState()
     {
         // Some sort logic:
-        //if my role is initiated and p1 is not fin, I need to play that game - RARE (On App Quit, maybe mark score as 0??)
-        //If my role is initiated p1 is done and p2 is not done,  I need to wait, but I can view score (Assign game to appManager)
-        //If my roll is initaed and we're both done and p1View is not true, I need to view score, p1View becomes true, game goes to games_dead
+        //If my role is init && p2 is not finished, I can view score, but am waiting
+        //If my role is init && p2 IS finished, I need to view final comp and mark me as done
         if (devicePlayerRole == appManager.playerRoles.intiated)
         {
-            if(thisGame.p1_Fin && thisGame.p2_Fin && !thisGame.p1HasViewedResult && thisGame.p2HasViewedResult) {
-                thisGameStatus = lobbyGameStatus.init_viewFinal;
-            }
-            else if(thisGame.p1_Fin && !thisGame.p2_Fin)
-            {
-                thisGameStatus = lobbyGameStatus.init_viewScore;
-            }
-            else if(!thisGame.p1_Fin && thisGame.p2_Fin)
-            {
-                thisGameStatus = lobbyGameStatus.init_playGame;
-            }
+            thisGameStatus = thisGame.p2_Fin ? appManager.E_lobbyGameStatus.init_viewFinal : appManager.E_lobbyGameStatus.init_viewScore;
+
         }
-        //If my role is challenged and p2 is not finished, I need to play
-        //If my role is challenged and p1 is not finished, I need to wait
-        //If my role is challenged and p1 is finished and p2 is finished, I can vew score, p1View becomes true, game goes to games_dead
+        //If my role is challenged && p2 is not finished, I need to play
+        
         else if (devicePlayerRole == appManager.playerRoles.challenged)
         {
-            if(thisGame.p1_Fin && !thisGame.p2_Fin)
-            {
-                thisGameStatus = lobbyGameStatus.challenged_playGame;
-            }
-            else if(thisGame.p2_Fin && !thisGame.p1_Fin)
-            {
-                thisGameStatus = lobbyGameStatus.challenged_waitForInit;
-            }
+            if (!thisGame.p2_Fin) thisGameStatus = appManager.E_lobbyGameStatus.challenged_playGame;
         }
-        
-       
 
+        appManager.curGameStatus = thisGameStatus;
         setUpButton();
     }
 }

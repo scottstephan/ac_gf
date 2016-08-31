@@ -18,12 +18,12 @@ public  static class m_prefsDataManager  {
         string retId = PlayerPrefs.GetString(playerPrefVariables.playerID.ToString());
         if (retId == null || retId == "")
         {
-            Debug.Log("CAN'T FIND LOCAL PLAYER ID");
+            Debug.Log("---CAN'T FIND LOCAL PLAYER ID---");
             return null;
         }
         else
         {
-            Debug.Log("PLAYER KNOWN LOCALLY; RETURNING ID");
+            Debug.Log("---PLAYER KNOWN LOCALLY; RETURNING ID---");
             return retId;
         }
     }
@@ -34,12 +34,12 @@ public  static class m_prefsDataManager  {
 
         if (storedID == appManager.generateUniquePlayerID())
         {
-            Debug.Log("STORED PLAYER MATCHES DEVICE PLAYER");
+            Debug.Log("---STORED PLAYER MATCHES DEVICE PLAYER---");
             return true;
         }
         else
         {
-            Debug.Log("STORED PLAYED DOES NOT MATCH DEVICE PLAYER! SETTING ID TO NEW DEVICE");
+            Debug.Log("---STORED PLAYED DOES NOT MATCH DEVICE PLAYER! SETTING ID TO NEW DEVICE---");
             return false;
         }
 

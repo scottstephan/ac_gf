@@ -26,6 +26,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public GameObject gameChallengedParentGrid;
     public GameObject gameChallengedPanel;
 
+    
+    public GameObject fullGameListParentGrid;
+    public GameObject fullGameListPanel;
+
     public Vector2 listStartPos;
     public float listYPadding;
     int listIndex;
@@ -97,6 +101,9 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         attToReturn.Add("gameID");
         attToReturn.Add("role");
 
+        p1Initiated.Clear();
+        p1Challenged.Clear();
+
         DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.devicePlayer.playerID, attToReturn, allP1GameQueryComplete,true);
     }
 
@@ -112,7 +119,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             tPGID.gameID = response[i].gameID;
             tPGID.role = response[i].role;
 
-            Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
+            ///Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
 
             pgID.Add(tPGID); //These ALL of the games this user is currently involved in
 
@@ -128,10 +135,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void listAllGamesP1IsInitiated()
     {
-        Debug.Log("LISTING ALL GAMES P1 INITIATED:" + p1Initiated.Count);
+        Debug.Log("---LISTING ALL GAMES P1 INITIATED:---" + p1Initiated.Count);
         for (int i = 0; i < p1Initiated.Count; i++)
         {
-            Debug.Log("LISTING A GAME P1 INITIATED");
+            //Debug.Log("LISTING A GAME P1 INITIATED");
             GameObject tButton = Instantiate(gamesInitiatedButton);
            // tButton.transform.SetParent(gameInitListParentGrid.transform);
            
@@ -146,10 +153,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void listAllGamesP1IsChallengedIn()
     {
-        Debug.Log("LISTING ALL GAMES P1 CHALLENGED: " + p1Challenged.Count);
+        Debug.Log("---LISTING ALL GAMES P1 CHALLENGED:--- " + p1Challenged.Count);
         for (int i = 0; i < p1Challenged.Count; i++)
         {
-            Debug.Log("LISTING A GAME P1 CHALLENGED");
+            //Debug.Log("LISTING A GAME P1 CHALLENGED");
             GameObject tButton = Instantiate(gamesInitiatedButton);
            // tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
