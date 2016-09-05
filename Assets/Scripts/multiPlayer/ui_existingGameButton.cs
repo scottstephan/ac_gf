@@ -8,6 +8,7 @@ using DDBHelper;
 
 public class ui_existingGameButton : MonoBehaviour {
     public Text ButtonText;
+    public Button uiButtonManager;
     public string gameID; //This comes from m_MP_Lobby which gets it from the devicePlayer's entry in player_games
 
     public appManager.playerRoles devicePlayerRole;
@@ -25,8 +26,16 @@ public class ui_existingGameButton : MonoBehaviour {
 	
 	}
 
+    void setColorBlock()
+    {
+        ColorBlock tCB = uiButtonManager.colors;
+        tCB.normalColor = m_colorPaletteManager.instance.buttonColorPalette.returnRandomColor();
+        uiButtonManager.colors = tCB;
+    }
+
     public void setUpButton()
     {
+        setColorBlock();
         string btext = "";
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
             btext = "Waiting for " + thisGame.player2_name + " to finish! Tap to see your score";
@@ -94,6 +103,7 @@ public class ui_existingGameButton : MonoBehaviour {
         }
 
         appManager.curGameStatus = thisGameStatus;
+        
         setUpButton();
     }
 }

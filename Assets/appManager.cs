@@ -72,7 +72,6 @@ public class appManager : MonoBehaviour {
     [DynamoDBTable("gamesByPlayer")]
     public class playerGameID
     {
-
         [DynamoDBHashKey]
         public string playerID;
         [DynamoDBRangeKey]
@@ -116,7 +115,7 @@ public class appManager : MonoBehaviour {
 
     public static void loadScene(sceneNames sceneToLoad)
     {
-        SceneManager.LoadScene(sceneToLoad.ToString());
+       // SceneManager.LoadScene(sceneToLoad.ToString());
     }
 
     public static void saveCurGame()

@@ -47,16 +47,19 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     }
 
     void Start () {
+      
+	}
+
+    public void init_MPLobby()
+    {
         m_loadPanelManager.instance.activateLoadPanel();
         Invoke("removeLoadPanel", 5f);
-        txt_curPlayerReadout.text = "You: " + appManager.devicePlayer.playerName;
         OnScanComplete += OnPlayerScanComplete;
-       // OnP1GameFetchComplete += allP1GameQueryComplete;
+        // OnP1GameFetchComplete += allP1GameQueryComplete;
 
         getAndListAllPlayers();
         getAllP1Games();
-      //  listAllGamesP1IsInitiated();
-	}
+    }
 
     void getAndListAllPlayers() {
         Debug.Log("***SCANNING FOR ALL PLAYERS***");

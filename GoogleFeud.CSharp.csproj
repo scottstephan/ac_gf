@@ -111,7 +111,10 @@
     <Compile Include="Assets\Scripts\entity_gamesDead.cs" />
     <Compile Include="Assets\Scripts\entity_player.cs" />
     <Compile Include="Assets\Scripts\loadScreen\m_loadScreenManager.cs" />
+    <Compile Include="Assets\Scripts\m_colorPaletteManager.cs" />
     <Compile Include="Assets\Scripts\m_loadPanelManager.cs" />
+    <Compile Include="Assets\Scripts\m_panelManager.cs" />
+    <Compile Include="Assets\Scripts\m_phaseManager.cs" />
     <Compile Include="Assets\Scripts\m_prefsDataManager.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\acDBHelper.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\autoCompeteDBBHelper.cs" />
@@ -121,8 +124,16 @@
     <Compile Include="Assets\Scripts\registerPlayerButton.cs" />
     <Compile Include="Assets\Scripts\scoreComp\m_scoreCompManager.cs" />
     <Compile Include="Assets\Scripts\scoreComp\obj_backToMenuBtn.cs" />
+    <Compile Include="Assets\Scripts\test\animCallbackTest.cs" />
     <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
+    <Compile Include="Assets\UITween\Prefabs\Click Effect Pref\ClickedWaveAnimation.cs" />
+    <Compile Include="Assets\UITween\ScenesExamplesScripts\ActivateOnEnable.cs" />
+    <Compile Include="Assets\UITween\ScenesExamplesScripts\CreateAnimImage.cs" />
+    <Compile Include="Assets\UITween\ScenesExamplesScripts\FollowClick.cs" />
+    <Compile Include="Assets\UITween\Scripts\EasyTween.cs" />
+    <Compile Include="Assets\UITween\Scripts\ReferencedFrom.cs" />
+    <Compile Include="Assets\UITween\Scripts\UITween.cs" />
     <Compile Include="Assets\appManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +147,7 @@
     <None Include="Assets\Plugins\DDBHelper\HowToSetupDynamoDBLocal.txt" />
     <None Include="Assets\Plugins\DDBHelper\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\DDBHelper\ReadMe.txt" />
+    <None Include="Assets\UI - BUILDER\Source Files\Fonts\OpenSans-Familiy\OpenSansLic.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

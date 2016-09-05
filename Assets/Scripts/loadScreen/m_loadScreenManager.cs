@@ -70,9 +70,9 @@ public class m_loadScreenManager : MonoBehaviour {
         {
             appManager.devicePlayer = response;
             Debug.Log("***LOADED THIS PLAYER: " + appManager.devicePlayer.playerName + "***");
-            m_loadScreenManager.instance.playerLoadStatusText.text = "Player loaded from AWS! Going to menu!";
-            m_loadScreenManager.instance.loadToMenu();
-            m_loadPanelManager.instance.deactivateLoadPanel();
+            //m_loadScreenManager.instance.playerLoadStatusText.text = "Player loaded from AWS! Going to menu!";
+            //m_loadScreenManager.instance.loadToMenu();
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.titleScreen);
 
         }
         else
@@ -94,4 +94,8 @@ public class m_loadScreenManager : MonoBehaviour {
         appManager.loadScene(appManager.sceneNames.title);
     }
 
+    public void moveInMenuPanel()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.loadingToMenu);
+    }
 }
