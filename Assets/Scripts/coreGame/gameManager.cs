@@ -55,7 +55,7 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
-       StartCoroutine(InitGame());
+       
     }
 
     IEnumerator InitGame()

@@ -9,7 +9,8 @@ public class m_phaseManager : MonoBehaviour {
         loadScreen,
         titleScreen,
         MPLobby,
-        categorySelect,
+        categorySelectSP,
+        categorySelectMP,
         mainRoundSP,
         mainRoundMP,
         scoreComp
@@ -40,12 +41,16 @@ public class m_phaseManager : MonoBehaviour {
             case phases.MPLobby:
                 m_phaseManager.instance.transitionToMPLobby();
                 break;
-            case phases.categorySelect:
-                m_phaseManager.instance.transitionToCatSelect();
+            case phases.categorySelectSP:
+                m_phaseManager.instance.transitionToCatSelectSP();
+                break;
+            case phases.categorySelectMP:
+                m_phaseManager.instance.transitionToCatSelectMP();
                 break;
             case phases.mainRoundSP:
                 break;
             case phases.mainRoundMP:
+                m_phaseManager.instance.transitionToMP();
                 break;
             case phases.scoreComp:
                 break;
@@ -69,19 +74,27 @@ public class m_phaseManager : MonoBehaviour {
         m_MPLobby_Matchmake.instance.init_MPLobby();
     }
 
-    private void transitionToCatSelect()
+    private void transitionToCatSelectMP()
     { ///Need to know active panel- Menu to cat or MP to cat?
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToCatSelect);
+    }
+
+    private void transitionToCatSelectSP()
+    {
 
     }
 
+
     private void transitionToSP()
     {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
 
     }
 
     private void transitionToMP()
     {
-
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
+        gameManager.instance.StartCoroutine("InitGame");
     }
 
     private void transitionToScoreComp()

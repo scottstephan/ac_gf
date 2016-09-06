@@ -118,7 +118,10 @@ public class m_panelManager : MonoBehaviour {
 
     public void anim_mpLobbyToCatSelect()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_mpLobbyToScoreComp()
@@ -128,7 +131,10 @@ public class m_panelManager : MonoBehaviour {
 
     public void anim_catSelectToMainRound()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mainRound.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
     
     public void anim_mainRoundToScoreComp()
