@@ -6,9 +6,6 @@ public class m_titleScreenManager : MonoBehaviour {
 
     public static m_titleScreenManager instance = null;
 
-    public EasyTween mpLobbyPanelTween;
-    public EasyTween titlePanelTween;
-
     void Awake()
     { //Maintain singleton pattern
         if (instance == null) instance = this;
@@ -21,6 +18,7 @@ public class m_titleScreenManager : MonoBehaviour {
         if (!isMP)
         {
             appManager.createGameObject(appManager.devicePlayer.playerID, "none", appManager.devicePlayer.playerName, "none", false);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.categorySelectSP);
             //SceneManager.LoadScene(appManager.sceneNames.title.ToString());
         }
         else

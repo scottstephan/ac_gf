@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.DataModel;
@@ -11,6 +12,7 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance = null;
 
+    public InputField playerInputField;
     public static GameObject masterUICanvas;
     public static GameObject answerLayoutGrid;
     public GameObject answersPrefab;
@@ -22,6 +24,7 @@ public class gameManager : MonoBehaviour
     public static int maxPlayerMisses = 4; //Should we have a game settings script?
     public static int numPlayerHits = 0;
 
+    public bool gameIsOver = false;
     public enum E_gameRoundStatus {
         waitingToStart,
         waitingForInput,
@@ -80,6 +83,8 @@ public class gameManager : MonoBehaviour
 
     public void endGame(bool playerHasLost)
     {
+        gameIsOver = true;
+
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");
@@ -100,7 +105,8 @@ public class gameManager : MonoBehaviour
         {
             Debug.Log("Ending SP Game");
         }
-        appManager.loadScene(appManager.sceneNames.scoreComp);
+        m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
+        //appManager.loadScene(appManager.sceneNames.scoreComp);
 
     }
 
@@ -116,6 +122,7 @@ public class gameManager : MonoBehaviour
         m_scoreAndGameStateManager.instance.setInputFieldAccessibility(true);
         //Start the timer
         obj_Timer.instance.setTimer();
+        playerInputField.ActivateInputField();
         obj_Timer.instance.startTimer();
         currentRoundStatus = E_gameRoundStatus.waitingForInput;
 
@@ -144,16 +151,23 @@ public class gameManager : MonoBehaviour
                 m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.roundEndWithPlayerHitTwice;
                 break;
         }
-        yield return new WaitForSeconds(2f);
-       //if game not over...
-        StartCoroutine(startRound());
-       //else endGame
-        yield return null;
+       yield return new WaitForSeconds(2f);
+
+        if (!gameIsOver)
+            StartCoroutine(startRound());
+        //else endGame
+        else
+        {
+            m_scoreAndGameStateManager.instance.roundStatusText.text = "GAME OVER";
+            yield return null;
+        }
     }
 
     public void inputPhaseEnd(E_endOfRoundAction endRoundReason, string playerInput = "")
     {
         m_scoreAndGameStateManager.instance.setInputFieldAccessibility(false);
+        playerInputField.DeactivateInputField();
+
         bool playerHit = false;
 
         if (endRoundReason == E_endOfRoundAction.capturedPlayerInput)

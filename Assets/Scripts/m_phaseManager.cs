@@ -13,10 +13,11 @@ public class m_phaseManager : MonoBehaviour {
         categorySelectMP,
         mainRoundSP,
         mainRoundMP,
-        scoreComp
+        scoreComp,
     }
 
     public phases thisPhase = phases.loadScreen;
+    public phases previousPhase;
 
     void Awake()
     {
@@ -31,28 +32,38 @@ public class m_phaseManager : MonoBehaviour {
 
     public void changePhase(phases nextPhase)
     {
+        previousPhase = thisPhase;
         switch (nextPhase)
         {
             case phases.loadScreen:
+                thisPhase = phases.loadScreen;
                 break;
             case phases.titleScreen:
+                thisPhase = phases.titleScreen;
                 m_phaseManager.instance.transitionToTitleScreen();
                 break;
             case phases.MPLobby:
+                thisPhase = phases.MPLobby;
                 m_phaseManager.instance.transitionToMPLobby();
                 break;
             case phases.categorySelectSP:
+                thisPhase = phases.categorySelectSP;
                 m_phaseManager.instance.transitionToCatSelectSP();
                 break;
             case phases.categorySelectMP:
+                thisPhase = phases.categorySelectMP;
                 m_phaseManager.instance.transitionToCatSelectMP();
                 break;
             case phases.mainRoundSP:
+                thisPhase = phases.mainRoundSP;
                 break;
             case phases.mainRoundMP:
+                thisPhase = phases.mainRoundMP;
                 m_phaseManager.instance.transitionToMP();
                 break;
             case phases.scoreComp:
+                thisPhase = phases.scoreComp;
+                m_phaseManager.instance.transitionToScoreComp();
                 break;
         }
     }
@@ -64,8 +75,15 @@ public class m_phaseManager : MonoBehaviour {
 
     private void transitionToTitleScreen()
     {
-        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.loadingToMenu);
-        m_loadPanelManager.instance.deactivateLoadPanel();
+        if (previousPhase == phases.loadScreen)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.loadingToMenu);
+            m_loadPanelManager.instance.deactivateLoadPanel();
+        }
+        else if (previousPhase == phases.scoreComp)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.scoreCompToMainMenu);
+        }
     }
 
     private void transitionToMPLobby()
@@ -81,7 +99,7 @@ public class m_phaseManager : MonoBehaviour {
 
     private void transitionToCatSelectSP()
     {
-
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.menuToCatSelect);
     }
 
 
@@ -98,8 +116,9 @@ public class m_phaseManager : MonoBehaviour {
     }
 
     private void transitionToScoreComp()
-    {
-
+    {//From where? Presume MR
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mainRoundToScoreComp);
+        m_scoreCompManager.instance.initSC();
     }
 
 

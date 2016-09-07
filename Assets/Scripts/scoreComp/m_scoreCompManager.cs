@@ -4,21 +4,28 @@ using UnityEngine.UI;
 using Assets.autoCompete.games;
 
 public class m_scoreCompManager : MonoBehaviour {
+    public static m_scoreCompManager instance = null;
+
     public Text p1Score;
     public Text p2Score;
     public Text p1Name;
     public Text p2Name;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Awake()
+    { //Maintain singleton pattern
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
+
+    public void initSC()
+    {
         updatePlayerView();
         updatePlayerScores();
         if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
             determineGameAction();
         else
             m_loadPanelManager.instance.deactivateLoadPanel();
-        //appManager.updateGameRecord_Manual();
-        
-	}
+    }
 
     void updatePlayerView() 
     { //Possible issue here where two players may intersect.

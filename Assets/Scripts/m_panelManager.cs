@@ -113,7 +113,10 @@ public class m_panelManager : MonoBehaviour {
 
     public void anim_menuToCatSelect()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_mpLobbyToCatSelect()
@@ -139,12 +142,18 @@ public class m_panelManager : MonoBehaviour {
     
     public void anim_mainRoundToScoreComp()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mainRound.toLeft);
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_scoreCompToMainMenu()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_scoreCompToMPLobby()
@@ -158,10 +167,12 @@ public class m_panelManager : MonoBehaviour {
 
         for(int i = 0; i < cSet.animsToPlayInOrder.Count; i++)
         {
+            cSet.animsToPlayInOrder[i].animationParts.ObjectState = UITween.AnimationParts.State.CLOSE;
             cSet.animsToPlayInOrder[i].OpenCloseObjectAnimation();
             delay = cSet.animsToPlayInOrder[i].GetAnimationDuration() * 0.5f;
             yield return new WaitForSeconds(delay);
         }
+
         Debug.Log("---ANIM SET DONE---");
     }
 }
