@@ -49,6 +49,8 @@ public class obj_Answer : MonoBehaviour {
         RectTransform tempAnswerMaskRect = thisAnswerMask.GetComponent<RectTransform>();
         RectTransform tempAnswerRect = gameObject.GetComponent<RectTransform>();
         tempAnswerMaskRect.sizeDelta = new Vector2(tempAnswerRect.rect.width, tempAnswerRect.rect.height);
+
+        thisAnswerMask.SetActive(true);
     }
 
     public void setAnswerPosition(Vector3 pos)

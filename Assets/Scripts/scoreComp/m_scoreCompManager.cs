@@ -41,12 +41,21 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScores()
     {
-        p1Score.text = appManager.curLiveGame.p1_score.ToString();
-        p2Score.text = appManager.curLiveGame.p2_score.ToString();
         string namePrefx = "";
         string nameSuffix = " score:";
         p1Name.text = namePrefx + appManager.curLiveGame.player1_name + nameSuffix;
-        p2Name.text = namePrefx + appManager.curLiveGame.player2_name + nameSuffix;
+        p1Score.text = appManager.curLiveGame.p1_score.ToString();
+        if (appManager.curLiveGame.isMPGame)
+        {
+            p2Name.text = namePrefx + appManager.curLiveGame.player2_name + nameSuffix;
+            p2Score.text = appManager.curLiveGame.p2_score.ToString();
+        }
+        else
+        {
+            p2Name.text = "";
+            p2Score.text = "";
+        }
+
     }
 
     void determineGameAction()

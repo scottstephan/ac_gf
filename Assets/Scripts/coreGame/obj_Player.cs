@@ -20,6 +20,14 @@ public class obj_Player : MonoBehaviour {
         playerName = PName;
     }
 
+    public void resetPlayer()
+    {
+        playerName = "";
+        numMisses = 0;
+        numHits = 0;
+        totalScore = 0;
+    }
+
     public void playerMissed()
     {
         Debug.Log("Player missed");

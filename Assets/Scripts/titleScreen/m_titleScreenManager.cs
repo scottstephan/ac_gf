@@ -19,7 +19,6 @@ public class m_titleScreenManager : MonoBehaviour {
         {
             appManager.createGameObject(appManager.devicePlayer.playerID, "none", appManager.devicePlayer.playerName, "none", false);
             m_phaseManager.instance.changePhase(m_phaseManager.phases.categorySelectSP);
-            //SceneManager.LoadScene(appManager.sceneNames.title.ToString());
         }
         else
         {

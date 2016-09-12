@@ -53,10 +53,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public void init_MPLobby()
     {
         m_loadPanelManager.instance.activateLoadPanel();
-        Invoke("removeLoadPanel", 5f);
+        Invoke("removeLoadPanel", 3f);
         OnScanComplete += OnPlayerScanComplete;
         // OnP1GameFetchComplete += allP1GameQueryComplete;
-
+        clearLists();
         getAndListAllPlayers();
         getAllP1Games();
     }
@@ -70,6 +70,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     {
         Debug.Log("***LISTING ALL PLAYERS FROM SCAN***");
         List<entity_players> allPlayers = new List<entity_players>();
+        allPlayers.Clear();
 
         foreach (Dictionary<string, AttributeValue> d in response) //foreach is bugged- Swap it ot when we change this
         {
@@ -104,9 +105,6 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         attToReturn.Add("gameID");
         attToReturn.Add("role");
 
-        p1Initiated.Clear();
-        p1Challenged.Clear();
-
         DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.devicePlayer.playerID, attToReturn, allP1GameQueryComplete,true);
     }
 
@@ -114,7 +112,9 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     {
         Debug.Log("ALL P1 GAMES LOADED");
         List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
-       
+        pgID.Clear();
+        p1Initiated.Clear();
+        p1Challenged.Clear();
         for (int i = 0; i < response.Count; i++)
         {
             appManager.playerGameID tPGID = new appManager.playerGameID();
@@ -176,5 +176,20 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     {
         //Dumb implementation for now. We'll need full event checkin at the end.
         m_loadPanelManager.instance.deactivateLoadPanel();
+    }
+
+    public void clearLists()
+    {
+        //Get children of player & game lists
+        foreach(Transform child in opponentListParentGrid.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach(Transform child in fullGameListParentGrid.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        //Nuke 'em!
     }
 }

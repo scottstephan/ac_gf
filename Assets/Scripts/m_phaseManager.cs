@@ -111,13 +111,28 @@ public class m_phaseManager : MonoBehaviour {
 
     private void transitionToMP()
     {
-        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
-        gameManager.instance.StartCoroutine("InitGame");
+        if (previousPhase == phases.categorySelectMP)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
+            gameManager.instance.StartCoroutine("InitGame");
+        }
+        else if (previousPhase == phases.MPLobby)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToMainRound);
+        }
     }
 
     private void transitionToScoreComp()
-    {//From where? Presume MR
-        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mainRoundToScoreComp);
+    {
+        if (previousPhase == phases.MPLobby)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToScoreComp);//This loops back to menu- Maybe move it back to MPLObby?
+        }
+        else if (previousPhase == phases.mainRoundMP || previousPhase == phases.mainRoundSP)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mainRoundToScoreComp);
+        }
+
         m_scoreCompManager.instance.initSC();
     }
 

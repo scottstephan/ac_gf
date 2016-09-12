@@ -55,13 +55,14 @@ public class ui_existingGameButton : MonoBehaviour {
 
         //IF role is init AND has finished AND NOT has seen, go to scoreComp....
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
-            appManager.loadScene(appManager.sceneNames.scoreComp);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
         //IF role is init annd P2 has finished, view final score
         else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
-            appManager.loadScene(appManager.sceneNames.scoreComp);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
         //Else if role is challenger AND
-        else if(thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
-            appManager.loadScene(appManager.sceneNames.mainRound);
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundMP);
+
     }
 
     public void loadGameEntity(string gameID)

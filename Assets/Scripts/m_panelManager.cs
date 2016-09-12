@@ -32,6 +32,7 @@ public class m_panelManager : MonoBehaviour {
         menuToCatSelect,
         MPLobbyToCatSelect,
         MPLobbyToScoreComp,
+        MPLobbyToMainRound,
         catSelectToMainRound,
         mainRoundToScoreComp,
         scoreCompToMainMenu,
@@ -78,6 +79,9 @@ public class m_panelManager : MonoBehaviour {
                 break;
             case phaseTransitions.MPLobbyToScoreComp:
                 anim_mpLobbyToScoreComp();
+                break;
+            case phaseTransitions.MPLobbyToMainRound:
+                anim_mpLobbyToMainRound();
                 break;
             case phaseTransitions.scoreCompToMainMenu:
                 anim_scoreCompToMainMenu();
@@ -129,7 +133,18 @@ public class m_panelManager : MonoBehaviour {
 
     public void anim_mpLobbyToScoreComp()
     {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
 
+    public void anim_mpLobbyToMainRound()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mainRound.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_catSelectToMainRound()

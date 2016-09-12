@@ -62,21 +62,29 @@ public class gameManager : MonoBehaviour
     }
 
     IEnumerator InitGame()
-    {
+    { //Also acts as a master reset for multiple rounds. Need to make sure game ID etc is being set correctly
+        
+            //Reset game
+        gameIsOver = false;
+        currentRoundStatus = E_gameRoundStatus.waitingToStart;
         masterUICanvas = GameObject.Find("g_UICanvas");
         answerLayoutGrid = GameObject.Find("answerLayoutGrid");
-        currentPlayer = GameObject.Find("playerObject").GetComponent<obj_Player>();
-        //Load in JSON Data
+        obj_Timer.instance.resetTimer();
+        m_scoreAndGameStateManager.instance.resetGameUIState();
+        //Reset player
+        currentPlayer = GameObject.Find("playerObject").GetComponent<obj_Player>(); //Should be a data object
+        currentPlayer.resetPlayer();
+        numPlayerHits = 0;
+            //Reset answer stuff
+        roundAnswerStrings.Clear();
         numAnswers = 10;
-        addDebugAnswers();
-        //Declare and initalize players
-        //Declare and initalize Answers
-        fillManualAnswerObjects();
-        currentRoundStatus = E_gameRoundStatus.waitingToStart;
+        addDebugAnswers(); //This will be where JSON kicks in
+            //Prepare game
+        fillManualAnswerObjects(); //Should be a data object
         m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.gameStartText;
-        //delay before starting round....
+            //delay before starting game....
         yield return new WaitForSeconds(2f);
-        //Start the round
+            //Start the game
         StartCoroutine(startRound());
         yield return null;
     }
@@ -106,7 +114,6 @@ public class gameManager : MonoBehaviour
             Debug.Log("Ending SP Game");
         }
         m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
-        //appManager.loadScene(appManager.sceneNames.scoreComp);
 
     }
 

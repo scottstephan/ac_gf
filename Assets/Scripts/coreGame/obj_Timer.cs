@@ -26,6 +26,13 @@ public class obj_Timer : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
     }
 
+    public void resetTimer()
+    {
+        timerState = E_timerState.inactive;
+        curTime = 10;
+        timerText.text = curTime.ToString();
+    }
+
     void setTimer(float maxTimerTime)
     {
         timeUntilFail = maxTimerTime;

@@ -43,4 +43,10 @@ public class m_scoreAndGameStateManager : MonoBehaviour {
     {
         numberOfMissesText.text = numMissesPrefix + numMissed.ToString();
     }
+
+    public void resetGameUIState()
+    {
+        updateScoreText("0");
+        updateNumberMissedText(0);
+    }
 }
