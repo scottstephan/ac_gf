@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// This class handles high-level logic for swapping between panels
+/// i.e.: flushing refs, setting important variables etc. It does NOT handle look/eel- That's m_panelManager
+/// </summary>
 public class m_phaseManager : MonoBehaviour {
     public static m_phaseManager instance = null;
 
@@ -56,6 +59,7 @@ public class m_phaseManager : MonoBehaviour {
                 break;
             case phases.mainRoundSP:
                 thisPhase = phases.mainRoundSP;
+                m_phaseManager.instance.transitionToSP();
                 break;
             case phases.mainRoundMP:
                 thisPhase = phases.mainRoundMP;
@@ -104,9 +108,9 @@ public class m_phaseManager : MonoBehaviour {
 
 
     private void transitionToSP()
-    {
+    { //No need for a prev phase check- It'll always be the cat manager
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
-
+        gameManager.instance.StartCoroutine("InitGame");
     }
 
     private void transitionToMP()
@@ -114,12 +118,13 @@ public class m_phaseManager : MonoBehaviour {
         if (previousPhase == phases.categorySelectMP)
         {
             m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
-            gameManager.instance.StartCoroutine("InitGame");
         }
         else if (previousPhase == phases.MPLobby)
         {
             m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToMainRound);
         }
+            
+        gameManager.instance.StartCoroutine("InitGame");
     }
 
     private void transitionToScoreComp()

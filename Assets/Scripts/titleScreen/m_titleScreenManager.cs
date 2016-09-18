@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class m_titleScreenManager : MonoBehaviour {
 
     public static m_titleScreenManager instance = null;
+    public Button mpButton;
 
     void Awake()
     { //Maintain singleton pattern
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
+
+        mpButton.interactable = false;
     }
 
     public void startGameFromTitle(bool isMP)

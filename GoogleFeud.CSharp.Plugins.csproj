@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Examples\License.txt" />
+    <None Include="Assets\Facebook\Scripts\Canvas\Resources\JSSDKBindings.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\DDBHelper\AWSSDK\Examples\License.txt" />
     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\License.bzip2.txt" />

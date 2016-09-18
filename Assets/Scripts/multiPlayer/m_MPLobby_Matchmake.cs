@@ -52,12 +52,12 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     public void init_MPLobby()
     {
-        m_loadPanelManager.instance.activateLoadPanel();
-        Invoke("removeLoadPanel", 3f);
+      //  m_loadPanelManager.instance.activateLoadPanel();
+      //  Invoke("removeLoadPanel", 2f);
         OnScanComplete += OnPlayerScanComplete;
-        // OnP1GameFetchComplete += allP1GameQueryComplete;
         clearLists();
-        getAndListAllPlayers();
+        List<object> users = new List<object>();
+        users = m_fbStatusManager.instance.loadFriendsInstalledList();
         getAllP1Games();
     }
 

@@ -9,6 +9,8 @@ namespace Assets.autoCompete.players
     {
         [DynamoDBHashKey]
         public string playerID { get; set; }//Hash Key- This is assigned at runtime based on player's device and is stored in playerPrefs
+        [DynamoDBRangeKey]
+        public string searchName { get; set; }
         [DynamoDBProperty]
         public string autoCompeteUsableID; //This one COULD change over tine if a Guest authenticates via GameCenter or Facebook. By default, it's the same as the playerID
         [DynamoDBProperty]

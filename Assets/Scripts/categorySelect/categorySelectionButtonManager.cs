@@ -9,6 +9,9 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void categorySelected()
     {
-        m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundMP);
+        if (appManager.curLiveGame.isMPGame)
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundMP);
+        else
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
     }
 }

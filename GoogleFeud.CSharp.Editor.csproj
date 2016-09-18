@@ -128,10 +128,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FBPro\Editor\FBProEditor.cs" />
+    <Compile Include="Assets\Facebook\Editor\FacebookBuild.cs" />
+    <Compile Include="Assets\Facebook\Editor\FacebookPostprocess.cs" />
+    <Compile Include="Assets\Facebook\Editor\FacebookSettingsEditor.cs" />
+    <Compile Include="Assets\Facebook\Editor\Utility.cs" />
+    <Compile Include="Assets\Facebook\Editor\android\FacebookAndroidUtil.cs" />
+    <Compile Include="Assets\Facebook\Editor\android\ManifestMod.cs" />
+    <Compile Include="Assets\Facebook\Editor\iOS\FixupFiles.cs" />
+    <Compile Include="Assets\Facebook\Editor\iOS\PListDict.cs" />
+    <Compile Include="Assets\Facebook\Editor\iOS\PListParser.cs" />
     <Compile Include="Assets\UITween\Editor\EditorUITween.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Examples\License.txt" />
+    <None Include="Assets\Facebook\Scripts\Canvas\Resources\JSSDKBindings.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\DDBHelper\AWSSDK\Examples\License.txt" />
     <None Include="Assets\Plugins\DDBHelper\DotNetZip\License\License.bzip2.txt" />

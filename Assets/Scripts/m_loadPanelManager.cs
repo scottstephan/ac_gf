@@ -26,11 +26,16 @@ public class m_loadPanelManager : MonoBehaviour {
     public void activateLoadPanel()
     {
         panelParent.SetActive(true);
-        panelText.text = "LOADING; WAIT A GODDAM SECOND";
+        //panelText.text = "LOADING; WAIT A GODDAM SECOND";
     }
 
     public void deactivateLoadPanel()
     {
         panelParent.SetActive(false);
+    }
+
+    public void setLoadText(string text)
+    {
+        panelText.text = text;
     }
 }

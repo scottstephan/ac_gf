@@ -19,6 +19,11 @@ public class appManager : MonoBehaviour {
     public static obj_Player roundPlayerObject;
 
     public static bool dontUpdateGameRecord = false;
+
+    public bool FB_LOGINSTATUS;
+    public string FB_ID;
+    public string FB_NAME;
+
     public enum playerRoles
     {
         intiated,
@@ -102,6 +107,50 @@ public class appManager : MonoBehaviour {
         return uniqueDeviceID;
     }
 
+    public void createAndSetPlayer(string id, string name)
+    {
+        entity_players tP = new entity_players();
+        tP.playerID = id;
+        tP.autoCompeteUsableID = id;
+        tP.playerName = name;
+        devicePlayer = tP;
+        
+    }
+
+    #region loginRoutines
+    public void checkFBLoginStatus()
+    {
+        m_fbStatusManager.instance.returnUserLoginStatus(actOnFBLoginStatus);
+    }
+
+    public void actOnFBLoginStatus(bool loginStatus)
+    {
+        FB_LOGINSTATUS = loginStatus;
+        if (loginStatus)
+        {
+            m_headerManager.instance.setHeaderToLoggedIn();
+            m_titleScreenManager.instance.mpButton.interactable = true;
+            appManager.instance.FB_ID = m_fbStatusManager.instance.returnFBUserID();
+            m_fbStatusManager.instance.LoadPlayerName(setFBName);
+        }
+        else
+        {
+            m_titleScreenManager.instance.mpButton.interactable = false;
+            m_headerManager.instance.setHeaderToLoggedOut();
+            appManager.instance.createAndSetPlayer("NLI", "NLI");
+            m_loadScreenManager.instance.appInitComplete();
+        }
+    }
+
+    public void setFBName(string name)
+    {
+      appManager.instance.FB_NAME = name;
+      appManager.instance.createAndSetPlayer(FB_ID,FB_NAME);
+      m_loadScreenManager.instance.appInitComplete();
+    }
+    #endregion
+
+    #region gameFunctions
     public static string generateUniqueGameID()
     {
         return devicePlayer.playerID + UnityEngine.Random.Range(0, 10000); //The odds are in my faor, but still. Use datetime!
@@ -193,7 +242,8 @@ public class appManager : MonoBehaviour {
         Debug.Log("***GAME ENTITY LOAD COMPLETE***");
         appManager.curLiveGame = response;
     }
-
+    #endregion
+    
     static void createPlayerGameRelationship(string p1ID, string p2ID, string gameID)
     {
         playerGameID p1 = new playerGameID();

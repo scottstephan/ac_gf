@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+/// This class ONLY handles animations. Any additional logic or state concerns are handled in m_phaseManager
+/// </summary>
 public class m_panelManager : MonoBehaviour {
     public static m_panelManager instance = null;
 
@@ -19,6 +21,23 @@ public class m_panelManager : MonoBehaviour {
        public EasyTween toLeft;
        public EasyTween toRight;
        public EasyTween toMiddle;
+    }
+
+    [System.Serializable]
+    public struct uiPanelAnimations
+    {
+        public enum panelPos
+        {
+            up,
+            center,
+            bottom
+        }
+
+        public panelPos thisPanelPos;
+        public EasyTween toCenter;
+        public EasyTween toTop;
+        public EasyTween toBottom;
+
     }
 
     public class animationSetToPlay{
@@ -39,6 +58,11 @@ public class m_panelManager : MonoBehaviour {
         scoreCompToMPLobby
     }
 
+    public enum uiPanelTransitions{
+        playerInputToCenter,
+        playerInputToTop
+    }
+
     public panelAnimations loadScreen;
     public panelAnimations titleScreen;
     public panelAnimations mpLobby;
@@ -46,6 +70,8 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations mainRound;
     public panelAnimations scoreComp;
     public panelAnimations headerPanel;
+
+    public uiPanelAnimations opponentInputPanel;
 
     void Awake()
     {
@@ -189,6 +215,32 @@ public class m_panelManager : MonoBehaviour {
         }
 
         Debug.Log("---ANIM SET DONE---");
+    }
+
+    ///---UI PANEL STUFF---\\\
+    public void animateUIPanelByPhase(uiPanelTransitions thisTransition)
+    {
+        switch (thisTransition)
+        {
+            case uiPanelTransitions.playerInputToCenter:
+                anim_opponentInputToMiddle();
+                m_loadPanelManager.instance.activateLoadPanel();
+                m_loadPanelManager.instance.setLoadText("");
+                break;
+            case uiPanelTransitions.playerInputToTop:
+                anim_opponentInputToTop();
+                break;
+        }
+    }
+
+    public void anim_opponentInputToMiddle()
+    {
+        opponentInputPanel.toCenter.OpenCloseObjectAnimation();
+    }
+
+    public void anim_opponentInputToTop()
+    {
+        opponentInputPanel.toCenter.OpenCloseObjectAnimation();
     }
 }
 

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class util_buildManualGrid : MonoBehaviour {
-    int gridCellLength = 10;
+   // int gridCellLength = 10;
     GameObject answersPrefab;
 	// Use this for initialization
 	void Start () {

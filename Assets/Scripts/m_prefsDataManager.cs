@@ -5,12 +5,33 @@ public  static class m_prefsDataManager  {
     
     public enum playerPrefVariables
     {
-        playerID
+        playerID,
+        playerSearchName
     }
 
 	public static void setPlayerIDPref(string id)
     {
         PlayerPrefs.SetString("playerID", id);
+    }
+
+    public static void setPlayerSearchName(string searchName)
+    {
+        PlayerPrefs.SetString(playerPrefVariables.playerSearchName.ToString(), searchName);
+    }
+
+    public static string getPlayerSearchName()
+    {
+        string sName = PlayerPrefs.GetString(playerPrefVariables.playerSearchName.ToString());
+        if(sName == null || sName == "")
+        {
+            Debug.Log("NO STORED SEARCH NAME");
+            return "none"; //Dynamo requires a non-empty value for keys
+        }
+        else
+        {
+            Debug.Log("---SEARCHNAME IS STORED LOCALLY: " + sName);
+            return sName;
+        }
     }
 
     public static string getPlayerIDPref()

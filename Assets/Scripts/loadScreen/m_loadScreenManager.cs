@@ -11,7 +11,7 @@ public class m_loadScreenManager : MonoBehaviour {
     public Text playerLoadStatusText;
     public GameObject registerButton;
     public GameObject registerNameInput;
-
+    public bool waitingForAppInit = true;
     void Awake()
     {
         if (instance == null) instance = this;
@@ -22,15 +22,22 @@ public class m_loadScreenManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        checkIfPlayerStoredLocal();
-        checkIfPlayerStoredAWS();         //Now check AWS- Do we know this user?
+        appManager.instance.checkFBLoginStatus();
+    }
 
+    public void appInitComplete()
+    {
+        if (waitingForAppInit)
+        {
+            waitingForAppInit = false;
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.titleScreen);
+        }
     }
 
     void checkIfPlayerStoredLocal()
     {
         string id = m_prefsDataManager.getPlayerIDPref();
-        Debug.Log("Returned ID: " + id);
+        Debug.Log("---ID IN DATA PREFS---: " + id);
         //Then confirm the device
         if (m_prefsDataManager.confirmCurrentUserIsStoredUser(id))
         {
@@ -41,7 +48,6 @@ public class m_loadScreenManager : MonoBehaviour {
         {
             appManager.currentPlayerID = appManager.generateUniquePlayerID();
             m_prefsDataManager.setPlayerIDPref(appManager.currentPlayerID);
-            playerLoadStatusText.text = "Player unknown local; Creatind ID and moving to AWS";
         }
 
     }
@@ -50,6 +56,7 @@ public class m_loadScreenManager : MonoBehaviour {
     {
         entity_players tP = new entity_players();
         tP.playerID = m_prefsDataManager.getPlayerIDPref();
+        tP.searchName = m_prefsDataManager.getPlayerSearchName();
 
         DBWorker.Instance.Load(tP, OnPlayerLoaded);
     }
@@ -60,7 +67,7 @@ public class m_loadScreenManager : MonoBehaviour {
 
         if(response == null)
         {         //If user not found, pop dialog, cap info and save
-            m_loadScreenManager.instance.playerLoadStatusText.text = "PLAYER NOT FOUND IN AWS; REVEALING DIALOG";
+            Debug.Log ("PLAYER NOT FOUND IN AWS; REVEALING DIALOG");
             m_loadScreenManager.instance.createPlayerRegisterDialog();
             m_loadPanelManager.instance.deactivateLoadPanel();
             return;
@@ -70,10 +77,7 @@ public class m_loadScreenManager : MonoBehaviour {
         {
             appManager.devicePlayer = response;
             Debug.Log("***LOADED THIS PLAYER: " + appManager.devicePlayer.playerName + "***");
-            //m_loadScreenManager.instance.playerLoadStatusText.text = "Player loaded from AWS! Going to menu!";
-            //m_loadScreenManager.instance.loadToMenu();
             m_phaseManager.instance.changePhase(m_phaseManager.phases.titleScreen);
-
         }
         else
         {
