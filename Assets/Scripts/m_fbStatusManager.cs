@@ -11,6 +11,9 @@ public class m_fbStatusManager : MonoBehaviour {
     // Use this for initialization
     public delegate void loginCallback(bool loginStatus);
     public delegate void nameLoadCallback(string name);
+    public delegate void userFriendListPopulateCallback(List<object> users);
+    public delegate void standardEventCallback();
+
     public enum loginRequestSource
     {
         header
@@ -165,7 +168,7 @@ public class m_fbStatusManager : MonoBehaviour {
       //  playerDp.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
     }
 
-    public List<object> loadFriendsInstalledList()
+    public void loadFriendsInstalledList(userFriendListPopulateCallback cbF)
     {
             string getFriendsInfoString = "me/friends?fields=id,name,installed";
             List<object> returnedUsers = new List<object>();
@@ -174,22 +177,13 @@ public class m_fbStatusManager : MonoBehaviour {
                 if (string.IsNullOrEmpty(result.Error) && !result.Cancelled)
                 {
                     returnedUsers = result.ResultDictionary["data"] as List<object>;
-
-                    for (int i = 0; i < returnedUsers.Count; i++)
-                    {
-                        string fName = Convert.ToString(((Dictionary<string, object>)returnedUsers[i])["name"]);
-                        string fId = Convert.ToString(((Dictionary<string, object>)returnedUsers[i])["id"]);
-
-                        Debug.Log(fName + " :: " + fId);
-                    }
+                    cbF(returnedUsers);
                 }
                 else
                 {
                     Debug.Log("NO USERS RETURNED");
                 }
             });
-
-        return returnedUsers;
      }
 #endregion
 }

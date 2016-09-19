@@ -12,26 +12,17 @@ using Amazon.DynamoDBv2.Model;
 public class m_MPLobby_Matchmake : MonoBehaviour {
     public static m_MPLobby_Matchmake instance = null;
 
-    public Text txt_curPlayerReadout;
-
     public GameObject opponentButton;
     public GameObject opponentListParentGrid;
     public GameObject playerListPanel;
 
     public GameObject gamesInitiatedButton;
-    public GameObject gameInitListParentGrid;
-    public GameObject gamesInitListPanel;
 
     public GameObject gameChallengedButton;
-    public GameObject gameChallengedParentGrid;
-    public GameObject gameChallengedPanel;
 
-    
     public GameObject fullGameListParentGrid;
     public GameObject fullGameListPanel;
 
-    public Vector2 listStartPos;
-    public float listYPadding;
     int listIndex;
 
     static List<appManager.playerGameID> p1Initiated = new List<appManager.playerGameID>();
@@ -40,25 +31,50 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public event DDBScanResponseDelegate OnScanComplete;
     public event DDBQueryHashKeyOnlyDelegate<appManager.playerGameID> OnP1GameFetchComplete;
 
+    public bool userFriendListPopulated = false;
+    List<object> users = new List<object>();
+
     void Awake()
     { //Maintain singleton pattern
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
     }
 
-    void Start () {
-      
-	}
-
     public void init_MPLobby()
     {
-      //  m_loadPanelManager.instance.activateLoadPanel();
-      //  Invoke("removeLoadPanel", 2f);
         OnScanComplete += OnPlayerScanComplete;
         clearLists();
-        List<object> users = new List<object>();
-        users = m_fbStatusManager.instance.loadFriendsInstalledList();
+        m_fbStatusManager.instance.loadFriendsInstalledList(playerFriendsPopulated);
         getAllP1Games();
+    }
+
+    void playerFriendsPopulated(List<object> userFriendsWithAppInstalled)
+    {
+        Debug.Log("---ME/FRIENDS?INSTALLED POPULATED");
+        userFriendListPopulated = true;
+        users = userFriendsWithAppInstalled;
+        populateFriendsSubpanel();
+    }
+
+    void populateFriendsSubpanel()
+    {
+        List<entity_players> friendsWithApp = new List<entity_players>();
+
+        for (int i = 0; i < users.Count; i++)
+        {
+            entity_players tP = new entity_players();
+            string fName = Convert.ToString(((Dictionary<string, object>)users[i])["name"]);
+            string fId = Convert.ToString(((Dictionary<string, object>)users[i])["id"]);
+
+            tP.playerName = fName;
+            tP.searchName = fName.ToLower();
+            tP.playerID = fId;
+
+            friendsWithApp.Add(tP);
+            Debug.Log(fName + " :: " + fId);
+        }
+
+        createPlayerListInUI(friendsWithApp);
     }
 
     void getAndListAllPlayers() {
@@ -147,7 +163,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
            
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
-            tManager.parentCanvasTransform = gameInitListParentGrid;
+       //     tManager.parentCanvasTransform = gameInitListParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.intiated;
             tManager.gameID = p1Initiated[i].gameID;
             tManager.loadGameEntity(tManager.gameID);
@@ -164,7 +180,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
            // tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
-            tManager.parentCanvasTransform = gameChallengedParentGrid;
+  //          tManager.parentCanvasTransform = gameChallengedParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.challenged;
             tManager.gameID = p1Challenged[i].gameID; 
             tManager.loadGameEntity(tManager.gameID);

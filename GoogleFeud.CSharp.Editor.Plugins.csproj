@@ -127,6 +127,7 @@
     <Compile Include="Assets\Plugins\DDBHelper\Editor\DDBWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Boomlagoon\JSON\Readme.txt" />
     <None Include="Assets\Examples\License.txt" />
     <None Include="Assets\Facebook\Scripts\Canvas\Resources\JSSDKBindings.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
