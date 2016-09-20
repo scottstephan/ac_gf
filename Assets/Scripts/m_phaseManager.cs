@@ -97,13 +97,15 @@ public class m_phaseManager : MonoBehaviour {
     }
 
     private void transitionToCatSelectMP()
-    { ///Need to know active panel- Menu to cat or MP to cat?
+    { 
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToCatSelect);
+        m_categorySelectionManager.instance.initCategoryPhase();
     }
 
     private void transitionToCatSelectSP()
     {
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.menuToCatSelect);
+        m_categorySelectionManager.instance.initCategoryPhase();
     }
 
 

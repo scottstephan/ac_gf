@@ -200,10 +200,10 @@
     <Compile Include="Assets\Scripts\coreGame\obj_Timer.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_buildManualGrid.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_inputValidator.cs" />
-    <Compile Include="Assets\Scripts\entity_games.cs" />
-    <Compile Include="Assets\Scripts\entity_gamesDead.cs" />
-    <Compile Include="Assets\Scripts\entity_nameIdPair.cs" />
-    <Compile Include="Assets\Scripts\entity_player.cs" />
+    <Compile Include="Assets\Scripts\gameEntities\entity_games.cs" />
+    <Compile Include="Assets\Scripts\gameEntities\entity_gamesDead.cs" />
+    <Compile Include="Assets\Scripts\gameEntities\entity_nameIdPair.cs" />
+    <Compile Include="Assets\Scripts\gameEntities\entity_player.cs" />
     <Compile Include="Assets\Scripts\loadScreen\m_loadScreenManager.cs" />
     <Compile Include="Assets\Scripts\m_colorPaletteManager.cs" />
     <Compile Include="Assets\Scripts\m_fbStatusManager.cs" />
@@ -226,6 +226,8 @@
     <Compile Include="Assets\Scripts\test\jsonImportTest.cs" />
     <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
+    <Compile Include="Assets\Scripts\u_acJsonUtility.cs" />
+    <Compile Include="Assets\Scripts\u_debugManager.cs" />
     <Compile Include="Assets\UITween\Prefabs\Click Effect Pref\ClickedWaveAnimation.cs" />
     <Compile Include="Assets\UITween\ScenesExamplesScripts\ActivateOnEnable.cs" />
     <Compile Include="Assets\UITween\ScenesExamplesScripts\CreateAnimImage.cs" />

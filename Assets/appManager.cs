@@ -17,6 +17,8 @@ public class appManager : MonoBehaviour {
 
     public static entity_games curLiveGame;
     public static obj_Player roundPlayerObject;
+    public static string currentPlayerID;
+    public static u_acJsonUtility.acQ currentQuestion;
 
     public static bool dontUpdateGameRecord = false;
 
@@ -72,8 +74,6 @@ public class appManager : MonoBehaviour {
     }
     public static E_lobbyGameStatus curGameStatus = E_lobbyGameStatus.init_playGame;
 
-    public static string currentPlayerID;
-
     [DynamoDBTable("gamesByPlayer")]
     public class playerGameID
     {
@@ -98,6 +98,7 @@ public class appManager : MonoBehaviour {
         curLiveGame = null;
         roundPlayerObject = null;
         curGameStatus = E_lobbyGameStatus.init_playGame;
+        currentQuestion = null;
         //Any other stuff. Leaving player because why bother.
     }
 

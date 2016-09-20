@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/TEST_jsonImport.unity
+- path: Assets/Scenes/multiPanelSetup/main_panelConfig.unity
   isLoaded: 1
   isActive: 1

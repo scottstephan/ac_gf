@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     public static gameManager instance = null;
 
     public InputField playerInputField;
+    public Text questionText;
     public static GameObject masterUICanvas;
     public static GameObject answerLayoutGrid;
     public GameObject answersPrefab;
@@ -71,14 +72,16 @@ public class gameManager : MonoBehaviour
         answerLayoutGrid = GameObject.Find("answerLayoutGrid");
         obj_Timer.instance.resetTimer();
         m_scoreAndGameStateManager.instance.resetGameUIState();
-        //Reset player
-        currentPlayer = GameObject.Find("playerObject").GetComponent<obj_Player>(); //Should be a data object
+            //Reset player
+        currentPlayer = GameObject.Find("playerObject").GetComponent<obj_Player>(); //Should be a data object. WTF IS THIS???
         currentPlayer.resetPlayer();
         numPlayerHits = 0;
             //Reset answer stuff
         roundAnswerStrings.Clear();
+        questionText.text = appManager.currentQuestion.questionDisplayText;
         numAnswers = 10;
-        addDebugAnswers(); //This will be where JSON kicks in
+        //addDebugAnswers(); //This will be where JSON kicks in
+        addQuestionAnswers();
             //Prepare game
         fillManualAnswerObjects(); //Should be a data object
         m_scoreAndGameStateManager.instance.roundStatusText.text = m_scoreAndGameStateManager.instance.gameStartText;
@@ -282,6 +285,10 @@ public class gameManager : MonoBehaviour
         roundAnswerStrings.Add("Miller");
     }
 
+    void addQuestionAnswers()
+    {
+        roundAnswerStrings = appManager.currentQuestion.turnAnswerStructToList();
+    }
 
 
     //Game works as follows: Pause -> Round Start -> Player Guess || Timer Ends -> Round End -> Pause -> Round Start

@@ -5,14 +5,15 @@ using Boomlagoon.JSON;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+public class u_acJsonUtility : MonoBehaviour {
 
-public class jsonImportTest : MonoBehaviour {
-    public string testJSONText;
-    string testQ = "{ \"questionName\": \"how long to grill\", \"questionDisplayText\": \"how long to grill\", \"questionID\": \"q052\",\"answers\": [\"chicken\",\"corn\",\"salmon\",\"chicken breast\",\"steak\",\"pork chops\",\"burgers\",\"chicken thighs\",\"corn on the cob\",\"chicken kabobs\"]}";
+    public static u_acJsonUtility instance = null;
+
+    public string jsonToImport;
     public JSONArray categoryQuestions;
-    string baseSavePathString;
-    string catSavePathSuffix = "/categories/";
-    string qSavePathSuffix = "/questions/";
+    static string baseSavePathString;
+    static string catSavePathSuffix = "/categories/";
+    static string qSavePathSuffix = "/questions/";
 
     [System.Serializable]
     public class acQ
@@ -54,6 +55,26 @@ public class jsonImportTest : MonoBehaviour {
             questionAnswers.answer_10 = jsonAnswers[9].ToString();
         }
 
+        public List<string> turnAnswerStructToList()
+        {
+            List<string> answersList = new List<string>();
+            answersList.Add(questionAnswers.answer_1);
+            answersList.Add(questionAnswers.answer_2);
+            answersList.Add(questionAnswers.answer_3);
+            answersList.Add(questionAnswers.answer_4);
+            answersList.Add(questionAnswers.answer_5);
+            answersList.Add(questionAnswers.answer_6);
+            answersList.Add(questionAnswers.answer_7);
+            answersList.Add(questionAnswers.answer_8);
+            answersList.Add(questionAnswers.answer_9);
+            answersList.Add(questionAnswers.answer_10);
+            for(int i = 0; i < answersList.Count; ++i)
+            {
+               answersList[i] = answersList[i].Replace("\"","");
+            }
+            return answersList;
+        }
+
         public void displayQCatInfo()
         {
             Debug.Log("QCat: " + category + ":: qCatID: " + catID);
@@ -92,29 +113,32 @@ public class jsonImportTest : MonoBehaviour {
         }
     }
 
-    void Start()
-    {
+
+    void Awake()
+    { //Maintain singleton pattern
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
+
+        // Use this for initialization
+    void Start () {
         baseSavePathString = Application.persistentDataPath;
         createImportDirectories();
     }
-
+	
+	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
-            readJsonSample();
-        else if (Input.GetKeyDown(KeyCode.L))
-            loadCategoryData();
-        else if (Input.GetKeyDown(KeyCode.Q))
-            loadRandomQuestionData();
+	
 	}
 
-    public void readJsonSample()
+    public void readJson()
     {
         JSONValue cSS;
         JSONArray questionsArray;
         JSONObject tempJObj;
 
         acCat thisCat;
-        tempJObj = JSONObject.Parse(testJSONText);
+        tempJObj = JSONObject.Parse(jsonToImport);
         cSS = tempJObj.GetValue("Category"); //This yields the high level category object
         thisCat = createCategoryObject(cSS);
 
@@ -122,6 +146,7 @@ public class jsonImportTest : MonoBehaviour {
         questionsArray = tempJObj.GetArray("questions");
         createQuestionsObject(questionsArray, thisCat);
     }
+
     void createImportDirectories()
     {
         string catPath = baseSavePathString + catSavePathSuffix;
@@ -132,6 +157,7 @@ public class jsonImportTest : MonoBehaviour {
         if (!Directory.Exists(qPath))
             Directory.CreateDirectory(qPath);
     }
+
     acCat createCategoryObject(JSONValue categorySuperString)
     {
         JSONObject category = JSONObject.Parse(categorySuperString.ToString()); // This gives us the category section
@@ -178,19 +204,27 @@ public class jsonImportTest : MonoBehaviour {
             tQ.jsonAnswers = answersArray;
             tQ.fillAnswersStruct();
             //Iterate and assign to the question
-            
+
             string questionJson = JsonUtility.ToJson(tQ);
-            string fPath = baseSavePathString + qSavePathSuffix + tQ.questionID + ".json";
+            string fPathBase = baseSavePathString + qSavePathSuffix + thisCat.categoryName + "/";
+
+            if (!Directory.Exists(fPathBase)){
+                Directory.CreateDirectory(fPathBase);
+            }
+            string fPath = fPathBase + tQ.questionID + ".json";
+
             SaveData(questionJson, fPath);
             Debug.Log("Question Json " + questionJson);
         }
     }
+
     public void SaveData(string jsonToSave, string fPath)
     {
         //string fPath = baseSavePathString + catSavePathSuffix + "test.json";
         Debug.Log("Saving to: " + fPath);
         File.WriteAllText(fPath, jsonToSave);
     }
+
     public void loadCategoryData()
     {
         string fPath = baseSavePathString + catSavePathSuffix + "test.json";
@@ -198,10 +232,10 @@ public class jsonImportTest : MonoBehaviour {
         acCat tCat = JsonUtility.FromJson<acCat>(loadedJson);
         tCat.displayCatInfo();
     }
-
-    public void loadRandomQuestionData()
+   
+    public acQ loadRandomQuestionData(string categoryName)
     {
-        string qRootDir = baseSavePathString + qSavePathSuffix;
+        string qRootDir = baseSavePathString + qSavePathSuffix + categoryName + "/";
         string filePrefix = "q";
         string[] questionFiles = Directory.GetFiles(qRootDir, "*");
 
@@ -229,5 +263,23 @@ public class jsonImportTest : MonoBehaviour {
         tQ.displayQCatInfo();
         tQ.displayQInfo();
         tQ.displayAnswers();
+
+        return tQ;
     }
+
+    public List<string> discoverCategories()
+    {
+        string catRoot = baseSavePathString + catSavePathSuffix;
+        string[] categoryDirectories = Directory.GetFiles(catRoot);
+        List<string> categoryNames = new List<string>();
+
+        for(int i = 0; i < categoryDirectories.Length; ++i)
+        {
+            Debug.Log("Categories:" + categoryDirectories[i]);
+            categoryNames.Add(Path.GetFileNameWithoutExtension(categoryDirectories[i]));
+        }
+
+        return categoryNames;
+    }
+
 }
