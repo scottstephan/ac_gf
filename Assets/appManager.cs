@@ -23,7 +23,7 @@ public class appManager : MonoBehaviour {
     public static bool dontUpdateGameRecord = false;
 
     public bool FB_LOGINSTATUS;
-    public string FB_ID;
+    public static string FB_ID;
     public string FB_NAME;
 
     public enum playerRoles
@@ -118,6 +118,16 @@ public class appManager : MonoBehaviour {
         
     }
 
+    public void compareQDBInfo()
+    {
+        u_acJsonUtility.qDBInfo curQDB = u_acJsonUtility.instance.returnCurQDBObject();
+        if(curQDB.QDBVersion != m_prefsDataManager.getLastQuestionDBImported())
+        {
+            m_prefsDataManager.setLastQuestionDBImported(curQDB.QDBVersion);
+            u_acJsonUtility.instance.readJson();
+        }
+    }
+
     #region loginRoutines
     public void checkFBLoginStatus()
     {
@@ -131,8 +141,9 @@ public class appManager : MonoBehaviour {
         {
             m_headerManager.instance.setHeaderToLoggedIn();
             m_titleScreenManager.instance.mpButton.interactable = true;
-            appManager.instance.FB_ID = m_fbStatusManager.instance.returnFBUserID();
+            appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
             m_fbStatusManager.instance.LoadPlayerName(setFBName);
+            m_loadScreenManager.instance.appInitComplete();
         }
         else
         {

@@ -19,8 +19,13 @@ public class u_debugManager : MonoBehaviour {
             }
             else if (Input.GetKeyDown(KeyCode.L))
             {
-                Debug.Log("+++PARSIN JSON+++");
+                Debug.Log("+++PARSING JSON+++");
                 u_acJsonUtility.instance.readJson();
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Debug.Log("GETTNING QDBINFO");
+                u_acJsonUtility.instance.returnCurQDBObject();
             }
         }
 	}

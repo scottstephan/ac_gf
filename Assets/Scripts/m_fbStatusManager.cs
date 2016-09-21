@@ -84,7 +84,7 @@ public class m_fbStatusManager : MonoBehaviour {
     {
         if (FB.IsInitialized)
         {
-            Debug.Log("---FB IS INITIALIZED; ACTIVATING APP---");
+            Debug.Log("---FB IS INITIALIZED; ACTIVATING APP & SETTING TOKEN---");
             FB.ActivateApp();
         }
     }
@@ -93,10 +93,16 @@ public class m_fbStatusManager : MonoBehaviour {
     {
         if (FB.IsLoggedIn)
         {
+            Debug.Log("---FB USER IS LOGGED IN---");
+            fbToken = Facebook.Unity.AccessToken.CurrentAccessToken; //Otherwise token is set at login time
+            Debug.Log("FB TOKEN EXP TIME: " + fbToken.ExpirationTime);
             return fbToken.UserId;
         }
         else
+        {
+            Debug.Log("---FB USER NOT LOGGED IN---");
             return "ERROR";
+        }
     }
 
     void OnHideUnity(bool isGameShown)

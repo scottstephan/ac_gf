@@ -8,12 +8,24 @@ using System.IO;
 public class u_acJsonUtility : MonoBehaviour {
 
     public static u_acJsonUtility instance = null;
-
+    bool useResourcesFolder = false;
     public string jsonToImport;
     public JSONArray categoryQuestions;
     static string baseSavePathString;
     static string catSavePathSuffix = "/categories/";
     static string qSavePathSuffix = "/questions/";
+
+    [System.Serializable]
+    public class qDBInfo
+    {
+        public string QDBVersion;
+        public string QDBNote;
+
+        public void readQDBData()
+        {
+            Debug.Log("QDBVersion: " + QDBVersion + ":: QBNotes: " + QDBNote);
+        }
+    }
 
     [System.Serializable]
     public class acQ
@@ -122,7 +134,10 @@ public class u_acJsonUtility : MonoBehaviour {
 
         // Use this for initialization
     void Start () {
-        baseSavePathString = Application.persistentDataPath;
+        if (useResourcesFolder)
+            baseSavePathString = "Assets/Resources/";
+        else
+            baseSavePathString = Application.persistentDataPath;
         createImportDirectories();
     }
 	
@@ -280,6 +295,20 @@ public class u_acJsonUtility : MonoBehaviour {
         }
 
         return categoryNames;
+    }
+
+    public qDBInfo returnCurQDBObject()
+    {
+        qDBInfo tInfo = new qDBInfo();
+        // string fPath = "Assets/Resources/qDBInfo.json";
+        //string loadedJson = File.ReadAllText(fPath);
+        TextAsset lJ = Resources.Load<TextAsset>("qDBInfo");
+        string useableJson = lJ.ToString();
+        Debug.Log("QDB JSON: " + useableJson);
+        tInfo = JsonUtility.FromJson<qDBInfo>(useableJson);
+        tInfo.readQDBData();
+
+        return tInfo;
     }
 
 }

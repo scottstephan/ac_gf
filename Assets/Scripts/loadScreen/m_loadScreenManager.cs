@@ -22,6 +22,7 @@ public class m_loadScreenManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        appManager.instance.compareQDBInfo();
         appManager.instance.checkFBLoginStatus();
     }
 

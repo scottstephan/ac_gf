@@ -6,7 +6,8 @@ public  static class m_prefsDataManager  {
     public enum playerPrefVariables
     {
         playerID,
-        playerSearchName
+        playerSearchName,
+        lastQuestionDBImported
     }
 
 	public static void setPlayerIDPref(string id)
@@ -65,5 +66,15 @@ public  static class m_prefsDataManager  {
         }
 
         return false;
+    }
+
+    public static void setLastQuestionDBImported(string dbNum)
+    {
+        PlayerPrefs.SetString(playerPrefVariables.lastQuestionDBImported.ToString(), dbNum);
+    }
+
+    public static string getLastQuestionDBImported()
+    {
+        return PlayerPrefs.GetString(playerPrefVariables.lastQuestionDBImported.ToString());
     }
 }
