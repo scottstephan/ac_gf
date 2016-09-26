@@ -139,10 +139,10 @@ public class appManager : MonoBehaviour {
         FB_LOGINSTATUS = loginStatus;
         if (loginStatus)
         {
-            m_headerManager.instance.setHeaderToLoggedIn();
-            m_titleScreenManager.instance.mpButton.interactable = true;
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
-            m_fbStatusManager.instance.LoadPlayerName(setFBName);
+            m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
+            m_titleScreenManager.instance.mpButton.interactable = true;
+            m_headerManager.instance.setHeaderToLoggedIn();
             m_loadScreenManager.instance.appInitComplete();
         }
         else
@@ -156,9 +156,11 @@ public class appManager : MonoBehaviour {
 
     public void setFBName(string name)
     {
-      appManager.instance.FB_NAME = name;
-      appManager.instance.createAndSetPlayer(FB_ID,FB_NAME);
-      m_loadScreenManager.instance.appInitComplete();
+          appManager.instance.FB_NAME = name;
+          appManager.instance.createAndSetPlayer(FB_ID,FB_NAME);
+          m_headerManager.instance.setHeaderToLoggedIn();
+
+          m_loadScreenManager.instance.appInitComplete();
     }
     #endregion
 
@@ -285,6 +287,22 @@ public class appManager : MonoBehaviour {
     {
         curLiveGame = cGame;
         devicePlayerRoleInCurGame = p1Role;
+    }
+
+        /// <summary>
+        /// Called from the category selection buttons- Sets the question details that were missing when we initially created the game
+        /// </summary>
+    public static void setCurGameQuestionDetails(string cID, string cName, string qID, string qName)
+    {
+        appManager.curLiveGame.questionText = qName;
+        appManager.curLiveGame.questionID = qID;
+        appManager.curLiveGame.categoryText = cName;
+        appManager.curLiveGame.categoryID = cID;
+    }
+
+    public static void loadSpecificQuestion()
+    {
+        appManager.currentQuestion = u_acJsonUtility.instance.loadSpecificQuestionData(curLiveGame.questionID, curLiveGame.categoryText);
     }
 
     public static void updateGameRecord_Manual()

@@ -19,6 +19,8 @@ public class categorySelectionButtonManager : MonoBehaviour
     public void buttonClicked()
     {
         m_categorySelectionManager.instance.loadCategoryQuestion(categoryName);
+        appManager.setCurGameQuestionDetails(categoryId,categoryName, appManager.currentQuestion.questionID, appManager.currentQuestion.questionName);
+
         m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
     }
 

@@ -1,0 +1,528 @@
+{
+	"Category": {
+		"categoryName": "questions",
+		"categoryDisplayText": "Questions",
+		"categoryID": "c007",
+		"questions": [{
+			"questionName": "how do you get",
+			"questionDisplayText": "How do you get",
+			"questionID": "q402",
+			"answers": ["bed bugs", "pink eye", "rid of bed bugs", "coins in pokemon go", "scabies", "hpv", "ringworm", "a uti", "hepatitis c", "mono"]
+		}, {
+			"questionName": "is there a law against",
+			"questionDisplayText": "Is there a law against",
+			"questionID": "q403",
+			"answers": ["swearing in public", "burning the flag", "burning the us flag", "sagging pants", "driving barefoot", "burning the american flag", "breastfeeding in public", "collecting rainwater", "sexting", "false accusations"]
+		}, {
+			"questionName": "how do you pretend to be",
+			"questionDisplayText": "How do you pretend to be",
+			"questionID": "q404",
+			"answers": ["a carrot", "happy", "high", "sick", "drunk", "asleep", "pregnant", "a vampire", "a virgin", "offline on facebook"]
+		}, {
+			"questionName": "how do you fake a",
+			"questionDisplayText": "How do you fake a",
+			"questionID": "q405",
+			"answers": ["death", "smile", "fever", "back injury", "dna test", "seizure", "sprained ankle", "home pregnancy test", "pregnancy", "cold"]
+		}, {
+			"questionName": "how much does it cost to buy a",
+			"questionDisplayText": "How much does it cost to buy a",
+			"questionID": "q406",
+			"answers": ["star", "horse", "house", "hospital", "dog", "snapchat filter", "food truck", "domain name", "car", "mcdonalds"]
+		}, {
+			"questionName": "can i perform my own",
+			"questionDisplayText": "Can I perform my own",
+			"questionID": "q407",
+			"answers": ["abortion", "home inspection", "background check", "wedding", "nikah", "circumcision", "labiaplasty", "membrane sweep", "title search", "liposuction"]
+		}, {
+			"questionName": "is there such thing as a",
+			"questionDisplayText": "Is there such thing as a",
+			"questionID": "q408",
+			"answers": ["black lion", "snow snake", "perfect circle", "1000 dollar bill", "liger", "mini pig", "ghost", "blue moon", "black panther", "million dollar bill"]
+		}, {
+			"questionName": "is it possible to",
+			"questionDisplayText": "Is it possible to",
+			"questionID": "q409",
+			"answers": ["fly", "be allergic to weed", "have powers", "improve your memory", "ovulate early", "read minds", "shrink", "overdose on weed", "become lactose intolerant", "get shorter"]
+		}, {
+			"questionName": "can dogs learn to",
+			"questionDisplayText": "Can dogs learn to",
+			"questionID": "q410",
+			"answers": ["fly", "speak", "drive", "wink", "get along", "smile", "use the toilet", "read", "use a litter box", "understand english"]
+		}, {
+			"questionName": "can pigs eat",
+			"questionDisplayText": "Can pigs eat",
+			"questionID": "q411",
+			"answers": ["chocolate", "bones", "corn husks", "grapes", "dog food", "chicken bones", "strawberries", "tomatoes", "meat", "watermelon"]
+		}, {
+			"questionName": "everything tastes",
+			"questionDisplayText": "Everything tastes",
+			"questionID": "q412",
+			"answers": ["salty", "better with cat hair in it", "sweet", "better with dog hair", "bad", "metallic", "weird", "like soap", "sour", "like fish"]
+		}, {
+			"questionName": "can you milk a",
+			"questionDisplayText": "Can you milk a",
+			"questionID": "q413",
+			"answers": ["man", "chicken", "cat", "horse", "snake", "whale", "pig", "sheep", "male cow", "camel"]
+		}, {
+			"questionName": "what happens when you mix alcohol and",
+			"questionDisplayText": "What happens when you mix alcohol and",
+			"questionID": "q414",
+			"answers": ["weed", "bleach", "oxycodone", "drugs", "percocet", "water", "xanax", "vinegar", "prozac", "hydrogen peroxide"]
+		}, {
+			"questionName": "can you die from eating too much",
+			"questionDisplayText": "Can you die from eating too much",
+			"questionID": "q415",
+			"answers": ["weed", "salt", "bananas", "watermelon", "ice", "pizza", "sugar", "food", "cheese", "fruit"]
+		}, {
+			"questionName": "where can i buy human",
+			"questionDisplayText": "Where can I buy human",
+			"questionID": "q416",
+			"answers": ["meat", "chorionic gonadotropin", "placenta", "hair", "effigies", "hair extensions", "teeth", "growth hormones", "bones", "hair dreadlocks"]
+		}, {
+			"questionName": "is it wrong to be",
+			"questionDisplayText": "Is it wrong to be",
+			"questionID": "q417",
+			"answers": ["gay", "strong", "cremated", "transgender", "jealous", "selfish", "white", "an introvert", "angry with god", "racist"]
+		}, {
+			"questionName": "how do you make someone",
+			"questionDisplayText": "How do you make someone",
+			"questionID": "q418",
+			"answers": ["fall in love with you", "pass out", "like you", "miss you", "shut up", "happy", "laugh", "fall in love with you again", "feel better", "an administrator on facebook"]
+		}, {
+			"questionName": "how do you make",
+			"questionDisplayText": "How do you make",
+			"questionID": "q419",
+			"answers": ["french toast", "jello shots", "slime", "ice cream", "a mojito", "buttermilk", "meatloaf", "a pokestop", "a smoothie", "sangria"]
+		}, {
+			"questionName": "where do i buy a",
+			"questionDisplayText": "Where do I buy a",
+			"questionID": "q420",
+			"answers": ["keg", "hoverboard", "savings bond", "fitbit", "sim card", "dog", "passport", "money order", "house in skyrim", "gun"]
+		}, {
+			"questionName": "where can you sell a",
+			"questionDisplayText": "Where can you sell a",
+			"questionID": "q421",
+			"answers": ["testicle", "diamond ring", "gun", "phone", "gift card", "car", "tv", "broken iphone", "fur coat", "testicle for money"]
+		}, {
+			"questionName": "what body parts can you",
+			"questionDisplayText": "What body parts can you",
+			"questionID": "q422",
+			"answers": ["sell", "sell legally", "eat", "wrap at the same time", "donate while alive", "not live without", "crack", "donate", "use in soccer", "pierce"]
+		}, {
+			"questionName": "can you smoke",
+			"questionDisplayText": "Can you smoke",
+			"questionID": "q423",
+			"answers": ["molly", "coke", "xanax", "catnip", "mushrooms", "kratom", "at cedar point", "in detroit airport", "weed stems", "stems"]
+		}, {
+			"questionName": "what if i ate",
+			"questionDisplayText": "What if i ate",
+			"questionID": "q424",
+			"answers": ["poop", "tuna while pregnant", "weed", "before surgery", "mold", "myself", "bad chicken", "a bad egg", "raw chicken", "moldy food"]
+		}, {
+			"questionName": "what if i lied on my",
+			"questionDisplayText": "What if i lied on my",
+			"questionID": "q425",
+			"answers": ["job application", "cv", "resume", "fafsa", "college application", "tax return", "unemployment", "deathbed", "taxes", "rental application"]
+		}, {
+			"questionName": "why am i afraid of",
+			"questionDisplayText": "Why am i afraid of",
+			"questionID": "q426",
+			"answers": ["heights", "spiders", "the dark", "needles", "dating", "everything", "success", "intimacy", "change", "death"]
+		}, {
+			"questionName": "why are dogs",
+			"questionDisplayText": "Why are dogs",
+			"questionID": "q427",
+			"answers": ["haram", "so cute", "so loyal", "better than cats", "najis", "noses wet", "so happy", "so loving", "scared of fireworks", "afraid of storms"]
+		}, {
+			"questionName": "why are cats",
+			"questionDisplayText": "Why are cats",
+			"questionID": "q428",
+			"answers": ["afraid of cucumbers", "so cute", "so mean", "afraid of water", "better than dogs", "noses wet", "scared of water", "so curious", "stupid", "so lazy"]
+		}, {
+			"questionName": "why do they call it",
+			"questionDisplayText": "Why do they call it",
+			"questionID": "q429",
+			"answers": ["bw3", "a fifth", "marco polo", "a funny bone", "a charlie horse", "catfishing", "the big apple", "a semi truck", "a boston cooler", "a rubber match"]
+		}, {
+			"questionName": "can you sell your",
+			"questionDisplayText": "Can you sell your",
+			"questionID": "q430",
+			"answers": ["soul", "eggs", "testicle", "blood", "soul to god", "placenta", "hair", "clash of clans account", "uterus", "magazines in fallout 4"]
+		}, {
+			"questionName": "should i pierce my",
+			"questionDisplayText": "Should I pierce my",
+			"questionID": "q431",
+			"answers": ["nipples", "ears", "belly button", "ears guy", "tongue", "own nose", "septum", "own ears", "nose", "lip"]
+		}, {
+			"questionName": "is the president a",
+			"questionDisplayText": "Is the president a",
+			"questionID": "q432",
+			"answers": ["puppet", "muslim", "civilian", "government official", "federal employee", "public servant", "civil servant", "figurehead", "military officer", "government employee"]
+		}, {
+			"questionName": "why is my girlfriend so",
+			"questionDisplayText": "Why is my girlfriend so",
+			"questionID": "q433",
+			"answers": ["mean", "cute", "weird", "amazing", "emotional", "jealous", "lazy", "dumb", "needy", "beautiful"]
+		}, {
+			"questionName": "why is my boyfriend so",
+			"questionDisplayText": "Why is my boyfriend so",
+			"questionID": "q434",
+			"answers": ["mean", "cute", "hot", "clingy", "stupid", "weird", "jealous", "insecure", "controlling", "moody"]
+		}, {
+			"questionName": "why does my arm",
+			"questionDisplayText": "Why does my arm",
+			"questionID": "q435",
+			"answers": ["hurt", "twitch", "ache", "keep falling asleep", "hurt when i bend it", "feel numb", "tingle", "hurt when i sneeze", "shake", "itch"]
+		}, {
+			"questionName": "what happens if you eat",
+			"questionDisplayText": "What happens if you eat",
+			"questionID": "q436",
+			"answers": ["mold", "moldy bread", "poop", "too much protein", "too much sugar", "raw chicken", "too much salt", "too much fiber", "poison ivy", "weed"]
+		}, {
+			"questionName": "what is the address of",
+			"questionDisplayText": "What is the address of",
+			"questionID": "q437",
+			"answers": ["my current location", "detroit metro airport", "the white house", "comerica park", "the walmart in dodgeville wisconsin", "where i am", "costco", "the empire state building", "the element 17", "the irs"]
+		}, {
+			"questionName": "what is the number for",
+			"questionDisplayText": "What is the number for",
+			"questionID": "q438",
+			"answers": ["the irs", "comcast", "dte energy", "sprint", "pi", "gamestop", "autozone", "marvin", "cvs", "time"]
+		}, {
+			"questionName": "can you eat",
+			"questionDisplayText": "Can you eat",
+			"questionID": "q439",
+			"answers": ["carp", "radish greens", "weed", "cicadas", "mulberries", "mango skin", "salmon skin", "wild strawberries", "acorns", "crab apples"]
+		}, {
+			"questionName": "can you smell",
+			"questionDisplayText": "Can you smell",
+			"questionID": "q440",
+			"answers": ["what the rock is cooking", "what the rock is cooking meme", "that smell", "what the rock is cooking gif", "mold", "cancer", "rain", "carbon dioxide", "pheromones", "vodka"]
+		}, {
+			"questionName": "is it cool to",
+			"questionDisplayText": "Is it cool to",
+			"questionID": "q441",
+			"answers": ["vape", "be black", "be hip cnn", "rap about gold", "say cool", "be bisexual", "be a nerd", "be smart", "wear a watch", "go to sleep on the floor"]
+		}, {
+			"questionName": "who makes the best",
+			"questionDisplayText": "Who makes the best",
+			"questionID": "q442",
+			"answers": ["1911", "ar 15", "refrigerator", "tents", "mattress", "laptops", "weed wacker", "furnace", "paint", "tv"]
+		}, {
+			"questionName": "why do people",
+			"questionDisplayText": "Why do people",
+			"questionID": "q443",
+			"answers": ["yawn", "snore", "cut", "lie", "cheat", "fart", "like trump", "stutter", "smoke", "cry"]
+		}, {
+			"questionName": "who was the first person in the world to",
+			"questionDisplayText": "Who was the first person in the world to",
+			"questionID": "q444",
+			"answers": ["fart", "die", "be alive", "climb mount everest", "be born", "have aids", "have blue eyes", "get ebola", "get a tattoo", "get drunk"]
+		}, {
+			"questionName": "is duct tape safe for",
+			"questionDisplayText": "Is duct tape safe for",
+			"questionID": "q445",
+			"answers": ["skin", "hamsters", "fish", "dogs", "rats", "rabbits", "guinea pigs", "electrical", "walls", "wires"]
+		}, {
+			"questionName": "how does one become a",
+			"questionDisplayText": "How does one become a",
+			"questionID": "q446",
+			"answers": ["delegate", "christian", "saint", "judge", "narcissist", "us citizen", "knight", "sociopath", "mason", "count"]
+		}, {
+			"questionName": "do cats and dogs",
+			"questionDisplayText": "Do cats and dogs",
+			"questionID": "q447",
+			"answers": ["go to heaven", "get along", "have souls", "get lice", "cry", "see in color", "hate each other", "sweat", "have belly buttons", "dream"]
+		}, {
+			"questionName": "does my boss",
+			"questionDisplayText": "Does my boss",
+			"questionID": "q448",
+			"answers": ["like me", "hate me", "have aspergers", "love me", "find me attractive", "want to fire me", "like me romantically", "want me", "value me", "like me as an employee"]
+		}, {
+			"questionName": "should i quit",
+			"questionDisplayText": "Should I quit",
+			"questionID": "q449",
+			"answers": ["my job", "smoking", "my second job", "league", "smoking weed", "weed", "my sport", "coffee", "or get fired", "drinking"]
+		}, {
+			"questionName": "should i get",
+			"questionDisplayText": "Should I get",
+			"questionID": "q450",
+			"answers": ["ios 10", "the iphone 7", "bangs", "windows 10", "a tattoo", "a dog", "a fitbit", "married", "overwatch", "a credit card"]
+		}, {
+			"questionName": "should i get a",
+			"questionDisplayText": "Should I get a",
+			"questionID": "q451",
+			"answers": ["tattoo", "dog", "fitbit", "credit card", "cat", "perm", "divorce", "second dog", "nose job", "phd"]
+		}, {
+			"questionName": "should i go to",
+			"questionDisplayText": "Should I go to",
+			"questionID": "q452",
+			"answers": ["law school", "college", "the er", "the hospital", "grad school", "medical school", "the hospital for self harm", "the doctor", "bed", "work today"]
+		}, {
+			"questionName": "should i stop",
+			"questionDisplayText": "Should I stop",
+			"questionID": "q453",
+			"answers": ["drinking", "texting her", "texting him", "contributing to my 401k", "taking creatine", "eating meat", "talking to her", "eating dairy", "talking to him", "eating bread"]
+		}, {
+			"questionName": "should i start",
+			"questionDisplayText": "Should I start",
+			"questionID": "q454",
+			"answers": ["an llc", "a blog", "a youtube channel", "a business", "playing wow", "smoking", "vaping", "skateboarding", "wearing makeup", "drinking coffee"]
+		}, {
+			"questionName": "should i be a",
+			"questionDisplayText": "Should i be a",
+			"questionID": "q455",
+			"answers": ["teacher", "doctor", "lawyer", "nurse", "beachbody coach", "cop", "surgeon", "stay at home mom", "vet", "real estate agent"]
+		}, {
+			"questionName": "when is a good time to",
+			"questionDisplayText": "When is a good time to",
+			"questionID": "q456",
+			"answers": ["split hostas", "buy a car", "buy a house", "have a baby", "refinance", "transplant hostas", "invest", "water your grass", "go fishing", "pick strawberries"]
+		}, {
+			"questionName": "what is the best kind of",
+			"questionDisplayText": "What is the best kind of",
+			"questionID": "q457",
+			"answers": ["dog", "weed", "dog food", "steak", "cutting board", "mattress", "water to drink", "coconut oil", "magnesium to take", "mulch"]
+		}, {
+			"questionName": "does the moon have",
+			"questionDisplayText": "Does the moon have",
+			"questionID": "q458",
+			"answers": ["gravity", "a name", "an atmosphere", "water", "a core", "wind", "its own light", "a moon", "a face", "a molten core"]
+		}, {
+			"questionName": "do astronauts",
+			"questionDisplayText": "Do astronauts",
+			"questionID": "q459",
+			"answers": ["drink tang", "shower", "drink urine", "age slower", "still go to space", "believe in god", "get taller in space", "drink their own pee", "see stars", "pay taxes"]
+		}, {
+			"questionName": "do cats",
+			"questionDisplayText": "Do cats",
+			"questionID": "q460",
+			"answers": ["fart", "sweat", "cry", "eat mice", "pant", "blink", "dream", "see color", "drink milk", "get colds"]
+		}, {
+			"questionName": "do dogs",
+			"questionDisplayText": "Do dogs",
+			"questionID": "q461",
+			"answers": ["sweat", "like hugs", "dream", "cry", "go to heaven", "smile", "see in color", "have souls", "have belly buttons", "get poison ivy"]
+		}, {
+			"questionName": "do birds",
+			"questionDisplayText": "Do birds",
+			"questionID": "q462",
+			"answers": ["pee", "sleep", "have ears", "eat bees", "fart", "have teeth", "eat cicadas", "fly at night", "have tongues", "sweat"]
+		}, {
+			"questionName": "is it ok to swim with",
+			"questionDisplayText": "is it ok to swim with",
+			"questionID": "q463",
+			"answers": ["a pad", "pink eye", "a sprained ankle", "a uti", "contacts", "a fever", "a tampon", "lice", "a cold", "dolphins"]
+		}, {
+			"questionName": "is it painful to",
+			"questionDisplayText": "Is it painful to",
+			"questionID": "q464",
+			"answers": ["die", "have sex", "get a crown", "drown", "get a tattoo", "donate plasma", "give birth", "overdose", "get an iud", "die in your sleep"]
+		}, {
+			"questionName": "is it fun to be a",
+			"questionDisplayText": "Is it fun to be a",
+			"questionID": "q465",
+			"answers": ["girl", "barista", "pet named steve", "lawyer", "teacher", "cat", "pilot", "boy", "police officer", "doctor"]
+		}, {
+			"questionName": "is it fun to",
+			"questionDisplayText": "Is it fun to",
+			"questionID": "q466",
+			"answers": ["be a", "be a girl", "be fat", "be a barista", "work at google", "be a pet named steve", "be a lawyer", "be a teacher", "be a cat", "be a pilot"]
+		}, {
+			"questionName": "is it bad to",
+			"questionDisplayText": "is it bad to",
+			"questionID": "q467",
+			"answers": ["smoke weed", "eat ice", "swallow gum", "chew ice", "sleep on your stomach", "crack your back", "pop a blister", "eat late at night", "sleep on your side", "eat at night"]
+		}, {
+			"questionName": "what happens if you microwave",
+			"questionDisplayText": "What happens if you microwave",
+			"questionID": "q468",
+			"answers": ["a cat", "nothing", "dry ice", "metal", "weed", "fire", "a spoon", "nutella", "styrofoam", "your phone"]
+		}, {
+			"questionName": "what happened to",
+			"questionDisplayText": "what happened to",
+			"questionID": "q469",
+			"answers": ["greta van susteren", "melanie dotson", "gabe rygaard", "lamar", "jonbenet ramsey", "jacob roloff", "jason carr", "jaden smith", "105.1 detroit", "richard bernstein"]
+		}, {
+			"questionName": "has a person ever been",
+			"questionDisplayText": "Has a person ever been",
+			"questionID": "q470",
+			"answers": ["killed by a cat", "mailed", "cloned", "in a black hole", "to mars", "raised by wolves", "taxidermied", "born with a tail", "lost in space", "swallowed by a whale"]
+		}, {
+			"questionName": "has a dog ever been",
+			"questionDisplayText": "Has a dog ever been",
+			"questionID": "q471",
+			"answers": ["elected mayor", "cloned", "in space", "mayor", "bred with a cat", "to the top of mount everest", "eaten by a shark", "knighted", "hit by lightning", "awarded the medal of honor"]
+		}, {
+			"questionName": "do fish ever",
+			"questionDisplayText": "Do fish ever",
+			"questionID": "q472",
+			"answers": ["sleep", "drown", "get bored", "fart", "get thirsty", "blink", "get full", "stop moving", "stop growing", "get tired"]
+		}, {
+			"questionName": "what the hell is a",
+			"questionDisplayText": "what the hell is a",
+			"questionID": "q473",
+			"answers": ["dab", "meme", "stiles", "quan", "pokemon", "dim mak", "jigawatt", "caucus", "millennial", "gigawatt"]
+		}, {
+			"questionName": "why does my dad",
+			"questionDisplayText": "Why does my dad",
+			"questionID": "q474",
+			"answers": ["hate me", "hit me", "drink", "love me", "smell", "get so angry", "ignore me", "have anger issues", "touched me", "yell at me"]
+		}, {
+			"questionName": "is my cat",
+			"questionDisplayText": "Is my cat",
+			"questionID": "q475",
+			"answers": ["sick", "dying", "pregnant", "in heat", "happy", "overweight", "depressed", "too skinny", "a boy or girl", "lonely"]
+		}, {
+			"questionName": "is my bird",
+			"questionDisplayText": "Is my bird",
+			"questionID": "q476",
+			"answers": ["gay", "a terrorist", "sick", "molting", "dead", "a boy or girl", "cold", "choking", "lonely", "happy"]
+		}, {
+			"questionName": "can you deep fry",
+			"questionDisplayText": "Can you deep fry",
+			"questionID": "q477",
+			"answers": ["a hot dog", "with olive oil", "bacon", "pizza rolls", "water", "salmon", "an egg", "in coconut oil", "frozen chicken", "steak"]
+		}, {
+			"questionName": "can you mail a",
+			"questionDisplayText": "Can you mail a",
+			"questionID": "q478",
+			"answers": ["potato", "gun", "magnet", "dog", "check", "cell phone", "cat", "bottle of wine", "knife", "coconut"]
+		}, {
+			"questionName": "what happens if you touch a",
+			"questionDisplayText": "What happens if you touch a",
+			"questionID": "q479",
+			"answers": ["elf", "cloud", "toad", "frog", "power line", "baby bunny", "butterfly", "lionfish", "star", "slug"]
+		}, {
+			"questionName": "does canada have",
+			"questionDisplayText": "Does Canada have",
+			"questionID": "q480",
+			"answers": ["states", "an army", "a military", "uber", "nuclear weapons", "pokemon go", "zip codes", "gun control", "counties", "an income tax"]
+		}, {
+			"questionName": "does north korea have",
+			"questionDisplayText": "Does North Korea have",
+			"questionID": "q481",
+			"answers": ["allies", "an olympic team", "the h bomb", "nukes", "a navy", "elections", "electricity", "internet", "a nuclear bomb", "olympic athletes"]
+		}, {
+			"questionName": "does santa claus have",
+			"questionDisplayText": "Does Santa Claus have",
+			"questionID": "q482",
+			"answers": ["a", "an e", "diabetes", "a middle name", "a phone number", "a brother", "an email address", "a birthday", "a daughter", "long hair"]
+		}, {
+			"questionName": "do they still make",
+			"questionDisplayText": "do they still make",
+			"questionID": "q483",
+			"answers": ["vicodin", "pontiacs", "zima", "stroh's beer", "wonder bread", "tang", "hummers", "$2 bills", "jeep libertys", "anacin"]
+		}, {
+			"questionName": "can you still buy",
+			"questionDisplayText": "can you still buy",
+			"questionID": "q484",
+			"answers": ["tang", "windows 7", "zima", "waterbeds", "snapchat filters", "a pager", "us savings bonds", "m80s", "disposable cameras", "35mm film"]
+		}, {
+			"questionName": "can the government control",
+			"questionDisplayText": "Can the government control",
+			"questionID": "q485",
+			"answers": ["the weather", "your phone", "your mind", "our weather", "freedom of speech", "the internet", "your car", "your computer", "what we eat", "gas prices"]
+		}, {
+			"questionName": "can i be a",
+			"questionDisplayText": "can i be a",
+			"questionID": "q486",
+			"answers": ["model", "doctor", "surrogate", "spy", "nurse", "surgeon", "male model", "lawyer", "medical assistant with a misdemeanor", "cop"]
+		}, {
+			"questionName": "what would happen if i",
+			"questionDisplayText": "what would happen if i",
+			"questionID": "q487",
+			"answers": ["died", "killed myself", "ate poop", "only ate ramen", "reset my iphone", "only ate fruit", "only drank water", "ran away", "didn't eat for a week", "drank bleach"]
+		}, {
+			"questionName": "will my dog eat my",
+			"questionDisplayText": "will my dog eat my",
+			"questionID": "q488",
+			"answers": ["cat", "dead body", "new kitten", "baby", "kitten", "bunny", "bird", "rat", "sugar glider", "chickens"]
+		}, {
+			"questionName": "how old do i have to be to work at",
+			"questionDisplayText": "how old do i have to be to work at",
+			"questionID": "q489",
+			"answers": ["target", "subway", "petco", "walmart", "mcdonalds", "cvs", "taco bell", "best buy", "starbucks", "walgreens"]
+		}, {
+			"questionName": "why do men",
+			"questionDisplayText": "why do men",
+			"questionID": "q490",
+			"answers": ["cheat", "have nipples", "lie", "hit women", "go bald", "wake up with an erection", "pull away", "have facial hair", "grow beards", "like feet"]
+		}, {
+			"questionName": "why do women",
+			"questionDisplayText": "why do women",
+			"questionID": "q491",
+			"answers": ["cheat", "moan", "wear thongs", "wear hijab", "wear bras", "douche", "wear makeup", "have periods", "get morning sickness", "wear high heels"]
+		}, {
+			"questionName": "from what age can babies",
+			"questionDisplayText": "from what age can babies",
+			"questionID": "q492",
+			"answers": ["fly", "drink rooibos tea", "have gripe water", "use a jumperoo", "have weetabix", "sit in a bumbo", "drink water", "drink tap water", "smile", "see"]
+		}, {
+			"questionName": "what exactly is",
+			"questionDisplayText": "what exactly is",
+			"questionID": "q493",
+			"answers": ["a firework", "martial law", "cancer", "isis", "pokemon go", "gluten", "transgender", "the zika virus", "sharia law", "anxiety"]
+		}, {
+			"questionName": "what's the deal with",
+			"questionDisplayText": "what's the deal with",
+			"questionID": "q494",
+			"answers": ["pokemon go", "harambe", "hamilton", "airline food", "airplane peanuts", "lemonade", "cats and cucumbers", "the volvo commercial", "gabby douglas", "seinfeld"]
+		}, {
+			"questionName": "can jesus",
+			"questionDisplayText": "can jesus",
+			"questionID": "q495",
+			"answers": ["hear me", "help me", "microwave a burrito", "talk to you", "microwave a burrito tumblr", "heal me", "change a narcissist", "be worshipped", "heal all sickness", "microwave a burrito youtube"]
+		}, {
+			"questionName": "why are the french so",
+			"questionDisplayText": "why are the french so",
+			"questionID": "q496",
+			"answers": ["rude", "thin", "arrogant", "good at cooking", "depressed", "lazy", "weird", "mean", "gay", "short"]
+		}, {
+			"questionName": "how long should i",
+			"questionDisplayText": "how long should i",
+			"questionID": "q497",
+			"answers": ["boil corn", "nap", "pump", "bake chicken", "boil corn on the cob", "boil eggs", "water my lawn", "sleep", "study for the gre", "grill salmon"]
+		}, {
+			"questionName": "can a dog be",
+			"questionDisplayText": "can a dog be",
+			"questionID": "q498",
+			"answers": ["gay", "vegan", "declawed", "a vegetarian", "autistic", "allergic to grass", "allergic to fleas", "allergic to a cat", "allergic to another dog", "transgender"]
+		}, {
+			"questionName": "can i eat my",
+			"questionDisplayText": "can i eat my",
+			"questionID": "q499",
+			"answers": ["sperm", "scoby", "crocs", "pet named steve", "dog", "chia pet", "period", "boogers", "poop", "cat"]
+		}, {
+			"questionName": "why is my goldfish",
+			"questionDisplayText": "why is my goldfish",
+			"questionID": "q500",
+			"answers": ["turning black", "black", "turning red", "plotting against me", "turning white", "dying", "water cloudy", "not eating", "shaking", "floating"]
+		}, {
+			"questionName": "is it safe to travel to",
+			"questionDisplayText": "is it safe to travel to",
+			"questionID": "q501",
+			"answers": ["europe", "greece", "mexico", "paris", "israel", "egypt", "italy", "puerto rico", "dubai", "costa rica"]
+		}, {
+			"questionName": "what happens if you drink",
+			"questionDisplayText": "what happens if you drink",
+			"questionID": "q502",
+			"answers": ["bleach", "blood", "salt water", "visine", "expired milk", "bad milk", "too much water", "bad wine", "gasoline", "vinegar"]
+		}, {
+			"questionName": "why do adults have",
+			"questionDisplayText": "why do adults have",
+			"questionID": "q503",
+			"answers": ["stem cells", "stem cells answers", "security blankets", "acne", "nightmares", "night terrors", "stem cells apex", "tantrums", "baby teeth", "green poop"]
+		}, {
+			"questionName": "is it easy to grow",
+			"questionDisplayText": "is it easy to grow",
+			"questionID": "q504",
+			"answers": ["pot", "watermelon", "lavender", "mushrooms", "blueberries", "kale", "garlic", "sunflowers", "hops", "spinach"]
+		}, {
+			"questionName": "is anyone else leaving",
+			"questionDisplayText": "is anyone else leaving",
+			"questionID": "q505",
+			"answers": ["ncis", "hamilton", "the eu", "one direction", "grey anatomy", "days of our lives", "coronation street", "the young and the restless", "downton abbey", "y&r"]
+		}]
+	}
+}

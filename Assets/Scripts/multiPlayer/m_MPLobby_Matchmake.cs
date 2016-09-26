@@ -50,7 +50,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void playerFriendsPopulated(List<object> userFriendsWithAppInstalled)
     {
-        Debug.Log("---ME/FRIENDS?INSTALLED POPULATED");
+        Debug.Log("---ME/FRIENDS?INSTALLED POPULATED---");
         userFriendListPopulated = true;
         users = userFriendsWithAppInstalled;
         populateFriendsSubpanel();
@@ -82,34 +82,18 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         DBWorker.Instance.ScanTable("players", OnPlayerScanComplete);  
     }
 
-    static void OnPlayerScanComplete(List<Dictionary<string, AttributeValue>> response, GameObject obj, string nextMethod, Exception e = null)
-    {
-        Debug.Log("***LISTING ALL PLAYERS FROM SCAN***");
-        List<entity_players> allPlayers = new List<entity_players>();
-        allPlayers.Clear();
-
-        foreach (Dictionary<string, AttributeValue> d in response) //foreach is bugged- Swap it ot when we change this
-        {
-            entity_players tP = new entity_players();
-            tP.playerName = d["playerName"].S;
-            tP.playerID = d["playerID"].S;
-
-            allPlayers.Add(tP);
-        }
-
-        m_MPLobby_Matchmake.instance.createPlayerListInUI(allPlayers);
-    }
 
     void createPlayerListInUI(List<entity_players> allPlayers)
     {
         for (int i = 0; i < allPlayers.Count; i++)
         {
             GameObject tButton = Instantiate(opponentButton);
-            tButton.transform.SetParent(opponentListParentGrid.transform);
 
             ui_opponentButtonManager tManager = tButton.GetComponent<ui_opponentButtonManager>();
             tManager.opEntity = allPlayers[i];
             tManager.setUpButton();
+            tButton.transform.SetParent(opponentListParentGrid.transform);
+            tButton.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -140,7 +124,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
             ///Debug.Log(tPGID.playerID + " is a " + tPGID.role + " in " + tPGID.gameID);
 
-            pgID.Add(tPGID); //These ALL of the games this user is currently involved in
+            pgID.Add(tPGID); //These are ALL of the games this user is currently involved in
 
             if (tPGID.role == appManager.playerRoles.intiated.ToString())
                 p1Initiated.Add(tPGID);
@@ -158,12 +142,9 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         for (int i = 0; i < p1Initiated.Count; i++)
         {
             //Debug.Log("LISTING A GAME P1 INITIATED");
-            GameObject tButton = Instantiate(gamesInitiatedButton);
-           // tButton.transform.SetParent(gameInitListParentGrid.transform);
-           
+            GameObject tButton = Instantiate(gamesInitiatedButton);           
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
-       //     tManager.parentCanvasTransform = gameInitListParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.intiated;
             tManager.gameID = p1Initiated[i].gameID;
             tManager.loadGameEntity(tManager.gameID);
@@ -175,12 +156,9 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         Debug.Log("---LISTING ALL GAMES P1 CHALLENGED:--- " + p1Challenged.Count);
         for (int i = 0; i < p1Challenged.Count; i++)
         {
-            //Debug.Log("LISTING A GAME P1 CHALLENGED");
             GameObject tButton = Instantiate(gamesInitiatedButton);
-           // tButton.transform.SetParent(gameChallengedParentGrid.transform);
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();
-  //          tManager.parentCanvasTransform = gameChallengedParentGrid;
             tManager.devicePlayerRole = appManager.playerRoles.challenged;
             tManager.gameID = p1Challenged[i].gameID; 
             tManager.loadGameEntity(tManager.gameID);
@@ -208,4 +186,27 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         }
         //Nuke 'em!
     }
+
+/// <summary>
+/// ---YE OLDEN --\\\
+/// </summary>
+
+    static void OnPlayerScanComplete(List<Dictionary<string, AttributeValue>> response, GameObject obj, string nextMethod, Exception e = null)
+    {
+        Debug.Log("***LISTING ALL PLAYERS FROM SCAN***");
+        List<entity_players> allPlayers = new List<entity_players>();
+        allPlayers.Clear();
+
+        foreach (Dictionary<string, AttributeValue> d in response) //foreach is bugged- Swap it ot when we change this
+        {
+            entity_players tP = new entity_players();
+            tP.playerName = d["playerName"].S;
+            tP.playerID = d["playerID"].S;
+
+            allPlayers.Add(tP);
+        }
+
+        m_MPLobby_Matchmake.instance.createPlayerListInUI(allPlayers);
+    }
+
 }

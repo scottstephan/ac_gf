@@ -12,6 +12,7 @@ public class u_acJsonUtility : MonoBehaviour {
     public string jsonToImport;
     public JSONArray categoryQuestions;
     static string baseSavePathString;
+    static string baseResourcesPath;
     static string catSavePathSuffix = "/categories/";
     static string qSavePathSuffix = "/questions/";
 
@@ -138,6 +139,7 @@ public class u_acJsonUtility : MonoBehaviour {
             baseSavePathString = "Assets/Resources/";
         else
             baseSavePathString = Application.persistentDataPath;
+        baseResourcesPath = "Assets/Resources";
         createImportDirectories();
     }
 	
@@ -151,15 +153,35 @@ public class u_acJsonUtility : MonoBehaviour {
         JSONValue cSS;
         JSONArray questionsArray;
         JSONObject tempJObj;
+        List<string> catList = getAllCategoryRawJson();
+            
+        for (int i = 0; i < catList.Count; ++i)
+        {
+            acCat thisCat;
+            tempJObj = JSONObject.Parse(catList[i]);
+            cSS = tempJObj.GetValue("Category"); //This yields the high level category object 
+                                                 //I THINK that when importing the WHOLE thing, this would be an array and we'd cycle over it
+            thisCat = createCategoryObject(cSS);
 
-        acCat thisCat;
-        tempJObj = JSONObject.Parse(jsonToImport);
-        cSS = tempJObj.GetValue("Category"); //This yields the high level category object
-        thisCat = createCategoryObject(cSS);
+            tempJObj = JSONObject.Parse(cSS.ToString()); //This yields an array of the questions
+            questionsArray = tempJObj.GetArray("questions");
+            createQuestionsObject(questionsArray, thisCat); 
+        }
+    }
 
-        tempJObj = JSONObject.Parse(cSS.ToString()); //This yields an array of the questions
-        questionsArray = tempJObj.GetArray("questions");
-        createQuestionsObject(questionsArray, thisCat);
+    public List<string> getAllCategoryRawJson()
+    {
+        TextAsset[] resourceJsonCats;
+        List<string> unparsedCatJSon = new List<string>();
+        resourceJsonCats = Resources.LoadAll<TextAsset>("jsonCategories");
+
+        for(int i =0; i < resourceJsonCats.Length; i++)
+        {
+            string j = resourceJsonCats[i].ToString();
+            unparsedCatJSon.Add(j);
+        }
+
+        return unparsedCatJSon;
     }
 
     void createImportDirectories()
@@ -193,6 +215,7 @@ public class u_acJsonUtility : MonoBehaviour {
 
         return tCat;
     }
+
     void createQuestionsObject(JSONArray questionsArray, acCat thisCat)
     {
         Debug.Log("Questions length:" + questionsArray.Length);
@@ -279,6 +302,22 @@ public class u_acJsonUtility : MonoBehaviour {
         tQ.displayQInfo();
         tQ.displayAnswers();
 
+        return tQ;
+    }
+
+    public acQ loadSpecificQuestionData(string questionID, string categoryName)
+    {
+        Debug.Log("---LOADING SPECIFIC Q FROM JSON ARCHIVES: " + questionID + "::" + categoryName);
+        string qRootDir = baseSavePathString + qSavePathSuffix + categoryName + "/";
+        string filePrefix = questionID;
+        string fileExtension = ".json";
+
+        string fPath = qRootDir + filePrefix + fileExtension;
+        Debug.Log("Trying to load: " + fPath);
+        string loadedJson = File.ReadAllText(fPath);
+        acQ tQ = JsonUtility.FromJson<acQ>(loadedJson);
+
+        tQ.displayQInfo();
         return tQ;
     }
 

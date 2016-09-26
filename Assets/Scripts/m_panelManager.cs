@@ -152,6 +152,12 @@ public class m_panelManager : MonoBehaviour {
     public void anim_mpLobbyToCatSelect()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
+        if (opponentInputPanel.thisPanelPos == uiPanelAnimations.panelPos.center)
+        {
+            setToPlay.animsToPlayInOrder.Add(opponentInputPanel.toTop);
+            m_loadPanelManager.instance.deactivateLoadPanel();
+            m_loadPanelManager.instance.panelText.text = "LOADING!";
+        }
         setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
@@ -224,6 +230,7 @@ public class m_panelManager : MonoBehaviour {
         {
             case uiPanelTransitions.playerInputToCenter:
                 anim_opponentInputToMiddle();
+                opponentInputPanel.thisPanelPos = uiPanelAnimations.panelPos.center;
                 m_loadPanelManager.instance.activateLoadPanel();
                 m_loadPanelManager.instance.setLoadText("");
                 break;

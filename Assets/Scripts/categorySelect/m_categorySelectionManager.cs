@@ -25,17 +25,24 @@ public class m_categorySelectionManager : MonoBehaviour {
 
     public void initCategoryPhase()
     {
+        clearCategoryLayout();
         createCategoryLayout();
+    }
+
+    void clearCategoryLayout()
+    {
+        foreach (Transform t in parentCategoryListGrid.transform)
+            Destroy(t.gameObject);
     }
 
     void createCategoryLayout()
     {
-        List<string> catNames = u_acJsonUtility.instance.discoverCategories();
-        Debug.Log("---CAT NAMES---:" + catNames);
+        List<string> catNames = new List<string>();
+        catNames.Clear();
+        catNames = u_acJsonUtility.instance.discoverCategories();
 
         for(int i = 0; i < catNames.Count; ++i)
         {
-            //Spawn a button!
             GameObject tButton = Instantiate(categoryButton);
             tButton.transform.SetParent(parentCategoryListGrid.transform);
 
@@ -45,7 +52,10 @@ public class m_categorySelectionManager : MonoBehaviour {
             tManager.setUpButton();
         }
     }
-
+    /// <summary>
+    /// Loads and sets the 'current question' attribute for the game
+    /// </summary>
+    /// <param name="catName"></param>
     public void loadCategoryQuestion(string catName)
     {
         u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();

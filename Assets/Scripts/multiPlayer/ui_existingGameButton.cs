@@ -52,7 +52,9 @@ public class ui_existingGameButton : MonoBehaviour {
     {
         //If info is loaded etc....
         appManager.setCurGame(thisGame, devicePlayerRole);
-
+        appManager.loadSpecificQuestion();
+        appManager.setCurGameQuestionDetails(thisGame.categoryID, thisGame.categoryText, thisGame.questionID, thisGame.questionText);
+        //MUST LOAD QUESTION FROM HERE- AM HAS ALL THE DEETS, BUT HAS LOADED THE QUESTION OBJECT
         //IF role is init AND has finished AND NOT has seen, go to scoreComp....
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
             m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);

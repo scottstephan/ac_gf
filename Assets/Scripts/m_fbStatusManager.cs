@@ -57,14 +57,11 @@ public class m_fbStatusManager : MonoBehaviour {
         {
             Debug.Log("---USER FB LOGIN SUCCESS---");
             fbToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-            foreach (string perm in fbToken.Permissions)
-            {
-                Debug.Log(perm);
-            }
-
-            if (lastLoginRequestSource == loginRequestSource.header)
-                m_headerManager.instance.setHeaderToLoggedIn();
-
+            appManager.instance.actOnFBLoginStatus(true);
+            /*  foreach (string perm in fbToken.Permissions)
+              {
+                  Debug.Log(perm);
+              }*/
         }
         else
         {

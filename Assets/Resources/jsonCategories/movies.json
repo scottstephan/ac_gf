@@ -1,0 +1,238 @@
+{
+	"Category": {
+		"categoryName": "movies",
+		"categoryDisplayText": "Movies",
+		"categoryID": "c003",
+		"questions": [{
+			"questionName": "batman vs superman was",
+			"questionDisplayText": "batman vs superman was",
+			"questionID": "q102",
+			"answers": ["good", "bad", "awesome", "awful", "a good movie", "boring", "horrible", "not good", "stupid", "so bad"]
+		}, {
+			"questionName": "deadpool was",
+			"questionDisplayText": "deadpool was",
+			"questionID": "q103",
+			"answers": ["bad", "awesome", "here", "made by", "boring", "stupid", "great", "filmed", "amazing", "overhyped"]
+		}, {
+			"questionName": "is dory",
+			"questionDisplayText": "is dory",
+			"questionID": "q104",
+			"answers": ["gay", "a girl", "a girl or a boy", "faking", "lesbian", "gay in finding dory", "a liar", "a blue tang", "dead", "transgender"]
+		}, {
+			"questionName": "is buzz lightyear",
+			"questionDisplayText": "is buzz lightyear",
+			"questionID": "q105",
+			"answers": ["a disney character", "in toy story 1", "bald", "and alien", "a robot", "real", "a superhero", "in finding nemo", "based on buzz aldrin", "george clooney"]
+		}, {
+			"questionName": "they call me",
+			"questionDisplayText": "they call me",
+			"questionID": "q106",
+			"answers": ["trinity", "the breeze", "bruce", "tater", "mr tibbs", "juan", "mr pig", "mellow yellow", "sonic", "ishmael"]
+		}, {
+			"questionName": "we don't need no",
+			"questionDisplayText": "we don't need no",
+			"questionID": "q107",
+			"answers": ["stinking badges", "library card", "education", "water", "thought control", "more trouble", "reason why", "education meaning", "stinking badgers", "stinking patches"]
+		}, {
+			"questionName": "i am your",
+			"questionDisplayText": "i am your",
+			"questionID": "q108",
+			"answers": ["father", "grandma", "biggest fan", "leader", "father meme", "captain", "huckleberry", "mother snl", "butterfly", "child"]
+		}, {
+			"questionName": "best movies with",
+			"questionDisplayText": "best movies with",
+			"questionID": "q109",
+			"answers": ["a twist", "magic", "sequels", "aliens", "female leads", "dragons", "a twist on netflix", "animals", "leonardo dicaprio", "kid actors"]
+		}, {
+			"questionName": "is darth vader a",
+			"questionDisplayText": "is darth vader a",
+			"questionID": "q110",
+			"answers": ["sith", "sith lord", "jedi", "cyborg", "robot", "bad guy", "girl", "villain", "black guy", "disney character"]
+		}, {
+			"questionName": "is luke skywalker",
+			"questionDisplayText": "is luke skywalker",
+			"questionID": "q111",
+			"answers": ["rey's father", "gay", "darth vader", "rey's dad", "in rogue one", "in the force awakens", "evil", "a jedi", "good", "princess leia's brother"]
+		}, {
+			"questionName": "showtimes for",
+			"questionDisplayText": "showtimes for",
+			"questionID": "q112",
+			"answers": ["finding dory", "suicide squad", "ghostbusters", "the conjuring 2", "lights out", "the secret life of pets", "the purge", "tarzan", "nerve", "bad moms"]
+		}, {
+			"questionName": "when is the dvd release of",
+			"questionDisplayText": "when is the dvd release of",
+			"questionID": "q113",
+			"answers": ["finding dory", "fast and furious 6", "frozen", "catching fire", "american sniper", "big hero 6", "lucy", "divergent", "cinderella", "lone survivor"]
+		}, {
+			"questionName": "disney movie with a",
+			"questionDisplayText": "disney movie with a",
+			"questionID": "q114",
+			"answers": ["horse", "dragon", "mouse", "mummy", "bear", "robot", "lizard", "bat", "pig", "dog"]
+		}, {
+			"questionName": "i didn't get the movie",
+			"questionDisplayText": "i didn't get the movie",
+			"questionID": "q115",
+			"answers": ["the boy", "oculus", "oblivion", "prisoners", "fight club", "american psycho", "interstellar", "birdman", "side effects", "predestination"]
+		}, {
+			"questionName": "movies written by",
+			"questionDisplayText": "movies written by",
+			"questionID": "q116",
+			"answers": ["ice cube", "quentin tarantino", "seth rogen", "dalton trumbo", "matt damon", "nicholas sparks", "simon pegg", "ben affleck", "tina fey", "aaron sorkin"]
+		}, {
+			"questionName": "movies directed by",
+			"questionDisplayText": "movies directed by",
+			"questionID": "q117",
+			"answers": ["clint eastwood", "ron howard", "mel gibson", "ben affleck", "jodie foster", "angelina jolie", "michael bay", "rob reiner", "christopher nolan", "ridley scott"]
+		}, {
+			"questionName": "movies starring",
+			"questionDisplayText": "movies starring",
+			"questionID": "q118",
+			"answers": ["the rock", "beyonce", "robert redford", "sylvester stallone", "leon", "tom hanks", "robin williams", "meryl streep", "julia roberts", "oprah winfrey"]
+		}, {
+			"questionName": "movies featuring",
+			"questionDisplayText": "movies featuring",
+			"questionID": "q119",
+			"answers": ["the rock", "will smith", "harley quinn", "dogs", "melissa mccarthy", "deadpool", "ice cube", "dragons", "miley cyrus", "a strong female lead"]
+		}, {
+			"questionName": "movies with talking",
+			"questionDisplayText": "movies with talking",
+			"questionID": "q120",
+			"answers": ["animals", "dogs", "food", "trees", "babies", "bears", "cats", "cars", "horses", "pigs"]
+		}, {
+			"questionName": "movies with good",
+			"questionDisplayText": "movies with good",
+			"questionID": "q121",
+			"answers": ["soundtracks", "music", "twists", "reviews", "messages", "sequels", "stories", "plots", "love scenes", "dialogue"]
+		}, {
+			"questionName": "movies with lots of",
+			"questionDisplayText": "movies with lots of",
+			"questionID": "q122",
+			"answers": ["symbolism", "rain", "guns", "characters", "action", "music", "sequels", "killing", "explosions", "love making"]
+		}, {
+			"questionName": "movies without",
+			"questionDisplayText": "movies without",
+			"questionID": "q123",
+			"answers": ["music", "wifi", "happy endings", "romance", "cgi", "internet", "dialogue", "sequels", "special effects", "cursing"]
+		}, {
+			"questionName": "movies with hidden",
+			"questionDisplayText": "movies with hidden",
+			"questionID": "q124",
+			"answers": ["meanings", "agendas", "political messages", "religious themes", "truth", "messages", "secrets", "plots", "economics", "symbolism"]
+		}, {
+			"questionName": "movies where someone",
+			"questionDisplayText": "movies where someone",
+			"questionID": "q125",
+			"answers": ["dies", "cheats", "dies of cancer", "gets powers", "comes back to life", "kills themselves", "is kidnapped", "gets sick", "is framed", "has a baby"]
+		}, {
+			"questionName": "will there be a sequel to",
+			"questionDisplayText": "will there be a sequel to",
+			"questionID": "q126",
+			"answers": ["pan", "the giver", "suicide squad", "london has fallen", "nerve", "warcraft", "creed", "jurassic world", "grey", "5th wave"]
+		}, {
+			"questionName": "is james bond",
+			"questionDisplayText": "Is james bond",
+			"questionID": "q127",
+			"answers": ["real", "a codename", "british", "dead", "gay", "a spy", "on netflix", "scottish", "over", "rich"]
+		}, {
+			"questionName": "is tom cruise in",
+			"questionDisplayText": "is tom cruise in",
+			"questionID": "q128",
+			"answers": ["mi5", "the outsiders", "hellboy", "hellboy 2", "night at the museum", "war dogs", "bewitched", "pearl harbor", "young guns", "pretty little liars"]
+		}, {
+			"questionName": "is johnny depp in",
+			"questionDisplayText": "is johnny depp in",
+			"questionID": "q129",
+			"answers": ["alice through the looking glass", "tusk", "the movie tusk", "sausage party", "the new alice movie", "nightmare on elm street", "pan", "nightmare before christmas", "the outsiders", "beetlejuice"]
+		}, {
+			"questionName": "is tom hanks in",
+			"questionDisplayText": "Is tom hanks in",
+			"questionID": "q130",
+			"answers": ["finding dory", "finding nemo", "the walk", "saving private ryan", "shawshank redemption", "top gun", "band of brothers", "toy story", "independence day", "cars"]
+		}, {
+			"questionName": "is morgan freeman in",
+			"questionDisplayText": "is morgan freeman in",
+			"questionID": "q131",
+			"answers": ["ben hur", "ted 2", "batman vs superman", "london has fallen", "jurassic park", "rogue one", "tarzan", "close encounters", "roots", "happy gilmore"]
+		}, {
+			"questionName": "is russell crowe in",
+			"questionDisplayText": "is Russell Crowe in",
+			"questionID": "q132",
+			"answers": ["gods of egypt", "london has fallen", "a relationship", "beverly hills cop", "the italian job", "les miserables", "man of steel", "star wars", "republic of doyle", "the movie equalizer"]
+		}, {
+			"questionName": "is there a movie of",
+			"questionDisplayText": "is there a movie of",
+			"questionID": "q133",
+			"answers": ["wicked", "the bfg", "slender man", "1984", "the selection", "five nights at freddy's", "the book wonder", "catcher in the rye", "the selection by kiera cass", "the flash"]
+		}, {
+			"questionName": "is there a movie about",
+			"questionDisplayText": "is there a movie about",
+			"questionID": "q134",
+			"answers": ["tupac", "jaycee dugard", "gabby douglas", "obama", "slender man", "harley quinn", "the edmund fitzgerald", "the donner party", "hillary", "the joker"]
+		}, {
+			"questionName": "movies about",
+			"questionDisplayText": "movies about",
+			"questionID": "q135",
+			"answers": ["aliens", "magic", "9\/11", "witches", "bullying", "time travel", "slavery", "jesus", "high school", "depression"]
+		}, {
+			"questionName": "are horror movies",
+			"questionDisplayText": "Are horror movies",
+			"questionID": "q136",
+			"answers": ["a sin", "satanic", "real", "bad", "good for you", "haram", "dead", "bad for your heart", "fake", "bad for you"]
+		}, {
+			"questionName": "do horror movies",
+			"questionDisplayText": "do horror movies",
+			"questionID": "q137",
+			"answers": ["affect the brain", "use infrasound", "invite evil spirits", "bring demons", "cause violence", "affect you", "cause nightmares", "have happy endings", "win oscars", "cause depression"]
+		}, {
+			"questionName": "what is the rating of",
+			"questionDisplayText": "what is the rating of",
+			"questionID": "q138",
+			"answers": ["suicide squad", "ghostbusters", "central intelligence", "lights out", "nerve", "the conjuring 2", "the shallows", "the movie suicide squad", "the legend of tarzan", "the secret life of pets"]
+		}, {
+			"questionName": "is there swearing in",
+			"questionDisplayText": "is there swearing in",
+			"questionID": "q139",
+			"answers": ["the sandlot", "suicide squad", "overwatch", "goat simulator", "central intelligence", "ghostbusters 2016", "the movie holes", "game of thrones books", "zootopia", "et"]
+		}, {
+			"questionName": "is bill murray in",
+			"questionDisplayText": "is bill murray in",
+			"questionID": "q140",
+			"answers": ["vice principals", "finding dory", "space jam", "pitch perfect", "caddyshack", "national lampoon's vacation", "zootopia", "the blues brothers", "the new jungle book", "spaceballs"]
+		}, {
+			"questionName": "who was the voice of",
+			"questionDisplayText": "who was the voice of",
+			"questionID": "q141",
+			"answers": ["baby dory", "nemo", "shaggy", "chucky", "darth vader", "alf", "dory", "mr ed", "shrek", "ultron"]
+		}, {
+			"questionName": "is there a prequel to",
+			"questionDisplayText": "is there a prequel to",
+			"questionID": "q142",
+			"answers": ["the legend of tarzan", "me before you", "the 5th wave", "suicide squad", "batman v superman", "harry potter", "alice in wonderland", "jessica jones", "overwatch", "the conjuring"]
+		}, {
+			"questionName": "is there a sequel to",
+			"questionDisplayText": "is there a sequel to",
+			"questionID": "q143",
+			"answers": ["the giver", "the 5th wave movie", "10 cloverfield lane", "if i stay", "the giver movie", "after you", "the fifth wave", "dracula untold", "dark skies", "pan"]
+		}, {
+			"questionName": "why r rating for",
+			"questionDisplayText": "why R rating for",
+			"questionID": "q144",
+			"answers": ["free state of jones", "deadpool", "american sniper", "american hustle", "gone girl", "12 years a slave", "elysium", "kingsman", "22 jump street", "lucy"]
+		}, {
+			"questionName": "remake of the movie",
+			"questionDisplayText": "remake of the movie",
+			"questionID": "q145",
+			"answers": ["it", "roots", "splash", "beaches", "shooter", "sabrina", "red dust", "clue", "the birds", "ben hur"]
+		}, {
+			"questionName": "where did they film",
+			"questionDisplayText": "where did they film",
+			"questionID": "q146",
+			"answers": ["stranger things", "american pie", "lost", "the shallows", "the martian", "13 hours", "everest", "the office", "american pie 2", "dirty dancing"]
+		}, {
+			"questionName": "movies based on books by",
+			"questionDisplayText": "movies based on books by",
+			"questionID": "q147",
+			"answers": ["nicholas sparks", "john green", "michael crichton", "sidney sheldon", "david baldacci", "roald dahl", "john le carre", "elmore leonard", "james lee burke", "dan brown"]
+		}]
+	}
+}

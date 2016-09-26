@@ -27,6 +27,11 @@ public class u_debugManager : MonoBehaviour {
                 Debug.Log("GETTNING QDBINFO");
                 u_acJsonUtility.instance.returnCurQDBObject();
             }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                Debug.Log("CHECKIN CATEGORIES DIRECTORY");
+                u_acJsonUtility.instance.getAllCategoryRawJson();
+            }
         }
 	}
 }

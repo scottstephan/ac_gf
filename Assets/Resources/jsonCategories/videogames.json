@@ -1,0 +1,263 @@
+{
+	"Category": {
+		"categoryName": "video games",
+		"categoryDisplayText": "Video Games",
+		"categoryID": "c001",
+		"questions": [{
+			"questionName": "the atari",
+			"questionDisplayText": "the atari",
+			"questionID": "q001",
+			"answers": ["2600", "game system", "code", "lynx", "jaguar", "book", "landfill", "shock", "collection 1", "band"]
+		}, {
+			"questionName": "nintendo",
+			"questionDisplayText": "nintendo",
+			"questionID": "q002",
+			"answers": ["nx", "stock", "3ds", "ds", "64", "2ds", "3ds xl", "vans", "eshop", "news"]
+		}, {
+			"questionName": "ps4",
+			"questionDisplayText": "ps4",
+			"questionID": "q003",
+			"answers": ["games", "controller", "neo", "price", "pro", "slim", "vr", "console", "remote play", "release date"]
+		}, {
+			"questionName": "xbox",
+			"questionDisplayText": "xbox",
+			"questionID": "q004",
+			"answers": ["one", "live", "360", "one games", "one controller", "scorpio", "one s release date", "one price", "360 controller", "support"]
+		}, {
+			"questionName": "gamestop is",
+			"questionDisplayText": "gamestop is",
+			"questionID": "q005",
+			"answers": ["a ripoff", "dying", "bad", "it open", "open today", "a monopoly", "it down", "awesome", "ripping you off", "cheap and greedy"]
+		}, {
+			"questionName": "super mario",
+			"questionDisplayText": "super mario",
+			"questionID": "q006",
+			"answers": ["bros", "run release date", "maker", "world", "64", "3d world", "sunshine", "bros movie", "galaxy", "bros 3"]
+		}, {
+			"questionName": "super mario bros",
+			"questionDisplayText": "super mario bros",
+			"questionID": "q007",
+			"answers": ["3", "movie", "2", "wii", "online", "rom", "game", "3 rom", "z", "x"]
+		}, {
+			"questionName": "pokemon go",
+			"questionDisplayText": "pokemon go",
+			"questionID": "q008",
+			"answers": ["plus", "tips", "cheats", "guide", "update", "map", "teams", "egg chart", "memes", "reddit"]
+		}, {
+			"questionName": "pokemon go is",
+			"questionDisplayText": "pokemon go is",
+			"questionID": "q009",
+			"answers": ["dead", "bad", "dangerous", "down", "not working", "dying", "gay", "demonic", "broken", "pikachu rare"]
+		}, {
+			"questionName": "master chief is",
+			"questionDisplayText": "master chief is",
+			"questionID": "q010",
+			"answers": ["a pretty cool guy", "a girl", "dead", "black", "a forerunner", "iso didact", "overrated", "a forerunner fanfiction", "bornstellar", "a spartan 2"]
+		}, {
+			"questionName": "solid snake is",
+			"questionDisplayText": "solid snake is",
+			"questionID": "q011",
+			"answers": ["big boss", "the bad guy", "dead", "a stoner", "gay", "alive", "blonde", "a virgin", "based on", "japanese"]
+		}, {
+			"questionName": "luigi is",
+			"questionDisplayText": "luigi is",
+			"questionID": "q012",
+			"answers": ["wack", "not an idiot", "the pope", "dead", "missing", "gay", "awesome", "op", "wack 2", "the best"]
+		}, {
+			"questionName": "princess peach is",
+			"questionDisplayText": "princess peach is",
+			"questionID": "q013",
+			"answers": ["dead", "having a baby", "the villain", "rosalina's mother", "hot", "kidnapped", "bowser jr.'s mother", "kidnapped by bowser", "crying", "a mom"]
+		}, {
+			"questionName": "zelda is the",
+			"questionDisplayText": "zelda is the",
+			"questionID": "q014",
+			"answers": ["girl", "princess", "girl shirt", "green guy", "goddess hylia", "best game ever", "boy", "hero", "guy", "sage of"]
+		}, {
+			"questionName": "what graphics card do i need to play",
+			"questionDisplayText": "what graphics card do i need to play",
+			"questionID": "q015",
+			"answers": ["overwatch", "minecraft", "ark", "rust", "black ops 3", "cs go", "gta 5", "world of warcraft", "league of legends", "wow on ultra"]
+		}, {
+			"questionName": "what console is best for",
+			"questionDisplayText": "what console is best for",
+			"questionID": "q016",
+			"answers": ["me", "gta 5", "overwatch", "minecraft", "disney infinity", "skylanders", "fifa", "sports games", "online gaming", "just dance"]
+		}, {
+			"questionName": "what difficulty should i play",
+			"questionDisplayText": "what difficulty should i play",
+			"questionID": "q017",
+			"answers": ["the witcher 3 on", "doom on", "skyrim", "uncharted on", "alien isolation on", "fallout 4 on", "dying light on", "stalker on", "deus ex on", "the witcher on"]
+		}, {
+			"questionName": "is samus",
+			"questionDisplayText": "is samus",
+			"questionID": "q018",
+			"answers": ["trans", "human", "a boy or girl", "in federation force", "transgender", "a girl", "left handed", "good in ssb4", "amiibo rare", "a boy"]
+		}, {
+			"questionName": "fastest speed run of",
+			"questionDisplayText": "fastest speed run of",
+			"questionID": "q019",
+			"answers": ["dark souls 3", "dark souls", "fallout 4", "dark souls 2", "pokemon red", "any game", "skyrim", "ocarina of time", "fallout 3", "final fantasy 7"]
+		}, {
+			"questionName": "high scores on",
+			"questionDisplayText": "high scores on",
+			"questionID": "q020",
+			"answers": ["slither.io", "color switch", "1010", "stack", "sat", "piano tiles 2", "risky road", "snake.io", "2048", "crossy road"]
+		}, {
+			"questionName": "how to beat last level of",
+			"questionDisplayText": "how to beat last level of",
+			"questionID": "q021",
+			"answers": ["super mario bros", "black ops 3", "lego marvel", "doom", "uncharted", "test your might", "stick war legacy", "monument valley", "shangri la", "portal"]
+		}, {
+			"questionName": "secret level in",
+			"questionDisplayText": "secret level in",
+			"questionID": "q022",
+			"answers": ["sparkling waters", "donkey kong", "doom", "super mario world", "world 8", "octodad", "forest of illusion", "limbo", "rock candy mines", "diablo 3"]
+		}, {
+			"questionName": "first person to beat",
+			"questionDisplayText": "first person to beat",
+			"questionID": "q023",
+			"answers": ["pokemon go", "goldberg", "pt", "the cube", "pokemon", "dark souls 3", "pac man", "no man's sky", "zero", "american ninja warrior"]
+		}, {
+			"questionName": "skyrim vs",
+			"questionDisplayText": "skyrim vs",
+			"questionID": "q024",
+			"answers": ["fallout 4", "oblivion", "witcher 3", "fallout", "dark souls", "skyrim remastered", "eso", "dragon age", "morrowind", "fallout 3"]
+		}, {
+			"questionName": "forza vs",
+			"questionDisplayText": "forza vs",
+			"questionID": "q025",
+			"answers": ["horizon", "gran turismo", "driveclub", "the crew", "real life", "assetto corsa", "iracing", "gran turismo sport", "nfs", "gran turismo 2016"]
+		}, {
+			"questionName": "halo vs",
+			"questionDisplayText": "halo vs",
+			"questionID": "q026",
+			"answers": ["star wars", "cod", "destiny", "doom", "mass effect", "gears of war", "overwatch", "predator", "minecraft", "mario"]
+		}, {
+			"questionName": "gears of war vs",
+			"questionDisplayText": "gears of war vs",
+			"questionID": "q027",
+			"answers": ["halo", "tomb raider", "uncharted", "quantum break", "forza", "the division", "halo 5", "forza 6", "doom", "cod"]
+		}, {
+			"questionName": "fallout vs",
+			"questionDisplayText": "fallout vs",
+			"questionID": "q028",
+			"answers": ["skyrim", "fallout 2", "bioshock", "elder scrolls", "stalker", "far cry", "fnaf", "elder scrolls poll", "witcher", "halo"]
+		}, {
+			"questionName": "the sims vs",
+			"questionDisplayText": "The sims vs",
+			"questionID": "q029",
+			"answers": ["simcity", "sims 2", "animal crossing", "second life", "minecraft", "gta", "real life", "spore", "harvest moon", "virtual families"]
+		}, {
+			"questionName": "farmville vs",
+			"questionDisplayText": "farmville vs",
+			"questionID": "q030",
+			"answers": ["harvest moon", "stardew valley", "hay day", "clash of clans", "farm story", "farm town", "candy crush", "real farms", "farmerama", "animal crossing"]
+		}, {
+			"questionName": "is kirby a",
+			"questionDisplayText": "is kirby a",
+			"questionID": "q031",
+			"answers": ["boy", "girl", "pokemon", "baby", "male or female", "ghost", "good company to work for", "god", "star warrior", "female"]
+		}, {
+			"questionName": "arcade version of",
+			"questionDisplayText": "arcade version of",
+			"questionID": "q032",
+			"answers": ["super mario bros", "donkey kong", "pacman", "mortal kombat", "killer instinct", "gauntlet", "galaga", "double dragon", "space invaders", "pong"]
+		}, {
+			"questionName": "pc gaming is",
+			"questionDisplayText": "pc gaming is",
+			"questionID": "q033",
+			"answers": ["dead", "dying", "better", "expensive", "the future", "growing", "uncomfortable", "a hassle", "cheaper", "best"]
+		}, {
+			"questionName": "console gaming is",
+			"questionDisplayText": "console gaming is",
+			"questionID": "q034",
+			"answers": ["dying", "better", "dead", "better than pc", "expensive", "cheaper", "more fun", "not dying", "dead in japan", "the future"]
+		}, {
+			"questionName": "pikachu vs",
+			"questionDisplayText": "pikachu vs",
+			"questionID": "q035",
+			"answers": ["raichu", "pikachu", "charizard", "mewtwo", "jolteon", "charmander", "pichu", "squirtle", "lucario", "latios"]
+		}, {
+			"questionName": "multiplayer in",
+			"questionDisplayText": "multiplayer in",
+			"questionID": "q036",
+			"answers": ["minecraft", "no man's sky", "dark souls 3", "minecraft pe", "pokemon go", "starbound", "browser games", "unity", "bloodborne", "fallout 4"]
+		}, {
+			"questionName": "call of duty",
+			"questionDisplayText": "call of duty",
+			"questionID": "q037",
+			"answers": ["black ops 3", "black ops", "ghosts", "modern warfare", "black ops 2", "infinite warfare beta", "advanced warfare", "modern warfare remastered", "world at war", "black ops 3 dlc 3"]
+		}, {
+			"questionName": "dlc for",
+			"questionDisplayText": "dlc for",
+			"questionID": "q038",
+			"answers": ["fallout 4", "black ops 3", "gta 5", "overwatch", "skyrim", "destiny", "total war warhammer", "bo3", "division", "black ops 2"]
+		}, {
+			"questionName": "call of duty is",
+			"questionDisplayText": "Call of duty is",
+			"questionID": "q039",
+			"answers": ["dead", "dying", "gay", "bad", "trash", "cancer", "the best game ever", "better than battlefield", "garbage", "not a sport"]
+		}, {
+			"questionName": "video games based on",
+			"questionDisplayText": "video games based on",
+			"questionID": "q040",
+			"answers": ["movies", "books", "tv shows", "anime", "horror movies", "dc comics", "cartoons", "history", "real events", "the bible"]
+		}, {
+			"questionName": "world of warcraft how to get a",
+			"questionDisplayText": "world of warcraft how to get a",
+			"questionID": "q041",
+			"answers": ["mount", "garrison", "pet", "vicious saddle", "flying mount", "battle pet", "lot of gold", "motorcycle", "dragon mount", "new hearthstone"]
+		}, {
+			"questionName": "skyrim where to get",
+			"questionDisplayText": "skyrim where to get",
+			"questionID": "q042",
+			"answers": ["straw", "sawn log", "clay", "ebony", "lockpicks", "firewood", "glass", "soul gems", "black soul gems", "void salts"]
+		}, {
+			"questionName": "no man's sky how to find",
+			"questionDisplayText": "no man's sky how to find",
+			"questionID": "q043",
+			"answers": ["crashed ships", "black holes", "ships", "trading post", "iridium", "space anomaly", "drop pods", "animals", "anomalies", "all animals"]
+		}, {
+			"questionName": "destiny how to get",
+			"questionDisplayText": "destiny how to get",
+			"questionID": "q044",
+			"answers": ["infected", "all 5 infections", "legendary marks", "exotic sword", "a sword", "black spindle", "to 335", "the last word", "exotics", "touch of malice"]
+		}, {
+			"questionName": "mario 64 how to get",
+			"questionDisplayText": "mario 64 how to get",
+			"questionID": "q045",
+			"answers": ["luigi", "wing cap", "yoshi", "blue cap", "the eel out", "out of pyramid", "to the top of the castle", "metal cap", "wario", "hat back"]
+		}, {
+			"questionName": "how to get gold in",
+			"questionDisplayText": "how to get gold in",
+			"questionID": "q046",
+			"answers": ["pokemon go", "overwatch", "hearthstone", "wow", "skyrim", "world of tanks", "realm of the mad god", "minecraft", "terraria", "candy crush"]
+		}, {
+			"questionName": "how to get extra lives in",
+			"questionDisplayText": "how to get extra lives in",
+			"questionID": "q047",
+			"answers": ["super mario", "super mario world", "panda pop", "super mario bros wii", "toy blast", "super mario bros 2", "super mario 3", "super mario bros 3", "megaman zero", "trivia crack"]
+		}, {
+			"questionName": "how to get bonus in",
+			"questionDisplayText": "how to get bonus in",
+			"questionID": "q048",
+			"answers": ["pokemon go", "home run derby", "real basketball", "yahtzee", "the army", "word hero", "kim kardashian game", "rummycircle", "betika", "mcheza"]
+		}, {
+			"questionName": "expansion pack for",
+			"questionDisplayText": "expansion pack for",
+			"questionID": "q049",
+			"answers": ["cards against humanity", "nintendo 64", "sims 4", "destiny", "the division", "sims 3", "witcher 3", "wits and wagers", "battlefront", "battlefield 4"]
+		}, {
+			"questionName": "best character in",
+			"questionDisplayText": "best character in",
+			"questionID": "q050",
+			"answers": ["borderlands", "overwatch", "smite", "super smash bros", "mortal kombat x", "borderlands 2", "paragon", "injustice", "skyrim", "pokemon go"]
+		}, {
+			"questionName": "best character class in",
+			"questionDisplayText": "best character class in",
+			"questionID": "q051",
+			"answers": ["neverwinter", "destiny", "borderlands 2", "diablo 3", "dark souls 3", "skyrim", "neverwinter ps4", "dragon age inquisition", "divinity original sin", "world of warcraft"]
+		}]
+	}
+}
