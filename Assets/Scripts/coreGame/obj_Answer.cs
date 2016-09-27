@@ -5,9 +5,13 @@ using UnityEngine.UI;
 public class obj_Answer : MonoBehaviour {
 
     public GameObject thisAnswerMask;
+    public Text answerTextField;
+    public Text answerScoreField;
     public string answerText;
     public int id;
     public int scoreValue;
+    public Color answerRevealColor = Color.blue;
+    public float animRevealLength = 1.5f;
 
     public enum E_answerState {
         hidden,
@@ -19,9 +23,13 @@ public class obj_Answer : MonoBehaviour {
 
     public void initAnswer()
     {
-        gameObject.GetComponent<Text>().text = answerText;
         hideAnswer();
+        RectTransform maskTransform = thisAnswerMask.GetComponent<RectTransform>();
+        maskTransform.localScale = new Vector3(1,1,1);
         scoreValue = (id + 1) * 10;
+
+        answerTextField.text = answerText;
+        answerScoreField.text = scoreValue.ToString();
         //SET A FONT
         //SET A NAME
     }
@@ -38,10 +46,10 @@ public class obj_Answer : MonoBehaviour {
 
     public void revealAnswer()
     {
-        thisAnswerMask.SetActive(false);
-        //setAnswerState
+        // thisAnswerMask.SetActive(false);
+        thisAnswerMask.GetComponent<Image>().color = answerRevealColor;
+        StartCoroutine("lerpMaskScale");
         thisAnswerState = E_answerState.revealed;
-        //PlayAnim
     }
 
     public void hideAnswer()
@@ -56,5 +64,21 @@ public class obj_Answer : MonoBehaviour {
     public void setAnswerPosition(Vector3 pos)
     {
         gameObject.GetComponent<RectTransform>().position = pos;
+    }
+
+    IEnumerator lerpMaskScale()
+    {
+        float i = 0f;
+        float rate = 1 / animRevealLength;
+        RectTransform maskTransform = thisAnswerMask.GetComponent<RectTransform>();
+        while(i < 1)
+        {
+            i += Time.deltaTime * rate;
+            float maskScale = Mathf.Lerp(800,0,i);
+            maskTransform.sizeDelta = new Vector2(maskScale, 75);
+
+            yield return null;
+        }
+        
     }
 }

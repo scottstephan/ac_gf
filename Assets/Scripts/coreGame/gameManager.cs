@@ -216,27 +216,33 @@ public class gameManager : MonoBehaviour
             roundAnswers.Add(obj_tempAnswer);
         }
     }
-
+    /// <summary>
+    /// A little tricky- FOO<t> does not return them in order, so we need to pair answers with their object to keep them in order
+    /// </summary>
     void fillManualAnswerObjects()
     {
         obj_Answer[] answerObjectsInScene = GameObject.FindObjectsOfType<obj_Answer>();
-        for(int i = 0; i < answerObjectsInScene.Length; i++)
+        for(int i = 0; i < roundAnswerStrings.Count; ++i)
         {
-            answerObjectsInScene[i].answerText = roundAnswerStrings[i];
-            answerObjectsInScene[i].id = i; //+ playerID
-            answerObjectsInScene[i].initAnswer();
+            for(int j = 0; j < answerObjectsInScene.Length; ++j)
+            {
+                if(answerObjectsInScene[j].id == i)
+                {
+                    answerObjectsInScene[j].answerText = roundAnswerStrings[i];
+                    answerObjectsInScene[j].initAnswer();
 
-            roundAnswers.Add(answerObjectsInScene[i].gameObject);
+                    roundAnswers.Add(answerObjectsInScene[j].gameObject);
+                }
+            }
         }
     }
-
-    public static bool checkPlayerInputAgainstAnswers(string playerAnswer)
+  
+public static bool checkPlayerInputAgainstAnswers(string playerAnswer)
     {
         bool hasHit = false;
         bool hasHitAnswerBefore = false;
         for(int i = 0; i < roundAnswerStrings.Count; ++i)
         {
-         //   Debug.Log("Looking for " + playerAnswer + "==" + roundAnswerStrings[i]);
             if(playerAnswer == roundAnswerStrings[i].ToLower())
             {//Found a match....
                     if (roundAnswers[i].GetComponent<obj_Answer>().thisAnswerState != obj_Answer.E_answerState.revealed)
