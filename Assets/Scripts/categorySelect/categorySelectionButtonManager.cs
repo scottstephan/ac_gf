@@ -26,6 +26,8 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void setUpButton()
     {
-        catButtonText.text = categoryName;
+        string dispCatName = categoryName;
+        dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
+        catButtonText.text = dispCatName;
     }
 }

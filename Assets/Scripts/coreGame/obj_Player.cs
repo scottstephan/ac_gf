@@ -33,7 +33,7 @@ public class obj_Player : MonoBehaviour {
         Debug.Log("Player missed");
         numMisses++;
         m_scoreAndGameStateManager.instance.updateNumberMissedText(numMisses);
-
+        m_scoreAndGameStateManager.instance.breakBulb(numMisses);
         if (numMisses >= gameManager.maxPlayerMisses)
         {
             Debug.Log("PLAYER HAS EXCEEDED MAX MISSES; ENDING GAME");

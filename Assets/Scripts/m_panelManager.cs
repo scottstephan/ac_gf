@@ -127,7 +127,7 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
         loadScreen.thisPanelPos = panelAnimations.panelPos.left;
         titleScreen.thisPanelPos = panelAnimations.panelPos.center;
-        headerPanel.thisPanelPos = panelAnimations.panelPos.center;
+       // headerPanel.thisPanelPos = panelAnimations.panelPos.center;
         StartCoroutine("playAnimSet", setToPlay);
     }
 

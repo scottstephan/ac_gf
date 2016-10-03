@@ -148,6 +148,7 @@ public class appManager : MonoBehaviour {
         else
         {
             m_titleScreenManager.instance.mpButton.interactable = false;
+            m_titleScreenManager.instance.mpButton.gameObject.GetComponent<Image>().color = new Color(204, 204, 204);
             m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
             m_loadScreenManager.instance.appInitComplete();

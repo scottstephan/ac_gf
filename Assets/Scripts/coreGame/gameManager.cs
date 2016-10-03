@@ -175,6 +175,7 @@ public class gameManager : MonoBehaviour
 
     public void inputPhaseEnd(E_endOfRoundAction endRoundReason, string playerInput = "")
     {
+        
         m_scoreAndGameStateManager.instance.setInputFieldAccessibility(false);
         playerInputField.DeactivateInputField();
 

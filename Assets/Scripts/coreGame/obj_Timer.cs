@@ -10,6 +10,7 @@ public class obj_Timer : MonoBehaviour {
     public float curTime;
     public float tickRate = 1f;
     public Text timerText;
+    public Image timerTopFIll;
     //plus the timer image
 
     public enum E_timerState{
@@ -49,8 +50,10 @@ public class obj_Timer : MonoBehaviour {
     {
         if (timerState == E_timerState.inactive)
         {
+            timerTopFIll.fillAmount = 1;
             timerState = E_timerState.active;
             timerText.text = curTime.ToString();
+            StartCoroutine("reduceTopFillOverTime");
             Invoke("updateTimer", tickRate);
         }
         else
@@ -60,6 +63,8 @@ public class obj_Timer : MonoBehaviour {
     void endTimer()
     {
         timerState = E_timerState.inactive;
+        StopCoroutine("reduceTopFillOverTime");
+
     }
 
     public void pauseTimer()
@@ -85,6 +90,8 @@ public class obj_Timer : MonoBehaviour {
 
     public void stopTimer()
     {
+        StopCoroutine("reduceTopFillOverTime");
+
         timerState = E_timerState.inactive;
         CancelInvoke();
     }
@@ -108,5 +115,20 @@ public class obj_Timer : MonoBehaviour {
         //BAD THING.
         gameManager.instance.inputPhaseEnd(gameManager.E_endOfRoundAction.timerEnded);
         endTimer();
+    }
+
+    IEnumerator reduceTopFillOverTime()
+    {
+        float rate = 1 / timeUntilFail;
+        float i = 0;
+
+        while(i < 1)
+        {
+            i += Time.deltaTime * rate;
+            float fillAmt = Mathf.Lerp(1, 0, i);
+            timerTopFIll.fillAmount = fillAmt;
+            yield return null;
+        }
+
     }
 }

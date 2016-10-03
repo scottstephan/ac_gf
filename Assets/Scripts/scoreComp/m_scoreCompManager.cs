@@ -28,34 +28,50 @@ public class m_scoreCompManager : MonoBehaviour {
     }
 
     void updatePlayerView() 
-    { //Possible issue here where two players may intersect.
+    { 
         if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
         {
             appManager.curLiveGame.p1HasViewedResult = false;
         }
         else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
         {
-            appManager.curLiveGame.p2HasViewedResult = true; //As its V. LIKELY P1 will have seen
+            appManager.curLiveGame.p2HasViewedResult = true;
         } 
+    }
+
+    void showFinalScores()
+    {
+        //Lerp in You Got... dialog
+        //Lerp in They got... dialog
+        //Loser swings and falls off
+        //Win/Lose message appears
+        //Exit button appears
     }
 
     void updatePlayerScores()
     {
-        string namePrefx = "";
-        string nameSuffix = " score:";
-        p1Name.text = namePrefx + appManager.curLiveGame.player1_name + nameSuffix;
-        p1Score.text = appManager.curLiveGame.p1_score.ToString();
         if (appManager.curLiveGame.isMPGame)
-        {
-            p2Name.text = namePrefx + appManager.curLiveGame.player2_name + nameSuffix;
+        { //Maybe see if p2 has finished yet???
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            {
+                p1Name.text = "Your Score: ";
+                p2Name.text = appManager.curLiveGame.player2_name + "'s Score: ";
+            }
+            else
+            {
+                p1Name.text = appManager.curLiveGame.player1_name + "'s Score: ";
+                p2Name.text = "Your Score: ";
+            }
             p2Score.text = appManager.curLiveGame.p2_score.ToString();
         }
         else
         {
+            p1Name.text = "Your Score: ";
             p2Name.text = "";
             p2Score.text = "";
         }
 
+        p1Score.text = appManager.curLiveGame.p1_score.ToString(); //No matter what...
     }
 
     void determineGameAction()
