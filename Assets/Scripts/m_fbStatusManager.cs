@@ -16,7 +16,8 @@ public class m_fbStatusManager : MonoBehaviour {
 
     public enum loginRequestSource
     {
-        header
+        header,
+        mpButton
     }
 
     public loginRequestSource lastLoginRequestSource = loginRequestSource.header;
@@ -52,12 +53,15 @@ public class m_fbStatusManager : MonoBehaviour {
     }
 
     void loginAuthCallback(ILoginResult result)
-    {
+    {//The only codepath that runs this is titleMpButton->Login Request-> success/fail
+        //Auth token authentications come from returnUserLoginStatu()
         if (FB.IsLoggedIn)
         {
             Debug.Log("---USER FB LOGIN SUCCESS---");
             fbToken = Facebook.Unity.AccessToken.CurrentAccessToken;
             appManager.instance.actOnFBLoginStatus(true);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.MPLobby);
+
             /*  foreach (string perm in fbToken.Permissions)
               {
                   Debug.Log(perm);

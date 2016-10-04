@@ -9,16 +9,11 @@ using UnityEngine.UI;
 public class m_loadScreenManager : MonoBehaviour {
     public static m_loadScreenManager instance = null;
     public Text playerLoadStatusText;
-    public GameObject registerButton;
-    public GameObject registerNameInput;
     public bool waitingForAppInit = true;
     void Awake()
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-
-        registerButton.SetActive(false);
-        registerNameInput.SetActive(false);
     }
 	// Use this for initialization
 	void Start () {
@@ -90,13 +85,11 @@ public class m_loadScreenManager : MonoBehaviour {
 
     void createPlayerRegisterDialog()
     {
-        registerNameInput.SetActive(true);
-        registerButton.SetActive(true);
+        
     }
 
     public void loadToMenu()
     {
-        appManager.loadScene(appManager.sceneNames.title);
     }
 
     public void moveInMenuPanel()

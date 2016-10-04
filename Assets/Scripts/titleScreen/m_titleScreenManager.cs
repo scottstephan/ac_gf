@@ -12,8 +12,6 @@ public class m_titleScreenManager : MonoBehaviour {
     { //Maintain singleton pattern
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-
-        mpButton.interactable = false;
     }
 
     public void startGameFromTitle(bool isMP)
@@ -27,8 +25,9 @@ public class m_titleScreenManager : MonoBehaviour {
         else
         {
             Debug.Log("---STARTING MP PROCESS---");
-            m_phaseManager.instance.changePhase(m_phaseManager.phases.MPLobby);
-        } 
+            m_fbStatusManager.instance.promptForUserFBLogin(m_fbStatusManager.loginRequestSource.mpButton);
+
+        }
     }
 
 }

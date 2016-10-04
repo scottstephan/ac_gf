@@ -72,7 +72,52 @@ public class appManager : MonoBehaviour {
         challenged_playGame,
         challenged_waitForInit
     }
+
     public static E_lobbyGameStatus curGameStatus = E_lobbyGameStatus.init_playGame;
+
+    public class multiGameRoundInfo
+    {
+        public int numTotalGames =  3;
+        public int numGamesCompleted = 0;
+        public List<u_acJsonUtility.acQ> questionsInThisRound = new List<u_acJsonUtility.acQ>();
+        public int questionIndex = 0;
+
+        public void resetMultiGameRoundInfo()
+        {
+            numGamesCompleted = 0;
+            questionsInThisRound.Clear();
+            questionIndex = 0;
+        }
+
+        public void increaseGamesPlayed()
+        {
+            numGamesCompleted++;
+        }
+
+        public void loadQuestions(string catName)
+        {
+            for(int i = 0; i < numTotalGames; ++i)
+            {
+                u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
+                tQ = u_acJsonUtility.instance.loadRandomQuestionData(catName);
+                questionsInThisRound.Add(tQ); 
+                //CHECK FOR DUPLICATES
+            }
+
+            appManager.currentQuestion = questionsInThisRound[0];
+            appManager.setCurGameQuestionDetails(questionsInThisRound[0].catID, questionsInThisRound[0].category, questionsInThisRound[0].questionID, questionsInThisRound[0].questionName);
+        }
+
+        public void setNextQuestion()
+        {
+            questionIndex++;
+            appManager.currentQuestion = questionsInThisRound[questionIndex];
+            appManager.setCurGameQuestionDetails(questionsInThisRound[questionIndex].catID, questionsInThisRound[questionIndex].category, questionsInThisRound[questionIndex].questionID, questionsInThisRound[questionIndex].questionName);
+
+        }
+    }
+
+    public static multiGameRoundInfo thisRoundInfo;
 
     [DynamoDBTable("gamesByPlayer")]
     public class playerGameID
@@ -141,14 +186,11 @@ public class appManager : MonoBehaviour {
         {
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
             m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
-            m_titleScreenManager.instance.mpButton.interactable = true;
             m_headerManager.instance.setHeaderToLoggedIn();
             m_loadScreenManager.instance.appInitComplete();
         }
         else
         {
-            m_titleScreenManager.instance.mpButton.interactable = false;
-            m_titleScreenManager.instance.mpButton.gameObject.GetComponent<Image>().color = new Color(204, 204, 204);
             m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
             m_loadScreenManager.instance.appInitComplete();
@@ -175,12 +217,7 @@ public class appManager : MonoBehaviour {
     {
         curLiveGame = new entity_games();
         curLiveGame.initGame(appManager.generateUniqueGameID(), p1ID, p2ID, false, false, 0, 0, isMPGame, p1Name,p2Name);
-    }
-
-    public static void loadScene(sceneNames sceneToLoad)
-    {
-       // SceneManager.LoadScene(sceneToLoad.ToString());
-    }
+    }   
 
     public static void saveCurGame()
     {

@@ -122,18 +122,16 @@ public class m_panelManager : MonoBehaviour {
     public void anim_loadingToMenu()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
-        setToPlay.animsToPlayInOrder.Add(loadScreen.toLeft);
-        setToPlay.animsToPlayInOrder.Add(headerPanel.toMiddle);
         setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
         loadScreen.thisPanelPos = panelAnimations.panelPos.left;
         titleScreen.thisPanelPos = panelAnimations.panelPos.center;
-       // headerPanel.thisPanelPos = panelAnimations.panelPos.center;
         StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_menuToMPLobby()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(loadScreen.toLeft); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
         setToPlay.animsToPlayInOrder.Add(mpLobby.toMiddle);
         titleScreen.thisPanelPos = panelAnimations.panelPos.left;
@@ -144,6 +142,7 @@ public class m_panelManager : MonoBehaviour {
     public void anim_menuToCatSelect()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(loadScreen.toLeft); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
@@ -199,6 +198,7 @@ public class m_panelManager : MonoBehaviour {
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
         setToPlay.animsToPlayInOrder.Add(scoreComp.toLeft);
+        setToPlay.animsToPlayInOrder.Add(loadScreen.toMiddle); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }
@@ -251,92 +251,3 @@ public class m_panelManager : MonoBehaviour {
     }
 }
 
-/*  
-    public GameObject loadOverlay;
-    public GameObject persistentHeader;
-    public GameObject loadingPanel;
-    public GameObject titlePanel;
-    public GameObject mpLobby;
-    public GameObject categorySelect;
-    public GameObject mainRoundPanel;
-    public GameObject scoreCompPanel;
-
-    public class panelSet {
-       public EasyTween cPanelTween;
-       public EasyTween nPanelTween;
-    }
-
-
-    public enum panelNames
-    {
-        loadPanel,
-        header,
-        titlePanel,
-        mpLobby,
-        categorySelect,
-        mainRound,
-        scoreCompPanel
-    }
-
-    
-
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public static GameObject getPanelObjectByEnum(panelNames pName)
-    {
-        switch (pName){
-            case panelNames.categorySelect:
-                return m_panelManager.instance.categorySelect;
-                
-            case panelNames.header:
-                return m_panelManager.instance.persistentHeader;
-                
-            case panelNames.loadPanel:
-                return m_panelManager.instance.loadingPanel;
-                
-            case panelNames.mainRound:
-                return m_panelManager.instance.mainRoundPanel;
-                
-            case panelNames.mpLobby:
-                return m_panelManager.instance.mpLobby;
-                
-            case panelNames.scoreCompPanel:
-                return m_panelManager.instance.scoreCompPanel;
-                
-            case panelNames.titlePanel:
-                return m_panelManager.instance.titlePanel;
-        }
-        return null;
-    }
-    
-    public void swapPanels(panelNames cPanel, panelNames nPanel)
-    {
-        GameObject obj_cPanel = getPanelObjectByEnum(cPanel);
-        GameObject obj_nPanel = getPanelObjectByEnum(nPanel);
-
-        m_panelManager.instance.movePanel(obj_cPanel,obj_nPanel);
-        
-    }
-    
-    private void movePanel(GameObject panelC,GameObject panelN)
-    {
-        panelSet curPSet = new panelSet();
-        curPSet.cPanelTween = panelC.GetComponent<EasyTween>();
-        curPSet.nPanelTween = panelN.GetComponent<EasyTween>();
-        StartCoroutine("movePanels", curPSet);
-    }
-
-    IEnumerator movePanels(panelSet cSet)
-    {
-        cSet.cPanelTween.OpenCloseObjectAnimation();
-        float delay = cSet.cPanelTween.GetAnimationDuration() / 2;
-        yield return new WaitForSeconds(delay);
-        cSet.nPanelTween.OpenCloseObjectAnimation();
-    }*/

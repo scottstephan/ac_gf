@@ -80,7 +80,7 @@ public class gameManager : MonoBehaviour
         roundAnswerStrings.Clear();
         questionText.text = appManager.currentQuestion.questionDisplayText;
         numAnswers = 10;
-        //addDebugAnswers(); //This will be where JSON kicks in
+        //addDebugAnswers(); 
         addQuestionAnswers();
             //Prepare game
         fillManualAnswerObjects(); //Should be a data object
@@ -116,6 +116,7 @@ public class gameManager : MonoBehaviour
         {
             Debug.Log("Ending SP Game");
         }
+        //This is where we need to move in a new round OR move to scoreComp
         m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
 
     }
@@ -137,6 +138,32 @@ public class gameManager : MonoBehaviour
         currentRoundStatus = E_gameRoundStatus.waitingForInput;
 
         yield return null;
+    }
+
+    public void inputPhaseEnd(E_endOfRoundAction endRoundReason, string playerInput = "")
+    {
+
+        m_scoreAndGameStateManager.instance.setInputFieldAccessibility(false);
+        playerInputField.DeactivateInputField();
+
+        bool playerHit = false;
+
+        if (endRoundReason == E_endOfRoundAction.capturedPlayerInput)
+        {
+            obj_Timer.instance.stopTimer();
+            playerHit = checkPlayerInputAgainstAnswers(playerInput); 
+            currentRoundEndResult = playerHit == true ? E_endOfRoundResult.playerHit : E_endOfRoundResult.playerMiss;
+            if (currentPlayer.numHits == 10) currentRoundEndResult = E_endOfRoundResult.playerHitMax;
+            //NEED A 3rd CASE: Player hit, BUT they already guessed that, so NO BUENO
+        }
+        else if (endRoundReason == E_endOfRoundAction.timerEnded)
+        {
+            playerInputTimerEnded();
+            playerHit = false; //Always a miss.
+            currentRoundEndResult = E_endOfRoundResult.timerExpired;
+        }
+
+        StartCoroutine(endRound(currentRoundEndResult));
     }
 
     IEnumerator endRound(E_endOfRoundResult roundResult)
@@ -173,31 +200,6 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void inputPhaseEnd(E_endOfRoundAction endRoundReason, string playerInput = "")
-    {
-        
-        m_scoreAndGameStateManager.instance.setInputFieldAccessibility(false);
-        playerInputField.DeactivateInputField();
-
-        bool playerHit = false;
-
-        if (endRoundReason == E_endOfRoundAction.capturedPlayerInput)
-        {
-            obj_Timer.instance.stopTimer();
-            playerHit = checkPlayerInputAgainstAnswers(playerInput); //Could be miss/hit
-            currentRoundEndResult = playerHit == true ? E_endOfRoundResult.playerHit : E_endOfRoundResult.playerMiss;
-            if (currentPlayer.numHits == 10) currentRoundEndResult = E_endOfRoundResult.playerHitMax;
-            //NEED A 3rd CASE: Player hit, BUT they already guessed that, so NO BUENO
-        }
-        else if (endRoundReason == E_endOfRoundAction.timerEnded)
-        {
-            playerInputTimerEnded();
-            playerHit = false; //Always a miss.
-            currentRoundEndResult = E_endOfRoundResult.timerExpired;
-        }
-
-        StartCoroutine(endRound(currentRoundEndResult));
-    }
 
     public static void playerInputTimerEnded()
     {
