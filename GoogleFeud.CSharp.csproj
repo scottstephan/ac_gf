@@ -201,9 +201,11 @@
     <Compile Include="Assets\Scripts\coreGame\gameManager.cs" />
     <Compile Include="Assets\Scripts\coreGame\m_gameUIManager.cs" />
     <Compile Include="Assets\Scripts\coreGame\m_scoreAndGameStateManager.cs" />
-    <Compile Include="Assets\Scripts\coreGame\obj_Answer.cs" />
     <Compile Include="Assets\Scripts\coreGame\obj_Player.cs" />
     <Compile Include="Assets\Scripts\coreGame\obj_Timer.cs" />
+    <Compile Include="Assets\Scripts\coreGame\rebuild\m_gameManager.cs" />
+    <Compile Include="Assets\Scripts\coreGame\rebuild\m_roundManager.cs" />
+    <Compile Include="Assets\Scripts\coreGame\rebuild\obj_Answer.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_buildManualGrid.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_inputValidator.cs" />
     <Compile Include="Assets\Scripts\gameEntities\entity_games.cs" />

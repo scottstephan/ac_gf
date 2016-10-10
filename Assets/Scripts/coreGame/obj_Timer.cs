@@ -30,7 +30,7 @@ public class obj_Timer : MonoBehaviour {
     public void resetTimer()
     {
         timerState = E_timerState.inactive;
-        curTime = 10;
+        curTime = timeUntilFail;
         timerText.text = curTime.ToString();
     }
 
@@ -42,7 +42,6 @@ public class obj_Timer : MonoBehaviour {
 
     public void setTimer()
     {
-        timeUntilFail = 10f;
         curTime = timeUntilFail;
     }
 
@@ -113,7 +112,7 @@ public class obj_Timer : MonoBehaviour {
     void timerHasReachedZero()
     {
         //BAD THING.
-        gameManager.instance.inputPhaseEnd(gameManager.E_endOfRoundAction.timerEnded);
+        m_gameManager.instance.timerOver();
         endTimer();
     }
 

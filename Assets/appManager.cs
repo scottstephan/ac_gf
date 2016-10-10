@@ -75,50 +75,6 @@ public class appManager : MonoBehaviour {
 
     public static E_lobbyGameStatus curGameStatus = E_lobbyGameStatus.init_playGame;
 
-    public class multiGameRoundInfo
-    {
-        public int numTotalGames =  3;
-        public int numGamesCompleted = 0;
-        public List<u_acJsonUtility.acQ> questionsInThisRound = new List<u_acJsonUtility.acQ>();
-        public int questionIndex = 0;
-
-        public void resetMultiGameRoundInfo()
-        {
-            numGamesCompleted = 0;
-            questionsInThisRound.Clear();
-            questionIndex = 0;
-        }
-
-        public void increaseGamesPlayed()
-        {
-            numGamesCompleted++;
-        }
-
-        public void loadQuestions(string catName)
-        {
-            for(int i = 0; i < numTotalGames; ++i)
-            {
-                u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
-                tQ = u_acJsonUtility.instance.loadRandomQuestionData(catName);
-                questionsInThisRound.Add(tQ); 
-                //CHECK FOR DUPLICATES
-            }
-
-            appManager.currentQuestion = questionsInThisRound[0];
-            appManager.setCurGameQuestionDetails(questionsInThisRound[0].catID, questionsInThisRound[0].category, questionsInThisRound[0].questionID, questionsInThisRound[0].questionName);
-        }
-
-        public void setNextQuestion()
-        {
-            questionIndex++;
-            appManager.currentQuestion = questionsInThisRound[questionIndex];
-            appManager.setCurGameQuestionDetails(questionsInThisRound[questionIndex].catID, questionsInThisRound[questionIndex].category, questionsInThisRound[questionIndex].questionID, questionsInThisRound[questionIndex].questionName);
-
-        }
-    }
-
-    public static multiGameRoundInfo thisRoundInfo;
-
     [DynamoDBTable("gamesByPlayer")]
     public class playerGameID
     {

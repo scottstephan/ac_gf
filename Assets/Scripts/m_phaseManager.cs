@@ -112,7 +112,7 @@ public class m_phaseManager : MonoBehaviour {
     private void transitionToSP()
     { //No need for a prev phase check- It'll always be the cat manager
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
-        gameManager.instance.StartCoroutine("InitGame");
+        m_gameManager.instance.init();
     }
 
     private void transitionToMP()

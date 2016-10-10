@@ -9,6 +9,7 @@ public class obj_Answer : MonoBehaviour {
     public Text answerScoreField;
     public string answerText;
     public int id;
+    public int answerScore;
     public int scoreValue;
     public Color answerRevealColor = Color.blue;
     public float animRevealLength = 1.5f;
@@ -30,13 +31,12 @@ public class obj_Answer : MonoBehaviour {
 
         answerTextField.text = answerText;
         answerScoreField.text = scoreValue.ToString();
-        //SET A FONT
-        //SET A NAME
     }
 
-    public void setAnswerText(string answerText)
+    public void setAnswerInfo(string aT, int iT)
     {
-
+        answerText = aT;
+        id = iT;
     }
 
     public void setAnswerState(E_answerState answerState)

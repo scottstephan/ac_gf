@@ -8,7 +8,7 @@ public class util_inputValidator : MonoBehaviour
     
     public void Start()
     {
-        playerInputField.onEndEdit.AddListener(delegate { acceptPlayerInput(); });
+        //playerInputField.onEndEdit.AddListener(delegate { acceptPlayerInput(); });
     }
 
     public void acceptPlayerInput()
@@ -19,6 +19,6 @@ public class util_inputValidator : MonoBehaviour
         //Validate & process
         //Pass to GM for logic
         playerInput = playerInput.ToLower();
-        gameManager.instance.inputPhaseEnd(gameManager.E_endOfRoundAction.capturedPlayerInput,playerInput);
+       // gameManager.instance.inputPhaseEnd(gameManager.E_endOfRoundAction.capturedPlayerInput,playerInput);
     }
 }
