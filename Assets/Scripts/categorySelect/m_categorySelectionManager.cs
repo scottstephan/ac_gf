@@ -13,16 +13,6 @@ public class m_categorySelectionManager : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
     }
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public void initCategoryPhase()
     {
         clearCategoryLayout();
@@ -38,9 +28,13 @@ public class m_categorySelectionManager : MonoBehaviour {
     void createCategoryLayout()
     {
         List<string> catNames = new List<string>();
-        catNames.Clear();
-        catNames = u_acJsonUtility.instance.discoverCategories();
+        List<u_acJsonUtility.categoryUnlockInfo> catUnlockStatus = new List<u_acJsonUtility.categoryUnlockInfo>();
 
+        catNames.Clear();
+        catUnlockStatus.Clear();
+
+        catNames = u_acJsonUtility.instance.discoverCategories();
+        catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
         for(int i = 0; i < catNames.Count; ++i)
         {
             GameObject tButton = Instantiate(categoryButton);
@@ -49,7 +43,34 @@ public class m_categorySelectionManager : MonoBehaviour {
             categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
             tManager.categoryName = catNames[i];
             tManager.categoryId = "NOTUSINGFORNOW";
-            tManager.setUpButton();
+            for(int j = 0; j < catUnlockStatus.Count; ++j)
+            {
+                Debug.Log("Trying Match: " + catUnlockStatus[j] + " :: " + catNames[i]);
+                if(catUnlockStatus[j].categoryName == catNames[i])
+                {
+                    if(catUnlockStatus[j].unlockStatus == "unlocked")
+                    {
+                        tManager.setUpButton();
+                        catUnlockStatus.Remove(catUnlockStatus[j]);
+                        break;
+                    }
+                    else if(catUnlockStatus[j].unlockStatus == "locked")
+                    {
+                        tManager.lockButton();
+                        catUnlockStatus.Remove(catUnlockStatus[j]);
+
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("UNKNOWN CATEGORY STATUS: " + catNames[i]);
+                    }
+                }
+                else
+                {
+                    Debug.Log("CATEGORY STATUS DID NOT FIND MATCH WITH DIRECTORYLIST");
+                }
+            }
         }
     }
     /// <summary>

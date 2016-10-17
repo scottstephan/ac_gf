@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 using DDBHelper;
 
 public class ui_existingGameButton : MonoBehaviour {
-    public Text ButtonText;
+    public Text p1Text;
+    public Text p2Text;
+    public Text statusText;
+
     public Button uiButtonManager;
     public string gameID; //This comes from m_MP_Lobby which gets it from the devicePlayer's entry in player_games
 
@@ -36,23 +39,36 @@ public class ui_existingGameButton : MonoBehaviour {
     public void setUpButton()
     {
         setColorBlock();
-        string btext = "";
-        if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
-            btext = "Waiting for " + thisGame.player2_name + " to finish! Tap to see your score";
-        else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
-           btext = thisGame.player1_name + " vs. " + thisGame.player2_name +" ! View the results!";
-        else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
-            btext = thisGame.player1_name + " vs. " + thisGame.player2_name +"! Play now!";
+        setStatusText();
+        setPlayerNames();
         gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
 
-        ButtonText.text = btext;
+    }
+
+    void setPlayerNames()
+    {
+        p1Text.text = thisGame.player1_name;
+        p2Text.text = thisGame.player2_name;
+    }
+
+    void setStatusText() {
+
+        if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
+            // btext = "Waiting for " + thisGame.player2_name + " to finish! Tap to see your score";
+            statusText.text = "Their turn!";
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
+            statusText.text = "See who won!";
+        // btext = thisGame.player1_name + " vs. " + thisGame.player2_name + " ! View the results!";
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+            statusText.text = "Your turn!";
+           // btext = thisGame.player1_name + " vs. " + thisGame.player2_name + "! Play now!";
     }
 
     public void onButtonClick()
     {
         //If info is loaded etc....
         appManager.setCurGame(thisGame, devicePlayerRole);
-        appManager.loadSpecificQuestion();
+     //   appManager.loadGameQuestions();
         appManager.setCurGameQuestionDetails(thisGame.categoryID, thisGame.categoryText, thisGame.questionID, thisGame.questionText);
         //MUST LOAD QUESTION FROM HERE- AM HAS ALL THE DEETS, BUT HAS LOADED THE QUESTION OBJECT
         //IF role is init AND has finished AND NOT has seen, go to scoreComp....

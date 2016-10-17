@@ -3,6 +3,7 @@
 		"categoryName": "food",
 		"categoryDisplayText": "Food",
 		"categoryID": "c002",
+"categoryUnlockStatus":"unlocked",
 		"questions": [{
 			"questionName": "how long to grill",
 			"questionDisplayText": "how long to grill",

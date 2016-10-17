@@ -63,7 +63,6 @@ public class obj_Timer : MonoBehaviour {
     {
         timerState = E_timerState.inactive;
         StopCoroutine("reduceTopFillOverTime");
-
     }
 
     public void pauseTimer()
@@ -90,7 +89,6 @@ public class obj_Timer : MonoBehaviour {
     public void stopTimer()
     {
         StopCoroutine("reduceTopFillOverTime");
-
         timerState = E_timerState.inactive;
         CancelInvoke();
     }
@@ -111,9 +109,7 @@ public class obj_Timer : MonoBehaviour {
 
     void timerHasReachedZero()
     {
-        //BAD THING.
-        m_gameManager.instance.timerOver();
-        endTimer();
+        m_gameManager.instance.playerInputComplete();
     }
 
     IEnumerator reduceTopFillOverTime()

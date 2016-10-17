@@ -115,6 +115,7 @@ public class gameManager : MonoBehaviour
         else
         {
             Debug.Log("Ending SP Game");
+            appManager.curLiveGame.p1_score = currentPlayer.totalScore;
         }
         //This is where we need to move in a new round OR move to scoreComp
         m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);

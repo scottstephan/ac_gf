@@ -3,6 +3,7 @@
 		"categoryName": "people",
 		"categoryDisplayText": "People",
 		"categoryID": "c005",
+"categoryUnlockStatus":"unlocked",
 		"questions": [{
 			"questionName": "i had a dream i was",
 			"questionDisplayText": "I had a dream I was",

@@ -12,9 +12,13 @@ public class u_acJsonUtility : MonoBehaviour {
     public string jsonToImport;
     public JSONArray categoryQuestions;
     static string baseSavePathString;
+    //For resource saving - Only works in Editor! There is no /resources/ path in a binary runtime
     static string baseResourcesPath;
+    static string baseCatResourcesPath = "/jsonCategories/";
+    //For local device saving
     static string catSavePathSuffix = "/categories/";
     static string qSavePathSuffix = "/questions/";
+    static string catInfoSavePathPrefix = "catStatus/";
 
     [System.Serializable]
     public class qDBInfo
@@ -29,10 +33,24 @@ public class u_acJsonUtility : MonoBehaviour {
     }
 
     [System.Serializable]
+    public class categoryUnlockInfo
+    {
+        public string unlockStatus;
+        public string categoryName;
+        public string categoryID;
+
+        public void readCategoryData()
+        {
+            Debug.Log(categoryName + " is " + unlockStatus + ". ID: " + categoryID);
+        }
+    }
+
+    [System.Serializable]
     public class acQ
     {
         public string category;
         public string catID;
+      //  public string catUnlockStatus;
         public string questionName;
         public string questionDisplayText;
         public string questionID;
@@ -142,11 +160,6 @@ public class u_acJsonUtility : MonoBehaviour {
         baseResourcesPath = "Assets/Resources";
         createImportDirectories();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void readJson()
     {
@@ -167,6 +180,13 @@ public class u_acJsonUtility : MonoBehaviour {
             questionsArray = tempJObj.GetArray("questions");
             createQuestionsObject(questionsArray, thisCat); 
         }
+        qDBInfo tqdb = returnCurQDBObject();
+        appManager.instance.setCurQDBInfo(tqdb.QDBVersion);
+    }
+
+    public void writeBaseCatsToCategoryDirectory()
+    {
+        //This should run only the very first time- We should copy all the base stuff from the categoru directory to the player's local storage
     }
 
     public List<string> getAllCategoryRawJson()
@@ -174,13 +194,13 @@ public class u_acJsonUtility : MonoBehaviour {
         TextAsset[] resourceJsonCats;
         List<string> unparsedCatJSon = new List<string>();
         resourceJsonCats = Resources.LoadAll<TextAsset>("jsonCategories");
-
+        //This will load the base category sets - Maybe we shou
         for(int i =0; i < resourceJsonCats.Length; i++)
         {
             string j = resourceJsonCats[i].ToString();
             unparsedCatJSon.Add(j);
         }
-
+        //Now should load new categories that got pulled from the web into local save
         return unparsedCatJSon;
     }
 
@@ -188,11 +208,14 @@ public class u_acJsonUtility : MonoBehaviour {
     {
         string catPath = baseSavePathString + catSavePathSuffix;
         string qPath = baseSavePathString + qSavePathSuffix;
+        string catStatusPath = catPath + catInfoSavePathPrefix;
 
         if (!Directory.Exists(catPath))
             Directory.CreateDirectory(catPath);
         if (!Directory.Exists(qPath))
             Directory.CreateDirectory(qPath);
+        if (!Directory.Exists(catStatusPath))
+            Directory.CreateDirectory(catStatusPath);
     }
 
     acCat createCategoryObject(JSONValue categorySuperString)
@@ -201,17 +224,28 @@ public class u_acJsonUtility : MonoBehaviour {
         string catName = category.GetString("categoryName");
         string catID = category.GetString("categoryID");
         string catDispName = category.GetString("categoryDisplayText");
-
+        string catUnlockStatus = category.GetString("categoryUnlockStatus");
+        //CREATE CAT Object
         acCat tCat = new acCat();
         tCat.categoryDisplayName = catDispName;
         tCat.categoryID = catID;
         tCat.categoryName = catName;
-        tCat.displayCatInfo();
-
+     //   tCat.displayCatInfo();
+        //Create cat info object
+        categoryUnlockInfo tCI = new categoryUnlockInfo();
+        tCI.categoryName = catName;
+        tCI.categoryID = catID;
+        tCI.unlockStatus = catUnlockStatus;
+        //SAVE CAT OBJECT
         string catJson = JsonUtility.ToJson(tCat);
         string catSavePath = baseSavePathString + catSavePathSuffix + catName + ".json";
         Debug.Log("CatsJson: " + catJson);
         SaveData(catJson, catSavePath);
+        //SAVE CAT INFO OBJECT- Shuld only do this IF IT DOESNT ALREADY EXIST, I don't want to overwrite any IAP adjustments
+        string catInfoJson = JsonUtility.ToJson(tCI);
+        string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix + catName + ".json";
+        Debug.Log("Saving cat info json to: " + catInfoSavePath);
+        SaveData(catInfoJson, catInfoSavePath);
 
         return tCat;
     }
@@ -235,8 +269,8 @@ public class u_acJsonUtility : MonoBehaviour {
             tQ.category = thisCat.categoryName;
             tQ.catID = thisCat.categoryID;
             //Check the data
-            tQ.displayQInfo();
-            tQ.displayQCatInfo();
+       //     tQ.displayQInfo();
+       //     tQ.displayQCatInfo();
             //Get the answers to that question
             JSONArray answersArray = jsonQParser.GetArray("answers");
             tQ.jsonAnswers = answersArray;
@@ -252,7 +286,7 @@ public class u_acJsonUtility : MonoBehaviour {
             string fPath = fPathBase + tQ.questionID + ".json";
 
             SaveData(questionJson, fPath);
-            Debug.Log("Question Json " + questionJson);
+        //    Debug.Log("Question Json " + questionJson);
         }
     }
 
@@ -336,11 +370,45 @@ public class u_acJsonUtility : MonoBehaviour {
         return categoryNames;
     }
 
+    public List<categoryUnlockInfo> discoverAllCategoryUnlockInfo()
+    {
+        string fileRoot = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix;
+        string[] catInfoNames = Directory.GetFiles(fileRoot);
+        List<categoryUnlockInfo> catInfo = new List<categoryUnlockInfo>(); 
+
+        for(int i = 0; i <catInfoNames.Length; i++)
+        {
+            string catInfoJson = File.ReadAllText(catInfoNames[i]);
+            categoryUnlockInfo tCUI = JsonUtility.FromJson<categoryUnlockInfo>(catInfoJson);
+            tCUI.readCategoryData();
+            catInfo.Add(tCUI);
+        }
+
+        return catInfo;
+    }
+
+    public categoryUnlockInfo getCategoryUnlockInfo(string cName)
+    {
+        string fileRoot = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix;
+        string[] catInfoNames = Directory.GetFiles(fileRoot);
+
+        for (int i = 0; i < catInfoNames.Length; i++)
+        {
+            string catInfoJson = File.ReadAllText(catInfoNames[i]);
+            categoryUnlockInfo tCUI = JsonUtility.FromJson<categoryUnlockInfo>(catInfoJson);
+            if(tCUI.categoryName == cName)
+            {
+                return tCUI;
+            }
+        }
+
+        return null;
+    }
+
     public qDBInfo returnCurQDBObject()
     {
         qDBInfo tInfo = new qDBInfo();
-        // string fPath = "Assets/Resources/qDBInfo.json";
-        //string loadedJson = File.ReadAllText(fPath);
+        
         TextAsset lJ = Resources.Load<TextAsset>("qDBInfo");
         string useableJson = lJ.ToString();
         Debug.Log("QDB JSON: " + useableJson);
@@ -350,4 +418,27 @@ public class u_acJsonUtility : MonoBehaviour {
         return tInfo;
     }
 
+    public void createCatInfoFile()
+    {
+        categoryUnlockInfo tCI = new categoryUnlockInfo();
+        tCI.categoryID = "test";
+        tCI.categoryName = "testtest";
+        tCI.unlockStatus = "locked";
+        string s_tci = JsonUtility.ToJson(tCI);
+        Debug.Log(s_tci);
+        string fPath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix;
+        Debug.Log("Saving cat info to: " + fPath);
+      //  SaveData(s_tci, fPath);
+    }
+
+    public void findAndUnlockCategory(string cName)
+    {
+        string fileRoot = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix+cName+".json";
+
+        categoryUnlockInfo catInfoObj = getCategoryUnlockInfo(cName);
+        catInfoObj.unlockStatus = "unlocked";
+        string newInfo = JsonUtility.ToJson(catInfoObj);
+
+        SaveData(newInfo, fileRoot);
+    }
 }

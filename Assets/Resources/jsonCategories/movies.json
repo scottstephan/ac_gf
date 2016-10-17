@@ -3,6 +3,7 @@
 		"categoryName": "movies",
 		"categoryDisplayText": "Movies",
 		"categoryID": "c003",
+"categoryUnlockStatus":"unlocked",	
 		"questions": [{
 			"questionName": "batman vs superman was",
 			"questionDisplayText": "batman vs superman was",

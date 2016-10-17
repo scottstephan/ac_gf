@@ -10,6 +10,7 @@ public class m_loadScreenManager : MonoBehaviour {
     public static m_loadScreenManager instance = null;
     public Text playerLoadStatusText;
     public bool waitingForAppInit = true;
+
     void Awake()
     {
         if (instance == null) instance = this;
@@ -18,6 +19,7 @@ public class m_loadScreenManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         appManager.instance.compareQDBInfo();
+        appManager.instance.checkIAPConnection();
         appManager.instance.checkFBLoginStatus();
     }
 

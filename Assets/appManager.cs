@@ -21,10 +21,13 @@ public class appManager : MonoBehaviour {
     public static u_acJsonUtility.acQ currentQuestion;
 
     public static bool dontUpdateGameRecord = false;
+    public static bool IAPInitialized = false;
 
     public bool FB_LOGINSTATUS;
     public static string FB_ID;
     public string FB_NAME;
+
+    public static u_iapManager iapManager = null;
 
     public enum playerRoles
     {
@@ -124,12 +127,27 @@ public class appManager : MonoBehaviour {
         u_acJsonUtility.qDBInfo curQDB = u_acJsonUtility.instance.returnCurQDBObject();
         if(curQDB.QDBVersion != m_prefsDataManager.getLastQuestionDBImported())
         {
-            m_prefsDataManager.setLastQuestionDBImported(curQDB.QDBVersion);
             u_acJsonUtility.instance.readJson();
         }
     }
 
+    public void setCurQDBInfo(string versionNumber)
+    {//curQDB.QDBVersion
+        m_prefsDataManager.setLastQuestionDBImported(versionNumber);
+
+    }
+
     #region loginRoutines
+    public void checkInternetConnection()
+    {
+
+    }
+
+    public void checkIAPConnection()
+    {
+        iapManager = new u_iapManager(); //Starts the app pinging the iapManagement
+    }
+
     public void checkFBLoginStatus()
     {
         m_fbStatusManager.instance.returnUserLoginStatus(actOnFBLoginStatus);
@@ -294,9 +312,40 @@ public class appManager : MonoBehaviour {
         appManager.curLiveGame.categoryID = cID;
     }
 
-    public static void loadSpecificQuestion()
+    public List<string> loadQuestionIDs()
     {
-        appManager.currentQuestion = u_acJsonUtility.instance.loadSpecificQuestionData(curLiveGame.questionID, curLiveGame.categoryText);
+        //Parse gameqs
+        Debug.Log("Loading Q's from Q String: " + curLiveGame.questionID);
+
+        char[] qA = curLiveGame.questionID.ToCharArray();
+        bool isConcat = false;
+        string nS = "";
+        List<string> qIds = new List<string>();
+
+        for (int i = 0; i < qA.Length; i++)
+        {
+            if(qA[i] == 'q' && i > 0)  //presumes 0 is q
+            {
+                qIds.Add(nS);
+                nS = "";   
+            }
+            nS += qA[i];
+
+            if (i == qA.Length - 1)
+            {
+                qIds.Add(nS);
+            }
+            
+        }
+
+        Debug.Log("LOADED Q's");
+        for(int i = 0; i < qIds.Count; i++)
+        {
+            Debug.Log(qIds[i]);
+        }
+
+        return qIds;
+        //appManager.currentQuestion = u_acJsonUtility.instance.loadSpecificQuestionData(curLiveGame.questionID, curLiveGame.categoryText);
     }
 
     public static void updateGameRecord_Manual()

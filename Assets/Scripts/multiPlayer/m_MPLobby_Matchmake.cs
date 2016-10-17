@@ -99,13 +99,13 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void getAllP1Games()
     {
-        Debug.Log("***QUERYING ALL GAMES INVOLVING P1***");
+        Debug.Log("***QUERYING ALL GAMES INVOLVING P1***: " + appManager.FB_ID);
         List<string> attToReturn = new List<string>();
         attToReturn.Add("playerID");
         attToReturn.Add("gameID");
         attToReturn.Add("role");
 
-        DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.devicePlayer.playerID, attToReturn, allP1GameQueryComplete,true);
+        DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.FB_ID, attToReturn, allP1GameQueryComplete,true);
     }
 
     static void allP1GameQueryComplete(List<appManager.playerGameID> response, Exception e = null)

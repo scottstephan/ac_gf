@@ -40,10 +40,13 @@ public class m_gameManager : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
     }
 
-    public void init()
+    public void init(bool hasQSet)
     {
         reset();
-        loadQuestions();
+        if (!hasQSet)
+            loadRandomQuestions();
+        else
+            loadExistingQuestionSet();
         createRoundInterfaces();
         moveInRoundInterface(0);
         timer.setTimer();
@@ -144,6 +147,8 @@ public class m_gameManager : MonoBehaviour {
         else
         {
             Debug.Log("Ending SP Game");
+            appManager.curLiveGame.p1_score = int.Parse(playerScoreText.text);
+
         }
         //This is where we need to move in a new round OR move to scoreComp
         m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
@@ -153,18 +158,20 @@ public class m_gameManager : MonoBehaviour {
     {
         timer.resetTimer();
         timer.startTimer();
-        playerInput.text = ""; 
-        playerInput.ActivateInputField();
+        playerInput.text = "";
+        playerInput.interactable = true;
+        playerInput.ActivateInputField(); //yield focus
     }
 
     public void endInputPhase()
-    {
+    { // 2 hots here - But only 1 from timer! Who else is calling? Suspect: Input field calls OnEndEdit when deactivated
         timer.stopTimer();
+        //     playerInput.DeactivateInputField();
+        playerInput.interactable = false; //Stops input. However, on DeactivateInputField() it flags the OnEndEdit event leading to double input. Could do a flag.
         roundObjects[roundIndex].GetComponent<m_roundManager>().startValidationPhase();
-        playerInput.DeactivateInputField();
     }
 
-    public void loadQuestions()
+    public void loadRandomQuestions()
     {
         string fullQString = "";
         for(int i = 0; i < numRounds; i++)
@@ -173,6 +180,25 @@ public class m_gameManager : MonoBehaviour {
             tQ = u_acJsonUtility.instance.loadRandomQuestionData(currentSelectedCategory);
             questionSet.Add(tQ);
             fullQString += tQ.questionID; //Capturing for now. Used in save/load on MP games
+        }
+
+        if (appManager.curLiveGame != null)
+        {
+            appManager.curLiveGame.questionID = fullQString;
+            appManager.curLiveGame.categoryText = currentSelectedCategory;
+        }
+
+    }
+
+    public void loadExistingQuestionSet()
+    {
+        List<string> qIds = appManager.instance.loadQuestionIDs();
+
+        for(int i = 0; i < qIds.Count; i++)
+        {
+            u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
+            tQ = u_acJsonUtility.instance.loadSpecificQuestionData(qIds[i], appManager.curLiveGame.categoryText);
+            questionSet.Add(tQ);
         }
     }
 
@@ -192,7 +218,7 @@ public class m_gameManager : MonoBehaviour {
 
     public void moveInRoundInterface(int index)
     {
-        if (index > 0)
+            if (index > 0)
             roundObjects[index - 1].GetComponent<m_roundManager>().moveRoundOut();
         roundObjects[index].GetComponent<m_roundManager>().moveRoundIn();
         
@@ -227,7 +253,7 @@ public class m_gameManager : MonoBehaviour {
 
     public void timerOver()
     {
-        roundObjects[roundIndex].GetComponent<m_roundManager>().actOnValidationResult(m_roundManager.validationRoundEndResult.playerTimeOut);
+        roundObjects[roundIndex].GetComponent<m_roundManager>().startValidationPhase();
     }
 
     IEnumerator delayAndCall(delayTypes delayType)

@@ -79,12 +79,11 @@ public class m_roundManager : MonoBehaviour {
     {
         //Get Input
         string playerInput = m_gameManager.instance.playerInput.text;
-        m_gameManager.instance.playerInput.DeactivateInputField();
         playerInput = playerInput.ToLower();
         Debug.Log("Player input is: " + playerInput);
         //Check it against answers
         validationRoundEndResult result = returnValidationResult(playerInput);
-        //Act on the result
+        //Act on the result 
         actOnValidationResult(result);
         //Will likely want a delay here. 
         m_gameManager.instance.StartCoroutine("delayAndCall", m_gameManager.delayTypes.resultToInput);        

@@ -7,6 +7,7 @@ public class categorySelectionButtonManager : MonoBehaviour
     public string categoryName;
     public string categoryId;
     public Text catButtonText;
+    bool isLocked = false;
 
     public void categorySelected()
     {
@@ -18,16 +19,47 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void buttonClicked()
     {
-        //   m_categorySelectionManager.instance.loadCategoryQuestion(categoryName);
-        //    appManager.setCurGameQuestionDetails(categoryId,categoryName, appManager.currentQuestion.questionID, appManager.currentQuestion.questionName);
-        m_gameManager.instance.setCurrentSelectCategory(categoryName);
-        m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
+        if (!isLocked) { 
+            m_gameManager.instance.setCurrentSelectCategory(categoryName);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
+        }
+        else
+        {//IAP path
+            unlockCategory(); //FOR TESTING ONLY
+            
+        }
     }
 
     public void setUpButton()
     {
+        ColorBlock bColor = new ColorBlock();
+        bColor.colorMultiplier = 1;
+        bColor.normalColor = Color.green;
+        bColor.highlightedColor = Color.blue;
+        gameObject.GetComponent<Button>().colors = bColor;
+
         string dispCatName = categoryName;
         dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
         catButtonText.text = dispCatName;
+    }
+
+    public void lockButton()
+    {
+        isLocked = true;
+        ColorBlock bColor = new ColorBlock();
+        bColor.colorMultiplier = 1;
+        bColor.normalColor = Color.red;
+        bColor.highlightedColor = Color.blue;
+
+        gameObject.GetComponent<Button>().colors = bColor;
+        string dispCatName = categoryName+ ":: LOCKED";
+        dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
+        catButtonText.text = dispCatName;
+    }
+
+    public void unlockCategory()
+    {
+        u_acJsonUtility.instance.findAndUnlockCategory(categoryName);
+        setUpButton();
     }
 }

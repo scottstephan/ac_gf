@@ -3,6 +3,7 @@
 		"categoryName": "names",
 		"categoryDisplayText": "Names",
 		"categoryID": "c006",
+"categoryUnlockStatus":"unlocked",
 		"questions": [{
 			"questionName": "james",
 			"questionDisplayText": "James",

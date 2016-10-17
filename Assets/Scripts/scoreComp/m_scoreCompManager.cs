@@ -6,10 +6,9 @@ using Assets.autoCompete.games;
 public class m_scoreCompManager : MonoBehaviour {
     public static m_scoreCompManager instance = null;
 
-    public Text p1Score;
-    public Text p2Score;
-    public Text p1Name;
-    public Text p2Name;
+    public Text yourText;
+    public Text theirText;
+
     // Use this for initialization
     void Awake()
     { //Maintain singleton pattern
@@ -39,39 +38,29 @@ public class m_scoreCompManager : MonoBehaviour {
         } 
     }
 
-    void showFinalScores()
-    {
-        //Lerp in You Got... dialog
-        //Lerp in They got... dialog
-        //Loser swings and falls off
-        //Win/Lose message appears
-        //Exit button appears
-    }
-
     void updatePlayerScores()
     {
         if (appManager.curLiveGame.isMPGame)
         { //Maybe see if p2 has finished yet???
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
-            {
-                p1Name.text = "Your Score: ";
-                p2Name.text = appManager.curLiveGame.player2_name + "'s Score: ";
+            { //YOU are P1- P2 may or may not be done. 
+                yourText.text = "You got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
+                if (appManager.curLiveGame.p2_Fin)
+                    theirText.text = appManager.curLiveGame.player2_name + " got <color=blue>" + appManager.curLiveGame.p2_score + "</color> points!";
+                else
+                    theirText.text = "Waiting for <color=blue>" + appManager.curLiveGame.player2_name + "</color> to finish!";
             }
-            else
-            {
-                p1Name.text = appManager.curLiveGame.player1_name + "'s Score: ";
-                p2Name.text = "Your Score: ";
+            else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+            { //YOU are P2 - In this case, P1 HAS to have finished
+                yourText.text = "You got <color=blue>" + appManager.curLiveGame.p2_score + "</color> points!";
+                theirText.text = appManager.curLiveGame.player1_name + " got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
             }
-            p2Score.text = appManager.curLiveGame.p2_score.ToString();
         }
         else
-        {
-            p1Name.text = "Your Score: ";
-            p2Name.text = "";
-            p2Score.text = "";
+        {            //Set YOUR text, but not theirs
+            yourText.text = "You got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
+            theirText.text = " ";
         }
-
-        p1Score.text = appManager.curLiveGame.p1_score.ToString(); //No matter what...
     }
 
     void determineGameAction()
@@ -89,8 +78,4 @@ public class m_scoreCompManager : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

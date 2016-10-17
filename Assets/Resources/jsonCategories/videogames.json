@@ -3,6 +3,7 @@
 		"categoryName": "video games",
 		"categoryDisplayText": "Video Games",
 		"categoryID": "c001",
+"categoryUnlockStatus":"unlocked",
 		"questions": [{
 			"questionName": "the atari",
 			"questionDisplayText": "the atari",

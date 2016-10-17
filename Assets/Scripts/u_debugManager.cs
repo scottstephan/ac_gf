@@ -32,6 +32,16 @@ public class u_debugManager : MonoBehaviour {
                 Debug.Log("CHECKIN CATEGORIES DIRECTORY");
                 u_acJsonUtility.instance.getAllCategoryRawJson();
             }
+            else if (Input.GetKeyDown(KeyCode.U))
+            {
+                Debug.Log("CREATING TEST CAT INFO OBJECT");
+                u_acJsonUtility.instance.createCatInfoFile();
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                Debug.Log("SHOWIN CAT INFO FROM LOCAL DIR");
+                u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
+            }
         }
 	}
 }
