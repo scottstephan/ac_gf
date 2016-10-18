@@ -18,6 +18,7 @@ public class m_gameManager : MonoBehaviour {
     public InputField playerInput;
     public Text playerScoreText;
     public Text roundNumberText;
+    public Text roundStatusText;
 
     public obj_Timer timer;
     public enum roundPhases
@@ -68,6 +69,8 @@ public class m_gameManager : MonoBehaviour {
         roundIndex = 0;
         playerMisses = 0;
         playerScoreText.text = "0";
+        roundNumberText.text = "Round: 1" + "/" + numRounds;
+        roundStatusText.text = "";
 
     }
 
@@ -164,7 +167,7 @@ public class m_gameManager : MonoBehaviour {
     }
 
     public void endInputPhase()
-    { // 2 hots here - But only 1 from timer! Who else is calling? Suspect: Input field calls OnEndEdit when deactivated
+    { 
         timer.stopTimer();
         //     playerInput.DeactivateInputField();
         playerInput.interactable = false; //Stops input. However, on DeactivateInputField() it flags the OnEndEdit event leading to double input. Could do a flag.
@@ -244,6 +247,7 @@ public class m_gameManager : MonoBehaviour {
     public void incrementRoundsPlayed()
     {
         roundIndex++;
+        roundNumberText.text = "Round: " + roundIndex + "/" + numRounds;
     }
 
     public void setCurrentSelectCategory(string catName)

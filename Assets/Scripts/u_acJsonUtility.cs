@@ -441,4 +441,22 @@ public class u_acJsonUtility : MonoBehaviour {
 
         SaveData(newInfo, fileRoot);
     }
+
+    IEnumerator checkWebQDB()
+    {
+        string qdbURL = "https://s3.amazonaws.com/autocompete/qDBInfo.json";
+
+        WWW www = new WWW(qdbURL);
+        yield return www; //Not yielding in a CR will freeze until this done. 
+
+        if (www.error == null)
+        {
+            Debug.Log("EC3 JSON: " + www.data);
+        }
+        else
+        {
+            Debug.Log("ERROR: " + www.error);
+        }
+    }
 }
+
