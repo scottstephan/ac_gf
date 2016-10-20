@@ -156,7 +156,7 @@ public class u_acJsonUtility : MonoBehaviour {
         if (useResourcesFolder)
             baseSavePathString = "Assets/Resources/";
         else
-            baseSavePathString = Application.persistentDataPath;
+            baseSavePathString = Application.persistentDataPath; //pDP necessary for Android
         baseResourcesPath = "Assets/Resources";
         createImportDirectories();
     }
@@ -178,7 +178,7 @@ public class u_acJsonUtility : MonoBehaviour {
 
             tempJObj = JSONObject.Parse(cSS.ToString()); //This yields an array of the questions
             questionsArray = tempJObj.GetArray("questions");
-            createQuestionsObject(questionsArray, thisCat); 
+            createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID); 
         }
         qDBInfo tqdb = returnCurQDBObject();
         appManager.instance.setCurQDBInfo(tqdb.QDBVersion);
@@ -194,13 +194,13 @@ public class u_acJsonUtility : MonoBehaviour {
         TextAsset[] resourceJsonCats;
         List<string> unparsedCatJSon = new List<string>();
         resourceJsonCats = Resources.LoadAll<TextAsset>("jsonCategories");
-        //This will load the base category sets - Maybe we shou
-        for(int i =0; i < resourceJsonCats.Length; i++)
+
+        for (int i =0; i < resourceJsonCats.Length; i++)
         {
             string j = resourceJsonCats[i].ToString();
             unparsedCatJSon.Add(j);
         }
-        //Now should load new categories that got pulled from the web into local save
+
         return unparsedCatJSon;
     }
 
@@ -241,7 +241,7 @@ public class u_acJsonUtility : MonoBehaviour {
         string catSavePath = baseSavePathString + catSavePathSuffix + catName + ".json";
         Debug.Log("CatsJson: " + catJson);
         SaveData(catJson, catSavePath);
-        //SAVE CAT INFO OBJECT- Shuld only do this IF IT DOESNT ALREADY EXIST, I don't want to overwrite any IAP adjustments
+        //TO-DO: SAVE CAT INFO OBJECT- Shuld only do this IF IT DOESNT ALREADY EXIST, I don't want to overwrite any IAP adjustments
         string catInfoJson = JsonUtility.ToJson(tCI);
         string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix + catName + ".json";
         Debug.Log("Saving cat info json to: " + catInfoSavePath);
@@ -250,10 +250,17 @@ public class u_acJsonUtility : MonoBehaviour {
         return tCat;
     }
 
-    void createQuestionsObject(JSONArray questionsArray, acCat thisCat)
-    {
+    void createQuestionsObject(JSONArray questionsArray, string catName, string catID)
+    { //SHOULD NUKE ANY EXISTING QUESTIONS
         Debug.Log("Questions length:" + questionsArray.Length);
+        string fPathBase = baseSavePathString + qSavePathSuffix + catName + "/";
+        string tempPath = baseSavePathString + qSavePathSuffix + catName + "/temp/";
 
+        if (!Directory.Exists(tempPath))
+            Directory.CreateDirectory(tempPath);
+        if (!Directory.Exists(fPathBase))
+            Directory.CreateDirectory(fPathBase);
+        
         for (int i = 0; i < questionsArray.Length; i++)
         {
             JSONObject jsonQParser = JSONObject.Parse(questionsArray[i].ToString());
@@ -266,11 +273,9 @@ public class u_acJsonUtility : MonoBehaviour {
             tQ.questionName = qName;
             tQ.questionID = qID;
             tQ.questionDisplayText = qDisp;
-            tQ.category = thisCat.categoryName;
-            tQ.catID = thisCat.categoryID;
-            //Check the data
-       //     tQ.displayQInfo();
-       //     tQ.displayQCatInfo();
+            tQ.category = catName;
+            tQ.catID = catID;
+            
             //Get the answers to that question
             JSONArray answersArray = jsonQParser.GetArray("answers");
             tQ.jsonAnswers = answersArray;
@@ -278,16 +283,20 @@ public class u_acJsonUtility : MonoBehaviour {
             //Iterate and assign to the question
 
             string questionJson = JsonUtility.ToJson(tQ);
-            string fPathBase = baseSavePathString + qSavePathSuffix + thisCat.categoryName + "/";
 
-            if (!Directory.Exists(fPathBase)){
-                Directory.CreateDirectory(fPathBase);
-            }
-            string fPath = fPathBase + tQ.questionID + ".json";
+            
+            string qPath = tempPath + tQ.questionID + ".json";
 
-            SaveData(questionJson, fPath);
-        //    Debug.Log("Question Json " + questionJson);
+            SaveData(questionJson, qPath);
         }
+
+        DirectoryInfo dir = new DirectoryInfo(tempPath);
+        FileInfo[] files = dir.GetFiles();
+        for(int i = 0; i < files.Length; i++)
+        {
+            files[i].CopyTo(fPathBase + files[i].Name,true);
+        }
+        Directory.Delete(tempPath,true);
     }
 
     public void SaveData(string jsonToSave, string fPath)
@@ -444,19 +453,94 @@ public class u_acJsonUtility : MonoBehaviour {
 
     IEnumerator checkWebQDB()
     {
-        string qdbURL = "https://s3.amazonaws.com/autocompete/qDBInfo.json";
-
-        WWW www = new WWW(qdbURL);
-        yield return www; //Not yielding in a CR will freeze until this done. 
-
+        string url = "https://s3.amazonaws.com/autocompete/qDBInfo.json";
+        WWW www = new WWW(url);
+        yield return www;
         if (www.error == null)
         {
-            Debug.Log("EC3 JSON: " + www.data);
+            Debug.Log(www.data);
+            compareWebQDBToLocalQDB(www.data);
+        }
+        else
+        {
+            Debug.Log("ERROR: " + www.error);
+        }
+    
+    }
+
+    void compareWebQDBToLocalQDB(string s_webQDB)
+    {
+        JSONObject localQDB = JSONObject.Parse(Resources.Load<TextAsset>("qdbInfo").ToString());
+        JSONObject webQDB = JSONObject.Parse(s_webQDB);
+
+        Debug.Log("Local: " + localQDB.GetString("QDBVersion") + "::" + "Web: " + webQDB.GetString("QDBVersion"));
+
+        if(localQDB.GetString("QDBVersion") != webQDB.GetString("QDBVersion"))
+        {
+            Debug.Log("QDB VERSION MISMATCH!");
+            processNewQDB(webQDB);
+        }
+    }
+
+    public void processNewQDB(JSONObject qdbObj)
+    {
+        Debug.Log(qdbObj.GetString("QDBVersion"));
+        Debug.Log(qdbObj.GetString("QDBNote"));
+
+        JSONArray catsChanged = qdbObj.GetArray("categoriesUpdated");
+
+        for (int i = 0; i < catsChanged.Length; i++)
+        {
+            Debug.Log(catsChanged[i].Obj.GetString("catName"));
+        }
+
+
+        for (int i = 0; i < catsChanged.Length; i++)
+        {
+            StartCoroutine("getNewCategoryJson", catsChanged[i].Obj.GetString("catName"));
+        }
+    }
+
+    IEnumerator getNewCategoryJson(string catChanged)
+    {
+        Debug.Log("Getting new category data for: " + catChanged);
+
+        string url = "https://s3.amazonaws.com/autocompete/categories/" + catChanged + ".json";
+        WWW www = new WWW(url);
+        yield return www;
+        if (www.error == null)
+        {
+            Debug.Log(www.data);
+           
+            JSONObject catData = JSONObject.Parse(www.data);
+            JSONValue catValue = catData.GetValue("Category");
+            JSONObject categorySubObject = JSONObject.Parse(catValue.ToString());
+
+            acCat thisCat = createCategoryObject(catValue);
+            Debug.Log(catData);
+
+            JSONArray questionsArray = categorySubObject.GetArray("questions");
+
+            createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID);
         }
         else
         {
             Debug.Log("ERROR: " + www.error);
         }
     }
+
+    public void checkFirstTimeCopy()
+    {//if the dirs exist, then we've already copied the default q set or its been updated. Nuke it!
+        string defaultDirURL = "";
+        if (Directory.Exists(defaultDirURL))
+        {
+            return;
+        }
+        else
+        {
+            //Copy Q set from Resources
+        }
+    }
+
 }
 

@@ -19,9 +19,9 @@ public class m_loadScreenManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
-        appManager.instance.compareQDBInfo  ();
-        appManager.instance.checkIAPConnection();
-        appManager.instance.checkFBLoginStatus();
+   //     appManager.instance.compareQDBInfo  ();
+   //     appManager.instance.checkIAPConnection();
+   //     appManager.instance.checkFBLoginStatus();
     }
 
     public void appInitComplete()
