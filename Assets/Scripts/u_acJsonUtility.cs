@@ -8,6 +8,10 @@ using System.IO;
 public class u_acJsonUtility : MonoBehaviour {
 
     public static u_acJsonUtility instance = null;
+    public int numCatsImportedForCallbackComplete = 0;
+    int curNewCatsImported = 0;
+    qDBInfo tempNewQDB;
+
     bool useResourcesFolder = false;
     public string jsonToImport;
     public JSONArray categoryQuestions;
@@ -19,7 +23,7 @@ public class u_acJsonUtility : MonoBehaviour {
     static string catSavePathSuffix = "/categories/";
     static string qSavePathSuffix = "/questions/";
     static string catInfoSavePathPrefix = "catStatus/";
-
+    static string qdbInfoSavePathSuffix = "/qdbinfo/";
     [System.Serializable]
     public class qDBInfo
     {
@@ -180,7 +184,10 @@ public class u_acJsonUtility : MonoBehaviour {
             questionsArray = tempJObj.GetArray("questions");
             createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID); 
         }
+        //Save Resources QDB Object to local
         qDBInfo tqdb = returnCurQDBObject();
+        string qdbJSON = JsonUtility.ToJson(tqdb);
+        SaveData(qdbJSON, baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
         appManager.instance.setCurQDBInfo(tqdb.QDBVersion);
     }
 
@@ -204,10 +211,11 @@ public class u_acJsonUtility : MonoBehaviour {
         return unparsedCatJSon;
     }
 
-    void createImportDirectories()
+    public void createImportDirectories()
     {
         string catPath = baseSavePathString + catSavePathSuffix;
         string qPath = baseSavePathString + qSavePathSuffix;
+        string qdbInfoPath = baseSavePathString + qdbInfoSavePathSuffix;
         string catStatusPath = catPath + catInfoSavePathPrefix;
 
         if (!Directory.Exists(catPath))
@@ -216,6 +224,8 @@ public class u_acJsonUtility : MonoBehaviour {
             Directory.CreateDirectory(qPath);
         if (!Directory.Exists(catStatusPath))
             Directory.CreateDirectory(catStatusPath);
+        if (!Directory.Exists(qdbInfoPath))
+            Directory.CreateDirectory(qdbInfoPath);
     }
 
     acCat createCategoryObject(JSONValue categorySuperString)
@@ -239,13 +249,15 @@ public class u_acJsonUtility : MonoBehaviour {
         //SAVE CAT OBJECT
         string catJson = JsonUtility.ToJson(tCat);
         string catSavePath = baseSavePathString + catSavePathSuffix + catName + ".json";
-        Debug.Log("CatsJson: " + catJson);
+   //     Debug.Log("CatsJson: " + catJson);
         SaveData(catJson, catSavePath);
-        //TO-DO: SAVE CAT INFO OBJECT- Shuld only do this IF IT DOESNT ALREADY EXIST, I don't want to overwrite any IAP adjustments
+        
         string catInfoJson = JsonUtility.ToJson(tCI);
         string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix + catName + ".json";
         Debug.Log("Saving cat info json to: " + catInfoSavePath);
-        SaveData(catInfoJson, catInfoSavePath);
+
+        if (!File.Exists(catInfoSavePath))
+            SaveData(catInfoJson, catInfoSavePath);
 
         return tCat;
     }
@@ -302,7 +314,7 @@ public class u_acJsonUtility : MonoBehaviour {
     public void SaveData(string jsonToSave, string fPath)
     {
         //string fPath = baseSavePathString + catSavePathSuffix + "test.json";
-        Debug.Log("Saving to: " + fPath);
+     //   Debug.Log("Saving to: " + fPath);
         File.WriteAllText(fPath, jsonToSave);
     }
 
@@ -418,10 +430,10 @@ public class u_acJsonUtility : MonoBehaviour {
     {
         qDBInfo tInfo = new qDBInfo();
         
-        TextAsset lJ = Resources.Load<TextAsset>("qDBInfo");
-        string useableJson = lJ.ToString();
-        Debug.Log("QDB JSON: " + useableJson);
-        tInfo = JsonUtility.FromJson<qDBInfo>(useableJson);
+        string lJ = File.ReadAllText(baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
+        
+        Debug.Log("QDB JSON: " + lJ);
+        tInfo = JsonUtility.FromJson<qDBInfo>(lJ);
         tInfo.readQDBData();
 
         return tInfo;
@@ -464,13 +476,15 @@ public class u_acJsonUtility : MonoBehaviour {
         else
         {
             Debug.Log("ERROR: " + www.error);
+            m_loadScreenManager.instance.appInitComplete(); //Prevent app lockup if not online or server error
         }
     
     }
 
     void compareWebQDBToLocalQDB(string s_webQDB)
     {
-        JSONObject localQDB = JSONObject.Parse(Resources.Load<TextAsset>("qdbInfo").ToString());
+        JSONObject localQDB = JSONObject.Parse(File.ReadAllText(baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json"));
+       // JSONObject localQDB = JSONObject.Parse(Resources.Load<TextAsset>("qdbInfo").ToString()); //O-DO: This needs to be local
         JSONObject webQDB = JSONObject.Parse(s_webQDB);
 
         Debug.Log("Local: " + localQDB.GetString("QDBVersion") + "::" + "Web: " + webQDB.GetString("QDBVersion"));
@@ -480,25 +494,44 @@ public class u_acJsonUtility : MonoBehaviour {
             Debug.Log("QDB VERSION MISMATCH!");
             processNewQDB(webQDB);
         }
+        else
+        {
+            m_loadScreenManager.instance.appInitComplete(); //They match, so proceed
+        }
     }
 
     public void processNewQDB(JSONObject qdbObj)
     {
         Debug.Log(qdbObj.GetString("QDBVersion"));
         Debug.Log(qdbObj.GetString("QDBNote"));
+        tempNewQDB = new qDBInfo();
+        tempNewQDB.QDBVersion = qdbObj.GetString("QDBVersion");
+        tempNewQDB.QDBNote = qdbObj.GetString("QDBNote");
 
         JSONArray catsChanged = qdbObj.GetArray("categoriesUpdated");
-
+        numCatsImportedForCallbackComplete = catsChanged.Length;
         for (int i = 0; i < catsChanged.Length; i++)
         {
             Debug.Log(catsChanged[i].Obj.GetString("catName"));
         }
 
-
         for (int i = 0; i < catsChanged.Length; i++)
         {
             StartCoroutine("getNewCategoryJson", catsChanged[i].Obj.GetString("catName"));
         }
+    }
+
+    public void newCatImportComplete()
+    {
+        curNewCatsImported++;
+        if(curNewCatsImported == numCatsImportedForCallbackComplete)
+        {
+            Debug.Log("All new cats imported");
+            SaveData(JsonUtility.ToJson(tempNewQDB), baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
+            appManager.instance.setCurQDBInfo(tempNewQDB.QDBVersion);
+            m_loadScreenManager.instance.appInitComplete();
+        }
+
     }
 
     IEnumerator getNewCategoryJson(string catChanged)
@@ -522,23 +555,27 @@ public class u_acJsonUtility : MonoBehaviour {
             JSONArray questionsArray = categorySubObject.GetArray("questions");
 
             createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID);
+            newCatImportComplete(); //faux callback. god help us all. 
         }
         else
         {
             Debug.Log("ERROR: " + www.error);
+            numCatsImportedForCallbackComplete--; //To prevent callback lockup
         }
     }
 
     public void checkFirstTimeCopy()
     {//if the dirs exist, then we've already copied the default q set or its been updated. Nuke it!
-        string defaultDirURL = "";
-        if (Directory.Exists(defaultDirURL))
+        string defaultDirURL = baseSavePathString +"/categories/";
+        if (Directory.GetFiles(defaultDirURL).Length > 0)
         {
+            Debug.Log("Cat files in directory; Initial import has been completed. Returning");
             return;
         }
         else
         {
-            //Copy Q set from Resources
+            Debug.Log("No cat files in directory! Starting base q set import!");
+            readJson();
         }
     }
 

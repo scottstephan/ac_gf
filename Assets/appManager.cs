@@ -161,13 +161,13 @@ public class appManager : MonoBehaviour {
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
             m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
             m_headerManager.instance.setHeaderToLoggedIn();
-            m_loadScreenManager.instance.appInitComplete();
+            //m_loadScreenManager.instance.appInitComplete();
         }
         else
         {
             m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
-            m_loadScreenManager.instance.appInitComplete();
+           // m_loadScreenManager.instance.appInitComplete();
         }
     }
 
