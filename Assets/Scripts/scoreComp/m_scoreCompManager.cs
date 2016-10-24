@@ -40,25 +40,29 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScores()
     {
+        string scorePrepend = "got <color=blue><size=135>";
+        string scoreAppend = "</size></color> points!";
+        string waitingPrepend = "Waiting for <color=green>";
+        string waitingAppend = "</color> to finish";
         if (appManager.curLiveGame.isMPGame)
         { //Maybe see if p2 has finished yet???
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
             { //YOU are P1- P2 may or may not be done. 
-                yourText.text = "You got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
+                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
                 if (appManager.curLiveGame.p2_Fin)
-                    theirText.text = appManager.curLiveGame.player2_name + " got <color=blue>" + appManager.curLiveGame.p2_score + "</color> points!";
+                    theirText.text = appManager.curLiveGame.player2_name + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
                 else
-                    theirText.text = "Waiting for <color=blue>" + appManager.curLiveGame.player2_name + "</color> to finish!";
+                    theirText.text = waitingPrepend + appManager.curLiveGame.player2_name + waitingAppend;
             }
             else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             { //YOU are P2 - In this case, P1 HAS to have finished
-                yourText.text = "You got <color=blue>" + appManager.curLiveGame.p2_score + "</color> points!";
-                theirText.text = appManager.curLiveGame.player1_name + " got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
+                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
+                theirText.text = appManager.curLiveGame.player1_name + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
             }
         }
         else
         {            //Set YOUR text, but not theirs
-            yourText.text = "You got <color=blue>" + appManager.curLiveGame.p1_score + "</color> points!";
+            yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
             theirText.text = " ";
         }
     }

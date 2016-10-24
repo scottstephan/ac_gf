@@ -185,7 +185,7 @@ public class u_acJsonUtility : MonoBehaviour {
             createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID); 
         }
         //Save Resources QDB Object to local
-        qDBInfo tqdb = returnCurQDBObject();
+        qDBInfo tqdb = returnCurQDBObject(); // First time, this returns NOTHING. Need to copy existing!
         string qdbJSON = JsonUtility.ToJson(tqdb);
         SaveData(qdbJSON, baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
         appManager.instance.setCurQDBInfo(tqdb.QDBVersion);
@@ -568,13 +568,16 @@ public class u_acJsonUtility : MonoBehaviour {
     {//if the dirs exist, then we've already copied the default q set or its been updated. Nuke it!
         string defaultDirURL = baseSavePathString +"/categories/";
         if (Directory.GetFiles(defaultDirURL).Length > 0)
-        {
+      {
             Debug.Log("Cat files in directory; Initial import has been completed. Returning");
             return;
         }
         else
         {
             Debug.Log("No cat files in directory! Starting base q set import!");
+            //Save Resoureces QDB json to local
+            string qdbJson = Resources.Load<TextAsset>("qDBInfo").ToString();
+            SaveData(qdbJson, baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
             readJson();
         }
     }

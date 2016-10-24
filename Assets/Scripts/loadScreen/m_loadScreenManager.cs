@@ -18,7 +18,7 @@ public class m_loadScreenManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        u_acJsonUtility.instance.createImportDirectories(); //DO NOT NEED THIS WHENS HIPPING
+        u_acJsonUtility.instance.createImportDirectories(); //TO-DO: DO NOT NEED THIS WHENS HIPPING
         u_acJsonUtility.instance.checkFirstTimeCopy();
         appManager.instance.checkIAPConnection();
         appManager.instance.checkFBLoginStatus();
@@ -48,10 +48,11 @@ public class m_loadScreenManager : MonoBehaviour {
         {
             appManager.currentPlayerID = appManager.generateUniquePlayerID();
             m_prefsDataManager.setPlayerIDPref(appManager.currentPlayerID);
+            
         }
 
     }
-
+    
     void checkIfPlayerStoredAWS()
     {
         entity_players tP = new entity_players();

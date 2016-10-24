@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleFeud.CSharp.Plugins",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleFeud.CSharp", "GoogleFeud.CSharp.csproj", "{C089AC11-2491-E2EA-D3AD-DF7A8E815600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleFeud.CSharp.Editor.Plugins", "GoogleFeud.CSharp.Editor.Plugins.csproj", "{2E3719C0-29A4-35D3-0FEF-6CDB99F98552}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleFeud.CSharp.Editor", "GoogleFeud.CSharp.Editor.csproj", "{86A80C17-429F-F60E-4967-637D79AAE218}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{C089AC11-2491-E2EA-D3AD-DF7A8E815600}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C089AC11-2491-E2EA-D3AD-DF7A8E815600}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C089AC11-2491-E2EA-D3AD-DF7A8E815600}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E3719C0-29A4-35D3-0FEF-6CDB99F98552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E3719C0-29A4-35D3-0FEF-6CDB99F98552}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E3719C0-29A4-35D3-0FEF-6CDB99F98552}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E3719C0-29A4-35D3-0FEF-6CDB99F98552}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86A80C17-429F-F60E-4967-637D79AAE218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86A80C17-429F-F60E-4967-637D79AAE218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86A80C17-429F-F60E-4967-637D79AAE218}.Release|Any CPU.ActiveCfg = Release|Any CPU
