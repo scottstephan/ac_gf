@@ -247,7 +247,8 @@ public class m_gameManager : MonoBehaviour {
     public void incrementRoundsPlayed()
     {
         roundIndex++;
-        roundNumberText.text = "Round: " + roundIndex + "/" + numRounds;
+        int counterIndex = roundIndex + 1;
+        roundNumberText.text = "Round: " + counterIndex + "/" + numRounds;
     }
 
     public void setCurrentSelectCategory(string catName)

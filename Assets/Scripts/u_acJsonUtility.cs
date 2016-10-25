@@ -24,6 +24,7 @@ public class u_acJsonUtility : MonoBehaviour {
     static string qSavePathSuffix = "/questions/";
     static string catInfoSavePathPrefix = "catStatus/";
     static string qdbInfoSavePathSuffix = "/qdbinfo/";
+    static string highScoreSavePathSuffix = "/highscores/";
     [System.Serializable]
     public class qDBInfo
     {
@@ -46,6 +47,18 @@ public class u_acJsonUtility : MonoBehaviour {
         public void readCategoryData()
         {
             Debug.Log(categoryName + " is " + unlockStatus + ". ID: " + categoryID);
+        }
+    }
+
+    [System.Serializable]
+    public class categoryHighScore
+    {
+        public string categoryName;
+        public string categoryHighscore;
+
+        public void readHighScore()
+        {
+
         }
     }
 
@@ -217,6 +230,7 @@ public class u_acJsonUtility : MonoBehaviour {
         string qPath = baseSavePathString + qSavePathSuffix;
         string qdbInfoPath = baseSavePathString + qdbInfoSavePathSuffix;
         string catStatusPath = catPath + catInfoSavePathPrefix;
+        string highScorePath = baseSavePathString + highScoreSavePathSuffix;
 
         if (!Directory.Exists(catPath))
             Directory.CreateDirectory(catPath);
@@ -226,6 +240,8 @@ public class u_acJsonUtility : MonoBehaviour {
             Directory.CreateDirectory(catStatusPath);
         if (!Directory.Exists(qdbInfoPath))
             Directory.CreateDirectory(qdbInfoPath);
+        if (!Directory.Exists(highScorePath))
+            Directory.CreateDirectory(highScorePath);
     }
 
     acCat createCategoryObject(JSONValue categorySuperString)
@@ -246,18 +262,27 @@ public class u_acJsonUtility : MonoBehaviour {
         tCI.categoryName = catName;
         tCI.categoryID = catID;
         tCI.unlockStatus = catUnlockStatus;
-        //SAVE CAT OBJECT
+        //Create highscore object
+        categoryHighScore tHS = new categoryHighScore();
+        tHS.categoryName = catName;
+        tHS.categoryHighscore = "0";
+
         string catJson = JsonUtility.ToJson(tCat);
         string catSavePath = baseSavePathString + catSavePathSuffix + catName + ".json";
-   //     Debug.Log("CatsJson: " + catJson);
+
         SaveData(catJson, catSavePath);
         
         string catInfoJson = JsonUtility.ToJson(tCI);
         string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix + catName + ".json";
         Debug.Log("Saving cat info json to: " + catInfoSavePath);
 
+        string highScoreJson = JsonUtility.ToJson(tHS);
+        string catHSPath = baseSavePathString + highScoreSavePathSuffix + tHS.categoryName + ".json";
+
         if (!File.Exists(catInfoSavePath))
             SaveData(catInfoJson, catInfoSavePath);
+        if (!File.Exists(catHSPath))
+            SaveData(highScoreJson, catHSPath);
 
         return tCat;
     }
@@ -582,5 +607,23 @@ public class u_acJsonUtility : MonoBehaviour {
         }
     }
 
+    public int getCatHighscore(string catName)
+    {
+        string hsFilePath = baseSavePathString + highScoreSavePathSuffix + catName + ".json"; ;
+        categoryHighScore tHS = JsonUtility.FromJson<categoryHighScore>(File.ReadAllText(hsFilePath));
+        Debug.Log(tHS.categoryName + " :: " + tHS.categoryHighscore);
+        return int.Parse(tHS.categoryHighscore);
+    }
+
+    public void updateHighScore(string catName, int scoreVal)
+    {
+        string hsFilePath = baseSavePathString + highScoreSavePathSuffix + catName + ".json"; ;
+
+        categoryHighScore tHS = new categoryHighScore();
+        tHS.categoryName = catName;
+        tHS.categoryHighscore = scoreVal.ToString();
+
+        SaveData(JsonUtility.ToJson(tHS), hsFilePath);
+    }
 }
 
