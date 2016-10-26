@@ -146,7 +146,8 @@ public class m_roundManager : MonoBehaviour {
         {
             if(gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
             {
-                gridAnswerObjects[i].revealAnswer();
+                // gridAnswerObjects[i].revealAnswer();
+                gridAnswerObjects[i].thisAnswerMask.SetActive(false);
             }
         }
     }

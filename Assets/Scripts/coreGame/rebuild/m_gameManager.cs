@@ -20,6 +20,8 @@ public class m_gameManager : MonoBehaviour {
     public Text roundNumberText;
     public Text roundStatusText;
 
+    public m_roundAdvanceButton advanceButton;
+
     public obj_Timer timer;
     public enum roundPhases
     {
@@ -121,7 +123,9 @@ public class m_gameManager : MonoBehaviour {
         incrementRoundsPlayed();
         if (roundIndex < numRounds)
         {
-            StartCoroutine("delayAndCall", delayTypes.endRoundToStartRound);
+            advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.advanceToNextRound;
+            advanceButton.toMid.OpenCloseObjectAnimation();
+           // StartCoroutine("delayAndCall", delayTypes.endRoundToStartRound);
         }
         else
         {
@@ -153,8 +157,8 @@ public class m_gameManager : MonoBehaviour {
             appManager.curLiveGame.p1_score = int.Parse(playerScoreText.text);
 
         }
-        //This is where we need to move in a new round OR move to scoreComp
-        m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
+        advanceButton.toMid.OpenCloseObjectAnimation();
+        advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.endGame;
     }
 
     public void startInputPhase()
