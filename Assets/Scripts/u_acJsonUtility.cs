@@ -495,7 +495,7 @@ public class u_acJsonUtility : MonoBehaviour {
         yield return www;
         if (www.error == null)
         {
-            Debug.Log(www.data);
+//             Debug.Log(www.data);
             compareWebQDBToLocalQDB(www.data);
         }
         else
@@ -512,7 +512,7 @@ public class u_acJsonUtility : MonoBehaviour {
        // JSONObject localQDB = JSONObject.Parse(Resources.Load<TextAsset>("qdbInfo").ToString()); //O-DO: This needs to be local
         JSONObject webQDB = JSONObject.Parse(s_webQDB);
 
-        Debug.Log("Local: " + localQDB.GetString("QDBVersion") + "::" + "Web: " + webQDB.GetString("QDBVersion"));
+ //       Debug.Log("Local: " + localQDB.GetString("QDBVersion") + "::" + "Web: " + webQDB.GetString("QDBVersion"));
 
         if(localQDB.GetString("QDBVersion") != webQDB.GetString("QDBVersion"))
         {

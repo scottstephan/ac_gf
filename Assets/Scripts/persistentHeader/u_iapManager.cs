@@ -3,7 +3,7 @@ using UnityEngine.Purchasing;
 using System.Collections;
 
 public class u_iapManager : IStoreListener {
-
+    
     private IStoreController controller;
     private IExtensionProvider extensions;
 
@@ -14,7 +14,7 @@ public class u_iapManager : IStoreListener {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         builder.AddProduct("removeAds", ProductType.NonConsumable, new IDs
         {
-            {"removeAds_google", GooglePlay.Name},
+            {"ac_gp_noads", GooglePlay.Name},
             {"removeAds", MacAppStore.Name}
         });
 

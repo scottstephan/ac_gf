@@ -2,14 +2,15 @@
 using System.Collections;
 using System;
 using UnityEngine.UI;
+using Facebook.Unity;
 using Assets.autoCompete.games;
 using UnityEngine.SceneManagement;
 using DDBHelper;
 
 public class ui_existingGameButton : MonoBehaviour {
-    public Text p1Text;
-    public Text p2Text;
     public Text statusText;
+    public Text opponentText;
+    public RawImage opponentImage;
 
     public Button uiButtonManager;
     public string gameID; //This comes from m_MP_Lobby which gets it from the devicePlayer's entry in player_games
@@ -19,7 +20,8 @@ public class ui_existingGameButton : MonoBehaviour {
     public GameObject parentCanvasTransform;
 
     public appManager.E_lobbyGameStatus thisGameStatus;
-
+    string opponentName;
+    string opponentID;
 	// Use this for initialization
 	void Start () {
 	}
@@ -41,14 +43,14 @@ public class ui_existingGameButton : MonoBehaviour {
         setColorBlock();
         setStatusText();
         setPlayerNames();
+        LoadPlayerPic(opponentID, false);
         gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
 
     }
 
     void setPlayerNames()
     {
-        p1Text.text = thisGame.player1_name;
-        p2Text.text = thisGame.player2_name;
+        opponentText.text = opponentName;
     }
 
     void setStatusText() {
@@ -112,17 +114,51 @@ public class ui_existingGameButton : MonoBehaviour {
         if (devicePlayerRole == appManager.playerRoles.intiated)
         {
             thisGameStatus = thisGame.p2_Fin ? appManager.E_lobbyGameStatus.init_viewFinal : appManager.E_lobbyGameStatus.init_viewScore;
-
+            opponentName = thisGame.player2_name;
+            opponentID = thisGame.player2_id;
         }
         //If my role is challenged && p2 is not finished, I need to play
         
         else if (devicePlayerRole == appManager.playerRoles.challenged)
         {
             if (!thisGame.p2_Fin) thisGameStatus = appManager.E_lobbyGameStatus.challenged_playGame;
+            opponentName = thisGame.player1_name;
+            opponentID = thisGame.player1_id;
+
         }
 
         appManager.curGameStatus = thisGameStatus;
         
         setUpButton();
+    }
+
+    public void LoadPlayerPic(string oppID, bool needToSave = false)
+    {
+        string getUserPicString = oppID + "?fields=picture.height(100)";
+        FB.API(getUserPicString, HttpMethod.GET,
+            delegate (IGraphResult result)
+            {
+                if (string.IsNullOrEmpty(result.Error) && !result.Cancelled)
+                {
+                    IDictionary picData = result.ResultDictionary["picture"] as IDictionary;
+                    IDictionary data = picData["data"] as IDictionary;
+                    string picURL = data["url"] as string;
+                    StartCoroutine(GetProfilePicRoutine(picURL, needToSave));
+
+                }
+            });
+    }
+
+
+    private IEnumerator GetProfilePicRoutine(string url, bool needToSave = false)
+    {
+        WWW www = new WWW(url);
+        yield return www;
+        LoadOrSavePicture(www.texture, needToSave);
+    }
+
+    void LoadOrSavePicture(Texture2D tex, bool needToSave)
+    {
+        opponentImage.texture = tex;
     }
 }

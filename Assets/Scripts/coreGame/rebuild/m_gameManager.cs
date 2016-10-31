@@ -16,6 +16,7 @@ public class m_gameManager : MonoBehaviour {
     public List<GameObject> lightBulbs = new List<GameObject>();
 
     public InputField playerInput;
+    public Text playerInputText;
     public Text playerScoreText;
     public Text roundNumberText;
     public Text roundStatusText;
@@ -98,6 +99,8 @@ public class m_gameManager : MonoBehaviour {
 
     public void changePhase(roundPhases rP)
     {
+        m_gameManager.instance.playerInputText.color = Color.black;
+
         if (playerMisses >= maxNumMisses)
             rP = roundPhases.swapRound;
 

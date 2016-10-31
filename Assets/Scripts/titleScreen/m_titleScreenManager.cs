@@ -16,7 +16,7 @@ public class m_titleScreenManager : MonoBehaviour {
 
     public void startGameFromTitle(bool isMP)
     {
-        Debug.Log("Button clicked; starting game from title");
+   //     Debug.Log("Button clicked; starting game from title");
         if (!isMP)
         {
             appManager.createGameObject(appManager.devicePlayer.playerID, "none", appManager.devicePlayer.playerName, "none", false);
@@ -26,7 +26,6 @@ public class m_titleScreenManager : MonoBehaviour {
         {
             Debug.Log("---STARTING MP PROCESS---");
             m_fbStatusManager.instance.promptForUserFBLogin(m_fbStatusManager.loginRequestSource.mpButton);
-
         }
     }
 

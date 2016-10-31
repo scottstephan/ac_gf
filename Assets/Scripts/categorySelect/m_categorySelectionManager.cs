@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class m_categorySelectionManager : MonoBehaviour {
     public static m_categorySelectionManager instance = null;
     public GameObject categoryButton;
+    public GameObject shopButton;
     public GameObject parentCategoryListGrid;
 
     void Awake()
@@ -36,13 +37,14 @@ public class m_categorySelectionManager : MonoBehaviour {
         catNames = u_acJsonUtility.instance.discoverCategories();
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
         for(int i = 0; i < catNames.Count; ++i)
-        {
+        {//TO-DO: Don't even instantiate the buton unless it's unlocked!
             GameObject tButton = Instantiate(categoryButton);
             tButton.transform.SetParent(parentCategoryListGrid.transform);
 
             categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
             tManager.categoryName = catNames[i];
             tManager.categoryId = "NOTUSINGFORNOW";
+
             for(int j = 0; j < catUnlockStatus.Count; ++j)
             {
                 Debug.Log("Trying Match: " + catUnlockStatus[j] + " :: " + catNames[i]);
@@ -55,10 +57,10 @@ public class m_categorySelectionManager : MonoBehaviour {
                         break;
                     }
                     else if(catUnlockStatus[j].unlockStatus == "locked")
-                    {
-                        tManager.lockButton();
-                        catUnlockStatus.Remove(catUnlockStatus[j]);
-
+                    { //Commented out the bottom- Don't list it! 
+                        Destroy(tButton);
+                     /*   tManager.lockButton();
+                        catUnlockStatus.Remove(catUnlockStatus[j]); */
                         break;
                     }
                     else
@@ -72,6 +74,9 @@ public class m_categorySelectionManager : MonoBehaviour {
                 }
             }
         }
+
+        GameObject tSB = Instantiate(shopButton);
+        tSB.transform.SetParent(parentCategoryListGrid.transform);
     }
     /// <summary>
     /// Loads and sets the 'current question' attribute for the game

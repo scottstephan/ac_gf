@@ -153,6 +153,11 @@ public class appManager : MonoBehaviour {
         m_fbStatusManager.instance.returnUserLoginStatus(actOnFBLoginStatus);
     }
 
+    public void startAdServices()
+    {
+     //   m_heyZapAdManager.instance.initHeyZap();
+    }
+
     public void actOnFBLoginStatus(bool loginStatus)
     {
         FB_LOGINSTATUS = loginStatus;
@@ -160,12 +165,12 @@ public class appManager : MonoBehaviour {
         {
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
             m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
-            m_headerManager.instance.setHeaderToLoggedIn();
+           // m_headerManager.instance.setHeaderToLoggedIn();
             //m_loadScreenManager.instance.appInitComplete();
         }
         else
         {
-            m_headerManager.instance.setHeaderToLoggedOut();
+          //  m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
            // m_loadScreenManager.instance.appInitComplete();
         }

@@ -122,14 +122,18 @@ public class m_roundManager : MonoBehaviour {
             case (validationRoundEndResult.playerHit):
                 gridAnswerObjects[hitOrMissAnswerIndex].revealAnswer();
                 m_gameManager.instance.incrementScore(gridAnswerObjects[hitOrMissAnswerIndex].scoreValue);
+                m_gameManager.instance.playerInputText.color = Color.green;
                 break;
             case (validationRoundEndResult.playerHitDouble):
                 m_gameManager.instance.incrementMisses();
                 m_gameManager.instance.animateLightbulb();
+                m_gameManager.instance.playerInputText.color = Color.red;
+
                 break;
             case (validationRoundEndResult.playerMiss):
                 m_gameManager.instance.incrementMisses();
                 m_gameManager.instance.animateLightbulb();
+                m_gameManager.instance.playerInputText.color = Color.red;
                 break;
             case (validationRoundEndResult.playerTimeOut): //This does NOT pass through the startValidationPhase() function. Make sure nothing critical is set there. 
                 m_gameManager.instance.incrementMisses();

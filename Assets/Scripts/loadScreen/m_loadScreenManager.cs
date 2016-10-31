@@ -21,8 +21,10 @@ public class m_loadScreenManager : MonoBehaviour {
         u_acJsonUtility.instance.createImportDirectories(); //TO-DO: DO NOT NEED THIS WHENS HIPPING
         u_acJsonUtility.instance.checkFirstTimeCopy();
         appManager.instance.checkIAPConnection();
-        appManager.instance.checkFBLoginStatus();
-        u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
+        obj_playerIAPData.initPlayerIAPData();
+    //    appManager.instance.checkFBLoginStatus();
+    //    appManager.instance.startAdServices();
+    //    u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
     }
 
     public void appInitComplete()
