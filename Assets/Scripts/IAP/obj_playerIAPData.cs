@@ -63,6 +63,16 @@ public class obj_playerIAPData : MonoBehaviour {
         saveIAPLocalData();
     }
 
+    public static int getCreditBalance()
+    {
+        return thisPlayerIAPData.unspentCredits;
+    } 
+
+    public static bool getAdStatus()
+    {
+        return thisPlayerIAPData.adsActive;
+    }
+
     public static void removeAds()
     {
         thisPlayerIAPData.adsActive = false;

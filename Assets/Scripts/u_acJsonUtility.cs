@@ -46,7 +46,7 @@ public class u_acJsonUtility : MonoBehaviour {
 
         public void readCategoryData()
         {
-            Debug.Log(categoryName + " is " + unlockStatus + ". ID: " + categoryID);
+         //   Debug.Log(categoryName + " is " + unlockStatus + ". ID: " + categoryID);
         }
     }
 
@@ -401,7 +401,7 @@ public class u_acJsonUtility : MonoBehaviour {
         return tQ;
     }
 
-    public List<string> discoverCategories()
+    public List<string> discoverCategories(bool returnWithoutDefaults)
     {
         string catRoot = baseSavePathString + catSavePathSuffix;
         string[] categoryDirectories = Directory.GetFiles(catRoot);
@@ -483,6 +483,17 @@ public class u_acJsonUtility : MonoBehaviour {
 
         categoryUnlockInfo catInfoObj = getCategoryUnlockInfo(cName);
         catInfoObj.unlockStatus = "unlocked";
+        string newInfo = JsonUtility.ToJson(catInfoObj);
+
+        SaveData(newInfo, fileRoot);
+    }
+
+    public void findAndLockCategory(string cName)
+    {
+        string fileRoot = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix + cName + ".json";
+
+        categoryUnlockInfo catInfoObj = getCategoryUnlockInfo(cName);
+        catInfoObj.unlockStatus = "locked";
         string newInfo = JsonUtility.ToJson(catInfoObj);
 
         SaveData(newInfo, fileRoot);

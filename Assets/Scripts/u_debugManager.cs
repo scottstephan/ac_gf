@@ -15,7 +15,7 @@ public class u_debugManager : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 Debug.Log("+++READING CATEGORIES+++");
-                u_acJsonUtility.instance.discoverCategories();
+                u_acJsonUtility.instance.discoverCategories(false);
             }
             else if (Input.GetKeyDown(KeyCode.L))
             {

@@ -279,6 +279,7 @@
     <Compile Include="Assets\Scripts\scoreComp\m_scoreCompManager.cs" />
     <Compile Include="Assets\Scripts\scoreComp\obj_backToMenuBtn.cs" />
     <Compile Include="Assets\Scripts\scoreComp\u_twitterButton.cs" />
+    <Compile Include="Assets\Scripts\test\DEBUG_debutButtonBehaviors.cs" />
     <Compile Include="Assets\Scripts\test\TEST_twitter.cs" />
     <Compile Include="Assets\Scripts\test\animCallbackTest.cs" />
     <Compile Include="Assets\Scripts\test\jsonImportTest.cs" />

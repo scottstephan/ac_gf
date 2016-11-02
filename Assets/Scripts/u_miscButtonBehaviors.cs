@@ -9,10 +9,14 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         hideFriends,
         showAd,
         showSettings,
-        hideSettings
+        hideSettings,
+        buyCategoryCredits,
+        buyAdRemoval
     }
 
     public buttonBehaviors myButtonBehavior;
+    [System.NonSerialized]
+    public string catName;
 
 	public void OnClick()
     {
@@ -41,7 +45,30 @@ public class u_miscButtonBehaviors : MonoBehaviour {
             case buttonBehaviors.showSettings:
                 break;
             case buttonBehaviors.hideSettings:
-                break;  
+                break;
+            case buttonBehaviors.buyCategoryCredits:
+                Debug.Log("TRYING TO BUY CAT CREDITS");
+                if (catName != null)
+                    evaluateIAPPath();
+                else
+                    Debug.Log("PURCHASE FAILURE: NO CATEGORY ATTACHED TO BUTTON");
+                break;
+            case buttonBehaviors.buyAdRemoval:
+                Debug.Log("TRYING TO BUY AD REMOVAL");
+                appManager.iapManager.BuyProductID(u_iapManager.IAPTypes.noAds.ToString(),null);
+                break;
         }
+    }
+
+    public void evaluateIAPPath()
+    {
+        if (obj_playerIAPData.getCreditBalance() > 0)
+        {
+            Debug.Log("PLAYER HAS CREDITS; PROCEEDING TO UNLOCK");
+            obj_playerIAPData.removeCredit();
+            u_acJsonUtility.instance.findAndUnlockCategory(catName);
+        }
+        else
+            appManager.iapManager.BuyProductID(u_iapManager.IAPTypes.categoryCredit.ToString(), catName);
     }
 }

@@ -34,7 +34,7 @@ public class m_categorySelectionManager : MonoBehaviour {
         catNames.Clear();
         catUnlockStatus.Clear();
 
-        catNames = u_acJsonUtility.instance.discoverCategories();
+        catNames = u_acJsonUtility.instance.discoverCategories(false);
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
         for(int i = 0; i < catNames.Count; ++i)
         {//TO-DO: Don't even instantiate the buton unless it's unlocked!

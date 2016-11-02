@@ -22,9 +22,9 @@ public class m_loadScreenManager : MonoBehaviour {
         u_acJsonUtility.instance.checkFirstTimeCopy();
         appManager.instance.checkIAPConnection();
         obj_playerIAPData.initPlayerIAPData();
-    //    appManager.instance.checkFBLoginStatus();
-    //    appManager.instance.startAdServices();
-    //    u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
+        appManager.instance.checkFBLoginStatus();
+        appManager.instance.startAdServices();
+        u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
     }
 
     public void appInitComplete()
