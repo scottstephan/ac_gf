@@ -22,10 +22,16 @@ public class DEBUG_debutButtonBehaviors : MonoBehaviour {
         switch (thisButtonBehavior)
         {
             case debugButtonBehaviors.showAd:
+                m_adsManager.instance.ShowAd();
                 break;
             case debugButtonBehaviors.addCredit:
+                obj_playerIAPData.addCredit();
                 break;
             case debugButtonBehaviors.lockNonDefaultCats:
+                for (int i = 0; i < allCatNames.Count; i++)
+                {
+                    u_acJsonUtility.instance.findAndLockCategory(allCatNames[i]);
+                }
                 break;
             case debugButtonBehaviors.lockAllCats:
                 for(int i = 0; i < allCatNames.Count; i++)

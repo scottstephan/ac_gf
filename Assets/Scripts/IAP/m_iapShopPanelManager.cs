@@ -24,12 +24,17 @@ public class m_iapShopPanelManager : MonoBehaviour {
 
     public void refreshIAPStore()
     {
-        for(int i = 0; i < curLockedCats.Count; i++)
+        destroyLockedCatList();
+        curLockedCats.Clear();
+        listAllLockedCats();
+    }
+
+    public void destroyLockedCatList()
+    {
+        for (int i = 0; i < curLockedCats.Count; i++)
         {
             Destroy(curLockedCats[i]);
         }
-        curLockedCats.Clear();
-        listAllLockedCats();
     }
 
     public void listAllLockedCats()

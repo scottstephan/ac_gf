@@ -23,7 +23,8 @@ public class u_iapManager : IStoreListener
     public enum iOSIAPID
     {
         ac_ios_noads,
-        ac_ios_categoryCredit
+        ac_ios_categorycredit
+        
     }
 
     public u_iapManager()
@@ -31,19 +32,17 @@ public class u_iapManager : IStoreListener
         Debug.Log("---IAP MANAGER STARTED---");
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        builder.AddProduct(IAPTypes.noAds.ToString(), ProductType.NonConsumable, new IDs
-        {
-            {androidIAPID.ac_gp_noads.ToString(), GooglePlay.Name},
-            {iOSIAPID.ac_ios_noads.ToString(), MacAppStore.Name}
-        });
+        /*   builder.AddProduct(IAPTypes.noAds.ToString(), ProductType.NonConsumable, new IDs
+           {
+               {androidIAPID.ac_gp_noads.ToString(), GooglePlay.Name},
+               {iOSIAPID.ac_ios_noads.ToString(), MacAppStore.Name}
+           }); */
 
-        builder.AddProduct(IAPTypes.categoryCredit.ToString(), ProductType.NonConsumable, new IDs
-        {
-            {androidIAPID.ac_gp_categorycredit.ToString(), GooglePlay.Name},
-            {iOSIAPID.ac_ios_categoryCredit.ToString(), MacAppStore.Name}
-        });
-
-
+           builder.AddProduct(androidIAPID.ac_gp_categorycredit.ToString(), ProductType.Consumable, new IDs
+           {
+               {androidIAPID.ac_gp_categorycredit.ToString(), GooglePlay.Name},
+               {iOSIAPID.ac_ios_categorycredit.ToString(), MacAppStore.Name}
+           });
 
         UnityPurchasing.Initialize(this, builder);
     }
@@ -82,15 +81,16 @@ public class u_iapManager : IStoreListener
         
         switch (e.purchasedProduct.definition.id)
         {
-            case "categoryCredit":
+            case "ac_gp_categorycredit":
                 Debug.Log("BUYING: " + attempt_CategoryPurchaseName);
                 obj_playerIAPData.addCredit();
                 obj_playerIAPData.removeCredit();
                 u_acJsonUtility.instance.findAndUnlockCategory(attempt_CategoryPurchaseName);
                 m_iapShopPanelManager.instance.refreshIAPStore();
+                m_categorySelectionManager.instance.initCategoryPhase();
                 attempt_CategoryPurchaseName = null;
                 break;
-            case "noAds":
+            case "ac_gp_noads":
                 break;
         }
         // actOnPurchaseSuccess(IAPTypes.categoryCredit);

@@ -409,7 +409,12 @@ public class u_acJsonUtility : MonoBehaviour {
 
         for(int i = 0; i < categoryDirectories.Length; ++i)
         {
-            Debug.Log("Categories:" + categoryDirectories[i]);
+            string cN = Path.GetFileNameWithoutExtension(categoryDirectories[i]);
+            if (returnWithoutDefaults)
+            {
+                if (cN == "culture" || cN == "people" || cN == "names" || cN == "questions")
+                    continue;
+            }
             categoryNames.Add(Path.GetFileNameWithoutExtension(categoryDirectories[i]));
         }
 

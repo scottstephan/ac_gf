@@ -72,6 +72,7 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations headerPanel;
 
     public uiPanelAnimations opponentInputPanel;
+    public uiPanelAnimations debugPanel;
 
     void Awake()
     {
@@ -248,6 +249,16 @@ public class m_panelManager : MonoBehaviour {
     public void anim_opponentInputToTop()
     {
         opponentInputPanel.toCenter.OpenCloseObjectAnimation();
+    }
+
+    public void anim_debugToTop()
+    {
+        debugPanel.toTop.OpenCloseObjectAnimation();
+    }
+
+    public void anim_debugToCenter()
+    {
+        debugPanel.toCenter.OpenCloseObjectAnimation();
     }
 }
 
