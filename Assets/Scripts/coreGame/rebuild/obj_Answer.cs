@@ -29,7 +29,7 @@ public class obj_Answer : MonoBehaviour {
         maskTransform.localScale = new Vector3(1,1,1);
         scoreValue = (id + 1) * 10;
 
-        answerTextField.text = answerText;
+        answerTextField.text = answerText.ToLower();
         answerScoreField.text = scoreValue.ToString();
     }
 

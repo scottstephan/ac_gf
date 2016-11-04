@@ -127,6 +127,7 @@ public class m_gameManager : MonoBehaviour {
         if (roundIndex < numRounds)
         {
             advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.advanceToNextRound;
+            advanceButton.setTextByRole();
             advanceButton.toMid.OpenCloseObjectAnimation();
            // StartCoroutine("delayAndCall", delayTypes.endRoundToStartRound);
         }
@@ -160,8 +161,10 @@ public class m_gameManager : MonoBehaviour {
             appManager.curLiveGame.p1_score = int.Parse(playerScoreText.text);
 
         }
-        advanceButton.toMid.OpenCloseObjectAnimation();
         advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.endGame;
+        advanceButton.setTextByRole();
+        advanceButton.toMid.OpenCloseObjectAnimation();
+       
     }
 
     public void startInputPhase()
@@ -255,6 +258,7 @@ public class m_gameManager : MonoBehaviour {
     {
         roundIndex++;
         int counterIndex = roundIndex + 1;
+        if (counterIndex > 3) counterIndex = 3;
         roundNumberText.text = "Round: " + counterIndex + "/" + numRounds;
     }
 

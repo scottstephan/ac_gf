@@ -32,15 +32,21 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void setUpButton()
     {
-        ColorBlock bColor = new ColorBlock();
-        bColor.colorMultiplier = 1;
-        bColor.normalColor = Color.green;
-        bColor.highlightedColor = Color.blue;
-        gameObject.GetComponent<Button>().colors = bColor;
+        gameObject.GetComponent<Button>().colors = setColorBlock();
 
         string dispCatName = categoryName;
         dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
         catButtonText.text = dispCatName;
+    }
+
+    private ColorBlock setColorBlock()
+    {
+        ColorBlock tCB = new ColorBlock();
+        tCB.normalColor = m_colorPaletteManager.instance.buttonColorPalette.returnRandomColor();
+        tCB.highlightedColor = tCB.normalColor;
+        tCB.pressedColor = tCB.normalColor;
+        tCB.colorMultiplier = 1;
+        return tCB;
     }
 
     public void lockButton()

@@ -202,6 +202,8 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(loadScreen.toMiddle); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
+        m_adsManager.instance.ShowAd();
+
     }
 
     public void anim_scoreCompToMPLobby()

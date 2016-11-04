@@ -16,7 +16,6 @@ public class obj_backToMenuBtn : MonoBehaviour {
     public void onButtonClick()
     {
         appManager.flushReferences();
-        m_adsManager.instance.ShowAd();
         m_phaseManager.instance.changePhase(m_phaseManager.phases.titleScreen);
        // appManager.loadScene(appManager.sceneNames.title);
     }

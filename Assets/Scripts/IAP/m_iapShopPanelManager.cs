@@ -50,7 +50,7 @@ public class m_iapShopPanelManager : MonoBehaviour {
                 Debug.Log(catUnlockStatus[i].categoryName + " is " + catUnlockStatus[i].unlockStatus);
                 GameObject tButton = Instantiate(catIAPButton);
                 tButton.transform.SetParent(parentCatIAPList);
-                tButton.GetComponentInChildren<Text>().text = catUnlockStatus[i].categoryName + "\n" + "Buy now, 99 cents!";
+                tButton.GetComponentInChildren<Text>().text = catUnlockStatus[i].categoryName + "\n" + "99 cents!";
                 tButton.GetComponentInChildren<u_miscButtonBehaviors>().catName = catUnlockStatus[i].categoryName;
                 curLockedCats.Add(tButton);
             }

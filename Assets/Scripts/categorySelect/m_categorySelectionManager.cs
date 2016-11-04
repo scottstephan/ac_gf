@@ -88,4 +88,6 @@ public class m_categorySelectionManager : MonoBehaviour {
         tQ = u_acJsonUtility.instance.loadRandomQuestionData(catName);
         appManager.currentQuestion = tQ; //COuld skip the above hullabaloo.
     }
+
+
 }

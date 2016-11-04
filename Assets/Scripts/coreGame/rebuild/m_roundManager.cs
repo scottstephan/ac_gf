@@ -57,7 +57,7 @@ public class m_roundManager : MonoBehaviour {
 
     public void setQuestionText(string qT)
     {
-        questionText.text = qT;
+        questionText.text = qT.ToLower();
     }
 	
 	public void checkAnswerAgainstInput(string input)

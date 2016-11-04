@@ -42,8 +42,8 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScores()
     {
-        string scorePrepend = "got <color=blue><size=135>";
-        string scoreAppend = "</size></color> points!";
+        string scorePrepend = "got \n <color=blue><size=135>";
+        string scoreAppend = "</size></color> \n points!";
         string waitingPrepend = "Waiting for <color=green>";
         string waitingAppend = "</color> to finish";
 
@@ -84,12 +84,12 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if(curScore > savedHS)
         {
-            highScoreStatus.text = "A new high score in <color=green>" + appManager.curLiveGame.categoryText + "</color>!: <color=blue><size=135>" + curScore +"</size></color>";
+            highScoreStatus.text = "A new high score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color>!: \n <color=blue><size=135>" + curScore +"</size></color>";
             u_acJsonUtility.instance.updateHighScore(appManager.curLiveGame.categoryText, curScore);
         }
         else
         {
-            highScoreStatus.text = "Your best score in <color=green>" + appManager.curLiveGame.categoryText + "</color> is  <color=blue><size=135>" + savedHS + "</size></color>";
+            highScoreStatus.text = "Your best score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color> is \n <color=blue><size=135>" + savedHS + "</size></color>";
         }
     }
 

@@ -20,19 +20,33 @@ public class m_roundAdvanceButton : MonoBehaviour {
         switch (myButtonRole)
         {
             case buttonRole.advanceToNextRound:
-                buttonText.text = "Begin next round!";
                  m_gameManager.instance.resetRoundInfo();
                  m_gameManager.instance.moveInRoundInterface(m_gameManager.instance.roundIndex);
                  m_gameManager.instance.changePhase(m_gameManager.roundPhases.input);
                  toLeft.OpenCloseObjectAnimation();
                 break;
             case buttonRole.endGame:
-                buttonText.text = "See your final score!";
                 m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
                 toLeft.OpenCloseObjectAnimation();
                 break;
             case buttonRole.startGame:
                 break;
         }
+    }
+
+    public void setTextByRole()
+    {
+        switch (myButtonRole)
+        {
+            case buttonRole.advanceToNextRound:
+                buttonText.text = "Begin next round!";
+                break;
+            case buttonRole.endGame:
+                buttonText.text = "See your score!";
+                break;
+            case buttonRole.startGame:
+                break;
+        }
+
     }
 }
