@@ -9,7 +9,7 @@ public class m_scoreCompManager : MonoBehaviour {
 
     public Text yourText;
     public Text theirText;
-    public Text highScoreStatus;
+  //  public Text highScoreStatus; //Not using this. 
 
     // Use this for initialization
     void Awake()
@@ -42,7 +42,7 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScores()
     {
-        string scorePrepend = "got \n <color=blue><size=135>";
+        string scorePrepend = " got \n <color=blue><size=135>";
         string scoreAppend = "</size></color> \n points!";
         string waitingPrepend = "Waiting for <color=green>";
         string waitingAppend = "</color> to finish";
@@ -72,7 +72,9 @@ public class m_scoreCompManager : MonoBehaviour {
             theirText.text = " ";
         }
 
-        compHSValue(cScore);
+        if (!appManager.curLiveGame.isMPGame)
+            compHSValue(cScore);
+
     }
 
     void compHSValue(int curScore)
@@ -84,12 +86,12 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if(curScore > savedHS)
         {
-            highScoreStatus.text = "A new high score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color>!: \n <color=blue><size=135>" + curScore +"</size></color>";
+            theirText.text = "A new high score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color>!: \n <color=blue><size=135>" + curScore +"</size></color>";
             u_acJsonUtility.instance.updateHighScore(appManager.curLiveGame.categoryText, curScore);
         }
         else
         {
-            highScoreStatus.text = "Your best score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color> is \n <color=blue><size=135>" + savedHS + "</size></color>";
+            theirText.text = "Your best score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color> is \n <color=blue><size=135>" + savedHS + "</size></color>";
         }
     }
 

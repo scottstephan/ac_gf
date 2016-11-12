@@ -36,6 +36,7 @@ public class m_categorySelectionManager : MonoBehaviour {
 
         catNames = u_acJsonUtility.instance.discoverCategories(false);
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
+
         for(int i = 0; i < catNames.Count; ++i)
         {//TO-DO: Don't even instantiate the buton unless it's unlocked!
             GameObject tButton = Instantiate(categoryButton);
@@ -77,6 +78,10 @@ public class m_categorySelectionManager : MonoBehaviour {
 
         GameObject tSB = Instantiate(shopButton);
         tSB.transform.SetParent(parentCategoryListGrid.transform);
+
+        Vector3 tV = parentCategoryListGrid.transform.position;
+        tV.y += 200;//categoryButton.GetComponent<RectTransform>().rect.height;
+        parentCategoryListGrid.transform.position = tV;
     }
     /// <summary>
     /// Loads and sets the 'current question' attribute for the game

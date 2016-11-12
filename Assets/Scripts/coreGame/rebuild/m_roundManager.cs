@@ -151,6 +151,7 @@ public class m_roundManager : MonoBehaviour {
             if(gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
             {
                 // gridAnswerObjects[i].revealAnswer();
+                gridAnswerObjects[i].answerTextField.fontStyle = FontStyle.Normal;
                 gridAnswerObjects[i].thisAnswerMask.SetActive(false);
             }
         }
