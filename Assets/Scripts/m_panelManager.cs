@@ -52,6 +52,8 @@ public class m_panelManager : MonoBehaviour {
         MPLobbyToCatSelect,
         MPLobbyToScoreComp,
         MPLobbyToMainRound,
+        catSelectToTutorial,
+        TutorialToMainRound,
         catSelectToMainRound,
         mainRoundToScoreComp,
         scoreCompToMainMenu,
@@ -67,10 +69,11 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations titleScreen;
     public panelAnimations mpLobby;
     public panelAnimations categorySelect;
+    public panelAnimations tutorialPanel;
     public panelAnimations mainRound;
     public panelAnimations scoreComp;
     public panelAnimations headerPanel;
-
+    
     public uiPanelAnimations opponentInputPanel;
     public uiPanelAnimations debugPanel;
 
@@ -88,6 +91,12 @@ public class m_panelManager : MonoBehaviour {
         {
             case phaseTransitions.catSelectToMainRound:
                 anim_catSelectToMainRound();
+                break;
+            case phaseTransitions.catSelectToTutorial:
+                anim_catSelectToTutorial();
+                break;
+            case phaseTransitions.TutorialToMainRound:
+                anim_tutorialToMainRound();
                 break;
             case phaseTransitions.loadingToMenu:
                 anim_loadingToMenu();
@@ -175,6 +184,22 @@ public class m_panelManager : MonoBehaviour {
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
         setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mainRound.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_catSelectToTutorial()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(tutorialPanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_tutorialToMainRound()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(tutorialPanel.toLeft);
         setToPlay.animsToPlayInOrder.Add(mainRound.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }

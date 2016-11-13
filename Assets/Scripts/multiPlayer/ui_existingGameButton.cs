@@ -10,6 +10,7 @@ using DDBHelper;
 public class ui_existingGameButton : MonoBehaviour {
     public Text statusText;
     public Text opponentText;
+    public Text categoryText;
     public RawImage opponentImage;
 
     public Button uiButtonManager;
@@ -41,11 +42,16 @@ public class ui_existingGameButton : MonoBehaviour {
     public void setUpButton()
     {
         setColorBlock();
-        setStatusText();
         setPlayerNames();
+        setCategoryName();
         LoadPlayerPic(opponentID, false);
         gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
 
+    }
+
+    void setCategoryName()
+    {
+       categoryText.text = u_acJsonUtility.UppercaseFirst(thisGame.categoryText) + " (<i>" + setStatusText() + "</i>)";
     }
 
     void setPlayerNames()
@@ -53,17 +59,18 @@ public class ui_existingGameButton : MonoBehaviour {
         opponentText.text = opponentName;
     }
 
-    void setStatusText() {
+    string setStatusText() {
+
+        string status = "";
 
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
-            // btext = "Waiting for " + thisGame.player2_name + " to finish! Tap to see your score";
-            statusText.text = "Their turn!";
+            status = "Waiting for" + thisGame.player2_name+ "";
         else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
-            statusText.text = "See who won!";
-        // btext = thisGame.player1_name + " vs. " + thisGame.player2_name + " ! View the results!";
+            status = "See who won";
         else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
-            statusText.text = "Your turn!";
-           // btext = thisGame.player1_name + " vs. " + thisGame.player2_name + "! Play now!";
+            status = "Your turn";
+
+        return status;
     }
 
     public void onButtonClick()
@@ -134,7 +141,7 @@ public class ui_existingGameButton : MonoBehaviour {
 
     public void LoadPlayerPic(string oppID, bool needToSave = false)
     {
-        string getUserPicString = oppID + "?fields=picture.height(100)";
+        string getUserPicString = oppID + "?fields=picture.height(150)";
         FB.API(getUserPicString, HttpMethod.GET,
             delegate (IGraphResult result)
             {

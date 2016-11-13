@@ -8,6 +8,7 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         showFriends,
         hideFriends,
         showAd,
+        leaveTutorialPanel,
         showSettings,
         hideSettings,
         buyCategoryCredits,
@@ -48,6 +49,12 @@ public class u_miscButtonBehaviors : MonoBehaviour {
             case buttonBehaviors.showSettings:
                 break;
             case buttonBehaviors.hideSettings:
+                break;
+            case buttonBehaviors.leaveTutorialPanel:
+                if (appManager.curLiveGame.isMPGame)
+                    m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundMP);
+                else
+                    m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
                 break;
             case buttonBehaviors.buyCategoryCredits:
                 Debug.Log("TRYING TO BUY CAT CREDITS");

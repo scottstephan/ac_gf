@@ -72,7 +72,7 @@ public class m_gameManager : MonoBehaviour {
         roundIndex = 0;
         playerMisses = 0;
         playerScoreText.text = "0";
-        roundNumberText.text = "Round: 1" + "/" + numRounds;
+        roundNumberText.text = "ROUND 1" + "/" + numRounds;
         roundStatusText.text = "";
 
     }
@@ -127,7 +127,9 @@ public class m_gameManager : MonoBehaviour {
         if (roundIndex < numRounds)
         {
             advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.advanceToNextRound;
+            playerInput.text = "";
             advanceButton.setTextByRole();
+            advanceButton.toMid.animationParts.ObjectState = UITween.AnimationParts.State.CLOSE; //To prevent snapping
             advanceButton.toMid.OpenCloseObjectAnimation();
            // StartCoroutine("delayAndCall", delayTypes.endRoundToStartRound);
         }
@@ -163,6 +165,8 @@ public class m_gameManager : MonoBehaviour {
         }
         advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.endGame;
         advanceButton.setTextByRole();
+        playerInput.text = "";
+        
         advanceButton.toMid.OpenCloseObjectAnimation();
        
     }
@@ -174,6 +178,7 @@ public class m_gameManager : MonoBehaviour {
         playerInput.text = "";
         playerInput.interactable = true;
         playerInput.ActivateInputField(); //yield focus
+        TouchScreenKeyboard.hideInput = true;
     }
 
     public void endInputPhase()
@@ -241,6 +246,8 @@ public class m_gameManager : MonoBehaviour {
     {
         int tS = int.Parse(playerScoreText.text);
         tS += scoreAmt;
+        //If answer > 9999 , crash??
+        // playerScoreText.text = tS.ToString("N0");
         playerScoreText.text = tS.ToString();
     }
 
@@ -259,7 +266,7 @@ public class m_gameManager : MonoBehaviour {
         roundIndex++;
         int counterIndex = roundIndex + 1;
         if (counterIndex > 3) counterIndex = 3;
-        roundNumberText.text = "Round: " + counterIndex + "/" + numRounds;
+        roundNumberText.text = "ROUND " + counterIndex + "/" + numRounds;
     }
 
     public void setCurrentSelectCategory(string catName)

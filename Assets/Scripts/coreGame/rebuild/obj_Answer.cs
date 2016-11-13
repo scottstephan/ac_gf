@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -8,11 +9,13 @@ public class obj_Answer : MonoBehaviour {
     public Text answerTextField;
     public Text answerScoreField;
     public string answerText;
+    public string answerText_sanitized;
     public int id;
     public int answerScore;
     public int scoreValue;
-    public Color answerRevealColor = Color.blue;
+    Color answerRevealColor = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
     public float animRevealLength = 1.5f;
+    public Image rowBG;
 
     public enum E_answerState {
         hidden,
@@ -27,16 +30,32 @@ public class obj_Answer : MonoBehaviour {
         hideAnswer();
         RectTransform maskTransform = thisAnswerMask.GetComponent<RectTransform>();
         maskTransform.localScale = new Vector3(1,1,1);
-        scoreValue = (id + 1) * 10;
+        scoreValue = (11 - id) * 1000;
+        rowBG.color = thisAnswerMask.GetComponent<Image>().color; 
 
-        answerTextField.text = answerText.ToLower();
-        answerScoreField.text = scoreValue.ToString();
+        setTextStyle();
     }
 
-    public void setAnswerInfo(string aT, int iT)
+    public void setAnswerInfo(string aT,string aT_s, int iT)
     {
         answerText = aT;
+        answerText_sanitized = aT_s;
         id = iT;
+    }
+
+    public void setTextStyle()
+    {
+        int fontSize = 40;
+
+        answerTextField.text = answerText.ToLower();
+
+        answerScoreField.text = scoreValue.ToString("N0");
+
+        answerTextField.fontSize = fontSize;
+        answerScoreField.fontSize = fontSize;
+
+        answerScoreField.color = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
+
     }
 
     public void setAnswerState(E_answerState answerState)
@@ -50,6 +69,10 @@ public class obj_Answer : MonoBehaviour {
         thisAnswerMask.GetComponent<Image>().color = answerRevealColor;
         StartCoroutine("lerpMaskScale");
         thisAnswerState = E_answerState.revealed;
+
+        answerTextField.fontStyle = FontStyle.Bold;
+        answerScoreField.fontStyle = FontStyle.Bold;
+
     }
 
     public void hideAnswer()

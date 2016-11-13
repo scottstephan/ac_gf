@@ -7,6 +7,7 @@ public class m_categorySelectionManager : MonoBehaviour {
     public GameObject categoryButton;
     public GameObject shopButton;
     public GameObject parentCategoryListGrid;
+    public GameObject categoryListHeader;
 
     void Awake()
     { //Maintain singleton pattern
@@ -24,6 +25,7 @@ public class m_categorySelectionManager : MonoBehaviour {
     {
         foreach (Transform t in parentCategoryListGrid.transform)
             Destroy(t.gameObject);
+        
     }
 
     void createCategoryLayout()
@@ -36,6 +38,9 @@ public class m_categorySelectionManager : MonoBehaviour {
 
         catNames = u_acJsonUtility.instance.discoverCategories(false);
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
+
+        GameObject catHead = Instantiate(categoryListHeader);
+        catHead.transform.SetParent(parentCategoryListGrid.transform);
 
         for(int i = 0; i < catNames.Count; ++i)
         {//TO-DO: Don't even instantiate the buton unless it's unlocked!

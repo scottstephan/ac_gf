@@ -39,10 +39,12 @@ public class m_roundAdvanceButton : MonoBehaviour {
         switch (myButtonRole)
         {
             case buttonRole.advanceToNextRound:
-                buttonText.text = "Begin next round!";
+                buttonText.text = "Next Round";
+                buttonText.fontSize = 50;
                 break;
             case buttonRole.endGame:
-                buttonText.text = "See your score!";
+                buttonText.text = "See Your Score";
+                buttonText.fontSize = 50;
                 break;
             case buttonRole.startGame:
                 break;

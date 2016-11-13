@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Boomlagoon.JSON;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
+
 
 public class u_acJsonUtility : MonoBehaviour {
 
@@ -88,9 +90,10 @@ public class u_acJsonUtility : MonoBehaviour {
             public string answer_10;
         }
         public answers questionAnswers;
+        public answers questionAnswers_sanitized;
 
         public void fillAnswersStruct()
-        {
+        { //Is called on import- Creates the answer objects and saves them as part of the question JSON.
             questionAnswers.answer_1 = jsonAnswers[0].ToString();
             questionAnswers.answer_2 = jsonAnswers[1].ToString();
             questionAnswers.answer_3 = jsonAnswers[2].ToString();
@@ -101,9 +104,20 @@ public class u_acJsonUtility : MonoBehaviour {
             questionAnswers.answer_8 = jsonAnswers[7].ToString();
             questionAnswers.answer_9 = jsonAnswers[8].ToString();
             questionAnswers.answer_10 = jsonAnswers[9].ToString();
+
+            questionAnswers_sanitized.answer_1 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_1);
+            questionAnswers_sanitized.answer_2 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_2);
+            questionAnswers_sanitized.answer_3 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_3);
+            questionAnswers_sanitized.answer_4 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_4);
+            questionAnswers_sanitized.answer_5 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_5);
+            questionAnswers_sanitized.answer_6 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_6);
+            questionAnswers_sanitized.answer_7 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_7);
+            questionAnswers_sanitized.answer_8 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_8);
+            questionAnswers_sanitized.answer_9 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_9);
+            questionAnswers_sanitized.answer_10 = u_acJsonUtility.instance.autoCompeteSanatizeString(questionAnswers.answer_10);
         }
 
-        public List<string> turnAnswerStructToList()
+        public List<string> turnAnswerStructToList() //what am i using this for?? Main round?
         {
             List<string> answersList = new List<string>();
             answersList.Add(questionAnswers.answer_1);
@@ -120,6 +134,23 @@ public class u_acJsonUtility : MonoBehaviour {
             {
                answersList[i] = answersList[i].Replace("\"","");
             }
+            return answersList;
+        }
+
+        public List<string> getSanitizedAnswersStructToList ()
+        {
+            List<string> answersList = new List<string>();
+            answersList.Add(questionAnswers_sanitized.answer_1);
+            answersList.Add(questionAnswers_sanitized.answer_2);
+            answersList.Add(questionAnswers_sanitized.answer_3);
+            answersList.Add(questionAnswers_sanitized.answer_4);
+            answersList.Add(questionAnswers_sanitized.answer_5);
+            answersList.Add(questionAnswers_sanitized.answer_6);
+            answersList.Add(questionAnswers_sanitized.answer_7);
+            answersList.Add(questionAnswers_sanitized.answer_8);
+            answersList.Add(questionAnswers_sanitized.answer_9);
+            answersList.Add(questionAnswers_sanitized.answer_10);
+
             return answersList;
         }
 
@@ -306,22 +337,20 @@ public class u_acJsonUtility : MonoBehaviour {
             string qName = jsonQParser.GetString("questionName");
             string qID = jsonQParser.GetString("questionID");
             string qDisp = jsonQParser.GetString("questionDisplayText");
-            //Assign it a a questoon object
+            //Assign it a a question object
             tQ.questionName = qName;
             tQ.questionID = qID;
             tQ.questionDisplayText = qDisp;
             tQ.category = catName;
             tQ.catID = catID;
-            
             //Get the answers to that question
             JSONArray answersArray = jsonQParser.GetArray("answers");
             tQ.jsonAnswers = answersArray;
             tQ.fillAnswersStruct();
+            
             //Iterate and assign to the question
 
             string questionJson = JsonUtility.ToJson(tQ);
-
-            
             string qPath = tempPath + tQ.questionID + ".json";
 
             SaveData(questionJson, qPath);
@@ -368,7 +397,7 @@ public class u_acJsonUtility : MonoBehaviour {
         int.TryParse(maxNum, out maxN);
         Debug.Log("minNum: " + minN + ":: maxNum: " + maxN);
 
-        int qNum = Random.Range(minN, maxN);
+        int qNum = UnityEngine.Random.Range(minN, maxN);
         string fileNumber = qNum.ToString();
         if (qNum < 100)
             fileNumber = "0" + fileNumber;
@@ -640,6 +669,42 @@ public class u_acJsonUtility : MonoBehaviour {
         tHS.categoryHighscore = scoreVal.ToString();
 
         SaveData(JsonUtility.ToJson(tHS), hsFilePath);
+    }
+    /// <summary>
+    /// STRING UTLITIES!
+    /// </summary>
+ 
+    public string autoCompeteSanatizeString(string s)
+    {
+        string[] articles = new string[] { "a ", "an ","to ","and ","the " }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
+        //1- Remove preceeding articles
+        for(int i = 0; i < articles.Length; ++i)
+        {
+            if (s.StartsWith(articles[i]))
+            {
+                Debug.Log("Trimming " + articles[i] + " from " + s);
+                s = s.TrimStart(articles[i].ToCharArray());
+                Debug.Log("Final trimmed string: " + s);
+            }
+        }
+        //2- Remove non-alpha numerics AND spaces
+        char[] arr = s.ToCharArray();
+
+        arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c))));
+        s = new string(arr);
+
+        return s;
+    }
+
+    public static string UppercaseFirst(string s)
+    {
+        if (string.IsNullOrEmpty(s))
+        {
+            return string.Empty;
+        }
+        char[] a = s.ToCharArray();
+        a[0] = char.ToUpper(a[0]);
+        return new string(a);
     }
 }
 

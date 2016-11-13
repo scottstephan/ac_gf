@@ -14,6 +14,7 @@ public class m_phaseManager : MonoBehaviour {
         MPLobby,
         categorySelectSP,
         categorySelectMP,
+        tutorial,
         mainRoundSP,
         mainRoundMP,
         scoreComp,
@@ -57,13 +58,17 @@ public class m_phaseManager : MonoBehaviour {
                 thisPhase = phases.categorySelectMP;
                 m_phaseManager.instance.transitionToCatSelectMP();
                 break;
+            case phases.tutorial:
+              //  thisPhase = phases.tutorial; //Don't set the phase- The MP relies on knowing whether the last relevant panel phase as category or MP lobby. No sense in fucking with that.
+                m_phaseManager.instance.transitionToTutorial();
+                break;
             case phases.mainRoundSP:
                 thisPhase = phases.mainRoundSP;
-                m_phaseManager.instance.transitionToSP();
+                m_phaseManager.instance.transitionTutorialToSP();
                 break;
             case phases.mainRoundMP:
                 thisPhase = phases.mainRoundMP;
-                m_phaseManager.instance.transitionToMP();
+                m_phaseManager.instance.transitionTutorialToMP();
                 break;
             case phases.scoreComp:
                 thisPhase = phases.scoreComp;
@@ -108,11 +113,38 @@ public class m_phaseManager : MonoBehaviour {
         m_categorySelectionManager.instance.initCategoryPhase();
     }
 
+    private void transitionToTutorial()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToTutorial);
+
+    }
+
+    private void transitionTutorialToSP()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.TutorialToMainRound);
+        m_gameManager.instance.init(false);
+    }
+
+    private void transitionTutorialToMP()
+    {
+        if (previousPhase == phases.categorySelectMP)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
+        }
+        else if (previousPhase == phases.MPLobby)
+        {
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToMainRound);
+        }
+
+        m_gameManager.instance.init(true);
+    }
 
     private void transitionToSP()
-    { //No need for a prev phase check- It'll always be the cat manager
-        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
-        m_gameManager.instance.init(false);
+    {
+        
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
+            m_gameManager.instance.init(false);
+        
     }
 
     private void transitionToMP()

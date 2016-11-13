@@ -21,12 +21,12 @@ public class categorySelectionButtonManager : MonoBehaviour
     {
         if (!isLocked) { 
             m_gameManager.instance.setCurrentSelectCategory(categoryName);
-            m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
+            //m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.tutorial);
         }
         else
         {//IAP path
             unlockCategory(); //FOR TESTING ONLY
-            
         }
     }
 

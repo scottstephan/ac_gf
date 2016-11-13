@@ -8,6 +8,7 @@ public class m_roundManager : MonoBehaviour {
     public Transform parentPanel;
     public List<obj_Answer> gridAnswerObjects = new List<obj_Answer>();
     public List<string> qAnswers = new List<string>();
+    public List<string> qAnswers_sanitized = new List<string>();
     public u_acJsonUtility.acQ questionSet;
     public int hitOrMissAnswerIndex = 0;
 
@@ -26,6 +27,7 @@ public class m_roundManager : MonoBehaviour {
     {
         if (parentPanel == null) parentPanel = GameObject.Find("4_MainRound").GetComponent<RectTransform>();
         qAnswers = questionSet.turnAnswerStructToList();
+        qAnswers_sanitized = questionSet.getSanitizedAnswersStructToList();
         setPos();
         setAnswerGrid();
         setQuestionText(questionSet.questionDisplayText);
@@ -50,7 +52,7 @@ public class m_roundManager : MonoBehaviour {
     {
         for(int i = 0; i < gridAnswerObjects.Count; ++i)
         {
-            gridAnswerObjects[i].setAnswerInfo(qAnswers[i],i); //Presumes they're in order! Why weren't they before?
+            gridAnswerObjects[i].setAnswerInfo(qAnswers[i],qAnswers_sanitized[i], i); //Presumes they're in order! Why weren't they before?
             gridAnswerObjects[i].initAnswer();
         }
     }
@@ -80,6 +82,7 @@ public class m_roundManager : MonoBehaviour {
         //Get Input
         string playerInput = m_gameManager.instance.playerInput.text;
         playerInput = playerInput.ToLower();
+        playerInput = u_acJsonUtility.instance.autoCompeteSanatizeString(playerInput);
         Debug.Log("Player input is: " + playerInput);
         //Check it against answers
         validationRoundEndResult result = returnValidationResult(playerInput);
@@ -93,7 +96,7 @@ public class m_roundManager : MonoBehaviour {
     {
         for(int i = 0; i < gridAnswerObjects.Count; ++i)
         {
-            if(gridAnswerObjects[i].answerText == sanitizedInput)
+            if(gridAnswerObjects[i].answerText_sanitized == sanitizedInput) //Here's the current issue- I'm using the text fromt the grid to comp the string. 
             {
                 if (gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
                 {
@@ -122,13 +125,13 @@ public class m_roundManager : MonoBehaviour {
             case (validationRoundEndResult.playerHit):
                 gridAnswerObjects[hitOrMissAnswerIndex].revealAnswer();
                 m_gameManager.instance.incrementScore(gridAnswerObjects[hitOrMissAnswerIndex].scoreValue);
-                m_gameManager.instance.playerInputText.color = Color.green;
+                m_gameManager.instance.playerInputText.color = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
                 break;
             case (validationRoundEndResult.playerHitDouble):
                 m_gameManager.instance.incrementMisses();
                 m_gameManager.instance.animateLightbulb();
                 m_gameManager.instance.playerInputText.color = Color.red;
-
+                
                 break;
             case (validationRoundEndResult.playerMiss):
                 m_gameManager.instance.incrementMisses();

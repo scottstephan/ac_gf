@@ -7,8 +7,12 @@ public class m_scoreCompManager : MonoBehaviour {
     public static m_scoreCompManager instance = null;
     private int cScore;
 
+    public Text resultText;
     public Text yourText;
     public Text theirText;
+
+    string googleBlueHex = "#4470E6FF";
+    string googleGreenHex = "#08AF22FF";
   //  public Text highScoreStatus; //Not using this. 
 
     // Use this for initialization
@@ -42,15 +46,24 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScores()
     {
-        string scorePrepend = " got \n <color=blue><size=135>";
-        string scoreAppend = "</size></color> \n points!";
-        string waitingPrepend = "Waiting for <color=green>";
+        string scorePrepend = "got \n <color=" + googleBlueHex + "><size=135><b>";
+        string scoreAppend = "</b></size></color> \n points!";
+        string waitingPrepend = "Waiting for <color=" + googleGreenHex + ">";
         string waitingAppend = "</color> to finish";
 
         if (appManager.curLiveGame.isMPGame)
         { 
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
             { //YOU are P1- P2 may or may not be done. 
+                if(appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
+                {
+                    resultText.text = "YOU WON!";
+                }
+                else
+                {
+                    resultText.text = appManager.curLiveGame.player2_name + " WON!";
+                }
+
                 yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
                 cScore = appManager.curLiveGame.p1_score;
                 if (appManager.curLiveGame.p2_Fin)
@@ -60,6 +73,14 @@ public class m_scoreCompManager : MonoBehaviour {
             }
             else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             { //YOU are P2 - In this case, P1 HAS to have finished
+                if (appManager.curLiveGame.p1_score < appManager.curLiveGame.p2_score)
+                {
+                    resultText.text = "YOU WON!";
+                }
+                else
+                {
+                    resultText.text = appManager.curLiveGame.player2_name + " WON!";
+                }
                 cScore = appManager.curLiveGame.p2_score;
                 yourText.text = "You " + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
                 theirText.text = appManager.curLiveGame.player1_name + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
@@ -67,6 +88,7 @@ public class m_scoreCompManager : MonoBehaviour {
         }
         else
         {            //Set YOUR text, but not theirs
+            resultText.text = "GAME OVER!";
             cScore = appManager.curLiveGame.p1_score;
             yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
             theirText.text = " ";
@@ -86,12 +108,12 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if(curScore > savedHS)
         {
-            theirText.text = "A new high score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color>!: \n <color=blue><size=135>" + curScore +"</size></color>";
+            theirText.text = "You set a new high \n score in <color=" + googleGreenHex + ">" + appManager.curLiveGame.categoryText + "</color> \n <b><color=" + googleBlueHex + "><size=135>" + curScore +"</size></color></b> \n points!";
             u_acJsonUtility.instance.updateHighScore(appManager.curLiveGame.categoryText, curScore);
         }
         else
         {
-            theirText.text = "Your best score in <color=green>" + appManager.curLiveGame.categoryText.ToUpper() + "</color> is \n <color=blue><size=135>" + savedHS + "</size></color>";
+            theirText.text = "Your best score in \n <color=" + googleGreenHex + ">" + appManager.curLiveGame.categoryText + "</color> is \n <color=" + googleBlueHex + "><size=135><b>" + savedHS + "</b></size></color> \n points!";
         }
     }
 
