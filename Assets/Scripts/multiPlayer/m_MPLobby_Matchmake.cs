@@ -22,6 +22,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     public GameObject fullGameListParentGrid;
     public GameObject fullGameListPanel;
+    public GameObject playerGameListHeader;
 
     int listIndex;
 
@@ -45,7 +46,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         OnScanComplete += OnPlayerScanComplete;
         clearLists();
         m_fbStatusManager.instance.loadFriendsInstalledList(playerFriendsPopulated);
+        appManager.instance.startLoadWheel(fullGameListParentGrid.transform.position);
         getAllP1Games();
+        GameObject tH = Instantiate(this.playerGameListHeader);
+        tH.transform.SetParent(fullGameListParentGrid.transform);
     }
 
     void playerFriendsPopulated(List<object> userFriendsWithAppInstalled)
@@ -115,6 +119,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         pgID.Clear();
         p1Initiated.Clear();
         p1Challenged.Clear();
+        
         for (int i = 0; i < response.Count; i++)
         {
             appManager.playerGameID tPGID = new appManager.playerGameID();
@@ -164,6 +169,8 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             tManager.loadGameEntity(tManager.gameID);
            
         }
+        appManager.instance.stopLoadWHeel();
+
     }
 
     void removeLoadPanel()

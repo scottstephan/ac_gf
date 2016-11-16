@@ -26,6 +26,7 @@ public class appManager : MonoBehaviour {
     public bool FB_LOGINSTATUS;
     public static string FB_ID;
     public string FB_NAME;
+    public obj_loadingWheelManager loadWheel;
 
     public static u_iapManager iapManager = null;
 
@@ -249,6 +250,28 @@ public class appManager : MonoBehaviour {
         DBWorker.Instance.Delete(appManager.curLiveGame, LiveGameDeletedFromDB);
     }
 
+    public static void deletePlayerGameEntry(string playerID, string gameID, playerRoles role)
+    {
+        playerGameID tP = new playerGameID();
+        tP.playerID = playerID;
+        tP.gameID = gameID;
+        tP.role = role.ToString();
+     //   DBWorker.Instance.Delete(appManager.curLiveGame, GameDeletedFromPlayerGameTable);
+
+    }
+
+    public static void GameDeletedFromPlayerGameTable(bool success, GameObject obj, string nextMethod, Exception e = null)
+    {
+        if (e != null)
+        {
+            DBTools.PrintException("LiveGameDeletedFromDB", e);
+            return;
+        }
+        Debug.Log("***CUR GAME REMOVED FROM PG TABLE***");
+        appManager.curLiveGame = null;
+    }
+
+
     public static void LiveGameDeletedFromDB(bool success, GameObject obj, string nextMethod, Exception e = null)
     {
         if(e != null)
@@ -393,5 +416,22 @@ public class appManager : MonoBehaviour {
         m_loadPanelManager.instance.deactivateLoadPanel();
         if (e != null)
             DBTools.PrintException("OnEndGameSaved", e);
+    }
+
+    //Some silly game logic below
+    public void startLoadWheel()
+    {
+        loadWheel.startWheelAnimation();
+    }
+
+    public void startLoadWheel(Vector3 pos)
+    {
+        loadWheel.setWheelPosition(pos);
+        loadWheel.startWheelAnimation();
+    }
+
+    public void stopLoadWHeel()
+    {
+        loadWheel.stopWheelAnimation();
     }
 }

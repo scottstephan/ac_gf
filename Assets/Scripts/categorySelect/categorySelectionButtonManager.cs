@@ -6,7 +6,10 @@ public class categorySelectionButtonManager : MonoBehaviour
 {
     public string categoryName;
     public string categoryId;
+    public Color categoryColor;
+    public Texture2D categoryImage;
     public Text catButtonText;
+    public u_acJsonUtility.acCat thisCat;
     bool isLocked = false;
 
     public void categorySelected()
@@ -32,6 +35,7 @@ public class categorySelectionButtonManager : MonoBehaviour
 
     public void setUpButton()
     {
+        thisCat = u_acJsonUtility.instance.loadCategoryData(categoryName);
         gameObject.GetComponent<Button>().colors = setColorBlock();
 
         string dispCatName = categoryName;
@@ -42,7 +46,16 @@ public class categorySelectionButtonManager : MonoBehaviour
     private ColorBlock setColorBlock()
     {
         ColorBlock tCB = new ColorBlock();
-        tCB.normalColor = m_colorPaletteManager.instance.buttonColorPalette.returnRandomColor();
+        
+        if (ColorUtility.TryParseHtmlString(thisCat.categorColorValue, out categoryColor))
+        {
+            tCB.normalColor = categoryColor;
+        }
+        else
+        {
+            tCB.normalColor = Color.black;
+        }
+
         tCB.highlightedColor = tCB.normalColor;
         tCB.pressedColor = tCB.normalColor;
         tCB.colorMultiplier = 1;

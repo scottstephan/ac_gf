@@ -57,7 +57,11 @@ public class m_panelManager : MonoBehaviour {
         catSelectToMainRound,
         mainRoundToScoreComp,
         scoreCompToMainMenu,
-        scoreCompToMPLobby
+        scoreCompToMPLobby,
+        categoryToIAPShop,
+        menuToIAPShop,
+        IAPToMenu,
+        IAPToCatSelect
     }
 
     public enum uiPanelTransitions{
@@ -73,7 +77,8 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations mainRound;
     public panelAnimations scoreComp;
     public panelAnimations headerPanel;
-    
+    public panelAnimations IAPPanel;
+
     public uiPanelAnimations opponentInputPanel;
     public uiPanelAnimations debugPanel;
 
@@ -125,6 +130,18 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.scoreCompToMPLobby:
                 anim_scoreCompToMPLobby();
                 break;
+            case phaseTransitions.menuToIAPShop:
+                anim_menuToIAP();
+                break;
+            case phaseTransitions.categoryToIAPShop:
+                anim_categoryToIAP();
+                break;
+            case phaseTransitions.IAPToMenu:
+                anim_IAPToMenu();
+                break;
+            case phaseTransitions.IAPToCatSelect:
+                anim_IAPToCatSelect();
+                break;
         }
     }
         
@@ -155,7 +172,7 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(loadScreen.toLeft); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
-        StartCoroutine("playAnimSet", setToPlay);
+        StartCoroutine("playAnimsSimultaneously", setToPlay);
     }
 
     public void anim_mpLobbyToCatSelect()
@@ -167,7 +184,7 @@ public class m_panelManager : MonoBehaviour {
             m_loadPanelManager.instance.deactivateLoadPanel();
             m_loadPanelManager.instance.panelText.text = "LOADING!";
         }
-        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+    //    setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }
@@ -231,6 +248,39 @@ public class m_panelManager : MonoBehaviour {
 
     }
 
+    public void anim_categoryToIAP()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_menuToIAP()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_IAPToMenu()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_IAPToCatSelect()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+
     public void anim_scoreCompToMPLobby()
     {
 
@@ -249,6 +299,17 @@ public class m_panelManager : MonoBehaviour {
         }
 
         Debug.Log("---ANIM SET DONE---");
+    }
+
+    IEnumerator playAnimsSimultaneously(animationSetToPlay cSet)
+    {
+        for (int i = 0; i < cSet.animsToPlayInOrder.Count; i++)
+        {
+            cSet.animsToPlayInOrder[i].animationParts.ObjectState = UITween.AnimationParts.State.CLOSE;
+            cSet.animsToPlayInOrder[i].OpenCloseObjectAnimation();
+        }
+
+        yield return null;
     }
 
     ///---UI PANEL STUFF---\\\

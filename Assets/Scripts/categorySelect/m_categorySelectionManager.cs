@@ -50,6 +50,7 @@ public class m_categorySelectionManager : MonoBehaviour {
             categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
             tManager.categoryName = catNames[i];
             tManager.categoryId = "NOTUSINGFORNOW";
+            
 
             for(int j = 0; j < catUnlockStatus.Count; ++j)
             {
@@ -83,10 +84,6 @@ public class m_categorySelectionManager : MonoBehaviour {
 
         GameObject tSB = Instantiate(shopButton);
         tSB.transform.SetParent(parentCategoryListGrid.transform);
-
-        Vector3 tV = parentCategoryListGrid.transform.position;
-        tV.y += 200;//categoryButton.GetComponent<RectTransform>().rect.height;
-        parentCategoryListGrid.transform.position = tV;
     }
     /// <summary>
     /// Loads and sets the 'current question' attribute for the game

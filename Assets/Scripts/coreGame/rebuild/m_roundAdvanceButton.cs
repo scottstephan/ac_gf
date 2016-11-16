@@ -24,6 +24,7 @@ public class m_roundAdvanceButton : MonoBehaviour {
                  m_gameManager.instance.moveInRoundInterface(m_gameManager.instance.roundIndex);
                  m_gameManager.instance.changePhase(m_gameManager.roundPhases.input);
                  toLeft.OpenCloseObjectAnimation();
+                m_gameManager.instance.updateRoundCounter();
                 break;
             case buttonRole.endGame:
                 m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);

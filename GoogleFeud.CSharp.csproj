@@ -273,6 +273,7 @@
     <Compile Include="Assets\Scripts\multiPlayer\playBy_FriendName.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\ui_existingGameButton.cs" />
     <Compile Include="Assets\Scripts\multiPlayer\ui_opponentButtonManager.cs" />
+    <Compile Include="Assets\Scripts\obj_loadingWheelManager.cs" />
     <Compile Include="Assets\Scripts\persistentHeader\m_headerManager.cs" />
     <Compile Include="Assets\Scripts\persistentHeader\u_iapManager.cs" />
     <Compile Include="Assets\Scripts\registerPlayerButton.cs" />

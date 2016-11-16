@@ -10,7 +10,8 @@ public class DEBUG_debutButtonBehaviors : MonoBehaviour {
         addCredit,
         lockNonDefaultCats,
         lockAllCats,
-        unlockAllCats
+        unlockAllCats,
+        reimportAll
     }
 
     public debugButtonBehaviors thisButtonBehavior;
@@ -44,6 +45,9 @@ public class DEBUG_debutButtonBehaviors : MonoBehaviour {
                 {
                     u_acJsonUtility.instance.findAndUnlockCategory(allCatNames[i]);
                 }
+                break;
+            case debugButtonBehaviors.reimportAll:
+                u_acJsonUtility.instance.readJson();
                 break;
         }
             

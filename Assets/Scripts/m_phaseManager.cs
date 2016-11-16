@@ -128,15 +128,16 @@ public class m_phaseManager : MonoBehaviour {
     private void transitionTutorialToMP()
     {
         if (previousPhase == phases.categorySelectMP)
-        {
-            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.catSelectToMainRound);
+        {//You're starting a game
+            m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.TutorialToMainRound);
+            m_gameManager.instance.init(false);
         }
         else if (previousPhase == phases.MPLobby)
-        {
+        {//You're finishing a game
             m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.MPLobbyToMainRound);
+            m_gameManager.instance.init(true);
         }
 
-        m_gameManager.instance.init(true);
     }
 
     private void transitionToSP()

@@ -266,7 +266,13 @@ public class m_gameManager : MonoBehaviour {
         roundIndex++;
         int counterIndex = roundIndex + 1;
         if (counterIndex > 3) counterIndex = 3;
+    }
+
+    public void updateRoundCounter()
+    {
+        int counterIndex = roundIndex + 1;
         roundNumberText.text = "ROUND " + counterIndex + "/" + numRounds;
+
     }
 
     public void setCurrentSelectCategory(string catName)

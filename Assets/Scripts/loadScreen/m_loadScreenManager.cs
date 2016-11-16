@@ -18,6 +18,8 @@ public class m_loadScreenManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        appManager.instance.startLoadWheel();
+
         u_acJsonUtility.instance.createImportDirectories(); //TO-DO: DO NOT NEED THIS WHENS HIPPING
         u_acJsonUtility.instance.checkFirstTimeCopy();
         appManager.instance.checkIAPConnection();
@@ -33,6 +35,7 @@ public class m_loadScreenManager : MonoBehaviour {
         {
             waitingForAppInit = false;
             m_phaseManager.instance.changePhase(m_phaseManager.phases.titleScreen);
+            appManager.instance.stopLoadWHeel();
         }
     }
 

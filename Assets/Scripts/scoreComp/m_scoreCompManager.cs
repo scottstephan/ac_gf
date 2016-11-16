@@ -53,7 +53,7 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if (appManager.curLiveGame.isMPGame)
         { 
-            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated && appManager.curLiveGame.p1_Fin && appManager.curLiveGame.p2_Fin)
             { //YOU are P1- P2 may or may not be done. 
                 if(appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
                 {
@@ -70,6 +70,10 @@ public class m_scoreCompManager : MonoBehaviour {
                     theirText.text = appManager.curLiveGame.player2_name + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
                 else
                     theirText.text = waitingPrepend + appManager.curLiveGame.player2_name + waitingAppend;
+            }
+            else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated && appManager.curLiveGame.p1_Fin)
+            {
+                resultText.text = "";
             }
             else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             { //YOU are P2 - In this case, P1 HAS to have finished
@@ -125,6 +129,8 @@ public class m_scoreCompManager : MonoBehaviour {
             deadGame.initGameDead(appManager.curLiveGame);
             appManager.saveDeadGame(deadGame);
             appManager.deleteCurGame();
+            //Need to work out which player is what role here and then delete from table
+            //appManager.deletePlayerGameEntry(appManager.curLiveGame.player1_id, appManager.curLiveGame.gameID, appManager.devicePlayerRoleInCurGame);
         }
         else if(appManager.curLiveGame.p1_Fin && !appManager.curLiveGame.p2_Fin)
         {

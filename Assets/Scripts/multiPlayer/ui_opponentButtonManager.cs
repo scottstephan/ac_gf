@@ -16,11 +16,6 @@ public class ui_opponentButtonManager : MonoBehaviour {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void setUpButton()
     {
@@ -40,7 +35,7 @@ public class ui_opponentButtonManager : MonoBehaviour {
 
     public void LoadPlayerPic(bool needToSave = false)
     {
-        string getUserPicString =   opEntity.playerID + "?fields=picture.height(100)";
+        string getUserPicString =   opEntity.playerID + "?fields=picture.height(150)";
         FB.API(getUserPicString, HttpMethod.GET,
             delegate (IGraphResult result)
             {

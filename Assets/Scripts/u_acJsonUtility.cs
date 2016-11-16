@@ -27,6 +27,10 @@ public class u_acJsonUtility : MonoBehaviour {
     static string catInfoSavePathPrefix = "catStatus/";
     static string qdbInfoSavePathSuffix = "/qdbinfo/";
     static string highScoreSavePathSuffix = "/highscores/";
+    static string categoryImageSavePath = "/categoryimages/";
+    static string amazonS3Root = "https://s3.amazonaws.com/autocompete";
+    static string amazonS3CatImageDir = "/categoryImages/";
+
     [System.Serializable]
     public class qDBInfo
     {
@@ -185,6 +189,8 @@ public class u_acJsonUtility : MonoBehaviour {
         public string categoryName;
         public string categoryID;
         public string categoryDisplayName;
+        public string categorColorValue;
+        public string categoryImageValue;
 
         public void displayCatInfo()
         {
@@ -262,6 +268,7 @@ public class u_acJsonUtility : MonoBehaviour {
         string qdbInfoPath = baseSavePathString + qdbInfoSavePathSuffix;
         string catStatusPath = catPath + catInfoSavePathPrefix;
         string highScorePath = baseSavePathString + highScoreSavePathSuffix;
+        string catImagePath = baseSavePathString + categoryImageSavePath;
 
         if (!Directory.Exists(catPath))
             Directory.CreateDirectory(catPath);
@@ -273,6 +280,8 @@ public class u_acJsonUtility : MonoBehaviour {
             Directory.CreateDirectory(qdbInfoPath);
         if (!Directory.Exists(highScorePath))
             Directory.CreateDirectory(highScorePath);
+        if (!Directory.Exists(catImagePath))
+            Directory.CreateDirectory(catImagePath);
     }
 
     acCat createCategoryObject(JSONValue categorySuperString)
@@ -281,12 +290,16 @@ public class u_acJsonUtility : MonoBehaviour {
         string catName = category.GetString("categoryName");
         string catID = category.GetString("categoryID");
         string catDispName = category.GetString("categoryDisplayText");
-        string catUnlockStatus = category.GetString("categoryUnlockStatus");
+        string catUnlockStatus = category.GetString("unlockStatus");
+        string catColor = category.GetString("colorValue");
+        string catImage = category.GetString("imageValue");
         //CREATE CAT Object
         acCat tCat = new acCat();
         tCat.categoryDisplayName = catDispName;
         tCat.categoryID = catID;
         tCat.categoryName = catName;
+        tCat.categorColorValue = catColor;
+        tCat.categoryImageValue = catImage;
      //   tCat.displayCatInfo();
         //Create cat info object
         categoryUnlockInfo tCI = new categoryUnlockInfo();
@@ -372,11 +385,12 @@ public class u_acJsonUtility : MonoBehaviour {
         File.WriteAllText(fPath, jsonToSave);
     }
 
-    public void loadCategoryData()
+    public acCat loadCategoryData(string catName)
     {
-        string fPath = baseSavePathString + catSavePathSuffix + "test.json";
+        string fPath = baseSavePathString + catSavePathSuffix + catName + ".json";
         string loadedJson = File.ReadAllText(fPath);
         acCat tCat = JsonUtility.FromJson<acCat>(loadedJson);
+        return tCat;
         tCat.displayCatInfo();
     }
    
@@ -401,7 +415,8 @@ public class u_acJsonUtility : MonoBehaviour {
         string fileNumber = qNum.ToString();
         if (qNum < 100)
             fileNumber = "0" + fileNumber;
-
+        if (qNum < 10)
+            fileNumber = "0" + fileNumber; //As it'll already have 0 from above- Solves the 09 v 009 issues. 
         string fPath = qRootDir + filePrefix + fileNumber + ".json";
 
         string loadedJson = File.ReadAllText(fPath);
@@ -551,6 +566,23 @@ public class u_acJsonUtility : MonoBehaviour {
     
     }
 
+    IEnumerator loadCategoryImage(string catName)
+    {
+        //1- Check to see if the image exists locally
+
+        //2- If not, try and get it from the web and save it here.
+
+        string url = "https://s3.amazonaws.com/autocompete/catimages/"+catName+".png";
+
+        Texture2D catImage = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        while (true)
+        {
+            WWW www = new WWW(url);
+            yield return www;
+            www.LoadImageIntoTexture(catImage);
+        }
+    }
+
     void compareWebQDBToLocalQDB(string s_webQDB)
     {
         JSONObject localQDB = JSONObject.Parse(File.ReadAllText(baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json"));
@@ -676,20 +708,23 @@ public class u_acJsonUtility : MonoBehaviour {
  
     public string autoCompeteSanatizeString(string s)
     {
-        string[] articles = new string[] { "a ", "an ","to ","and ","the " }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
+        //Remove json formatting artifacts
+        s = s.Replace("\"", string.Empty);
+       
         //1- Remove preceeding articles
+        string[] articles = new string[] { "a ", "an ","to ","and ","the " }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
         for(int i = 0; i < articles.Length; ++i)
         {
             if (s.StartsWith(articles[i]))
             {
-                Debug.Log("Trimming " + articles[i] + " from " + s);
+          //      Debug.Log("Trimming " + articles[i] + " from " + s);
                 s = s.TrimStart(articles[i].ToCharArray());
-                Debug.Log("Final trimmed string: " + s);
+         //       Debug.Log("Final trimmed string: " + s);
             }
         }
+
         //2- Remove non-alpha numerics AND spaces
         char[] arr = s.ToCharArray();
-
         arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c))));
         s = new string(arr);
 

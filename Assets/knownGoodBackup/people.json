@@ -1,0 +1,359 @@
+{
+	"Category": {
+		"categoryName": "people",
+		"categoryDisplayText": "People",
+		"categoryID": "c005",
+"categoryUnlockStatus":"unlocked",
+		"questions": [{
+			"questionName": "i had a dream i was",
+			"questionDisplayText": "I had a dream I was",
+			"questionID": "q212",
+			"answers": ["pregnant", "7", "dying", "pregnant with a boy", "drowning", "shot", "flying", "pregnant what does that mean", "being chased", "pregnant with a girl"]
+		}, {
+			"questionName": "i like guys with",
+			"questionDisplayText": "I like guys with",
+			"questionID": "q213",
+			"answers": ["girlfriends", "big bellies", "long hair", "tattoos", "bellies", "glasses", "spikes", "beards", "big noses", "acne"]
+		}, {
+			"questionName": "i think my mom is",
+			"questionDisplayText": "I think my mom is",
+			"questionID": "q214",
+			"answers": ["cheating", "gay", "pregnant", "on drugs", "suicidal", "mentally ill", "having an affair", "a superhero", "amazing", "emotionally abusive"]
+		}, {
+			"questionName": "i think my dad is",
+			"questionDisplayText": "I think my dad is",
+			"questionID": "q215",
+			"answers": ["batman", "gay", "cheating", "dracula", "going to die", "bipolar", "depressed", "possessed", "emotionally abusive", "autistic"]
+		}, {
+			"questionName": "i want to buy a",
+			"questionDisplayText": "I want to buy a",
+			"questionID": "q216",
+			"answers": ["house", "timeshare", "car", "boat", "horse", "gun", "tiny house", "dog", "puppy", "new car"]
+		}, {
+			"questionName": "i want to be a",
+			"questionDisplayText": "I want to be a",
+			"questionID": "q217",
+			"answers": ["girl", "cowboy", "dentist", "billionaire", "model", "doctor", "baller", "millionaire", "rockstar", "writer"]
+		}, {
+			"questionName": "is it weird to like",
+			"questionDisplayText": "Is it weird to like",
+			"questionID": "q218",
+			"answers": ["anime", "pain", "pooping", "asmr", "blood", "feet", "the smell of your balls", "to be alone", "the smell of your own balls", "kpop"]
+		}, {
+			"questionName": "why do people like",
+			"questionDisplayText": "Why do people like",
+			"questionID": "q219",
+			"answers": ["trump", "anime", "beer", "game of thrones", "feet", "drake", "pokemon go", "cats", "me", "alcohol"]
+		}, {
+			"questionName": "my friend is addicted to",
+			"questionDisplayText": "My friend is addicted to",
+			"questionID": "q220",
+			"answers": ["anime", "dota 2", "weed", "her phone", "drugs", "pokemon go", "coke", "pills", "crack", "adderall"]
+		}, {
+			"questionName": "new yorkers are",
+			"questionDisplayText": "New Yorkers are",
+			"questionID": "q221",
+			"answers": ["rude", "stupid", "known for", "friendly", "ugly", "pretentious", "the best", "nice", "tough", "so rude"]
+		}, {
+			"questionName": "i accidentally ate",
+			"questionDisplayText": "I accidentally ate",
+			"questionID": "q222",
+			"answers": ["a pet named steve", "poop", "the whole thing", "meat", "mold", "an ant", "raw pork", "plastic", "moldy bread", "before surgery"]
+		}, {
+			"questionName": "when you die you",
+			"questionDisplayText": "When you die you",
+			"questionID": "q223",
+			"answers": ["poop", "die", "wake up", "go to heaven", "cease to exist", "cannot take it with you", "become a star", "die for real", "become a pet named steve", "go bye bye"]
+		}, {
+			"questionName": "never put a",
+			"questionDisplayText": "Never put a",
+			"questionID": "q224",
+			"answers": ["lid on god", "genie on a budget", "qtip in your ear", "cat in a microwave", "little boy to bed", "baby in a corner", "sock in the toaster meaning", "refrigerator on its side", "hat on the bed meaning", "dress without a smile"]
+		}, {
+			"questionName": "i sold all my",
+			"questionDisplayText": "I sold all my",
+			"questionID": "q225",
+			"answers": ["money", "video games", "food stamps", "stuff", "guns", "atlas stones", "thieves guild armor", "stuff on ebay", "stocks", "cds"]
+		}, {
+			"questionName": "i lied about my",
+			"questionDisplayText": "I lied about my",
+			"questionID": "q226",
+			"answers": ["age", "gpa", "age to a guy i met online", "gpa in interview", "race", "age online", "age to my friends", "salary", "name", "period"]
+		}, {
+			"questionName": "i think life is",
+			"questionDisplayText": "I think life is",
+			"questionID": "q227",
+			"answers": ["meaningless", "a gift titanic", "pointless", "fake", "a dream", "not real", "a pet named steve", "about falling in love", "an illusion", "a game"]
+		}, {
+			"questionName": "tattoos are",
+			"questionDisplayText": "Tattoos are",
+			"questionID": "q228",
+			"answers": ["a sin", "ugly", "stupid", "good for your health", "gross", "trashy", "haram", "art", "bad", "dumb"]
+		}, {
+			"questionName": "i am extremely",
+			"questionDisplayText": "I am extremely",
+			"questionID": "q229",
+			"answers": ["bored", "cute", "lonely", "lazy", "grateful", "tired", "sorry", "inflexible", "dizzy", "happy"]
+		}, {
+			"questionName": "i was bitten by a",
+			"questionDisplayText": "I was bitten by a",
+			"questionID": "q230",
+			"answers": ["turtle when i was a young lad", "dog", "snake", "human", "spider", "radioactive detective", "turtle", "deer tick", "wasp", "mouse"]
+		}, {
+			"questionName": "my best friend is a",
+			"questionDisplayText": "My best friend is a",
+			"questionID": "q231",
+			"answers": ["guy", "girl", "bag", "monkey", "mermaid", "robot", "marine", "girl and im a guy", "dog", "boy"]
+		}, {
+			"questionName": "when is the next",
+			"questionDisplayText": "When is the next",
+			"questionID": "q232",
+			"answers": ["full moon", "lunar eclipse", "nba finals game", "cavs game", "powerball drawing", "world cup", "winter olympics", "tigers game", "new moon", "pokemon go update"]
+		}, {
+			"questionName": "i hate my",
+			"questionDisplayText": "I hate my",
+			"questionID": "q233",
+			"answers": ["life", "boss", "job", "husband", "mom", "body", "family", "job meme", "wife", "parents"]
+		}, {
+			"questionName": "i love my",
+			"questionDisplayText": "I love my",
+			"questionID": "q234",
+			"answers": ["husband", "mom", "wife", "pillow", "sister", "boyfriend", "girlfriend", "daughter", "family", "man"]
+		}, {
+			"questionName": "how to get rid of",
+			"questionDisplayText": "How to get rid of",
+			"questionID": "q235",
+			"answers": ["bed bugs", "ants", "flies", "fleas", "acne", "skunks", "gnats", "fruit flies", "lice", "moles"]
+		}, {
+			"questionName": "i think i have",
+			"questionDisplayText": "I think I have",
+			"questionID": "q236",
+			"answers": ["a pet named steve", "cancer", "a uti", "adhd", "herpes", "add", "ms", "hiv", "depression", "bed bugs"]
+		}, {
+			"questionName": "i swallowed a",
+			"questionDisplayText": "I swallowed a",
+			"questionID": "q237",
+			"answers": ["pet named steve", "bug", "fly", "golf ball", "penny", "bone", "toothpick", "quarter", "piece of plastic", "small chicken bone"]
+		}, {
+			"questionName": "i broke my",
+			"questionDisplayText": "I broke my",
+			"questionID": "q238",
+			"answers": ["back", "boy", "leg", "phone", "arm", "toe", "ankle", "trunk", "foot", "hand"]
+		}, {
+			"questionName": "i smell",
+			"questionDisplayText": "I smell",
+			"questionID": "q239",
+			"answers": ["like beef", "great", "bullshit", "a rat", "smoke", "gas", "like beef slow", "toast", "trouble", "like poop"]
+		}, {
+			"questionName": "i think i swallowed a",
+			"questionDisplayText": "I think I swallowed a",
+			"questionID": "q240",
+			"answers": ["pet named steve", "bug", "fly", "bone", "spider", "bee", "small bone", "nickel", "cherry pit", "cockroach"]
+		}, {
+			"questionName": "i need help with",
+			"questionDisplayText": "I need help with",
+			"questionID": "q241",
+			"answers": ["my water bill", "housing", "math", "my facebook", "my rent", "my life", "my resume", "my depression", "rent", "my bills"]
+		}, {
+			"questionName": "i failed at",
+			"questionDisplayText": "I failed at",
+			"questionID": "q242",
+			"answers": ["lularoe", "life", "sneaking out", "being a girlfriend", "being a mother", "my dream", "college", "everything", "everything in my life", "my career"]
+		}, {
+			"questionName": "seafood makes me",
+			"questionDisplayText": "Seafood makes me",
+			"questionID": "q243",
+			"answers": ["poop", "gassy", "itchy", "gag", "sick", "smell", "fart", "sleepy", "dizzy", "answers"]
+		}, {
+			"questionName": "should i sell my",
+			"questionDisplayText": "Should I sell my",
+			"questionID": "q244",
+			"answers": ["house", "car", "stocks", "house by owner", "ps4", "xbox one", "car to carmax", "rental property", "pokemon cards", "house or rent it"]
+		}, {
+			"questionName": "this game is",
+			"questionDisplayText": "This game is",
+			"questionID": "q245",
+			"answers": ["a nipple", "rigged", "bullshit", "bonkers", "japan only", "impossible", "pointless", "so esey", "dark", "seven card stud"]
+		}, {
+			"questionName": "my armpits smell like",
+			"questionDisplayText": "My armpits smell like",
+			"questionID": "q246",
+			"answers": ["tacos", "cheese", "weed", "crayons", "coffee", "celery", "mildew", "curry", "cat pee", "bleach"]
+		}, {
+			"questionName": "my eyes look",
+			"questionDisplayText": "My eyes look",
+			"questionID": "q247",
+			"answers": ["tired", "dead", "yellow", "weird", "weird in selfies", "old", "sunken in", "different", "droopy", "sad"]
+		}, {
+			"questionName": "my feet smell like",
+			"questionDisplayText": "My feet smell like",
+			"questionID": "q248",
+			"answers": ["weed", "poop", "doritos", "corn chips", "pickles", "bleach", "chocolate", "cheese", "death", "fish"]
+		}, {
+			"questionName": "my ears are",
+			"questionDisplayText": "My ears are",
+			"questionID": "q249",
+			"answers": ["bleeding meme", "ringing", "bleeding", "burning", "hot", "popping", "plugged", "always ringing", "itchy", "hurting"]
+		}, {
+			"questionName": "my friends are all",
+			"questionDisplayText": "My friends are all",
+			"questionID": "q250",
+			"answers": ["dead", "heathens", "wasted", "dead and buried", "married", "fake", "losers", "gone", "busy", "dead book"]
+		}, {
+			"questionName": "how to draw a",
+			"questionDisplayText": "How to draw a",
+			"questionID": "q251",
+			"answers": ["dog", "rose", "flower", "cat", "dragon", "nose", "horse", "wolf", "face", "car"]
+		}, {
+			"questionName": "i want to see a",
+			"questionDisplayText": "I want to see a",
+			"questionID": "q252",
+			"answers": ["picture", "movie", "video", "picture of you", "girl", "manager haircut", "picture of a bed bug", "ghost", "therapist", "map"]
+		}, {
+			"questionName": "bathrooms near",
+			"questionDisplayText": "Bathrooms near",
+			"questionID": "q253",
+			"answers": ["me", "eiffel tower", "wtc", "my location", "here", "me nyc", "boston common", "times square", "national mall", "great lawn"]
+		}, {
+			"questionName": "pictures of",
+			"questionDisplayText": "Pictures of",
+			"questionID": "q254",
+			"answers": ["bed bugs", "poison ivy", "dogs", "ticks", "bed bug bites", "puppies", "cats", "jesus", "skin cancer", "spider bites"]
+		}, {
+			"questionName": "mexican word for",
+			"questionDisplayText": "Mexican word for",
+			"questionID": "q255",
+			"answers": ["balls", "the day", "beer", "hitman", "weed", "pork", "friend", "cowboy", "yes", "sandals"]
+		}, {
+			"questionName": "how to build a",
+			"questionDisplayText": "How to build a",
+			"questionID": "q256",
+			"answers": ["deck", "fire pit", "house", "computer", "bat house", "shed", "website", "resume", "pergola", "better boy"]
+		}, {
+			"questionName": "how to make a",
+			"questionDisplayText": "How to make a",
+			"questionID": "q257",
+			"answers": ["resume", "smoothie", "pokestop", "mojito", "snapchat filter", "website", "gif", "milkshake", "bow", "diaper cake"]
+		}, {
+			"questionName": "how to kill a",
+			"questionDisplayText": "How to kill a",
+			"questionID": "q258",
+			"answers": ["tree", "mockingbird", "tick", "tree stump", "groundhog", "skunk", "wasp", "fly", "raccoon", "spider"]
+		}, {
+			"questionName": "how to get rid of your",
+			"questionDisplayText": "How to get rid of your",
+			"questionID": "q259",
+			"answers": ["period", "fupa", "sister", "gut", "high", "dog", "muffin top", "double chin", "tan", "slice"]
+		}, {
+			"questionName": "how to get rich off",
+			"questionDisplayText": "how to get rich off",
+			"questionID": "q260",
+			"answers": ["of", "weed", "bitcoin", "the internet", "youtube", "ebay", "of penny stocks", "of stocks", "music", "rapping"]
+		}, {
+			"questionName": "how to look",
+			"questionDisplayText": "How to look",
+			"questionID": "q261",
+			"answers": ["older", "hot", "pretty", "younger", "for bed bugs", "skinny", "up inmates", "like a model", "cute", "good"]
+		}, {
+			"questionName": "what it's like to be",
+			"questionDisplayText": "What it's like to be",
+			"questionID": "q262",
+			"answers": ["a black girl", "a pet named steve", "black", "in love", "blind", "a bat", "autistic", "an empath", "a nurse", "on the bachelor"]
+		}, {
+			"questionName": "i'm too fat to",
+			"questionDisplayText": "i'm too fat to",
+			"questionID": "q263",
+			"answers": ["be a hipster", "be a hipster shirt", "be loved", "walk", "move", "eat", "be pretty", "date", "get a boyfriend", "go to the beach"]
+		}, {
+			"questionName": "i don't like to",
+			"questionDisplayText": "i don't like to",
+			"questionID": "q264",
+			"answers": ["show off", "be touched", "think", "sleep", "lose", "work", "share", "talk", "read", "travel"]
+		}, {
+			"questionName": "i think i'm a",
+			"questionDisplayText": "i think i'm a",
+			"questionID": "q265",
+			"answers": ["sofa", "sociopath", "furry", "bad mom", "psychopath", "cat", "clone now", "narcissist", "genius", "bunny"]
+		}, {
+			"questionName": "best way to kill",
+			"questionDisplayText": "best way to kill",
+			"questionID": "q266",
+			"answers": ["bed bugs", "ants", "fleas", "poison ivy", "rats", "roaches", "flies", "carpenter ants", "moles", "weeds"]
+		}, {
+			"questionName": "i hate it when you",
+			"questionDisplayText": "i hate it when you",
+			"questionID": "q267",
+			"answers": ["leave", "poem", "see me cry", "guys fight", "walk outside", "accidentally build a shelf", "call me bro", "build a shelf", "open the fridge and a bear", "hiss and preach"]
+		}, {
+			"questionName": "how to raise",
+			"questionDisplayText": "how to raise",
+			"questionID": "q268",
+			"answers": ["hdl", "credit score", "money", "chickens", "blood pressure", "a boring girlfriend", "your blood pressure", "low blood pressure", "pokemon cp", "money fast"]
+		}, {
+			"questionName": "mom's",
+			"questionDisplayText": "mom's",
+			"questionID": "q269",
+			"answers": ["spaghetti", "spaghetti meme", "meals", "night out", "birthday", "spaghetti remix", "gift play", "gonna freak", "house", "birthday gift"]
+		}, {
+			"questionName": "dad's",
+			"questionDisplayText": "dad's",
+			"questionID": "q270",
+			"answers": ["root beer", "day", "birthday", "army", "home", "life", "worksheets", "day gifts", "trophy", "garage"]
+		}, {
+			"questionName": "i hate the taste of",
+			"questionDisplayText": "i hate the taste of",
+			"questionID": "q271",
+			"answers": ["water", "beer", "alcohol", "weed", "edibles", "coffee", "milk", "wine", "meat", "eggs"]
+		}, {
+			"questionName": "i love the taste of",
+			"questionDisplayText": "i love the taste of",
+			"questionID": "q272",
+			"answers": ["balls", "come", "you", "blood", "water", "beer", "weed", "vinegar", "coffee", "my boyfriend"]
+		}, {
+			"questionName": "i love the feeling of being",
+			"questionDisplayText": "i love the feeling of being",
+			"questionID": "q273",
+			"answers": ["pregnant", "in love", "hungry", "drunk", "high", "full", "sore", "anonymous in a city", "fat", "tattooed"]
+		}, {
+			"questionName": "i wish i were a",
+			"questionDisplayText": "i wish i were a",
+			"questionID": "q274",
+			"answers": ["butterfly", "bird", "girl", "fish", "little bit taller", "bar of soap", "princess", "boy", "unicorn", "cowboy"]
+		}, {
+			"questionName": "i'm too",
+			"questionDisplayText": "i'm too",
+			"questionID": "q275",
+			"answers": ["sexy", "good for you", "fat", "fat to be a hipster", "sexy meme", "nice", "fat to be a hipster shirt", "hot", "tired", "lazy"]
+		}, {
+			"questionName": "i'm not going to",
+			"questionDisplayText": "i'm not going to",
+			"questionID": "q276",
+			"answers": ["take it", "do it", "make it", "take it anymore", "be ignored dan", "lie", "work", "cry", "your baby shower", "school"]
+		}, {
+			"questionName": "i cheated on my boyfriend with",
+			"questionDisplayText": "i cheated on my boyfriend with",
+			"questionID": "q277",
+			"answers": ["my brother", "a girl", "his sister", "his best friend", "his brother", "my best friend", "his friend", "my ex", "my boss", "his dad"]
+		}, {
+			"questionName": "i cheated on my girlfriend with",
+			"questionDisplayText": "i cheated on my girlfriend with",
+			"questionID": "q278",
+			"answers": ["my best friend", "her friend", "a guy", "her mom", "my cousin", "her sister", "my ex", "her brother", "a prostitute", "a hotter girl"]
+		}, {
+			"questionName": "i lied to my",
+			"questionDisplayText": "i lied to my",
+			"questionID": "q279",
+			"answers": ["boyfriend", "parents about graduating college", "boyfriend about my age", "parents", "husband", "wife", "mom", "friend", "boss", "teacher"]
+		}, {
+			"questionName": "my mom is my",
+			"questionDisplayText": "my mom is my",
+			"questionID": "q280",
+			"answers": ["hero", "stylist", "mom", "stylist shirt", "rock", "angel", "sister", "world", "everything", "stylist onesie"]
+		}, {
+			"questionName": "how to hold in",
+			"questionDisplayText": "how to hold in",
+			"questionID": "q281",
+			"answers": ["pee", "poop", "a fart", "tears", "diarrhea", "a sneeze", "a cough", "a laugh", "anger", "your farts"]
+		}]
+	}
+}

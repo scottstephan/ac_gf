@@ -27,20 +27,29 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         {
             case buttonBehaviors.showShop:
                 m_iapShopPanelManager.instance.refreshIAPStore();
-                m_iapShopPanelManager.instance.toMid.OpenCloseObjectAnimation();
-                m_loadPanelManager.instance.activateLoadPanel();
+                if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.titleScreen)
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.menuToIAPShop);
+                else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectSP || m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectMP)
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.categoryToIAPShop);
                 break;
             case buttonBehaviors.hideShop:
-                m_iapShopPanelManager.instance.toTop.OpenCloseObjectAnimation();
-                m_loadPanelManager.instance.deactivateLoadPanel();
+                if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.titleScreen)
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.IAPToMenu);
+                else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectSP || m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectMP)
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.IAPToCatSelect);
                 m_iapShopPanelManager.instance.destroyLockedCatList();
                 break;
             case buttonBehaviors.showFriends:
-                m_panelManager.instance.animateUIPanelByPhase(m_panelManager.uiPanelTransitions.playerInputToCenter);
+                m_panelManager.instance.animateUIPanelByPhase(m_panelManager.uiPanelTransitions.playerInputToCenter); //move the below here please
+                m_panelManager.instance.mpLobby.toLeft.animationParts.ObjectState = UITween.AnimationParts.State.CLOSE;
+                m_panelManager.instance.mpLobby.toLeft.OpenCloseObjectAnimation();
                 m_loadPanelManager.instance.activateLoadPanel();
                 break;
             case buttonBehaviors.hideFriends:
                 m_panelManager.instance.animateUIPanelByPhase(m_panelManager.uiPanelTransitions.playerInputToTop);
+                m_panelManager.instance.mpLobby.toMiddle.animationParts.ObjectState = UITween.AnimationParts.State.CLOSE;
+                m_panelManager.instance.mpLobby.toMiddle.OpenCloseObjectAnimation();
+
                 m_loadPanelManager.instance.deactivateLoadPanel();
                 break;
             case buttonBehaviors.showAd:
