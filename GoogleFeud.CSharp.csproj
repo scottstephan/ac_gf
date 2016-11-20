@@ -255,6 +255,7 @@
     <Compile Include="Assets\Scripts\coreGame\rebuild\obj_Answer.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_buildManualGrid.cs" />
     <Compile Include="Assets\Scripts\coreGame\util_inputValidator.cs" />
+    <Compile Include="Assets\Scripts\extraUtils\LetterSpacing.cs" />
     <Compile Include="Assets\Scripts\gameEntities\entity_games.cs" />
     <Compile Include="Assets\Scripts\gameEntities\entity_gamesDead.cs" />
     <Compile Include="Assets\Scripts\gameEntities\entity_nameIdPair.cs" />
