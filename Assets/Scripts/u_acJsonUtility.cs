@@ -17,7 +17,7 @@ public class u_acJsonUtility : MonoBehaviour {
     bool useResourcesFolder = false;
     public string jsonToImport;
     public JSONArray categoryQuestions;
-    static string baseSavePathString;
+    public static string baseSavePathString;
     //For resource saving - Only works in Editor! There is no /resources/ path in a binary runtime
     static string baseResourcesPath;
     static string baseCatResourcesPath = "/jsonCategories/";
@@ -27,10 +27,11 @@ public class u_acJsonUtility : MonoBehaviour {
     static string catInfoSavePathPrefix = "catStatus/";
     static string qdbInfoSavePathSuffix = "/qdbinfo/";
     static string highScoreSavePathSuffix = "/highscores/";
-    static string categoryImageSavePath = "/categoryimages/";
-    static string amazonS3Root = "https://s3.amazonaws.com/autocompete";
-    static string amazonS3CatImageDir = "/categoryImages/";
-
+    public static string categoryImageSavePath = "/categoryimages/";
+    public static string amazonS3Root = "https://s3.amazonaws.com/autocompete";
+    public static string amazonS3CatImageDir = "/categoryImages/";
+    //For web image loading
+    public delegate void categoryImageLoadCallback();
     [System.Serializable]
     public class qDBInfo
     {
@@ -564,23 +565,6 @@ public class u_acJsonUtility : MonoBehaviour {
             m_loadScreenManager.instance.appInitComplete(); //Prevent app lockup if not online or server error
         }
     
-    }
-
-    IEnumerator loadCategoryImage(string catName)
-    {
-        //1- Check to see if the image exists locally
-
-        //2- If not, try and get it from the web and save it here.
-
-        string url = "https://s3.amazonaws.com/autocompete/catimages/"+catName+".png";
-
-        Texture2D catImage = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        while (true)
-        {
-            WWW www = new WWW(url);
-            yield return www;
-            www.LoadImageIntoTexture(catImage);
-        }
     }
 
     void compareWebQDBToLocalQDB(string s_webQDB)

@@ -288,6 +288,7 @@
     <Compile Include="Assets\Scripts\titleScreen\m_titleScreenManager.cs" />
     <Compile Include="Assets\Scripts\titleScreen\playerSetter.cs" />
     <Compile Include="Assets\Scripts\u_acJsonUtility.cs" />
+    <Compile Include="Assets\Scripts\u_backArrowManager.cs" />
     <Compile Include="Assets\Scripts\u_debugManager.cs" />
     <Compile Include="Assets\Scripts\u_miscButtonBehaviors.cs" />
     <Compile Include="Assets\UITween\Prefabs\Click Effect Pref\ClickedWaveAnimation.cs" />

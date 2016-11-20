@@ -192,10 +192,12 @@ public class m_gameManager : MonoBehaviour {
     public void loadRandomQuestions()
     {
         string fullQString = "";
+      //  List<u_acJsonUtility.acQ> questionSet = new List<u_acJsonUtility.acQ>();
         for(int i = 0; i < numRounds; i++)
         {
             u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
             tQ = u_acJsonUtility.instance.loadRandomQuestionData(currentSelectedCategory);
+            tQ = checkQuestionDuplicate(tQ);
             questionSet.Add(tQ);
             fullQString += tQ.questionID; //Capturing for now. Used in save/load on MP games
         }
@@ -206,6 +208,19 @@ public class m_gameManager : MonoBehaviour {
             appManager.curLiveGame.categoryText = currentSelectedCategory;
         }
 
+    }
+
+    private u_acJsonUtility.acQ checkQuestionDuplicate(u_acJsonUtility.acQ curQ)
+    { //This doesn't solve the issue 100%- A 3rd Q could get itself back- but comes close enough.
+        for(int i = 0; i < questionSet.Count; ++i)
+        {
+            if(curQ == questionSet[i])
+            {
+                curQ = u_acJsonUtility.instance.loadRandomQuestionData(currentSelectedCategory);
+            }
+        }
+
+        return curQ;
     }
 
     public void loadExistingQuestionSet()

@@ -3,11 +3,11 @@ using UnityEngine.Purchasing;
 using System.Collections;
 
 public class u_iapManager : IStoreListener
-{
-
+{ 
     private IStoreController controller;
-    private IExtensionProvider extensions;
+    private static IExtensionProvider extensions;
     public string attempt_CategoryPurchaseName;
+
     public enum IAPTypes
     {
         noAds,
@@ -24,7 +24,6 @@ public class u_iapManager : IStoreListener
     {
         ac_ios_noads,
         ac_ios_categorycredit
-        
     }
 
     public u_iapManager()
@@ -54,8 +53,23 @@ public class u_iapManager : IStoreListener
     {
         Debug.Log("---IAP INITIALIZED---");
         this.controller = controller;
-        this.extensions = extensions;
+        u_iapManager.extensions = extensions;
         appManager.IAPInitialized = true;
+    }
+
+    public static void restorePurchases_iOS()
+    {
+        extensions.GetExtension<IAppleExtensions>().RestoreTransactions(result => {
+            if (result)
+            {
+                Debug.Log("IOS: PURCHASE RESTORE PROCESS COMPLETE");
+            }
+            else
+            {
+                // Restoration failed.
+                Debug.Log("IOS: PURCHASE RESTORE PROCESS FAILURE: ");
+            }
+        });
     }
 
     /// <summary>

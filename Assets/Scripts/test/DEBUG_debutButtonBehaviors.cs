@@ -11,7 +11,9 @@ public class DEBUG_debutButtonBehaviors : MonoBehaviour {
         lockNonDefaultCats,
         lockAllCats,
         unlockAllCats,
-        reimportAll
+        reimportAll,
+        restorePurchases,
+        BackToTitle
     }
 
     public debugButtonBehaviors thisButtonBehavior;

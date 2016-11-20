@@ -256,7 +256,7 @@ public class appManager : MonoBehaviour {
         tP.playerID = playerID;
         tP.gameID = gameID;
         tP.role = role.ToString();
-     //   DBWorker.Instance.Delete(appManager.curLiveGame, GameDeletedFromPlayerGameTable);
+        DBWorker.Instance.Delete(tP, GameDeletedFromPlayerGameTable);
 
     }
 
@@ -264,10 +264,10 @@ public class appManager : MonoBehaviour {
     {
         if (e != null)
         {
-            DBTools.PrintException("LiveGameDeletedFromDB", e);
+            DBTools.PrintException("LiveGameDeletedFromDBERROR:", e);
             return;
         }
-        Debug.Log("***CUR GAME REMOVED FROM PG TABLE***");
+        Debug.Log("***GAME REMOVED FROM PG TABLE***");
         appManager.curLiveGame = null;
     }
 

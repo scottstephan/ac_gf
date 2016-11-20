@@ -23,6 +23,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public GameObject fullGameListParentGrid;
     public GameObject fullGameListPanel;
     public GameObject playerGameListHeader;
+    public GameObject challengeAFriendButton;
 
     int listIndex;
 
@@ -112,7 +113,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         DBWorker.Instance.QueryHashKeyObject<appManager.playerGameID>(appManager.FB_ID, attToReturn, allP1GameQueryComplete,true);
     }
 
-    static void allP1GameQueryComplete(List<appManager.playerGameID> response, Exception e = null)
+    public void allP1GameQueryComplete(List<appManager.playerGameID> response, Exception e = null)
     {
         Debug.Log("ALL P1 GAMES LOADED");
         List<appManager.playerGameID> pgID = new List<appManager.playerGameID>();
@@ -135,6 +136,14 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
                 p1Initiated.Add(tPGID);
             else if (tPGID.role == appManager.playerRoles.challenged.ToString())
                 p1Challenged.Add(tPGID);
+        }
+
+        if (response.Count == 0)
+        {
+            Debug.Log("P1 HAS NO GAMES");
+            GameObject cFB = Instantiate(challengeAFriendButton);
+            cFB.gameObject.transform.SetParent(fullGameListParentGrid.transform);
+            cFB.GetComponent<Text>().text = "No active games! \n Challenge a friend!"; 
         }
 
         m_MPLobby_Matchmake.instance.listAllGamesP1IsInitiated();

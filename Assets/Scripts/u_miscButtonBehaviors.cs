@@ -14,7 +14,9 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         buyCategoryCredits,
         buyAdRemoval,
         showDebug,
-        hideDebug
+        hideDebug,
+        restorePurchases,
+        backToTitle
     }
 
     public buttonBehaviors myButtonBehavior;
@@ -40,10 +42,7 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                 m_iapShopPanelManager.instance.destroyLockedCatList();
                 break;
             case buttonBehaviors.showFriends:
-                m_panelManager.instance.animateUIPanelByPhase(m_panelManager.uiPanelTransitions.playerInputToCenter); //move the below here please
-                m_panelManager.instance.mpLobby.toLeft.animationParts.ObjectState = UITween.AnimationParts.State.CLOSE;
-                m_panelManager.instance.mpLobby.toLeft.OpenCloseObjectAnimation();
-                m_loadPanelManager.instance.activateLoadPanel();
+                m_phaseManager.instance.changePhase(m_phaseManager.phases.friendPanel);
                 break;
             case buttonBehaviors.hideFriends:
                 m_panelManager.instance.animateUIPanelByPhase(m_panelManager.uiPanelTransitions.playerInputToTop);
@@ -81,6 +80,11 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                 break;
             case buttonBehaviors.hideDebug:
                 m_panelManager.instance.anim_debugToTop();
+                break;
+            case buttonBehaviors.restorePurchases:
+                u_iapManager.restorePurchases_iOS();
+                break;
+            case buttonBehaviors.backToTitle:
                 break;
         }
     }

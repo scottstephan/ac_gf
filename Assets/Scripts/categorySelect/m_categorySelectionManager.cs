@@ -96,5 +96,10 @@ public class m_categorySelectionManager : MonoBehaviour {
         appManager.currentQuestion = tQ; //COuld skip the above hullabaloo.
     }
 
+    public void catImageWebLoadCallback()
+    {
+
+    }
+
 
 }

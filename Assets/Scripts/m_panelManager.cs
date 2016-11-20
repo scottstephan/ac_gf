@@ -61,7 +61,12 @@ public class m_panelManager : MonoBehaviour {
         categoryToIAPShop,
         menuToIAPShop,
         IAPToMenu,
-        IAPToCatSelect
+        IAPToCatSelect,
+        mpLobbyToFriendPanel,
+        sp_catSelectToTitle,
+        mp_LobbyToTitle,
+        mp_FriendListToTitle,
+        mp_CatSelectToLobby
     }
 
     public enum uiPanelTransitions{
@@ -78,6 +83,8 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations scoreComp;
     public panelAnimations headerPanel;
     public panelAnimations IAPPanel;
+    public panelAnimations settingsPanel;
+    public panelAnimations friendPanel;
 
     public uiPanelAnimations opponentInputPanel;
     public uiPanelAnimations debugPanel;
@@ -115,6 +122,9 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.menuToMPLobby:
                 anim_menuToMPLobby();
                 break;
+            case phaseTransitions.mpLobbyToFriendPanel:
+                anim_mpLobbyToFriendPanel();
+                break;
             case phaseTransitions.MPLobbyToCatSelect:
                 anim_mpLobbyToCatSelect();
                 break;
@@ -142,14 +152,58 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.IAPToCatSelect:
                 anim_IAPToCatSelect();
                 break;
+            case phaseTransitions.sp_catSelectToTitle:
+                anim_catSelectToTitle();
+                break;
+            case phaseTransitions.mp_LobbyToTitle:
+                anim_mpLobbyToTitle();
+                break;
+            case phaseTransitions.mp_FriendListToTitle:
+                anim_friendListToLobby();
+                break;
+            case phaseTransitions.mp_CatSelectToLobby:
+                anim_mpCatSelectToLobby();
+                break;
         }
     }
-        
+
+    public void anim_catSelectToTitle()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_mpLobbyToTitle()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_friendListToLobby()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(friendPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_mpCatSelectToLobby()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+       
     //Being V. EXPLICIT because of the # of states. We could do a f(x) based on states, but. Whatever. 
     public void anim_loadingToMenu()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
-        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toRight); //toRight is actually a super fast version of toCenter for that non-anim look
         loadScreen.thisPanelPos = panelAnimations.panelPos.left;
         titleScreen.thisPanelPos = panelAnimations.panelPos.center;
         StartCoroutine("playAnimSet", setToPlay);
@@ -172,19 +226,24 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(loadScreen.toLeft); //Is now just the AC logo. Lol.
         setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        //StartCoroutine("playAnimsSimultaneously", setToPlay);
+        StartCoroutine("playAnimSet", setToPlay);
+
+    }
+
+    public void anim_mpLobbyToFriendPanel()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft); //Is now just the AC logo. Lol.
+        setToPlay.animsToPlayInOrder.Add(friendPanel.toMiddle);
         StartCoroutine("playAnimsSimultaneously", setToPlay);
     }
+
 
     public void anim_mpLobbyToCatSelect()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
-        if (opponentInputPanel.thisPanelPos == uiPanelAnimations.panelPos.center)
-        {
-            setToPlay.animsToPlayInOrder.Add(opponentInputPanel.toTop);
-            m_loadPanelManager.instance.deactivateLoadPanel();
-            m_loadPanelManager.instance.panelText.text = "LOADING!";
-        }
-    //    setToPlay.animsToPlayInOrder.Add(mpLobby.toLeft);
+        setToPlay.animsToPlayInOrder.Add(opponentInputPanel.toTop);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }
@@ -235,17 +294,16 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(mainRound.toLeft);
         setToPlay.animsToPlayInOrder.Add(scoreComp.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
+        m_adsManager.instance.ShowAd();
     }
 
     public void anim_scoreCompToMainMenu()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
-        setToPlay.animsToPlayInOrder.Add(scoreComp.toLeft);
-        setToPlay.animsToPlayInOrder.Add(loadScreen.toMiddle); //Is now just the AC logo. Lol.
-        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toRight); //A super fast version of toLeft
+       // setToPlay.animsToPlayInOrder.Add(loadScreen.toMiddle); //Is now just the AC logo. Lol.
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toRight); //As above, toRight is a super fast version of toCenter
         StartCoroutine("playAnimSet", setToPlay);
-        m_adsManager.instance.ShowAd();
-
     }
 
     public void anim_categoryToIAP()

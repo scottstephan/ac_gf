@@ -1452,7 +1452,7 @@ namespace DDBHelper
 
                             if (response != null)
                             {
-                                if (callback.Result != null && callback.Result.Count > 0)
+                                if (callback.Result != null) //&& callback.Result.Count > 0)
                                     response(callback.Result, null);
                             }
                         }

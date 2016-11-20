@@ -18,6 +18,9 @@ public class m_phaseManager : MonoBehaviour {
         mainRoundSP,
         mainRoundMP,
         scoreComp,
+        toSettings,
+        fromSettings,
+        friendPanel
     }
 
     public phases thisPhase = phases.loadScreen;
@@ -50,6 +53,10 @@ public class m_phaseManager : MonoBehaviour {
                 thisPhase = phases.MPLobby;
                 m_phaseManager.instance.transitionToMPLobby();
                 break;
+            case phases.friendPanel:
+                thisPhase = phases.friendPanel;
+                m_phaseManager.instance.transitionToFriendPanel();
+                break;
             case phases.categorySelectSP:
                 thisPhase = phases.categorySelectSP;
                 m_phaseManager.instance.transitionToCatSelectSP();
@@ -77,6 +84,37 @@ public class m_phaseManager : MonoBehaviour {
         }
     }
 
+    public void backUpPhase(phases backToPhase)
+    {
+        previousPhase = thisPhase;
+        thisPhase = backToPhase;
+
+        if(backToPhase == phases.MPLobby)
+        {
+            if(previousPhase == phases.categorySelectMP)
+            {
+                m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mp_CatSelectToLobby);
+            }
+            else if(previousPhase == phases.friendPanel)
+            {
+                m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mp_FriendListToTitle);
+            }
+        }
+        else if(backToPhase == phases.titleScreen)
+        {
+            if(previousPhase == phases.categorySelectSP)
+            {
+                m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.sp_catSelectToTitle);
+            }
+            else if(previousPhase == phases.MPLobby)
+            {
+                m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mp_LobbyToTitle);
+            }
+        }
+    }
+
+    
+
     private void transitionToLoadScreen()
     {
 
@@ -99,6 +137,11 @@ public class m_phaseManager : MonoBehaviour {
     {
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.menuToMPLobby);
         m_MPLobby_Matchmake.instance.init_MPLobby();
+    }
+
+    private void transitionToFriendPanel()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mpLobbyToFriendPanel);
     }
 
     private void transitionToCatSelectMP()
@@ -175,6 +218,26 @@ public class m_phaseManager : MonoBehaviour {
         }
 
         m_scoreCompManager.instance.initSC();
+    }
+
+    private void transitionToSettings()
+    {
+        switch (previousPhase)
+        {
+            case (phases.titleScreen):
+                break;
+            case (phases.MPLobby):
+                break;
+            case (phases.categorySelectSP):
+                break;
+            case (phases.categorySelectMP):
+                break;
+        }    
+    }
+
+    private void transitionFromSettings()
+    {
+
     }
 
 

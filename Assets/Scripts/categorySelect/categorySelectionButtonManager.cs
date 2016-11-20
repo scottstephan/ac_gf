@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using UnityEngine.UI;
 
 public class categorySelectionButtonManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class categorySelectionButtonManager : MonoBehaviour
     public string categoryName;
     public string categoryId;
     public Color categoryColor;
-    public Texture2D categoryImage;
+    public RawImage categoryImage;
     public Text catButtonText;
     public u_acJsonUtility.acCat thisCat;
     bool isLocked = false;
@@ -37,7 +38,18 @@ public class categorySelectionButtonManager : MonoBehaviour
     {
         thisCat = u_acJsonUtility.instance.loadCategoryData(categoryName);
         gameObject.GetComponent<Button>().colors = setColorBlock();
+        if(thisCat.categoryImageValue != null && thisCat.categoryImageValue != "")
+        {
+            string sCatName = u_acJsonUtility.instance.autoCompeteSanatizeString(thisCat.categoryName);
+            Debug.Log("Loading cat image for: " + sCatName);
 
+            //Try and load local. If null...
+            Texture2D catTex = loadLocalCategoryImage(sCatName);
+            if (catTex == null)
+                StartCoroutine("loadCategoryImageFromWeb", sCatName);
+            else
+                setCategoryImage(catTex);
+        }
         string dispCatName = categoryName;
         dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
         catButtonText.text = dispCatName;
@@ -62,6 +74,11 @@ public class categorySelectionButtonManager : MonoBehaviour
         return tCB;
     }
 
+    public void setCategoryImage(Texture2D catImage)
+    {
+        categoryImage.texture = catImage;
+    }
+
     public void lockButton()
     {
         isLocked = true;
@@ -80,5 +97,50 @@ public class categorySelectionButtonManager : MonoBehaviour
     {
         u_acJsonUtility.instance.findAndUnlockCategory(categoryName);
         setUpButton();
+    }
+
+    //For loading web images. Removed from u_acJSONUntil because of the complex callback issue. Hell yeah, shipping code.
+
+    IEnumerator loadCategoryImageFromWeb(string catName)
+    {
+        string localImgPath = u_acJsonUtility.baseSavePathString + u_acJsonUtility.categoryImageSavePath + catName + ".png";
+
+            string url = "https://s3.amazonaws.com/autocompete/categoryimages/" + catName + ".png";
+
+            Texture2D catImage = new Texture2D(4, 4, TextureFormat.RGBA32, false);
+            while (true)
+            {
+                WWW www = new WWW(url);
+                yield return www;
+                if (www.error == null)
+                {
+                    www.LoadImageIntoTexture(catImage);
+                    //Save local
+                    byte[] bytes = catImage.EncodeToPNG();
+                    File.WriteAllBytes(localImgPath, bytes);
+                    setCategoryImage(catImage);
+                }
+                else
+                {
+                    Debug.Log(catName + "CAT IMAGE LOAD ERROR:" + www.error);
+                    StopCoroutine("loadCategoryImageFromWeb");
+                }
+            }
+    }
+
+    public Texture2D loadLocalCategoryImage(string catName)
+    {
+        string localImgPath = u_acJsonUtility.baseSavePathString + u_acJsonUtility.categoryImageSavePath + catName + ".png";
+        //1- Check to see if the image exists locally
+        if (File.Exists(localImgPath))
+        {
+            Debug.Log("Image exists locally!");
+            Texture2D catImage = new Texture2D(4, 4, TextureFormat.RGBA32, false);
+            byte[] imageData = File.ReadAllBytes(localImgPath);
+            catImage.LoadImage(imageData);
+            return catImage;
+        }
+
+        return null;
     }
 }
