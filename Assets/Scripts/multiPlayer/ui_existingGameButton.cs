@@ -64,7 +64,8 @@ public class ui_existingGameButton : MonoBehaviour {
         string status = "";
 
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
-            status = "Waiting for" + thisGame.player2_name+ "";
+            // status = "Waiting for" + thisGame.player2_name+ "";
+            status = "Their turn";
         else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
             status = "See who won";
         else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)

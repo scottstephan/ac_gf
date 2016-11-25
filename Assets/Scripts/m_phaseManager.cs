@@ -20,7 +20,10 @@ public class m_phaseManager : MonoBehaviour {
         scoreComp,
         toSettings,
         fromSettings,
-        friendPanel
+        friendPanel,
+        toHighScore,
+        highScoreToMenu,
+        mainRoundToMenu
     }
 
     public phases thisPhase = phases.loadScreen;
@@ -81,6 +84,18 @@ public class m_phaseManager : MonoBehaviour {
                 thisPhase = phases.scoreComp;
                 m_phaseManager.instance.transitionToScoreComp();
                 break;
+            case phases.toHighScore:
+                thisPhase = phases.toHighScore;
+                m_phaseManager.instance.transitionToHighScore();
+                break;
+            case phases.highScoreToMenu:
+                thisPhase = phases.titleScreen;
+                m_phaseManager.instance.transitionToMenuFromHS();
+                break;
+            case phases.mainRoundToMenu:
+                thisPhase = phases.titleScreen;
+                m_phaseManager.instance.transitionToMenuFromMainRound();
+                break;
         }
     }
 
@@ -113,7 +128,17 @@ public class m_phaseManager : MonoBehaviour {
         }
     }
 
-    
+    private void transitionToMenuFromMainRound()
+    {
+        m_gameManager.instance.pauseGame();
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mainRoundToMenu);
+        //Stop game
+    }
+
+    private void transitionToMenuFromHS()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.highScoreToTitle);
+    }
 
     private void transitionToLoadScreen()
     {
@@ -218,6 +243,12 @@ public class m_phaseManager : MonoBehaviour {
         }
 
         m_scoreCompManager.instance.initSC();
+    }
+
+    private void transitionToHighScore()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.titleToHighScore);
+        highScorePanelManager.instance.createHighScoreList();
     }
 
     private void transitionToSettings()

@@ -20,10 +20,12 @@ public class m_gameManager : MonoBehaviour {
     public Text playerScoreText;
     public Text roundNumberText;
     public Text roundStatusText;
+    bool processInput = true;
 
     public m_roundAdvanceButton advanceButton;
 
     public obj_Timer timer;
+    int storedScoreVal = 0;
     public enum roundPhases
     {
         input,
@@ -46,6 +48,7 @@ public class m_gameManager : MonoBehaviour {
 
     public void init(bool hasQSet)
     {
+        processInput = true;
         reset();
         if (!hasQSet)
             loadRandomQuestions();
@@ -60,6 +63,8 @@ public class m_gameManager : MonoBehaviour {
 
     public void reset()
     {
+        processInput = true;
+
         for(int i = 0; i < roundObjects.Count; i++)
         {
             Destroy(roundObjects[i]);
@@ -94,7 +99,8 @@ public class m_gameManager : MonoBehaviour {
 
     public void playerInputComplete()
     {
-        changePhase(roundPhases.validation);
+        if(processInput)
+            changePhase(roundPhases.validation);
     }
 
     public void changePhase(roundPhases rP)
@@ -137,6 +143,14 @@ public class m_gameManager : MonoBehaviour {
         {
             endGame();
         }
+    }
+
+    public void pauseGame()
+    {
+        timer.stopTimer();
+        processInput = false;
+        playerInput.interactable = false;
+        
     }
 
     public void endGame()
@@ -182,11 +196,13 @@ public class m_gameManager : MonoBehaviour {
     }
 
     public void endInputPhase()
-    { 
-        timer.stopTimer();
-        //     playerInput.DeactivateInputField();
-        playerInput.interactable = false; //Stops input. However, on DeactivateInputField() it flags the OnEndEdit event leading to double input. Could do a flag.
-        roundObjects[roundIndex].GetComponent<m_roundManager>().startValidationPhase();
+    {
+        if (processInput)
+        {
+            timer.stopTimer();
+            playerInput.interactable = false; //Stops input. However, on DeactivateInputField() it flags the OnEndEdit event leading to double input. Could do a flag.
+            roundObjects[roundIndex].GetComponent<m_roundManager>().startValidationPhase();
+        }
     }
 
     public void loadRandomQuestions()
@@ -251,19 +267,23 @@ public class m_gameManager : MonoBehaviour {
 
     public void moveInRoundInterface(int index)
     {
-            if (index > 0)
+        if (index > 0)
             roundObjects[index - 1].GetComponent<m_roundManager>().moveRoundOut();
-        roundObjects[index].GetComponent<m_roundManager>().moveRoundIn();
-        
+
+        if(index > 0)
+            roundObjects[index].GetComponent<m_roundManager>().moveRoundIn();
+        else
+            roundObjects[index].GetComponent<m_roundManager>().moveRoundIn_Fast();
+
+
     }
 
     public void incrementScore(int scoreAmt)
     {
-        int tS = int.Parse(playerScoreText.text);
-        tS += scoreAmt;
-        //If answer > 9999 , crash??
-        // playerScoreText.text = tS.ToString("N0");
-        playerScoreText.text = tS.ToString();
+        storedScoreVal += scoreAmt;
+       // int tS = int.Parse(playerScoreText.text);
+       // tS += scoreAmt;
+        playerScoreText.text = storedScoreVal.ToString("N0");
     }
 
     public void incrementMisses()
@@ -310,9 +330,12 @@ public class m_gameManager : MonoBehaviour {
         switch (delayType)
         {
             case delayTypes.endRoundToStartRound:
-                resetRoundInfo(); 
-                moveInRoundInterface(roundIndex);
-                changePhase(roundPhases.input);
+                if (processInput)
+                {
+                    resetRoundInfo();
+                    moveInRoundInterface(roundIndex);
+                    changePhase(roundPhases.input);
+                }
                 break;
             case delayTypes.resultToInput:
                 changePhase(roundPhases.input);

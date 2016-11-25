@@ -2,7 +2,7 @@
 	"Category": {
 		"categoryName": "movies",
 		"categoryDisplayText": "Movies",
-		"categoryID": "c003",
+		"categoryID": "003",
 		"colorValue": "#383961",
 		"imageValue": "movies.png",
 		"unlockStatus": "locked",

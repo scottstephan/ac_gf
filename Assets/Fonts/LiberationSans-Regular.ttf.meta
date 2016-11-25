@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d692ee6a75ea47547b5b33291bd15d9a
+timeCreated: 1479675926
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 3
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  fontNames:
+  - Liberation Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a486a8819f3ce0149a0b66e4f51b887a, type: 3}
+  - {fileID: 12800000, guid: 5e051ce344064094caaca76f38410878, type: 3}
+  - {fileID: 12800000, guid: 68686bde5785a804eb55899274231610, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class m_categorySelectionManager : MonoBehaviour {
     public static m_categorySelectionManager instance = null;
@@ -32,7 +33,6 @@ public class m_categorySelectionManager : MonoBehaviour {
     {
         List<string> catNames = new List<string>();
         List<u_acJsonUtility.categoryUnlockInfo> catUnlockStatus = new List<u_acJsonUtility.categoryUnlockInfo>();
-
         catNames.Clear();
         catUnlockStatus.Clear();
 
@@ -41,33 +41,22 @@ public class m_categorySelectionManager : MonoBehaviour {
 
         GameObject catHead = Instantiate(categoryListHeader);
         catHead.transform.SetParent(parentCategoryListGrid.transform);
+        //0- The outcome of this process is that catUnlockStatus wll retain all of the UNLOCKED categories. 
 
-        for(int i = 0; i < catNames.Count; ++i)
-        {//TO-DO: Don't even instantiate the buton unless it's unlocked!
-            GameObject tButton = Instantiate(categoryButton);
-            tButton.transform.SetParent(parentCategoryListGrid.transform);
-
-            categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
-            tManager.categoryName = catNames[i];
-            tManager.categoryId = "NOTUSINGFORNOW";
-            
-
-            for(int j = 0; j < catUnlockStatus.Count; ++j)
+        for (int i = 0; i < catNames.Count; ++i)
+        {
+            for (int j = 0; j < catUnlockStatus.Count; ++j)
             {
                 Debug.Log("Trying Match: " + catUnlockStatus[j] + " :: " + catNames[i]);
                 if(catUnlockStatus[j].categoryName == catNames[i])
                 {
                     if(catUnlockStatus[j].unlockStatus == "unlocked")
                     {
-                        tManager.setUpButton();
-                        catUnlockStatus.Remove(catUnlockStatus[j]);
                         break;
                     }
                     else if(catUnlockStatus[j].unlockStatus == "locked")
-                    { //Commented out the bottom- Don't list it! 
-                        Destroy(tButton);
-                     /*   tManager.lockButton();
-                        catUnlockStatus.Remove(catUnlockStatus[j]); */
+                    {
+                        catUnlockStatus.Remove(catUnlockStatus[j]);
                         break;
                     }
                     else
@@ -80,6 +69,20 @@ public class m_categorySelectionManager : MonoBehaviour {
                     Debug.Log("CATEGORY STATUS DID NOT FIND MATCH WITH DIRECTORYLIST");
                 }
             }
+        }
+        //Order the list
+        catUnlockStatus.Sort((x, y) => x.categoryID.CompareTo(y.categoryID));
+
+        //1 - Instantiate only the unlocked stuff 
+        for (int i = 0; i < catUnlockStatus.Count; ++i)
+        {
+            GameObject tButton = Instantiate(categoryButton);
+            tButton.transform.SetParent(parentCategoryListGrid.transform);
+
+            categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
+            tManager.categoryName = catUnlockStatus[i].categoryDisplayName;
+            tManager.categoryId = catUnlockStatus[i].categoryID;
+            tManager.setUpButton();
         }
 
         GameObject tSB = Instantiate(shopButton);
@@ -100,6 +103,5 @@ public class m_categorySelectionManager : MonoBehaviour {
     {
 
     }
-
 
 }

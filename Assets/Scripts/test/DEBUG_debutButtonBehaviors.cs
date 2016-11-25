@@ -49,7 +49,8 @@ public class DEBUG_debutButtonBehaviors : MonoBehaviour {
                 }
                 break;
             case debugButtonBehaviors.reimportAll:
-                u_acJsonUtility.instance.readJson();
+                u_acJsonUtility.instance.destroyAllSavedInfo();
+                u_acJsonUtility.instance.readJson(true);
                 break;
         }
             

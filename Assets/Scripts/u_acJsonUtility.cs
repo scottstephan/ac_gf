@@ -50,6 +50,9 @@ public class u_acJsonUtility : MonoBehaviour {
         public string unlockStatus;
         public string categoryName;
         public string categoryID;
+        public string categoryDisplayName;
+        public string categoryColorHex;
+        public string categoryImageURL;
 
         public void readCategoryData()
         {
@@ -62,7 +65,7 @@ public class u_acJsonUtility : MonoBehaviour {
     {
         public string categoryName;
         public string categoryHighscore;
-
+        public string categoryDisplayName;
         public void readHighScore()
         {
 
@@ -216,13 +219,21 @@ public class u_acJsonUtility : MonoBehaviour {
         createImportDirectories();
     }
 
-    public void readJson()
+    public void readJson(bool deleteUnlockInfo)
     {
         JSONValue cSS;
         JSONArray questionsArray;
         JSONObject tempJObj;
         List<string> catList = getAllCategoryRawJson();
-            
+        if (deleteUnlockInfo)
+        {
+            string[] catUnlockToDelete = Directory.GetFiles(baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix);
+            for (int i = 0; i < catUnlockToDelete.Length; ++i)
+            {
+                File.Delete(catUnlockToDelete[i]);
+            }
+        }
+
         for (int i = 0; i < catList.Count; ++i)
         {
             acCat thisCat;
@@ -234,6 +245,32 @@ public class u_acJsonUtility : MonoBehaviour {
             tempJObj = JSONObject.Parse(cSS.ToString()); //This yields an array of the questions
             questionsArray = tempJObj.GetArray("questions");
             createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID); 
+        }
+        //Save Resources QDB Object to local
+        qDBInfo tqdb = returnCurQDBObject(); // First time, this returns NOTHING. Need to copy existing!
+        string qdbJSON = JsonUtility.ToJson(tqdb);
+        SaveData(qdbJSON, baseSavePathString + qdbInfoSavePathSuffix + "qdbinfo.json");
+        appManager.instance.setCurQDBInfo(tqdb.QDBVersion);
+    }
+
+    public void readJson()
+    {
+        JSONValue cSS;
+        JSONArray questionsArray;
+        JSONObject tempJObj;
+        List<string> catList = getAllCategoryRawJson();
+
+        for (int i = 0; i < catList.Count; ++i)
+        {
+            acCat thisCat;
+            tempJObj = JSONObject.Parse(catList[i]);
+            cSS = tempJObj.GetValue("Category"); //This yields the high level category object 
+                                                 //I THINK that when importing the WHOLE thing, this would be an array and we'd cycle over it
+            thisCat = createCategoryObject(cSS);
+
+            tempJObj = JSONObject.Parse(cSS.ToString()); //This yields an array of the questions
+            questionsArray = tempJObj.GetArray("questions");
+            createQuestionsObject(questionsArray, thisCat.categoryName, thisCat.categoryID);
         }
         //Save Resources QDB Object to local
         qDBInfo tqdb = returnCurQDBObject(); // First time, this returns NOTHING. Need to copy existing!
@@ -307,9 +344,13 @@ public class u_acJsonUtility : MonoBehaviour {
         tCI.categoryName = catName;
         tCI.categoryID = catID;
         tCI.unlockStatus = catUnlockStatus;
+        tCI.categoryDisplayName = catDispName;
+        tCI.categoryColorHex = catColor;
+        tCI.categoryImageURL = catImage;
         //Create highscore object
         categoryHighScore tHS = new categoryHighScore();
         tHS.categoryName = catName;
+        tHS.categoryDisplayName = catDispName;
         tHS.categoryHighscore = "0";
 
         string catJson = JsonUtility.ToJson(tCat);
@@ -330,6 +371,35 @@ public class u_acJsonUtility : MonoBehaviour {
             SaveData(highScoreJson, catHSPath);
 
         return tCat;
+    }
+
+    public void destroyAllSavedInfo()
+    {
+        destroyCatUnlockInfo();
+        destroyCategoryInfo();
+    }
+
+    public void destroyCategoryInfo()
+    {
+        string catSavePath = baseSavePathString + catSavePathSuffix;
+
+        string[] files = Directory.GetFiles(catSavePath);
+
+        foreach (string s in files)
+        {
+            File.Delete(s);
+        }
+    }
+
+    public void destroyCatUnlockInfo()
+    {
+        string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix;
+        string[] files = Directory.GetFiles(catInfoSavePath);
+
+        foreach(string s in files)
+        {
+            File.Delete(s);
+        }
     }
 
     void createQuestionsObject(JSONArray questionsArray, string catName, string catID)
@@ -676,6 +746,27 @@ public class u_acJsonUtility : MonoBehaviour {
         return int.Parse(tHS.categoryHighscore);
     }
 
+    public categoryHighScore returnCategoryHighScoreByName(string catName)
+    {
+        return null;
+    }
+
+    public List<categoryHighScore> returnAllCategoryHighScoreObjects()
+    {
+        string hsFilePath = baseSavePathString + highScoreSavePathSuffix;
+        string[] catHSFiles = Directory.GetFiles(hsFilePath);
+        List<categoryHighScore> catHS = new List<categoryHighScore>();
+
+        for (int i = 0; i < catHSFiles.Length; i++)
+        {
+            string catInfoJson = File.ReadAllText(catHSFiles[i]);
+            categoryHighScore tCHS = JsonUtility.FromJson<categoryHighScore>(catInfoJson);
+            catHS.Add(tCHS);
+        }
+
+        return catHS;
+    }
+
     public void updateHighScore(string catName, int scoreVal)
     {
         string hsFilePath = baseSavePathString + highScoreSavePathSuffix + catName + ".json"; ;
@@ -692,25 +783,40 @@ public class u_acJsonUtility : MonoBehaviour {
  
     public string autoCompeteSanatizeString(string s)
     {
+        Debug.Log("Pre-Sanitize: " + s);
         //Remove json formatting artifacts
         s = s.Replace("\"", string.Empty);
        
         //1- Remove preceeding articles
-        string[] articles = new string[] { "a ", "an ","to ","and ","the " }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
+        string[] articles = new string[] { "a ", "an ","to ","and ","the ", "so " }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
         for(int i = 0; i < articles.Length; ++i)
         {
             if (s.StartsWith(articles[i]))
             {
-          //      Debug.Log("Trimming " + articles[i] + " from " + s);
                 s = s.TrimStart(articles[i].ToCharArray());
-         //       Debug.Log("Final trimmed string: " + s);
             }
         }
 
-        //2- Remove non-alpha numerics AND spaces
+        //2- Remove articles from end
+        string[] post_articles = new string[] { " a", " an", " to", " and", " the", "so ","s","es" }; //Will this cause issues w/ "andy" or "there"? I included a whitespace to delimit it as a word
+        for (int i = 0; i < post_articles.Length; ++i)
+        {
+            if (s.EndsWith(post_articles[i]))
+            {
+                      Debug.Log("Trimming " + post_articles[i] + " from " + s);
+                      s = s.TrimEnd(post_articles[i].ToCharArray());
+            }
+        }
+
+        //3- Remove s/es from end
+
+
+        //3- Remove non-alpha numerics AND spaces
         char[] arr = s.ToCharArray();
         arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c))));
         s = new string(arr);
+
+        Debug.Log("Post-Sanitize: " + s);
 
         return s;
     }

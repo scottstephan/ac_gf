@@ -109,7 +109,8 @@ public class obj_Timer : MonoBehaviour {
 
     void timerHasReachedZero()
     {
-        m_gameManager.instance.playerInputComplete();
+        m_gameManager.instance.playerInput.DeactivateInputField();
+       // m_gameManager.instance.playerInputComplete();
     }
 
     IEnumerator reduceTopFillOverTime()

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.IO;
 
 public class m_iapShopPanelManager : MonoBehaviour {
     public static m_iapShopPanelManager instance = null;
@@ -50,10 +51,12 @@ public class m_iapShopPanelManager : MonoBehaviour {
                 Debug.Log(catUnlockStatus[i].categoryName + " is " + catUnlockStatus[i].unlockStatus);
                 GameObject tButton = Instantiate(catIAPButton);
                 tButton.transform.SetParent(parentCatIAPList);
-                tButton.GetComponentInChildren<Text>().text = catUnlockStatus[i].categoryName + "\n" + "99 cents!";
-                tButton.GetComponentInChildren<u_miscButtonBehaviors>().catName = catUnlockStatus[i].categoryName;
+                tButton.GetComponentInChildren<Text>().text = catUnlockStatus[i].categoryDisplayName + "\n" + "$.99";
+                tButton.GetComponent<obj_IAPCatButtonManager>().setUpButton(catUnlockStatus[i]);
                 curLockedCats.Add(tButton);
             }
         }
     }
+
+   
 }

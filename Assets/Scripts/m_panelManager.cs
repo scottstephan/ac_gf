@@ -66,7 +66,10 @@ public class m_panelManager : MonoBehaviour {
         sp_catSelectToTitle,
         mp_LobbyToTitle,
         mp_FriendListToTitle,
-        mp_CatSelectToLobby
+        mp_CatSelectToLobby,
+        titleToHighScore,
+        highScoreToTitle,
+        mainRoundToMenu
     }
 
     public enum uiPanelTransitions{
@@ -83,7 +86,7 @@ public class m_panelManager : MonoBehaviour {
     public panelAnimations scoreComp;
     public panelAnimations headerPanel;
     public panelAnimations IAPPanel;
-    public panelAnimations settingsPanel;
+    public panelAnimations highScorePanel;
     public panelAnimations friendPanel;
 
     public uiPanelAnimations opponentInputPanel;
@@ -164,7 +167,32 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.mp_CatSelectToLobby:
                 anim_mpCatSelectToLobby();
                 break;
+            case phaseTransitions.titleToHighScore:
+                anim_titleToHS();
+                break;
+            case phaseTransitions.highScoreToTitle:
+                anim_hsToTitle();
+                break;
+            case phaseTransitions.mainRoundToMenu:
+                anim_mainRoundToMenu();
+                break;
         }
+    }
+
+    public void anim_hsToTitle()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(highScorePanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_titleToHS()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toLeft);
+        setToPlay.animsToPlayInOrder.Add(highScorePanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_catSelectToTitle()
@@ -337,6 +365,15 @@ public class m_panelManager : MonoBehaviour {
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }
+
+    public void anim_mainRoundToMenu()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(mainRound.toLeft);
+        setToPlay.animsToPlayInOrder.Add(titleScreen.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
 
 
     public void anim_scoreCompToMPLobby()

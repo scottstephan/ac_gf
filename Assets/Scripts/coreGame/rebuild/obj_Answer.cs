@@ -30,7 +30,7 @@ public class obj_Answer : MonoBehaviour {
         hideAnswer();
         RectTransform maskTransform = thisAnswerMask.GetComponent<RectTransform>();
         maskTransform.localScale = new Vector3(1,1,1);
-        scoreValue = (11 - id) * 1000;
+        scoreValue = (10 - id) * 1000;
         rowBG.color = thisAnswerMask.GetComponent<Image>().color; 
 
         setTextStyle();

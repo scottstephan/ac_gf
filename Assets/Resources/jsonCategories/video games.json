@@ -2,7 +2,7 @@
 	"Category": {
 		"categoryName": "video games",
 		"categoryDisplayText": "Video Games",
-		"categoryID": "c001",
+		"categoryID": "001",
 		"colorValue": "#44CF6C",
 		"imageValue": "videogames.png",
 		"unlockStatus": "locked",

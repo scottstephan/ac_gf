@@ -2,7 +2,7 @@
 	"Category": {
 		"categoryName": "food",
 		"categoryDisplayText": "Food",
-		"categoryID": "c002",
+		"categoryID": "002",
 		"colorValue": "#EE6C4D",
 		"imageValue": "food.png",
 		"unlockStatus": "locked",

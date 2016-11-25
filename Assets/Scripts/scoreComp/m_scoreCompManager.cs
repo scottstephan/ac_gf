@@ -103,6 +103,11 @@ public class m_scoreCompManager : MonoBehaviour {
                     resultText.text = appManager.curLiveGame.player2_name + " WON!";
                 }
             }
+
+           if(appManager.curLiveGame.p1_score == appManager.curLiveGame.p2_score)
+            {
+                resultText.text = "TIE GAME!";
+            }
         }
         else //NOT an MP Game
         {            //Set YOUR text, but not theirs
@@ -133,12 +138,12 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if(curScore > savedHS)
         {
-            theirText.text = "You set a new high \n score in <color=" + googleGreenHex + ">" + appManager.curLiveGame.categoryText + "</color> \n <b><color=" + googleBlueHex + "><size=135>" + curScore +"</size></color></b> \n points!";
+            theirText.text = "You set a new high \n score in <color=" + googleGreenHex + ">" + u_acJsonUtility.UppercaseFirst(appManager.curLiveGame.categoryText) + "</color> \n <b><color=" + googleBlueHex + "><size=135>" + curScore +"</size></color></b> \n points!";
             u_acJsonUtility.instance.updateHighScore(appManager.curLiveGame.categoryText, curScore);
         }
         else
         {
-            theirText.text = "Your best score in \n <color=" + googleGreenHex + ">" + appManager.curLiveGame.categoryText + "</color> is \n <color=" + googleBlueHex + "><size=135><b>" + savedHS + "</b></size></color> \n points!";
+            theirText.text = "Your best score in \n <color=" + googleGreenHex + ">" + u_acJsonUtility.UppercaseFirst(appManager.curLiveGame.categoryText) + "</color> is \n <color=" + googleBlueHex + "><size=135><b>" + savedHS + "</b></size></color> \n points!";
         }
     }
 

@@ -15,6 +15,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     public GameObject opponentButton;
     public GameObject opponentListParentGrid;
     public GameObject playerListPanel;
+    public GameObject friendListHeader;
 
     public GameObject gamesInitiatedButton;
 
@@ -51,6 +52,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         getAllP1Games();
         GameObject tH = Instantiate(this.playerGameListHeader);
         tH.transform.SetParent(fullGameListParentGrid.transform);
+
+        GameObject cFB = Instantiate(challengeAFriendButton);
+        cFB.transform.SetParent(fullGameListParentGrid.transform);
+        cFB.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void playerFriendsPopulated(List<object> userFriendsWithAppInstalled)
@@ -90,6 +95,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void createPlayerListInUI(List<entity_players> allPlayers)
     {
+        GameObject fLH = Instantiate(friendListHeader);
+        fLH.transform.SetParent(opponentListParentGrid.transform);
+        fLH.transform.localScale = new Vector3(1, 1, 1);
+
         for (int i = 0; i < allPlayers.Count; i++)
         {
             GameObject tButton = Instantiate(opponentButton);
@@ -137,7 +146,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             else if (tPGID.role == appManager.playerRoles.challenged.ToString())
                 p1Challenged.Add(tPGID);
         }
-
+/*
         if (response.Count == 0)
         {
             Debug.Log("P1 HAS NO GAMES");
@@ -145,7 +154,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             cFB.gameObject.transform.SetParent(fullGameListParentGrid.transform);
             cFB.GetComponent<Text>().text = "No active games! \n Challenge a friend!"; 
         }
-
+        */
         m_MPLobby_Matchmake.instance.listAllGamesP1IsInitiated();
         m_MPLobby_Matchmake.instance.listAllGamesP1IsChallengedIn();
     }

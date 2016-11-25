@@ -16,7 +16,8 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         showDebug,
         hideDebug,
         restorePurchases,
-        backToTitle
+        backToTitle,
+        showHighScore
     }
 
     public buttonBehaviors myButtonBehavior;
@@ -65,7 +66,7 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                     m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
                 break;
             case buttonBehaviors.buyCategoryCredits:
-                Debug.Log("TRYING TO BUY CAT CREDITS");
+                Debug.Log("TRYING TO BUY CATEGORY CREDITS");
                 if (catName != null)
                     evaluateIAPPath();
                 else
@@ -85,6 +86,9 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                 u_iapManager.restorePurchases_iOS();
                 break;
             case buttonBehaviors.backToTitle:
+                break;
+            case buttonBehaviors.showHighScore:
+                m_phaseManager.instance.changePhase(m_phaseManager.phases.toHighScore);   
                 break;
         }
     }

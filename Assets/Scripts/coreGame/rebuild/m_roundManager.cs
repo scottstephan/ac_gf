@@ -14,6 +14,7 @@ public class m_roundManager : MonoBehaviour {
 
     public EasyTween toLeft;
     public EasyTween toCenter;
+    public EasyTween toCenter_Fast;
 
     public enum validationRoundEndResult
     {
@@ -72,6 +73,11 @@ public class m_roundManager : MonoBehaviour {
         toCenter.OpenCloseObjectAnimation();
     }
 
+    public void moveRoundIn_Fast()
+    {
+        toCenter_Fast.OpenCloseObjectAnimation();
+    }
+
     public void moveRoundOut()
     {
         toLeft.OpenCloseObjectAnimation(); 
@@ -94,7 +100,9 @@ public class m_roundManager : MonoBehaviour {
 
     validationRoundEndResult returnValidationResult(string sanitizedInput)
     {
-        for(int i = 0; i < gridAnswerObjects.Count; ++i)
+        validationRoundEndResult thisGuessResult;
+
+        for (int i = 0; i < gridAnswerObjects.Count; ++i)
         {
             if(gridAnswerObjects[i].answerText_sanitized == sanitizedInput) //Here's the current issue- I'm using the text fromt the grid to comp the string. 
             {
@@ -102,20 +110,42 @@ public class m_roundManager : MonoBehaviour {
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is hidden. TRUE.");
                     hitOrMissAnswerIndex = i;
-                    return validationRoundEndResult.playerHit;
+                    thisGuessResult = validationRoundEndResult.playerHit;
                 }
                 else
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is revealed. FALSE");
                     hitOrMissAnswerIndex = i;
-                    return validationRoundEndResult.playerHitDouble;
+                    thisGuessResult = validationRoundEndResult.playerHitDouble;
                 }
+
+                return thisGuessResult;
+            }
+
+            if(sanitizedInput.Length > 4 && gridAnswerObjects[i].answerText_sanitized.Contains(sanitizedInput)) 
+            {
+                if (gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
+                {
+                    Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is hidden. TRUE.");
+                    hitOrMissAnswerIndex = i;
+                    thisGuessResult = validationRoundEndResult.playerHit;
+                }
+                else
+                {
+                    Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is revealed. FALSE");
+                    hitOrMissAnswerIndex = i;
+                    thisGuessResult = validationRoundEndResult.playerHitDouble;
+                }
+
+                return thisGuessResult;
             }
         }
 
         Debug.Log(sanitizedInput + " has no match in grid. FALSE");
         hitOrMissAnswerIndex = -1;
-        return validationRoundEndResult.playerMiss;   
+        thisGuessResult = validationRoundEndResult.playerMiss;
+
+        return thisGuessResult;
     }
 
     public void actOnValidationResult(validationRoundEndResult result)
