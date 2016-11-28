@@ -9,7 +9,8 @@ public class u_backArrowManager : MonoBehaviour {
         mp_friendPanelToLobby,
         mp_catSelectToLobby,
         highScoreToMenu,
-        mainRoundToMenu
+        mainRoundToMenu,
+        skip_mainRoundToScore
     }
 
     public backArrowDirection myDirection;
@@ -47,7 +48,10 @@ public class u_backArrowManager : MonoBehaviour {
                 case (backArrowDirection.mainRoundToMenu):
                     m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundToMenu);
                     break;
-            }
+                case (backArrowDirection.skip_mainRoundToScore):
+                    m_gameManager.instance.quitGame();
+                    break;
+                }
         
     }
 

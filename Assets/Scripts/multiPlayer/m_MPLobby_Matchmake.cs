@@ -146,15 +146,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             else if (tPGID.role == appManager.playerRoles.challenged.ToString())
                 p1Challenged.Add(tPGID);
         }
-/*
-        if (response.Count == 0)
-        {
-            Debug.Log("P1 HAS NO GAMES");
-            GameObject cFB = Instantiate(challengeAFriendButton);
-            cFB.gameObject.transform.SetParent(fullGameListParentGrid.transform);
-            cFB.GetComponent<Text>().text = "No active games! \n Challenge a friend!"; 
-        }
-        */
+
         m_MPLobby_Matchmake.instance.listAllGamesP1IsInitiated();
         m_MPLobby_Matchmake.instance.listAllGamesP1IsChallengedIn();
     }
@@ -164,7 +156,6 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         Debug.Log("---LISTING ALL GAMES P1 INITIATED:---" + p1Initiated.Count);
         for (int i = 0; i < p1Initiated.Count; i++)
         {
-            //Debug.Log("LISTING A GAME P1 INITIATED");
             GameObject tButton = Instantiate(gamesInitiatedButton);           
 
             ui_existingGameButton tManager = tButton.GetComponent<ui_existingGameButton>();

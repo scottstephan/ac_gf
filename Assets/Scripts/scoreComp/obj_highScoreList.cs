@@ -8,9 +8,9 @@ public class obj_highScoreList : MonoBehaviour {
     public Text categoryName;
  //   public Text highScoreValue;
 
-	public void setupReadout(string catname, string highscore)
+	public void setupReadout(string catname, string highscore, string catColor)
     {
-        string formattedCategoryName = "<color=#08AF22FF><size=55>"+ catname +"</size></color>";
+        string formattedCategoryName = "<color=" + catColor + "><size=50><b>"+ catname +"</b></size></color>";
         string formattedScore = "<color=#4470E6FF><size=135><b>"+highscore+"</b></size></color>";
         categoryName.text = formattedCategoryName + "\n" + formattedScore;
        // highScoreValue.text = highscore;

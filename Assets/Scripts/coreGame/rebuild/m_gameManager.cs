@@ -21,6 +21,7 @@ public class m_gameManager : MonoBehaviour {
     public Text roundNumberText;
     public Text roundStatusText;
     bool processInput = true;
+    bool gameIsLive = false;
 
     public m_roundAdvanceButton advanceButton;
 
@@ -49,6 +50,7 @@ public class m_gameManager : MonoBehaviour {
     public void init(bool hasQSet)
     {
         processInput = true;
+        gameIsLive = true;
         reset();
         if (!hasQSet)
             loadRandomQuestions();
@@ -64,7 +66,7 @@ public class m_gameManager : MonoBehaviour {
     public void reset()
     {
         processInput = true;
-
+        storedScoreVal = 0;
         for(int i = 0; i < roundObjects.Count; i++)
         {
             Destroy(roundObjects[i]);
@@ -155,17 +157,18 @@ public class m_gameManager : MonoBehaviour {
 
     public void endGame()
     {
+        gameIsLive = false;
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");
             if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
             {
-                appManager.curLiveGame.p1_score = int.Parse(playerScoreText.text);
+                appManager.curLiveGame.p1_score = storedScoreVal;
                 appManager.curLiveGame.p1_Fin = true;
             }
             else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
             {
-                appManager.curLiveGame.p2_score = int.Parse(playerScoreText.text);
+                appManager.curLiveGame.p2_score = storedScoreVal;
                 appManager.curLiveGame.p2_Fin = true;
             }
 
@@ -174,8 +177,7 @@ public class m_gameManager : MonoBehaviour {
         else
         {
             Debug.Log("Ending SP Game");
-            appManager.curLiveGame.p1_score = int.Parse(playerScoreText.text);
-
+            appManager.curLiveGame.p1_score = storedScoreVal;
         }
         advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.endGame;
         advanceButton.setTextByRole();
@@ -183,6 +185,53 @@ public class m_gameManager : MonoBehaviour {
         
         advanceButton.toMid.OpenCloseObjectAnimation();
        
+    }
+
+    public void quitGame()
+    {
+
+        if (appManager.curLiveGame.isMPGame)
+        {
+            Debug.Log("Ending MP Game");
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            {
+                appManager.curLiveGame.p1_score = storedScoreVal;
+                appManager.curLiveGame.p1_Fin = true;
+                m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
+            }
+            else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+            {
+                appManager.curLiveGame.p2_score = storedScoreVal;
+                appManager.curLiveGame.p2_Fin = true;
+                m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
+            }
+
+            // appManager.roundPlayerObject = currentPlayer;
+        }
+        else
+        {//SPGame
+
+        }
+    }
+
+    public void quitGame_Instant()
+    {
+        if (appManager.curLiveGame.isMPGame)
+        {
+            Debug.Log("Ending MP Game");
+            if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
+            {
+                appManager.curLiveGame.p1_score = storedScoreVal;
+                appManager.curLiveGame.p1_Fin = true;
+            }
+            else if (appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
+            {
+                appManager.curLiveGame.p2_score = storedScoreVal;
+                appManager.curLiveGame.p2_Fin = true;
+            }
+
+            appManager.saveCurGame();
+        }
     }
 
     public void startInputPhase()
@@ -208,14 +257,20 @@ public class m_gameManager : MonoBehaviour {
     public void loadRandomQuestions()
     {
         string fullQString = "";
-      //  List<u_acJsonUtility.acQ> questionSet = new List<u_acJsonUtility.acQ>();
-        for(int i = 0; i < numRounds; i++)
+        /*
+           for(int i = 0; i < numRounds; i++)
+           {
+               u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
+               tQ = u_acJsonUtility.instance.loadRandomQuestionData(currentSelectedCategory);
+               tQ = checkQuestionDuplicate(tQ);
+               questionSet.Add(tQ);
+               fullQString += tQ.questionID; //Capturing for now. Used in save/load on MP games
+           }*/
+
+        questionSet = u_acJsonUtility.instance.createRandomQuestionSet(currentSelectedCategory, numRounds);
+        for(int i = 0; i < questionSet.Count; ++i)
         {
-            u_acJsonUtility.acQ tQ = new u_acJsonUtility.acQ();
-            tQ = u_acJsonUtility.instance.loadRandomQuestionData(currentSelectedCategory);
-            tQ = checkQuestionDuplicate(tQ);
-            questionSet.Add(tQ);
-            fullQString += tQ.questionID; //Capturing for now. Used in save/load on MP games
+            fullQString += questionSet[i].questionID;
         }
 
         if (appManager.curLiveGame != null)
@@ -252,7 +307,7 @@ public class m_gameManager : MonoBehaviour {
     }
 
     public void createRoundInterfaces()
-    { // We could also create them 1 at a time...
+    { 
         for(int i = 0; i < numRounds; i++)
         { 
             GameObject tR = Instantiate(roundObject);
@@ -342,6 +397,14 @@ public class m_gameManager : MonoBehaviour {
                 break;
             case delayTypes.startToInput:
                 break;
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (appManager.curLiveGame.isMPGame)
+        {
+            quitGame_Instant();
         }
     }
 }

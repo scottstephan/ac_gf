@@ -10,6 +10,7 @@ public class m_iapShopPanelManager : MonoBehaviour {
     public EasyTween toMid;
     public EasyTween toTop;
     public GameObject catIAPButton;
+    public GameObject noAdsIAP;
     public RectTransform parentCatIAPList;
     public List<GameObject> curLockedCats = new List<GameObject>();
     void Awake()
@@ -41,6 +42,9 @@ public class m_iapShopPanelManager : MonoBehaviour {
     public void listAllLockedCats()
     {
         curLockedCats.Clear();
+
+        GameObject btn_noAds = Instantiate(noAdsIAP);
+        btn_noAds.transform.SetParent(parentCatIAPList);
 
         List<u_acJsonUtility.categoryUnlockInfo> catUnlockStatus = new List<u_acJsonUtility.categoryUnlockInfo>();
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();

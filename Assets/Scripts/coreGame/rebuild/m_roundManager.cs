@@ -9,6 +9,7 @@ public class m_roundManager : MonoBehaviour {
     public List<obj_Answer> gridAnswerObjects = new List<obj_Answer>();
     public List<string> qAnswers = new List<string>();
     public List<string> qAnswers_sanitized = new List<string>();
+    public List<int> hitOrMissAnswerIndexes = new List<int>();
     public u_acJsonUtility.acQ questionSet;
     public int hitOrMissAnswerIndex = 0;
 
@@ -101,7 +102,7 @@ public class m_roundManager : MonoBehaviour {
     validationRoundEndResult returnValidationResult(string sanitizedInput)
     {
         validationRoundEndResult thisGuessResult;
-
+        hitOrMissAnswerIndexes.Clear();
         for (int i = 0; i < gridAnswerObjects.Count; ++i)
         {
             if(gridAnswerObjects[i].answerText_sanitized == sanitizedInput) //Here's the current issue- I'm using the text fromt the grid to comp the string. 
@@ -109,17 +110,12 @@ public class m_roundManager : MonoBehaviour {
                 if (gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is hidden. TRUE.");
-                    hitOrMissAnswerIndex = i;
-                    thisGuessResult = validationRoundEndResult.playerHit;
+                    hitOrMissAnswerIndexes.Add(i);
                 }
                 else
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is revealed. FALSE");
-                    hitOrMissAnswerIndex = i;
-                    thisGuessResult = validationRoundEndResult.playerHitDouble;
                 }
-
-                return thisGuessResult;
             }
 
             if(sanitizedInput.Length > 4 && gridAnswerObjects[i].answerText_sanitized.Contains(sanitizedInput)) 
@@ -127,34 +123,37 @@ public class m_roundManager : MonoBehaviour {
                 if (gridAnswerObjects[i].thisAnswerState == obj_Answer.E_answerState.hidden)
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is hidden. TRUE.");
-                    hitOrMissAnswerIndex = i;
-                    thisGuessResult = validationRoundEndResult.playerHit;
+                    if(!hitOrMissAnswerIndexes.Contains(i))
+                        hitOrMissAnswerIndexes.Add(i);
                 }
                 else
                 {
                     Debug.Log(sanitizedInput + "is the same as answer " + gridAnswerObjects[i].answerText + "and the answer is revealed. FALSE");
-                    hitOrMissAnswerIndex = i;
-                    thisGuessResult = validationRoundEndResult.playerHitDouble;
                 }
-
-                return thisGuessResult;
             }
         }
 
         Debug.Log(sanitizedInput + " has no match in grid. FALSE");
-        hitOrMissAnswerIndex = -1;
-        thisGuessResult = validationRoundEndResult.playerMiss;
-
+        //  hitOrMissAnswerIndex = -1;
+        if (hitOrMissAnswerIndexes.Count > 0)
+            thisGuessResult = validationRoundEndResult.playerHit;
+        else
+            thisGuessResult = validationRoundEndResult.playerMiss;
         return thisGuessResult;
     }
 
     public void actOnValidationResult(validationRoundEndResult result)
     {
+        int thisRoundScore = 0;
         switch (result)
         {
             case (validationRoundEndResult.playerHit):
-                gridAnswerObjects[hitOrMissAnswerIndex].revealAnswer();
-                m_gameManager.instance.incrementScore(gridAnswerObjects[hitOrMissAnswerIndex].scoreValue);
+                for(int i = 0; i < hitOrMissAnswerIndexes.Count; ++i)
+                {
+                    gridAnswerObjects[hitOrMissAnswerIndexes[i]].revealAnswer();
+                    thisRoundScore += gridAnswerObjects[hitOrMissAnswerIndexes[i]].scoreValue;
+                }
+                m_gameManager.instance.incrementScore(thisRoundScore);
                 m_gameManager.instance.playerInputText.color = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
                 break;
             case (validationRoundEndResult.playerHitDouble):

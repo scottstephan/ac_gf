@@ -34,9 +34,9 @@ public class categorySelectionButtonManager : MonoBehaviour
         }
     }
 
-    public void setUpButton()
+    public void setUpButton(string cN)
     {
-        thisCat = u_acJsonUtility.instance.loadCategoryData(categoryName);
+        thisCat = u_acJsonUtility.instance.loadCategoryData(cN);
         gameObject.GetComponent<Button>().colors = setColorBlock();
         if(thisCat.categoryImageValue != null && thisCat.categoryImageValue != "")
         {
@@ -50,9 +50,7 @@ public class categorySelectionButtonManager : MonoBehaviour
             else
                 setCategoryImage(catTex);
         }
-        string dispCatName = categoryName;
-        dispCatName = char.ToUpper(dispCatName[0]) + dispCatName.Substring(1);
-        catButtonText.text = dispCatName;
+        catButtonText.text = thisCat.categoryDisplayName;
     }
 
     private ColorBlock setColorBlock()
@@ -96,7 +94,7 @@ public class categorySelectionButtonManager : MonoBehaviour
     public void unlockCategory()
     {
         u_acJsonUtility.instance.findAndUnlockCategory(categoryName);
-        setUpButton();
+        setUpButton(categoryName);
     }
 
     //For loading web images. Removed from u_acJSONUntil because of the complex callback issue. Hell yeah, shipping code.

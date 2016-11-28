@@ -23,22 +23,11 @@ public class ui_existingGameButton : MonoBehaviour {
     public appManager.E_lobbyGameStatus thisGameStatus;
     string opponentName;
     string opponentID;
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    void setColorBlock()
-    {
-        ColorBlock tCB = uiButtonManager.colors;
-        tCB.normalColor = m_colorPaletteManager.instance.buttonColorPalette.returnRandomColor();
-        uiButtonManager.colors = tCB;
-    }
-
+    public Color yourTurnColor;
+    public Color theirTurnColor;
+    public Color viewScoreColor;
+    bool continueExecute = true;
     public void setUpButton()
     {
         setColorBlock();
@@ -46,7 +35,19 @@ public class ui_existingGameButton : MonoBehaviour {
         setCategoryName();
         LoadPlayerPic(opponentID, false);
         gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
+    }
 
+    void setColorBlock()
+    {
+        ColorBlock tCB = uiButtonManager.colors;
+        if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
+            tCB.normalColor = viewScoreColor;
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
+            tCB.normalColor = theirTurnColor;
+        else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+            tCB.normalColor = yourTurnColor;
+
+        uiButtonManager.colors = tCB;
     }
 
     void setCategoryName()
@@ -80,7 +81,6 @@ public class ui_existingGameButton : MonoBehaviour {
         appManager.setCurGame(thisGame, devicePlayerRole);
      //   appManager.loadGameQuestions();
         appManager.setCurGameQuestionDetails(thisGame.categoryID, thisGame.categoryText, thisGame.questionID, thisGame.questionText);
-        //MUST LOAD QUESTION FROM HERE- AM HAS ALL THE DEETS, BUT HAS LOADED THE QUESTION OBJECT
         //IF role is init AND has finished AND NOT has seen, go to scoreComp....
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
             m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
@@ -129,15 +129,23 @@ public class ui_existingGameButton : MonoBehaviour {
         
         else if (devicePlayerRole == appManager.playerRoles.challenged)
         {
-            if (!thisGame.p2_Fin) thisGameStatus = appManager.E_lobbyGameStatus.challenged_playGame;
+            if (!thisGame.p2_Fin)
+                thisGameStatus = appManager.E_lobbyGameStatus.challenged_playGame;
+            else if (thisGame.p2_Fin && !thisGame.p2HasViewedResult)
+                thisGameStatus = appManager.E_lobbyGameStatus.init_viewFinal; //Abandoned
+            else if (thisGame.p2_Fin && thisGame.p2HasViewedResult)
+            {
+                Destroy(gameObject); //No need for this to hang around!
+                Destroy(this);
+                continueExecute = false;
+            } 
             opponentName = thisGame.player1_name;
             opponentID = thisGame.player1_id;
-
         }
 
         appManager.curGameStatus = thisGameStatus;
-        
-        setUpButton();
+        if(continueExecute)
+            setUpButton();
     }
 
     public void LoadPlayerPic(string oppID, bool needToSave = false)

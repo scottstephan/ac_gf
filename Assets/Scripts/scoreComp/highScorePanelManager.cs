@@ -7,6 +7,7 @@ public class highScorePanelManager : MonoBehaviour {
     public GameObject listParent;
     public GameObject highScoreObject;
     public GameObject hsPanel;
+    public GameObject hsHeader;
     List<u_acJsonUtility.categoryHighScore> allCatHS = new List<u_acJsonUtility.categoryHighScore>();
 
     void Awake()
@@ -15,25 +16,55 @@ public class highScorePanelManager : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
     }
 
-    void Update()
+    public void refreshList()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            createHighScoreList();
-        }
+        foreach (Transform t in listParent.transform)
+            Destroy(t.gameObject);
     }
 
 	public void createHighScoreList()
     {
+        refreshList();
+
         allCatHS = u_acJsonUtility.instance.returnAllCategoryHighScoreObjects();
-        for(int i =0; i < allCatHS.Count; ++i)
+        List<u_acJsonUtility.categoryUnlockInfo> catUnlockInfo = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
+        List<u_acJsonUtility.categoryHighScore> unlockedCatHS = new List<u_acJsonUtility.categoryHighScore>();
+
+        //Clean the HS list so that we only get unlocked categories
+        for(int i = 0; i < allCatHS.Count; ++i)
         {
-            GameObject tHS = Instantiate(highScoreObject);
-            tHS.transform.SetParent(listParent.transform);
-
-            tHS.GetComponent<obj_highScoreList>().setupReadout(allCatHS[i].categoryDisplayName, allCatHS[i].categoryHighscore);
-
+            for(int j = 0; j < catUnlockInfo.Count; ++j)
+            {
+                if(catUnlockInfo[j].categoryName == allCatHS[i].categoryName)
+                {
+                    if(catUnlockInfo[j].unlockStatus == "unlocked")
+                    {
+                        unlockedCatHS.Add(allCatHS[i]);
+                        break;
+                    }
+                    else if(catUnlockInfo[j].unlockStatus == "locked")
+                    {
+                         //What;s happening here is that the index are shiftingbackwards and skipping some
+                        break;
+                    }
+                }
+            }
         }
+        //Sort the list
+        unlockedCatHS.Sort((x, y) => x.categoryID.CompareTo(y.categoryID));
+
+        GameObject hsHeaderObj = Instantiate(hsHeader);
+        hsHeaderObj.transform.SetParent(listParent.transform);
+        hsHeaderObj.transform.localScale = new Vector3(1, 1, 1);
+
+        for (int i =0; i < unlockedCatHS.Count; ++i)
+       {
+           GameObject tHS = Instantiate(highScoreObject);
+           tHS.transform.SetParent(listParent.transform);
+
+           tHS.GetComponent<obj_highScoreList>().setupReadout(unlockedCatHS[i].categoryDisplayName, unlockedCatHS[i].categoryHighscore, unlockedCatHS[i].categoryColor);
+
+       }
     }
 
     public void showHSPanel()

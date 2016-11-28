@@ -66,6 +66,9 @@ public class u_acJsonUtility : MonoBehaviour {
         public string categoryName;
         public string categoryHighscore;
         public string categoryDisplayName;
+        public string categoryColor;
+        public string categoryID;
+
         public void readHighScore()
         {
 
@@ -211,6 +214,7 @@ public class u_acJsonUtility : MonoBehaviour {
 
         // Use this for initialization
     void Start () {
+        Debug.Log("Persistent data path: " + Application.persistentDataPath);
         if (useResourcesFolder)
             baseSavePathString = "Assets/Resources/";
         else
@@ -338,7 +342,7 @@ public class u_acJsonUtility : MonoBehaviour {
         tCat.categoryName = catName;
         tCat.categorColorValue = catColor;
         tCat.categoryImageValue = catImage;
-     //   tCat.displayCatInfo();
+        tCat.displayCatInfo();
         //Create cat info object
         categoryUnlockInfo tCI = new categoryUnlockInfo();
         tCI.categoryName = catName;
@@ -352,6 +356,8 @@ public class u_acJsonUtility : MonoBehaviour {
         tHS.categoryName = catName;
         tHS.categoryDisplayName = catDispName;
         tHS.categoryHighscore = "0";
+        tHS.categoryColor = catColor;
+        tHS.categoryID = catID;
 
         string catJson = JsonUtility.ToJson(tCat);
         string catSavePath = baseSavePathString + catSavePathSuffix + catName + ".json";
@@ -498,6 +504,30 @@ public class u_acJsonUtility : MonoBehaviour {
         tQ.displayAnswers();
 
         return tQ;
+    }
+
+    public List<acQ> createRandomQuestionSet(string categoryName, int numberOfQuestions)
+    {
+        string qRootDir = baseSavePathString + qSavePathSuffix + categoryName + "/";
+        List<acQ> questionSet = new List<acQ>();
+        List<string> allCategoryQuestions = new List<string>();
+        //Load in ALL questions and cast array to a List
+        string[] questionFiles = Directory.GetFiles(qRootDir, "*");
+        for(int i = 0; i < questionFiles.Length; i++)
+        {
+            allCategoryQuestions.Add(questionFiles[i]);
+        }
+        //For each iteration, pick a q and add it to the question. Then remove it from the possibles.
+        for(int i = 0; i < numberOfQuestions; ++i)
+        {
+            int index = UnityEngine.Random.Range(0, allCategoryQuestions.Count);
+            string randQ = allCategoryQuestions[index];
+            string rawQJson = File.ReadAllText(randQ);
+           
+            questionSet.Add(JsonUtility.FromJson<acQ>(rawQJson));
+            allCategoryQuestions.Remove(randQ);
+        }
+        return questionSet;
     }
 
     public acQ loadSpecificQuestionData(string questionID, string categoryName)
@@ -783,7 +813,7 @@ public class u_acJsonUtility : MonoBehaviour {
  
     public string autoCompeteSanatizeString(string s)
     {
-        Debug.Log("Pre-Sanitize: " + s);
+   //     Debug.Log("Pre-Sanitize: " + s);
         //Remove json formatting artifacts
         s = s.Replace("\"", string.Empty);
        
@@ -803,7 +833,7 @@ public class u_acJsonUtility : MonoBehaviour {
         {
             if (s.EndsWith(post_articles[i]))
             {
-                      Debug.Log("Trimming " + post_articles[i] + " from " + s);
+            //          Debug.Log("Trimming " + post_articles[i] + " from " + s);
                       s = s.TrimEnd(post_articles[i].ToCharArray());
             }
         }
@@ -816,7 +846,7 @@ public class u_acJsonUtility : MonoBehaviour {
         arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c))));
         s = new string(arr);
 
-        Debug.Log("Post-Sanitize: " + s);
+   //     Debug.Log("Post-Sanitize: " + s);
 
         return s;
     }

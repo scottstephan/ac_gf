@@ -47,15 +47,17 @@ public class m_categorySelectionManager : MonoBehaviour {
         {
             for (int j = 0; j < catUnlockStatus.Count; ++j)
             {
-                Debug.Log("Trying Match: " + catUnlockStatus[j] + " :: " + catNames[i]);
+                Debug.Log("Trying Match: " + catUnlockStatus[j].categoryName + " :: " + catNames[i]);
                 if(catUnlockStatus[j].categoryName == catNames[i])
                 {
                     if(catUnlockStatus[j].unlockStatus == "unlocked")
                     {
+                        Debug.Log(catNames[i] + " IS UNLOCKED");
                         break;
                     }
                     else if(catUnlockStatus[j].unlockStatus == "locked")
                     {
+                        Debug.Log(catNames[i] + " IS LOCKED");
                         catUnlockStatus.Remove(catUnlockStatus[j]);
                         break;
                     }
@@ -64,15 +66,12 @@ public class m_categorySelectionManager : MonoBehaviour {
                         Debug.Log("UNKNOWN CATEGORY STATUS: " + catNames[i]);
                     }
                 }
-                else
-                {
-                    Debug.Log("CATEGORY STATUS DID NOT FIND MATCH WITH DIRECTORYLIST");
-                }
             }
         }
         //Order the list
+        Debug.Log("Going to sort list");
         catUnlockStatus.Sort((x, y) => x.categoryID.CompareTo(y.categoryID));
-
+        Debug.Log("Done sorting list");
         //1 - Instantiate only the unlocked stuff 
         for (int i = 0; i < catUnlockStatus.Count; ++i)
         {
@@ -80,9 +79,9 @@ public class m_categorySelectionManager : MonoBehaviour {
             tButton.transform.SetParent(parentCategoryListGrid.transform);
 
             categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
-            tManager.categoryName = catUnlockStatus[i].categoryDisplayName;
+            tManager.categoryName = catUnlockStatus[i].categoryName;
             tManager.categoryId = catUnlockStatus[i].categoryID;
-            tManager.setUpButton();
+            tManager.setUpButton(catUnlockStatus[i].categoryName);
         }
 
         GameObject tSB = Instantiate(shopButton);

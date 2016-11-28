@@ -13,7 +13,7 @@ public class obj_Answer : MonoBehaviour {
     public int id;
     public int answerScore;
     public int scoreValue;
-    Color answerRevealColor = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
+    Color answerRevealColor;
     public float animRevealLength = 1.5f;
     public Image rowBG;
 
@@ -32,7 +32,7 @@ public class obj_Answer : MonoBehaviour {
         maskTransform.localScale = new Vector3(1,1,1);
         scoreValue = (10 - id) * 1000;
         rowBG.color = thisAnswerMask.GetComponent<Image>().color; 
-
+        answerRevealColor = m_colorPaletteManager.instance.buttonColorPalette.palette[2];
         setTextStyle();
     }
 

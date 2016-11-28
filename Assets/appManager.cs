@@ -10,7 +10,8 @@ using Assets.autoCompete.games;
 using Amazon.DynamoDBv2.Model;
 using UnityEngine.SceneManagement;
 
-public class appManager : MonoBehaviour {
+public class appManager : MonoBehaviour
+{
     public static appManager instance = null;
     public static entity_players devicePlayer;
     public static playerRoles devicePlayerRoleInCurGame;
@@ -36,7 +37,7 @@ public class appManager : MonoBehaviour {
         challenged
     }
 
-    public  enum sceneNames
+    public enum sceneNames
     {
         loadScreen,
         title,
@@ -89,14 +90,14 @@ public class appManager : MonoBehaviour {
         [DynamoDBProperty]
         public string role;
     }
-    
+
     void Awake()
     { //Maintain singleton pattern
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-    } 
+    }
 
     public static void flushReferences()
     {
@@ -120,13 +121,13 @@ public class appManager : MonoBehaviour {
         tP.autoCompeteUsableID = id;
         tP.playerName = name;
         devicePlayer = tP;
-        
+
     }
 
     public void compareQDBInfo()
     {
         u_acJsonUtility.qDBInfo curQDB = u_acJsonUtility.instance.returnCurQDBObject();
-        if(curQDB.QDBVersion != m_prefsDataManager.getLastQuestionDBImported())
+        if (curQDB.QDBVersion != m_prefsDataManager.getLastQuestionDBImported())
         {
             u_acJsonUtility.instance.readJson();
         }
@@ -156,7 +157,7 @@ public class appManager : MonoBehaviour {
 
     public void startAdServices()
     {
-     //   m_heyZapAdManager.instance.initHeyZap();
+        //   m_heyZapAdManager.instance.initHeyZap();
     }
 
     public void actOnFBLoginStatus(bool loginStatus)
@@ -166,24 +167,24 @@ public class appManager : MonoBehaviour {
         {
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
             m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
-           // m_headerManager.instance.setHeaderToLoggedIn();
-            //m_loadScreenManager.instance.appInitComplete();
+                                                                  // m_headerManager.instance.setHeaderToLoggedIn();
+                                                                  //m_loadScreenManager.instance.appInitComplete();
         }
         else
         {
-          //  m_headerManager.instance.setHeaderToLoggedOut();
+            //  m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
-           // m_loadScreenManager.instance.appInitComplete();
+            // m_loadScreenManager.instance.appInitComplete();
         }
     }
 
     public void setFBName(string name)
     {
-          appManager.instance.FB_NAME = name;
-          appManager.instance.createAndSetPlayer(FB_ID,FB_NAME);
-          m_headerManager.instance.setHeaderToLoggedIn();
+        appManager.instance.FB_NAME = name;
+        appManager.instance.createAndSetPlayer(FB_ID, FB_NAME);
+        m_headerManager.instance.setHeaderToLoggedIn();
 
-          m_loadScreenManager.instance.appInitComplete();
+        m_loadScreenManager.instance.appInitComplete();
     }
     #endregion
 
@@ -196,12 +197,12 @@ public class appManager : MonoBehaviour {
     public static void createGameObject(string p1ID, string p2ID, string p1Name, string p2Name, bool isMPGame)
     {
         curLiveGame = new entity_games();
-        curLiveGame.initGame(appManager.generateUniqueGameID(), p1ID, p2ID, false, false, 0, 0, isMPGame, p1Name,p2Name);
-    }   
+        curLiveGame.initGame(appManager.generateUniqueGameID(), p1ID, p2ID, false, false, 0, 0, isMPGame, p1Name, p2Name);
+    }
 
     public static void saveCurGame()
     {
-        if(curLiveGame == null)
+        if (curLiveGame == null)
         {
             Debug.Log("NO GAME SET IN APP MANAGER; NOT SAVING GAME");
             return;
@@ -234,7 +235,7 @@ public class appManager : MonoBehaviour {
 
     static void deadGameSavedToDB(bool success, GameObject obj, string nextMethod, Exception e = null)
     {
-        if(e != null)
+        if (e != null)
         {
             DBTools.PrintException("deadGameSavedToDB", e);
             return;
@@ -274,7 +275,7 @@ public class appManager : MonoBehaviour {
 
     public static void LiveGameDeletedFromDB(bool success, GameObject obj, string nextMethod, Exception e = null)
     {
-        if(e != null)
+        if (e != null)
         {
             DBTools.PrintException("LiveGameDeletedFromDB", e);
             return;
@@ -285,10 +286,10 @@ public class appManager : MonoBehaviour {
 
     public static void loadGameEntity(string gameID)
     {
-        Debug.Log("***LOAD GAME ENTITY FOR " + gameID +"***");
+        Debug.Log("***LOAD GAME ENTITY FOR " + gameID + "***");
         entity_games tG = new entity_games();
         tG.gameID = gameID;
-        DBWorker.Instance.Load<entity_games>(tG, gameLoadComplete);   
+        DBWorker.Instance.Load<entity_games>(tG, gameLoadComplete);
     }
 
     static void gameLoadComplete(entity_games response, GameObject obj, string nextMethod, Exception e = null)
@@ -297,7 +298,7 @@ public class appManager : MonoBehaviour {
         appManager.curLiveGame = response;
     }
     #endregion
-    
+
     static void createPlayerGameRelationship(string p1ID, string p2ID, string gameID)
     {
         playerGameID p1 = new playerGameID();
@@ -314,7 +315,7 @@ public class appManager : MonoBehaviour {
         DBWorker.Instance.Save(p1, OnPlayerGameIDSaved);
         DBWorker.Instance.Save(p2, OnPlayerGameIDSaved);
     }
-    
+
     static void OnPlayerGameIDSaved(bool success, GameObject obj, string nextMethod, Exception e = null)
     {
         if (e == null)
@@ -329,9 +330,9 @@ public class appManager : MonoBehaviour {
         devicePlayerRoleInCurGame = p1Role;
     }
 
-        /// <summary>
-        /// Called from the category selection buttons- Sets the question details that were missing when we initially created the game
-        /// </summary>
+    /// <summary>
+    /// Called from the category selection buttons- Sets the question details that were missing when we initially created the game
+    /// </summary>
     public static void setCurGameQuestionDetails(string cID, string cName, string qID, string qName)
     {
         appManager.curLiveGame.questionText = qName;
@@ -352,10 +353,10 @@ public class appManager : MonoBehaviour {
 
         for (int i = 0; i < qA.Length; i++)
         {
-            if(qA[i] == 'q' && i > 0)  //presumes 0 is q
+            if (qA[i] == 'q' && i > 0)  //presumes 0 is q
             {
                 qIds.Add(nS);
-                nS = "";   
+                nS = "";
             }
             nS += qA[i];
 
@@ -363,11 +364,11 @@ public class appManager : MonoBehaviour {
             {
                 qIds.Add(nS);
             }
-            
+
         }
 
         Debug.Log("LOADED Q's");
-        for(int i = 0; i < qIds.Count; i++)
+        for (int i = 0; i < qIds.Count; i++)
         {
             Debug.Log(qIds[i]);
         }
@@ -391,7 +392,7 @@ public class appManager : MonoBehaviour {
     {
         Debug.Log("***LOADED GAME FILE FOR EOG UPDATE***");
 
-        if(e != null)
+        if (e != null)
         {
             DBTools.PrintException("OnEndGameLoaded", e);
         }
@@ -434,4 +435,5 @@ public class appManager : MonoBehaviour {
     {
         loadWheel.stopWheelAnimation();
     }
+
 }
