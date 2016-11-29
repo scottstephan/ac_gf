@@ -13,6 +13,7 @@ public class m_scoreCompManager : MonoBehaviour {
 
     string scoreColor = "#4470E6FF";
     string categoryColor = "#08AF22FF";
+    string namesColor = "#08AF22FF"; //Google Green
 
     public GameObject listParent;
     public GameObject[] listItemsToInstantiate;
@@ -112,12 +113,12 @@ public class m_scoreCompManager : MonoBehaviour {
         string scoreAppend = "</b></size></color> \n points!";
         string waitingPrepend = "Waiting for <color=" + categoryColor + ">";
         string waitingAppend = "</color> to finish";
-
+       
         switch (state)
         {
             case mpGameState.allPlayersHaveSeenResult://I am P1, viewing the final result and ending the game
-                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
-                theirText.text = appManager.curLiveGame.player2_name + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
+                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
+                theirText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name +"</color>" + scorePrepend + appManager.curLiveGame.p2_score.ToString("N0") + scoreAppend;
 
                 if (appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
                 {
@@ -125,12 +126,12 @@ public class m_scoreCompManager : MonoBehaviour {
                 }
                 else
                 {
-                    resultText.text = appManager.curLiveGame.player2_name + " WON!";
+                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name + "</color>" + " WON!";
                 }
                 break;
             case mpGameState.waitingForP1ToViewResult: //I must be P2, Viewing + Waiting for P1 to view and end
-                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p2_score + scoreAppend;
-                theirText.text = appManager.curLiveGame.player1_name + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
+                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p2_score.ToString("N0") + scoreAppend;
+                theirText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player1_name + "</color>" + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
 
                 if (appManager.curLiveGame.p2_score > appManager.curLiveGame.p1_score)
                 {
@@ -138,21 +139,21 @@ public class m_scoreCompManager : MonoBehaviour {
                 }
                 else
                 {
-                    resultText.text = appManager.curLiveGame.player1_name + " WON!";
+                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player1_name + "</color>" + " WON!";
                 }
                 break;
             case mpGameState.waitingForP2ToViewResult: //I must be P1, Viewing + Waiting for P2 to view because they abandoned
                 break;
             case mpGameState.waitingForP2ToFinishAndViewResult: //I must be P1, Viewing + Waiting for P2 to Play
-                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
+                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
                 cScore = appManager.curLiveGame.p1_score;
-                theirText.text = waitingPrepend + appManager.curLiveGame.player2_name + waitingAppend;
+                theirText.text = waitingPrepend + "<color=#08AF22FF>" + appManager.curLiveGame.player2_name + "</color>" + waitingAppend;
                 resultText.text = "";
                 break;
             case mpGameState.singlePlayerGame:
                 resultText.text = "GAME OVER";
                 cScore = appManager.curLiveGame.p1_score;
-                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score + scoreAppend;
+                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
                 theirText.text = " ";
                 compHSValue(cScore);
                 break;
@@ -168,12 +169,12 @@ public class m_scoreCompManager : MonoBehaviour {
 
         if(curScore > savedHS)
         {
-            theirText.text = "You set a new high \n score in <color=" + categoryColor + ">" + u_acJsonUtility.UppercaseFirst(appManager.curLiveGame.categoryText) + "</color> \n <b><color=" + scoreColor + "><size=135>" + curScore +"</size></color></b> \n points!";
+            theirText.text = "You set a new high \n score in <color=" + categoryColor + ">" + appManager.curLiveGame.categoryDisplayText + "</color> \n <b><color=" + scoreColor + "><size=135>" + curScore.ToString("N0") + "</size></color></b> \n points!";
             u_acJsonUtility.instance.updateHighScore(appManager.curLiveGame.categoryText, curScore);
         }
         else
         {
-            theirText.text = "Your best score in \n <color=" + categoryColor + ">" + u_acJsonUtility.UppercaseFirst(appManager.curLiveGame.categoryText) + "</color> is \n <color=" + scoreColor + "><size=135><b>" + savedHS + "</b></size></color> \n points!";
+            theirText.text = "Your best score in \n <color=" + categoryColor + ">" + appManager.curLiveGame.categoryDisplayText + "</color> is \n <color=" + scoreColor + "><size=135><b>" + savedHS.ToString("N0") + "</b></size></color> \n points!";
         }
     }
 

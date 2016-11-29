@@ -11,7 +11,7 @@ public class u_twitterButton : MonoBehaviour {
         string score = "500";
         string bitlyLink = "http://shutup.com";
         string qName = appManager.currentQuestion.questionDisplayText; //if qName > 100....
-        string tweetMessage = "I just scored " + score + " answering '" + qName + "...' in #googlefeud . Play now!: " + bitlyLink;
+        string tweetMessage = "I just scored " + score + " answering '" + qName + "...' in #autocompete . Play now!: " + bitlyLink;
         Debug.Log("Tweet is chars long: " + tweetMessage.ToCharArray().Length);
         ShareToTwitter(tweetMessage);
     }

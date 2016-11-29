@@ -9,6 +9,7 @@ public class m_gameManager : MonoBehaviour {
     public List<GameObject> roundObjects = new List<GameObject>();
     public static m_gameManager instance = null;
     public string currentSelectedCategory;
+    string categoryDisplayName;
     public int numRounds = 3;
     public int roundIndex = 0;
     public int maxNumMisses = 4;
@@ -149,7 +150,7 @@ public class m_gameManager : MonoBehaviour {
 
     public void pauseGame()
     {
-        timer.stopTimer();
+        timer.endTimer();
         processInput = false;
         playerInput.interactable = false;
         
@@ -189,7 +190,7 @@ public class m_gameManager : MonoBehaviour {
 
     public void quitGame()
     {
-
+        pauseGame();
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");
@@ -209,8 +210,9 @@ public class m_gameManager : MonoBehaviour {
             // appManager.roundPlayerObject = currentPlayer;
         }
         else
-        {//SPGame
-
+        {
+            appManager.curLiveGame.p1_score = storedScoreVal;
+            m_phaseManager.instance.changePhase(m_phaseManager.phases.scoreComp);
         }
     }
 
@@ -277,6 +279,7 @@ public class m_gameManager : MonoBehaviour {
         {
             appManager.curLiveGame.questionID = fullQString;
             appManager.curLiveGame.categoryText = currentSelectedCategory;
+            appManager.curLiveGame.categoryDisplayText = categoryDisplayName;
         }
 
     }
@@ -365,9 +368,10 @@ public class m_gameManager : MonoBehaviour {
 
     }
 
-    public void setCurrentSelectCategory(string catName)
+    public void setCurrentSelectCategory(string catName,string catDispName)
     {
         currentSelectedCategory = catName;
+        categoryDisplayName = catDispName;
     }
 
     public void timerOver()

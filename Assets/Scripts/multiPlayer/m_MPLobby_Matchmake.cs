@@ -97,7 +97,6 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     {
         GameObject fLH = Instantiate(friendListHeader);
         fLH.transform.SetParent(opponentListParentGrid.transform);
-        fLH.transform.localScale = new Vector3(1, 1, 1);
 
         for (int i = 0; i < allPlayers.Count; i++)
         {

@@ -44,7 +44,6 @@ public class highScorePanelManager : MonoBehaviour {
                     }
                     else if(catUnlockInfo[j].unlockStatus == "locked")
                     {
-                         //What;s happening here is that the index are shiftingbackwards and skipping some
                         break;
                     }
                 }
@@ -55,7 +54,6 @@ public class highScorePanelManager : MonoBehaviour {
 
         GameObject hsHeaderObj = Instantiate(hsHeader);
         hsHeaderObj.transform.SetParent(listParent.transform);
-        hsHeaderObj.transform.localScale = new Vector3(1, 1, 1);
 
         for (int i =0; i < unlockedCatHS.Count; ++i)
        {

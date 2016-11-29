@@ -33,10 +33,8 @@ public class m_iapShopPanelManager : MonoBehaviour {
 
     public void destroyLockedCatList()
     {
-        for (int i = 0; i < curLockedCats.Count; i++)
-        {
-            Destroy(curLockedCats[i]);
-        }
+        foreach (Transform t in parentCatIAPList.transform)
+            Destroy(t.gameObject);
     }
 
     public void listAllLockedCats()

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class categorySelectionButtonManager : MonoBehaviour
 {
     public string categoryName;
+    string categoryDisplayName;
     public string categoryId;
     public Color categoryColor;
     public RawImage categoryImage;
@@ -24,7 +25,7 @@ public class categorySelectionButtonManager : MonoBehaviour
     public void buttonClicked()
     {
         if (!isLocked) { 
-            m_gameManager.instance.setCurrentSelectCategory(categoryName);
+            m_gameManager.instance.setCurrentSelectCategory(categoryName,categoryDisplayName);
             //m_phaseManager.instance.changePhase(m_phaseManager.phases.mainRoundSP);
             m_phaseManager.instance.changePhase(m_phaseManager.phases.tutorial);
         }
@@ -50,6 +51,7 @@ public class categorySelectionButtonManager : MonoBehaviour
             else
                 setCategoryImage(catTex);
         }
+        categoryDisplayName = thisCat.categoryDisplayName;
         catButtonText.text = thisCat.categoryDisplayName;
     }
 

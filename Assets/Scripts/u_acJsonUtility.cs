@@ -383,6 +383,7 @@ public class u_acJsonUtility : MonoBehaviour {
     {
         destroyCatUnlockInfo();
         destroyCategoryInfo();
+        destroyCatHighScoreInfo();
     }
 
     public void destroyCategoryInfo()
@@ -401,6 +402,17 @@ public class u_acJsonUtility : MonoBehaviour {
     {
         string catInfoSavePath = baseSavePathString + catSavePathSuffix + catInfoSavePathPrefix;
         string[] files = Directory.GetFiles(catInfoSavePath);
+
+        foreach(string s in files)
+        {
+            File.Delete(s);
+        }
+    }
+
+    public void destroyCatHighScoreInfo()
+    {
+        string catHSPath = baseSavePathString + highScoreSavePathSuffix;
+        string[] files = Directory.GetFiles(catHSPath);
 
         foreach(string s in files)
         {
@@ -800,11 +812,11 @@ public class u_acJsonUtility : MonoBehaviour {
     public void updateHighScore(string catName, int scoreVal)
     {
         string hsFilePath = baseSavePathString + highScoreSavePathSuffix + catName + ".json"; ;
-
-        categoryHighScore tHS = new categoryHighScore();
-        tHS.categoryName = catName;
+        //Load old HS
+        categoryHighScore tHS = JsonUtility.FromJson<categoryHighScore>(File.ReadAllText(hsFilePath));
+        //Overwrite whatever
         tHS.categoryHighscore = scoreVal.ToString();
-
+        //Save it back
         SaveData(JsonUtility.ToJson(tHS), hsFilePath);
     }
     /// <summary>

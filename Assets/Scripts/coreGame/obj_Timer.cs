@@ -59,7 +59,7 @@ public class obj_Timer : MonoBehaviour {
             Debug.Log("Timer is already active; Not starting timer");
     }
 
-    void endTimer()
+    public void endTimer()
     {
         timerState = E_timerState.inactive;
         StopCoroutine("reduceTopFillOverTime");

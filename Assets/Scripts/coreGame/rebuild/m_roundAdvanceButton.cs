@@ -44,7 +44,10 @@ public class m_roundAdvanceButton : MonoBehaviour {
                 buttonText.fontSize = 50;
                 break;
             case buttonRole.endGame:
-                buttonText.text = "See Your Score";
+                if (appManager.curLiveGame.isMPGame)
+                    buttonText.text = "See Who Won";
+                else
+                    buttonText.text = "See Your Score";
                 buttonText.fontSize = 50;
                 break;
             case buttonRole.startGame:
