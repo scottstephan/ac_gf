@@ -74,7 +74,7 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                 break;
             case buttonBehaviors.buyAdRemoval:
                 Debug.Log("TRYING TO BUY AD REMOVAL");
-                appManager.iapManager.BuyProductID(u_iapManager.IAPTypes.noAds.ToString(),null);
+                appManager.iapManager.BuyProductID(u_iapManager.androidIAPID.ac_gp_noads.ToString(), null);
                 break;
             case buttonBehaviors.showDebug:
                 m_panelManager.instance.anim_debugToCenter();

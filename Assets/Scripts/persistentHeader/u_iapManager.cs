@@ -31,11 +31,11 @@ public class u_iapManager : IStoreListener
         Debug.Log("---IAP MANAGER STARTED---");
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-        /*   builder.AddProduct(IAPTypes.noAds.ToString(), ProductType.NonConsumable, new IDs
+          builder.AddProduct(androidIAPID.ac_gp_noads.ToString(), ProductType.NonConsumable, new IDs
            {
                {androidIAPID.ac_gp_noads.ToString(), GooglePlay.Name},
                {iOSIAPID.ac_ios_noads.ToString(), MacAppStore.Name}
-           }); */
+           }); 
 
            builder.AddProduct(androidIAPID.ac_gp_categorycredit.ToString(), ProductType.Consumable, new IDs
            {
@@ -105,6 +105,7 @@ public class u_iapManager : IStoreListener
                 attempt_CategoryPurchaseName = null;
                 break;
             case "ac_gp_noads":
+                obj_playerIAPData.removeAds();
                 break;
         }
         // actOnPurchaseSuccess(IAPTypes.categoryCredit);

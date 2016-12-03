@@ -53,12 +53,12 @@ public class highScorePanelManager : MonoBehaviour {
         unlockedCatHS.Sort((x, y) => x.categoryID.CompareTo(y.categoryID));
 
         GameObject hsHeaderObj = Instantiate(hsHeader);
-        hsHeaderObj.transform.SetParent(listParent.transform);
+        hsHeaderObj.transform.SetParent(listParent.transform, false);
 
         for (int i =0; i < unlockedCatHS.Count; ++i)
        {
            GameObject tHS = Instantiate(highScoreObject);
-           tHS.transform.SetParent(listParent.transform);
+           tHS.transform.SetParent(listParent.transform, false);
 
            tHS.GetComponent<obj_highScoreList>().setupReadout(unlockedCatHS[i].categoryDisplayName, unlockedCatHS[i].categoryHighscore, unlockedCatHS[i].categoryColor);
 

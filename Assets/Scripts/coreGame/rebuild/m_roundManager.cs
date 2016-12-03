@@ -39,7 +39,7 @@ public class m_roundManager : MonoBehaviour {
 
     public void setPos()
     {
-        gameObject.GetComponent<RectTransform>().SetParent(parentPanel);
+        gameObject.GetComponent<RectTransform>().SetParent(parentPanel, false);
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(-1600,0,0);
         gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 

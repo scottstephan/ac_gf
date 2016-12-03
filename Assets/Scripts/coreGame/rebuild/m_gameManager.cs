@@ -52,6 +52,7 @@ public class m_gameManager : MonoBehaviour {
     {
         processInput = true;
         gameIsLive = true;
+        timer.timerCanStart = true;
         reset();
         if (!hasQSet)
             loadRandomQuestions();
@@ -66,7 +67,6 @@ public class m_gameManager : MonoBehaviour {
 
     public void reset()
     {
-        processInput = true;
         storedScoreVal = 0;
         for(int i = 0; i < roundObjects.Count; i++)
         {
@@ -76,6 +76,7 @@ public class m_gameManager : MonoBehaviour {
         questionSet.Clear();
         roundObjects.Clear();
         resetLightBulbs();
+        advanceButton.resetButton();
 
         roundIndex = 0;
         playerMisses = 0;
@@ -133,7 +134,7 @@ public class m_gameManager : MonoBehaviour {
     {
         roundObjects[roundIndex].GetComponent<m_roundManager>().revealAllAnswers();
         incrementRoundsPlayed();
-        if (roundIndex < numRounds)
+        if (roundIndex < numRounds && gameIsLive)
         {
             advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.advanceToNextRound;
             playerInput.text = "";
@@ -151,14 +152,14 @@ public class m_gameManager : MonoBehaviour {
     public void pauseGame()
     {
         timer.endTimer();
+        
         processInput = false;
         playerInput.interactable = false;
-        
+        gameIsLive = false;
     }
 
     public void endGame()
     {
-        gameIsLive = false;
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");
@@ -183,7 +184,9 @@ public class m_gameManager : MonoBehaviour {
         advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.endGame;
         advanceButton.setTextByRole();
         playerInput.text = "";
-        
+
+        if(gameIsLive)
+        gameIsLive = false;
         advanceButton.toMid.OpenCloseObjectAnimation();
        
     }
@@ -191,6 +194,7 @@ public class m_gameManager : MonoBehaviour {
     public void quitGame()
     {
         pauseGame();
+        playerInput.DeactivateInputField();
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");

@@ -11,6 +11,7 @@ public class obj_Timer : MonoBehaviour {
     public float tickRate = 1f;
     public Text timerText;
     public Image timerTopFIll;
+    public bool timerCanStart = true;
     //plus the timer image
 
     public enum E_timerState{
@@ -47,7 +48,7 @@ public class obj_Timer : MonoBehaviour {
 
     public void startTimer()
     {
-        if (timerState == E_timerState.inactive)
+        if (timerState == E_timerState.inactive && timerCanStart)
         {
             timerTopFIll.fillAmount = 1;
             timerState = E_timerState.active;
@@ -61,6 +62,7 @@ public class obj_Timer : MonoBehaviour {
 
     public void endTimer()
     {
+        timerCanStart = false;
         timerState = E_timerState.inactive;
         StopCoroutine("reduceTopFillOverTime");
     }

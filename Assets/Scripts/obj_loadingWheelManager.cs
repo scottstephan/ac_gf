@@ -30,6 +30,12 @@ public class obj_loadingWheelManager : MonoBehaviour {
         gameObject.transform.position = pos;
     }
 
+    public void setWheelTransform(Transform t)
+    {
+        gameObject.transform.SetParent(t, false);
+    }
+
+
     IEnumerator fillLoadWheel()
     { // go 0 - 1, flip clockwise, go 1 - 0
         float rate = 1 / fillSpeed;

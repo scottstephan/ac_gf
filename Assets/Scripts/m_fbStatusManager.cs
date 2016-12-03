@@ -60,12 +60,8 @@ public class m_fbStatusManager : MonoBehaviour {
             Debug.Log("---USER FB LOGIN SUCCESS---");
             fbToken = Facebook.Unity.AccessToken.CurrentAccessToken;
             appManager.instance.actOnFBLoginStatus(true);
+                
             m_phaseManager.instance.changePhase(m_phaseManager.phases.MPLobby);
-
-            /*  foreach (string perm in fbToken.Permissions)
-              {
-                  Debug.Log(perm);
-              }*/
         }
         else
         {

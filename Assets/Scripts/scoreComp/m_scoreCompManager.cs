@@ -14,9 +14,11 @@ public class m_scoreCompManager : MonoBehaviour {
     string scoreColor = "#4470E6FF";
     string categoryColor = "#08AF22FF";
     string namesColor = "#08AF22FF"; //Google Green
+    string googleRed = "#FF0000FF";
 
     public GameObject listParent;
     public GameObject[] listItemsToInstantiate;
+    public GameObject backToMenuButton;
 
     public enum mpGameState
     {
@@ -43,7 +45,7 @@ public class m_scoreCompManager : MonoBehaviour {
         updateScoreColors();
         updatePlayerScore(thisGameState);
         createScoreScreenList();
-        if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore && thisGameState != mpGameState.singlePlayerGame)
+        if (thisGameState != mpGameState.singlePlayerGame)
             determineGameAction();
         else
             m_loadPanelManager.instance.deactivateLoadPanel();
@@ -53,8 +55,10 @@ public class m_scoreCompManager : MonoBehaviour {
     {
         for(int i = 0; i < listItemsToInstantiate.Length; i++)
         {
-            listItemsToInstantiate[i].transform.SetParent(listParent.transform);
+            listItemsToInstantiate[i].transform.SetParent(listParent.transform, false);
         }
+
+        backToMenuButton.GetComponent<obj_backToMenuBtn>().setText();
     }
 
     public void updateScoreColors()
@@ -109,24 +113,28 @@ public class m_scoreCompManager : MonoBehaviour {
 
     void updatePlayerScore(mpGameState state)
     {
-        string scorePrepend = "got \n <color=" + scoreColor + "><size=135><b>";
+        string scorePrepend = " got \n <color=" + scoreColor + "><size=135><b>";
         string scoreAppend = "</b></size></color> \n points!";
-        string waitingPrepend = "Waiting for <color=" + categoryColor + ">";
-        string waitingAppend = "</color> to finish";
-       
+        string waitingPrepend = "Waiting for <color=" + categoryColor + ">\n";
+        string waitingAppend = "</color>\nto finish";
+
         switch (state)
         {
             case mpGameState.allPlayersHaveSeenResult://I am P1, viewing the final result and ending the game
                 yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
-                theirText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name +"</color>" + scorePrepend + appManager.curLiveGame.p2_score.ToString("N0") + scoreAppend;
+                theirText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name + "</color>" + scorePrepend + appManager.curLiveGame.p2_score.ToString("N0") + scoreAppend;
 
                 if (appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
                 {
-                    resultText.text = "YOU WON!";
+                    resultText.text = "<color=" + namesColor + "> YOU WON!</color>";
                 }
-                else
+                else if (appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
                 {
-                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name + "</color>" + " WON!";
+                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name.ToUpper()+ " WON!</color> \n";
+                }
+                else if (appManager.curLiveGame.p1_score == appManager.curLiveGame.p2_score)
+                {
+                    resultText.text = "<color=#08AF22FF>TIE GAME</color>";
                 }
                 break;
             case mpGameState.waitingForP1ToViewResult: //I must be P2, Viewing + Waiting for P1 to view and end
@@ -135,11 +143,15 @@ public class m_scoreCompManager : MonoBehaviour {
 
                 if (appManager.curLiveGame.p2_score > appManager.curLiveGame.p1_score)
                 {
-                    resultText.text = "YOU WON!";
+                    resultText.text = "<color="+namesColor + ">YOU WON! </color>";
                 }
-                else
+                else if (appManager.curLiveGame.p2_score < appManager.curLiveGame.p1_score)
                 {
-                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player1_name + "</color>" + " WON!";
+                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player1_name.ToUpper() + " WON! </color>";
+                }
+                else if (appManager.curLiveGame.p1_score == appManager.curLiveGame.p2_score)
+                {
+                    resultText.text = "<color=#08AF22FF>TIE GAME</color>";
                 }
                 break;
             case mpGameState.waitingForP2ToViewResult: //I must be P1, Viewing + Waiting for P2 to view because they abandoned

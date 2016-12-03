@@ -48,14 +48,19 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
         OnScanComplete += OnPlayerScanComplete;
         clearLists();
         m_fbStatusManager.instance.loadFriendsInstalledList(playerFriendsPopulated);
-        appManager.instance.startLoadWheel(fullGameListParentGrid.transform.position);
-        getAllP1Games();
         GameObject tH = Instantiate(this.playerGameListHeader);
-        tH.transform.SetParent(fullGameListParentGrid.transform);
+        tH.transform.SetParent(fullGameListParentGrid.transform, false);
+        tH.transform.SetAsFirstSibling();
 
-        GameObject cFB = Instantiate(challengeAFriendButton);
-        cFB.transform.SetParent(fullGameListParentGrid.transform);
-        cFB.transform.localScale = new Vector3(1, 1, 1);
+        appManager.instance.startLoadWheel(fullGameListParentGrid.transform); //WIll need to reset on backups!
+
+        getAllP1Games();
+    }
+
+    IEnumerator delayAndStartWheel()
+    {
+        yield return new WaitForSeconds(.25f);
+        appManager.instance.startLoadWheel(fullGameListParentGrid.transform);
     }
 
     void playerFriendsPopulated(List<object> userFriendsWithAppInstalled)
@@ -96,7 +101,7 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
     void createPlayerListInUI(List<entity_players> allPlayers)
     {
         GameObject fLH = Instantiate(friendListHeader);
-        fLH.transform.SetParent(opponentListParentGrid.transform);
+        fLH.transform.SetParent(opponentListParentGrid.transform, false);
 
         for (int i = 0; i < allPlayers.Count; i++)
         {
@@ -105,13 +110,13 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             ui_opponentButtonManager tManager = tButton.GetComponent<ui_opponentButtonManager>();
             tManager.opEntity = allPlayers[i];
             tManager.setUpButton();
-            tButton.transform.SetParent(opponentListParentGrid.transform);
-            tButton.transform.localScale = new Vector3(1, 1, 1);
+            tButton.transform.SetParent(opponentListParentGrid.transform, false);
         }
     }
 
     void getAllP1Games()
     {
+
         Debug.Log("***QUERYING ALL GAMES INVOLVING P1***: " + appManager.FB_ID);
         List<string> attToReturn = new List<string>();
         attToReturn.Add("playerID");
@@ -152,6 +157,11 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
     void listAllGamesP1IsInitiated()
     {
+        appManager.instance.stopLoadWHeel();
+
+        GameObject cFB = Instantiate(challengeAFriendButton);
+        cFB.transform.SetParent(fullGameListParentGrid.transform, false);
+
         Debug.Log("---LISTING ALL GAMES P1 INITIATED:---" + p1Initiated.Count);
         for (int i = 0; i < p1Initiated.Count; i++)
         {
@@ -177,7 +187,6 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
             tManager.loadGameEntity(tManager.gameID);
            
         }
-        appManager.instance.stopLoadWHeel();
 
     }
 
@@ -197,6 +206,10 @@ public class m_MPLobby_Matchmake : MonoBehaviour {
 
         foreach(Transform child in fullGameListParentGrid.transform)
         {
+            if (child.name == "loadingCircle")
+            {
+                continue;
+            }
             Destroy(child.gameObject);
         }
         //Nuke 'em!

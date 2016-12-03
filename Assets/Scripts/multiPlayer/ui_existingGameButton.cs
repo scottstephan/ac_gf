@@ -34,7 +34,7 @@ public class ui_existingGameButton : MonoBehaviour {
         setPlayerNames();
         setCategoryName();
         LoadPlayerPic(opponentID, false);
-        gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform);
+        gameObject.transform.SetParent(m_MPLobby_Matchmake.instance.fullGameListParentGrid.transform, false);
     }
 
     void setColorBlock()

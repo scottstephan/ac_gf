@@ -11,6 +11,7 @@ public class m_iapShopPanelManager : MonoBehaviour {
     public EasyTween toTop;
     public GameObject catIAPButton;
     public GameObject noAdsIAP;
+    public GameObject nothingToBuyHeader;
     public RectTransform parentCatIAPList;
     public List<GameObject> curLockedCats = new List<GameObject>();
     void Awake()
@@ -39,10 +40,17 @@ public class m_iapShopPanelManager : MonoBehaviour {
 
     public void listAllLockedCats()
     {
+        bool listNoAds = true;
+        int numCatsListed = 0;
         curLockedCats.Clear();
 
-        GameObject btn_noAds = Instantiate(noAdsIAP);
-        btn_noAds.transform.SetParent(parentCatIAPList);
+        if (obj_playerIAPData.getAdStatus() == true)
+        {
+            GameObject btn_noAds = Instantiate(noAdsIAP);
+            btn_noAds.transform.SetParent(parentCatIAPList, false);
+        }
+        else
+            listNoAds = false;
 
         List<u_acJsonUtility.categoryUnlockInfo> catUnlockStatus = new List<u_acJsonUtility.categoryUnlockInfo>();
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
@@ -52,11 +60,19 @@ public class m_iapShopPanelManager : MonoBehaviour {
             {
                 Debug.Log(catUnlockStatus[i].categoryName + " is " + catUnlockStatus[i].unlockStatus);
                 GameObject tButton = Instantiate(catIAPButton);
-                tButton.transform.SetParent(parentCatIAPList);
+                tButton.transform.SetParent(parentCatIAPList, false);
                 tButton.GetComponentInChildren<Text>().text = catUnlockStatus[i].categoryDisplayName + "\n" + "$.99";
                 tButton.GetComponent<obj_IAPCatButtonManager>().setUpButton(catUnlockStatus[i]);
                 curLockedCats.Add(tButton);
+                numCatsListed++;
             }
+        }
+
+        if(numCatsListed == 0 && listNoAds == false)
+        {
+            Debug.Log("Nothing to list");
+            GameObject ntbHeader = Instantiate(nothingToBuyHeader);
+            ntbHeader.transform.SetParent(parentCatIAPList, false);
         }
     }
 

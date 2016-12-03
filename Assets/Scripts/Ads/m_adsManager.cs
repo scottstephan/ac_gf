@@ -15,6 +15,11 @@ public class m_adsManager : MonoBehaviour {
 
     public void ShowAd()
     {
+        if(obj_playerIAPData.getAdStatus() == false)
+        {
+            return;
+        }
+
         if (Advertisement.IsReady() && useAds)
         {
             Advertisement.Show();

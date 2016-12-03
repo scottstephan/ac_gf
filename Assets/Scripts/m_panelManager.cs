@@ -69,7 +69,9 @@ public class m_panelManager : MonoBehaviour {
         mp_CatSelectToLobby,
         titleToHighScore,
         highScoreToTitle,
-        mainRoundToMenu
+        mainRoundToMenu,
+        tutorialToCatselect,
+        tutorialToMPLobby
     }
 
     public enum uiPanelTransitions{
@@ -176,7 +178,29 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.mainRoundToMenu:
                 anim_mainRoundToMenu();
                 break;
+            case phaseTransitions.tutorialToCatselect:
+                anim_tutorialToCatSelect();
+                break;
+            case phaseTransitions.tutorialToMPLobby:
+                anim_tutorialToMPLobby();
+                break;
         }
+    }
+
+    public void anim_tutorialToMPLobby()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(tutorialPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_tutorialToCatSelect()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(tutorialPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_hsToTitle()
@@ -378,7 +402,10 @@ public class m_panelManager : MonoBehaviour {
 
     public void anim_scoreCompToMPLobby()
     {
-
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toLeft);
+        setToPlay.animsToPlayInOrder.Add(mpLobby.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
     
     IEnumerator playAnimSet(animationSetToPlay cSet)

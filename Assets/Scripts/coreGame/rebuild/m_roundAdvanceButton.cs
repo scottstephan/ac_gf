@@ -35,6 +35,11 @@ public class m_roundAdvanceButton : MonoBehaviour {
         }
     }
 
+    public void resetButton()
+    {
+        gameObject.transform.position = new Vector3(-6000, -6000, 0);
+    }
+
     public void setTextByRole()
     {
         switch (myButtonRole)
@@ -45,7 +50,16 @@ public class m_roundAdvanceButton : MonoBehaviour {
                 break;
             case buttonRole.endGame:
                 if (appManager.curLiveGame.isMPGame)
-                    buttonText.text = "See Who Won";
+                {//I don't think P2 fin is set untilthe end of the game, so this won't work. 
+                    if (!appManager.curLiveGame.p1_Fin)
+                    {
+                        buttonText.text = "See Your Score";
+                    }
+                    else
+                    {
+                         buttonText.text = "See Who Won";
+                    }
+                }
                 else
                     buttonText.text = "See Your Score";
                 buttonText.fontSize = 50;

@@ -324,10 +324,10 @@ public class appManager : MonoBehaviour
             DBTools.PrintException("DBExample Save", e);
     }
 
-    public static void setCurGame(entity_games cGame, playerRoles p1Role)
+    public static void setCurGame(entity_games cGame, playerRoles dpRole)
     {
         curLiveGame = cGame;
-        devicePlayerRoleInCurGame = p1Role;
+        devicePlayerRoleInCurGame = dpRole;
     }
 
     /// <summary>
@@ -425,9 +425,10 @@ public class appManager : MonoBehaviour
         loadWheel.startWheelAnimation();
     }
 
-    public void startLoadWheel(Vector3 pos)
+    public void startLoadWheel(Transform t)
     {
-        loadWheel.setWheelPosition(pos);
+        loadWheel.setWheelTransform(t);
+      //  loadWheel.setWheelPosition(t.position);
         loadWheel.startWheelAnimation();
     }
 

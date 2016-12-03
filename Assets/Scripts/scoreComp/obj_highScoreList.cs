@@ -13,7 +13,7 @@ public class obj_highScoreList : MonoBehaviour {
         int sVal = int.Parse(highscore);
         highscore = sVal.ToString("N0");
 
-        string formattedCategoryName = "<color=" + catColor + "><size=80><b>"+ catname +"</b></size></color>";
+        string formattedCategoryName = "<color=" + catColor + "><size=80><b>"+ catname.ToUpper() +"</b></size></color>";
         string formattedScore = "<color=#4470E6FF><size=135><b>"+highscore+"</b></size></color>";
         categoryName.text = formattedCategoryName + "\n" + formattedScore;
        // highScoreValue.text = highscore;

@@ -40,7 +40,7 @@ public class m_categorySelectionManager : MonoBehaviour {
         catUnlockStatus = u_acJsonUtility.instance.discoverAllCategoryUnlockInfo();
 
         GameObject catHead = Instantiate(categoryListHeader);
-        catHead.transform.SetParent(parentCategoryListGrid.transform);
+        catHead.transform.SetParent(parentCategoryListGrid.transform, false);
         //0- The outcome of this process is that catUnlockStatus wll retain all of the UNLOCKED categories. 
 
         for (int i = 0; i < catNames.Count; ++i)
@@ -76,7 +76,7 @@ public class m_categorySelectionManager : MonoBehaviour {
         for (int i = 0; i < catUnlockStatus.Count; ++i)
         {
             GameObject tButton = Instantiate(categoryButton);
-            tButton.transform.SetParent(parentCategoryListGrid.transform);
+            tButton.transform.SetParent(parentCategoryListGrid.transform, false);
 
             categorySelectionButtonManager tManager = tButton.GetComponent<categorySelectionButtonManager>();
             tManager.categoryName = catUnlockStatus[i].categoryName;
@@ -85,7 +85,7 @@ public class m_categorySelectionManager : MonoBehaviour {
         }
 
         GameObject tSB = Instantiate(shopButton);
-        tSB.transform.SetParent(parentCategoryListGrid.transform);
+        tSB.transform.SetParent(parentCategoryListGrid.transform, false);
     }
     /// <summary>
     /// Loads and sets the 'current question' attribute for the game

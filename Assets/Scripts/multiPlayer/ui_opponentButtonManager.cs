@@ -28,6 +28,7 @@ public class ui_opponentButtonManager : MonoBehaviour {
     {
         Debug.Log("---GAME BUTTON CLICKED---");
         //Create game obj n appManager
+        appManager.devicePlayerRoleInCurGame = appManager.playerRoles.intiated; //Don't 100% understand why this is wonky, but this should fix the Challenged -> New Game error
         appManager.createGameObject(appManager.devicePlayer.playerID,opEntity.playerID,appManager.devicePlayer.playerName,opEntity.playerName,true);
         appManager.curGameStatus = appManager.E_lobbyGameStatus.init_playGame;
         m_phaseManager.instance.changePhase(m_phaseManager.phases.categorySelectMP);

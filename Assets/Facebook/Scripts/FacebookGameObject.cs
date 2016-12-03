@@ -55,6 +55,15 @@ namespace Facebook.Unity
         public void OnLoginComplete(string message)
         {
             this.Facebook.OnLoginComplete(message);
+
+            var parameters = (Dictionary<string, object>)MiniJSON.Json.Deserialize(message);
+            
+            if (parameters.ContainsKey("key_hash"))
+            {
+                string keyHash = (string)parameters["key_hash"];
+                Debug.Log("proper keyhash : " + keyHash);
+            }
+
         }
 
         public void OnLogoutComplete(string message)
