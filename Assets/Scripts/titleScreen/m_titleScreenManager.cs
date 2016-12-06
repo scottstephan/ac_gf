@@ -16,7 +16,7 @@ public class m_titleScreenManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && m_phaseManager.instance.thisPhase == m_phaseManager.phases.titleScreen)
         {//Android back button!
             Application.Quit();
         }

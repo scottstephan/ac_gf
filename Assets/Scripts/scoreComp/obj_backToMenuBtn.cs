@@ -13,11 +13,11 @@ public class obj_backToMenuBtn : MonoBehaviour {
 
     public void setText()
     {
-        if(appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
+        if(appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore && !appManager.curLiveGame.isMPGame)
         {
             buttonText.text = "Main Menu";
         }
-        else
+        else 
         {
             buttonText.text = "Game Lobby";
         }

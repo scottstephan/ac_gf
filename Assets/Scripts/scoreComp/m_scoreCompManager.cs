@@ -103,7 +103,7 @@ public class m_scoreCompManager : MonoBehaviour {
             }
             else
             {//P1 just finished challenging P2, so...
-                appManager.curGameStatus = appManager.E_lobbyGameStatus.init_viewScore;
+               //    appManager.curGameStatus = appManager.E_lobbyGameStatus.init_viewScore;
                 thisGameState = mpGameState.waitingForP2ToFinishAndViewResult;
             }
         }
