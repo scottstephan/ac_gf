@@ -1,326 +1,127 @@
- {
- 	"Category": {
- 		"categoryName": "culture",
- 		"categoryDisplayText": "Culture",
- 		"categoryID": "004",
- 		"colorValue": "#db3236",
- 		"imageValue": "",
- 		"unlockStatus": "unlocked",
- 		"questions": [{
- 			"questionName": "the beatles are",
- 			"questionDisplayText": "The Beatles are",
- 			"questionID": "q147",
- 			"answers": ["overrated", "gay", "metal", "dead", "the best", "still alive", "coming", "the worst band ever", "bad", "underrated"]
- 		}, {
- 			"questionName": "country music is",
- 			"questionDisplayText": "Country music is",
- 			"questionID": "q148",
- 			"answers": ["dead", "bad", "gay", "garbage", "all the same", "the best", "love", "my church", "the same", "dying"]
- 		}, {
- 			"questionName": "tom hanks is",
- 			"questionDisplayText": "Tom Hanks is",
- 			"questionID": "q149",
- 			"answers": ["harambe", "a bunch of animals", "dead", "forrest gump", "married to", "awesome", "how old", "related to abraham lincoln", "sick", "from"]
- 		}, {
- 			"questionName": "indiana jones and the",
- 			"questionDisplayText": "Indiana Jones and the",
- 			"questionID": "q150",
- 			"answers": ["last crusade", "temple of doom", "fate of atlantis", "crystal skull", "temple of doom cast", "infernal machine", "raiders of the lost ark", "last crusade cast", "emperor's tomb", "staff of kings"]
- 		}, {
- 			"questionName": "harry potter and the",
- 			"questionDisplayText": "Harry Potter and the",
- 			"questionID": "q151",
- 			"answers": ["cursed child", "deathly hallows", "cursed child movie", "half blood prince", "goblet of fire", "prisoner of azkaban", "sorcerer's stone movie", "order of the phoenix", "cursed child review", "chamber of secrets"]
- 		}, {
- 			"questionName": "google are you",
- 			"questionDisplayText": "Google are you",
- 			"questionID": "q152",
- 			"answers": ["there", "gay", "stupid", "a boy or a girl", "better than siri", "listening", "my friend", "a girl", "smart", "married"]
- 		}, {
- 			"questionName": "do all celebrities have",
- 			"questionDisplayText": "Do all celebrities have",
- 			"questionID": "q153",
- 			"answers": ["herpes", "bodyguards", "fake teeth", "personal assistants", "iphones", "agents", "veneers", "to join the illuminati", "to sell their souls", "plastic surgery"]
- 		}, {
- 			"questionName": "google",
- 			"questionDisplayText": "Google",
- 			"questionID": "q154",
- 			"answers": ["maps", "translate", "classroom", "docs", "drive", "earth", "play", "flights", "images", "scholar"]
- 		}, {
- 			"questionName": "apple",
- 			"questionDisplayText": "Apple",
- 			"questionID": "q155",
- 			"answers": ["store", "watch", "tv", "watch 2", "orchard", "charlies", "id", "crisp", "support", "music"]
- 		}, {
- 			"questionName": "gun control is",
- 			"questionDisplayText": "Gun control is",
- 			"questionID": "q156",
- 			"answers": ["using both hands", "not the answer", "bad", "gun control", "good", "a misfire", "wrong", "constitutional", "the answer", "necessary"]
- 		}, {
- 			"questionName": "can the government take your",
- 			"questionDisplayText": "Can the government take your",
- 			"questionID": "q157",
- 			"answers": ["ira", "land", "child", "money", "gold", "property", "house", "money from bank account", "pension", "disability check"]
- 		}, {
- 			"questionName": "the nra is",
- 			"questionDisplayText": "The NRA is",
- 			"questionID": "q158",
- 			"answers": ["a cult", "good", "wrong", "bad", "what type of interest group", "the new kkk", "an example of", "to blame for police shooting", "a hate group", "the problem"]
- 		}, {
- 			"questionName": "the poor should",
- 			"questionDisplayText": "The poor should",
- 			"questionID": "q159",
- 			"answers": ["die", "stop being poor", "eat their babies", "stop whining", "receive everything free", "seize the means of production", "pay more taxes", "eat porridge", "not be allowed to vote", "help themselves"]
- 		}, {
- 			"questionName": "don't blame me i voted for",
- 			"questionDisplayText": "Don't blame me i voted for",
- 			"questionID": "q160",
- 			"answers": ["kodos", "kodos shirt", "cobra commander", "jack", "the american", "kodos sticker", "marco", "ted", "nader", "muffy"]
- 		}, {
- 			"questionName": "ketchup is",
- 			"questionDisplayText": "Ketchup is",
- 			"questionID": "q161",
- 			"answers": ["a", "a vegetable", "a vegetable book", "my trigger", "a smoothie", "bad", "a vegetable illuminati", "a garbage condiment", "nasty", "bad for you"]
- 		}, {
- 			"questionName": "baseball is",
- 			"questionDisplayText": "Baseball is",
- 			"questionID": "q162",
- 			"answers": ["life", "gay", "a game of failure", "dying", "better", "like church", "not a sport", "fun", "a funny game", "a white man's game"]
- 		}, {
- 			"questionName": "football is",
- 			"questionDisplayText": "Football is",
- 			"questionID": "q163",
- 			"answers": ["back", "life", "back meme", "family", "coming", "gay", "here", "back commercial", "my life", "coming meme"]
- 		}, {
- 			"questionName": "wrestling is",
- 			"questionDisplayText": "Wrestling is",
- 			"questionID": "q164",
- 			"answers": ["fake", "real meme", "fake meme", "real", "wrestling", "dead", "an art", "life", "real to me", "fun"]
- 		}, {
- 			"questionName": "sports are",
- 			"questionDisplayText": "Sports are",
- 			"questionID": "q165",
- 			"answers": ["stupid", "gay", "rigged", "boring", "described in this chapter as sites where", "fun", "life", "a distraction", "overrated", "a waste of time"]
- 		}, {
- 			"questionName": "barack obama is a",
- 			"questionDisplayText": "Barack Obama is a",
- 			"questionID": "q166",
- 			"answers": ["neocon", "mack daddy", "democrat", "leo", "marxist", "communist", "socialist", "good leader", "feminist", "great leader"]
- 		}, {
- 			"questionName": "sparkling",
- 			"questionDisplayText": "Sparkling",
- 			"questionID": "q167",
- 			"answers": ["water", "ice", "wiggles", "wine", "cider", "ice tea", "sands resort", "water brands", "red wine", "apple juice"]
- 		}, {
- 			"questionName": "mr.",
- 			"questionDisplayText": "Mr.",
- 			"questionID": "q168",
- 			"answers": ["robot", "pizza", "donkey", "bean", "alan's", "t", "church", "b's", "pita", "right"]
- 		}, {
- 			"questionName": "coconut",
- 			"questionDisplayText": "Coconut",
- 			"questionID": "q169",
- 			"answers": ["oil", "cream", "water", "crab", "milk", "head", "oil uses", "festival", "cream pie", "oil for hair"]
- 		}, {
- 			"questionName": "mrs.",
- 			"questionDisplayText": "Mrs.",
- 			"questionID": "q170",
- 			"answers": ["maddox", "doubtfire", "in rio crossword", "fields", "robinson", "potato head", "in rio", "miracle", "meyers", "roper"]
- 		}, {
- 			"questionName": "cars are too",
- 			"questionDisplayText": "Cars are too",
- 			"questionID": "q171",
- 			"answers": ["expensive", "complicated", "mainstream", "expensive now", "expensive in australia", "dangerous", "big", "heavy", "complex", "fast"]
- 		}, {
- 			"questionName": "giraffes are",
- 			"questionDisplayText": "Giraffes are",
- 			"questionID": "q172",
- 			"answers": ["gay", "fake", "aliens", "awesome", "dumb", "selfish", "heartless", "4 species", "4 different species", "cool"]
- 		}, {
- 			"questionName": "facebook is",
- 			"questionDisplayText": "Facebook is",
- 			"questionID": "q173",
- 			"answers": ["for losers", "down", "dying", "not working", "depressing", "slow", "a waste of time", "bad", "dead", "in spanish"]
- 		}, {
- 			"questionName": "rap is",
- 			"questionDisplayText": "Rap is",
- 			"questionID": "q174",
- 			"answers": ["dead", "a man's soul", "poetry", "garbage", "like ziti", "the new rock", "not pop", "something i do on the side", "bad", "now"]
- 		}, {
- 			"questionName": "buy stock in",
- 			"questionDisplayText": "Buy stock in",
- 			"questionID": "q175",
- 			"answers": ["water", "tesla", "aldi", "apple", "amazon", "pokemon go", "waffles", "google", "nintendo", "disney"]
- 		}, {
- 			"questionName": "the great",
- 			"questionDisplayText": "The great",
- 			"questionID": "q176",
- 			"answers": ["gatsby", "escape", "depression", "lakes", "escape room", "courses", "indoors", "awakening", "compromise", "khali"]
- 		}, {
- 			"questionName": "muppet",
- 			"questionDisplayText": "Muppet",
- 			"questionID": "q177",
- 			"answers": ["babies", "characters", "treasure island", "christmas carol", "show", "movie", "chef", "necking", "eagle", "band"]
- 		}, {
- 			"questionName": "biography of",
- 			"questionDisplayText": "Biography of",
- 			"questionID": "q178",
- 			"answers": ["donald trump", "abraham lincoln", "mother teresa", "barack obama", "simone biles", "hillary clinton", "benjamin franklin", "edgar allan poe", "walt disney", "steve jobs"]
- 		}, {
- 			"questionName": "recipe for",
- 			"questionDisplayText": "Recipe for",
- 			"questionID": "q179",
- 			"answers": ["chili", "meatloaf", "stuffed peppers", "goulash", "peach cobbler", "banana bread", "apple crisp", "no bake cookies", "peanut butter cookies", "lasagna"]
- 		}, {
- 			"questionName": "all the way to",
- 			"questionDisplayText": "All the way to",
- 			"questionID": "q180",
- 			"answers": ["me", "memphis", "reno", "victory town", "heaven", "the top", "tacoma", "the ocean", "the bank", "galway"]
- 		}, {
- 			"questionName": "how to tie a",
- 			"questionDisplayText": "How to tie a",
- 			"questionID": "q181",
- 			"answers": ["tie", "scarf", "noose", "bow tie", "slip knot", "bandana", "tie easy", "windsor knot", "necktie", "knot"]
- 		}, {
- 			"questionName": "who sells the best",
- 			"questionDisplayText": "Who sells the best",
- 			"questionID": "q182",
- 			"answers": ["leggings", "kratom", "gas", "bras", "potato salad", "jeans", "essential oils", "pillows", "furniture", "sheets"]
- 		}, {
- 			"questionName": "island of",
- 			"questionDisplayText": "Island of",
- 			"questionID": "q183",
- 			"answers": ["the blue dolphins", "the dolls", "misfit toys", "adventure", "capri", "hawaii", "the blue dolphins movie", "lesbos", "terror", "sodor"]
- 		}, {
- 			"questionName": "famous celebrity",
- 			"questionDisplayText": "Famous celebrity",
- 			"questionID": "q184",
- 			"answers": ["couples", "deaths", "deaths 2016", "birthdays", "murders", "photographers", "siblings", "twins", "feuds", "names"]
- 		}, {
- 			"questionName": "nickelback is",
- 			"questionDisplayText": "Nickelback is",
- 			"questionID": "q185",
- 			"answers": ["awesome", "good", "country", "so bad", "that your hand", "tired of your jokes", "underrated", "better than the beatles", "the best band ever", "my favorite band"]
- 		}, {
- 			"questionName": "powdered",
- 			"questionDisplayText": "Powdered",
- 			"questionID": "q186",
- 			"answers": ["sugar", "milk", "eggs", "peanut butter", "alcohol", "toast man", "sugar frosting", "sugar glaze", "wig", "donuts"]
- 		}, {
- 			"questionName": "weather in",
- 			"questionDisplayText": "Weather in",
- 			"questionID": "q187",
- 			"answers": ["detroit", "chicago", "ann arbor", "michigan", "las vegas", "grand rapids mi", "new york", "cleveland", "ohio", "florida"]
- 		}, {
- 			"questionName": "oh",
- 			"questionDisplayText": "Oh",
- 			"questionID": "q188",
- 			"answers": ["my god", "yeah", "no", "wonder", "she glows", "tokyo", "what a night", "canada", "law firm", "crab"]
- 		}, {
- 			"questionName": "star wars is",
- 			"questionDisplayText": "Star wars is",
- 			"questionID": "q189",
- 			"answers": ["gay", "real", "dead", "overrated", "finn dead", "life", "disney", "ruined", "lame", "bad"]
- 		}, {
- 			"questionName": "star trek is",
- 			"questionDisplayText": "Star trek is",
- 			"questionID": "q190",
- 			"answers": ["better", "dead", "that classical music", "to trekkie as star wars is to", "hot", "star wars", "awesome", "real", "for nerds", "fascist"]
- 		}, {
- 			"questionName": "app for",
- 			"questionDisplayText": "App for",
- 			"questionID": "q191",
- 			"answers": ["facebook", "android", "youtube", "flashlight", "pokemon go", "scheduling", "making friends", "free movies", "pinterest", "instagram"]
- 		}, {
- 			"questionName": "global warming is",
- 			"questionDisplayText": "Global warming is",
- 			"questionID": "q192",
- 			"answers": ["fake", "not real", "real", "a myth", "bullshit", "occurring and human-caused", "caused by", "natural", "a lie", "a hoax created by the chinese"]
- 		}, {
- 			"questionName": "mcdonalds vs",
- 			"questionDisplayText": "mcdonalds vs",
- 			"questionID": "q193",
- 			"answers": ["chick fil a", "chick fil a meme", "burger king", "chicago", "chipotle", "starbucks", "subway", "kfc", "burger king sales", "burger king vs wendy's"]
- 		}, {
- 			"questionName": "the oscars are",
- 			"questionDisplayText": "The oscars are",
- 			"questionID": "q194",
- 			"answers": ["too white", "racist", "rigged", "bullshit", "awarded on it crossword", "so white", "white", "a sham", "pointless", "a joke"]
- 		}, {
- 			"questionName": "the windy",
- 			"questionDisplayText": "The windy",
- 			"questionID": "q195",
- 			"answers": ["city", "baby", "apple", "thing", "blonde", "planet", "road", "day", "month", "city pizza"]
- 		}, {
- 			"questionName": "cheat codes for nes",
- 			"questionDisplayText": "cheat codes for nes",
- 			"questionID": "q196",
- 			"answers": ["games", "zelda", "mario", "double dragon", "punch out", "ninja turtles", "remix", "metroid", "contra", "zelda 2"]
- 		}, {
- 			"questionName": "college is",
- 			"questionDisplayText": "college is",
- 			"questionID": "q197",
- 			"answers": ["hard", "power scholarship", "too expensive", "a waste of time", "not worth it", "worth it", "too hard", "stressful", "expensive", "my life"]
- 		}, {
- 			"questionName": "cucumbers are",
- 			"questionDisplayText": "cucumbers are",
- 			"questionID": "q198",
- 			"answers": ["gross essay", "fruit", "good for", "yellow", "bitter", "white", "pickles", "turning yellow", "orange", "water"]
- 		}, {
- 			"questionName": "lady gaga's",
- 			"questionDisplayText": "lady gaga's",
- 			"questionID": "q199",
- 			"answers": ["meat dress", "net worth", "house", "new album", "mom", "ring", "perfect illusion", "albums", "engagement ring", "meat dress now"]
- 		}, {
- 			"questionName": "how to grow",
- 			"questionDisplayText": "how to grow",
- 			"questionID": "q200",
- 			"answers": ["a beard", "hair faster", "taller", "your hair", "garlic", "hops", "your hair out", "potatoes", "facial hair", "mushrooms"]
- 		}, {
- 			"questionName": "beef jerky is",
- 			"questionDisplayText": "beef jerky is",
- 			"questionID": "q201",
- 			"answers": ["it bad for you", "nasty", "too expensive", "made out of", "just a meat raisin", "like a meat raisin", "a meat raisin", "raw meat", "so good", "good for you"]
- 		}, {
- 			"questionName": "kale is",
- 			"questionDisplayText": "kale is",
- 			"questionID": "q202",
- 			"answers": ["good for", "bad for you", "the new beef", "bad", "nasty", "good for you", "bitter", "the new currency", "not good for you", "a good source of"]
- 		}, {
- 			"questionName": "cursive is",
- 			"questionDisplayText": "cursive is",
- 			"questionID": "q203",
- 			"answers": ["dead", "pointless", "cool", "dying", "important", "a lost art", "a waste of time", "outdated", "better", "faster than manuscript"]
- 		}, {
- 			"questionName": "polar bears are",
- 			"questionDisplayText": "polar bears are",
- 			"questionID": "q204",
- 			"answers": ["black", "left handed", "dying vine", "dying", "not white", "clear", "thriving", "going extinct", "in danger", "brown"]
- 		}, {
- 			"questionName": "penguins are",
- 			"questionDisplayText": "penguins are",
- 			"questionID": "q205",
- 			"answers": ["gay", "just panda chickens", "you ready", "birds", "jerks", "mammals", "cute", "evil", "awesome", "so sensitive"]
- 		}, {
- 			"questionName": "public schools are",
- 			"questionDisplayText": "public schools are",
- 			"questionID": "q206",
- 			"answers": ["so random", "evil", "better", "bad", "like prisons", "a joke", "failing", "socialist", "terrible", "generally funded by"]
- 		}, {
- 			"questionName": "soylent is",
- 			"questionDisplayText": "soylent is",
- 			"questionID": "q207",
- 			"answers": ["people", "bad", "bullshit", "too expensive", "this a joke", "bad for you", "healthy", "human", "made of", "good for you"]
- 		}, {
- 			"questionName": "donald trump looks like",
- 			"questionDisplayText": "donald trump looks like",
- 			"questionID": "q208",
- 			"answers": ["corn", "patton", "pokemon", "oompa loompa", "butter", "donald duck", "purge", "grumpy cat", "elvis presley", "candy corn"]
- 		}, {
- 			"questionName": "hillary clinton looks like",
- 			"questionDisplayText": "hillary clinton looks like",
- 			"questionID": "q209",
- 			"answers": ["chucky", "george washington", "miss piggy", "kirby vacuum", "kim jong il", "harry potter", "a clown", "dolores umbridge", "kim jong un", "joker"]
- 		}]
- 	}
- }
+{"Category": { "categoryName": "culture", "categoryDisplayText": "Culture", "categoryID": "001", "colorValue": "#db3236", "imageValue": "", "unlockStatus": "unlocked", 
+"questions": [{"questionName": "the beatles are", "questionDisplayText": "The Beatles are", "questionID": "q001", 
+"answers": ["gay","coming","still alive","overrated","dead","the best","metal","bad","alive","fake"]}, 
+{"questionName": "country music is", "questionDisplayText": "Country music is", "questionID": "q002", 
+"answers": ["dead","bad","gay","garbage","all the same","the best","love","trash","dying","country wide"]}, 
+{"questionName": "tom hanks is", "questionDisplayText": "Tom Hanks is", "questionID": "q003", 
+"answers": ["harambe","a bunch of animals","forrest gump","dead","awesome","how old","woody","from","sick","a national treasure"]}, 
+{"questionName": "indiana jones and the", "questionDisplayText": "Indiana Jones and the", "questionID": "q004", 
+"answers": ["last crusade","temple of doom","crystal skull","fate of atlantis","raiders of the lost ark","temple of doom cast","last crusade cast","infernal machine","staff of kings","emperor's tomb"]}, 
+{"questionName": "harry potter and the", "questionDisplayText": "Harry Potter and the", "questionID": "q005", 
+"answers": ["sorcerer's stone","cursed child","deathly hallows","goblet of fire","half blood prince","cursed child movie","chamber of secrets","order of the phoenix","sorcerer's stone movie","sorcerer's stone book"]}, 
+{"questionName": "google are you", "questionDisplayText": "Google are you", "questionID": "q006", 
+"answers": ["there","gay","stupid","my friend","listening","better than siri","a boy or a girl","a girl","smart","married"]}, 
+{"questionName": "do all celebrities have", "questionDisplayText": "Do all celebrities have", "questionID": "q007", 
+"answers": ["fake teeth","iphones","bodyguards","personal assistants","herpes","stylists","to sell their souls","to join the illuminati","veneers","plastic surgery"]}, 
+{"questionName": "google", "questionDisplayText": "Google", "questionID": "q008", 
+"answers": ["maps","translate","docs","classroom","drive","flights","scholar","earth","news","play"]}, 
+{"questionName": "apple", "questionDisplayText": "Apple", "questionID": "q009", 
+"answers": ["watch","store","tv","watch 2","orchard","charlies","crisp","id","store near me","support"]}, 
+{"questionName": "gun control is", "questionDisplayText": "Gun control is", "questionID": "q010", 
+"answers": ["not the answer","bad","good","gun control","using both hands","a misfire","constitutional","the answer","bullshit","necessary"]}, 
+{"questionName": "can the government take your", "questionDisplayText": "Can the government take your", "questionID": "q011", 
+"answers": ["ira","guns","land","gold","money","property","house","dog","pension","savings"]}, 
+{"questionName": "the nra is", "questionDisplayText": "The NRA is", "questionID": "q012", 
+"answers": ["good","the new kkk","a cult","what type of interest group","to blame for police shooting","the problem","a hate group","wrong","an example of what type of interest group","winning"]}, 
+{"questionName": "the poor should", "questionDisplayText": "The poor should", "questionID": "q013", 
+"answers": ["die","stop being poor","receive everything free","eat their babies","answers","seize the means of production","eat porridge","pay more taxes","not be allowed to vote","stop whining"]}, 
+{"questionName": "don't blame me i voted for", "questionDisplayText": "Don't blame me i voted for", "questionID": "q014", 
+"answers": ["kodos","kodos shirt","jack","kodos sticker","the american","kodos gif","cruz","muffy","gary","rubio"]}, 
+{"questionName": "ketchup is", "questionDisplayText": "Ketchup is", "questionID": "q015", 
+"answers": ["a","a vegetable","a vegetable book","a spicy food","bad","a garbage condiment","a smoothie","a great moisturizer","nasty","a spicy food video"]}, 
+{"questionName": "baseball is", "questionDisplayText": "Baseball is", "questionID": "q016", 
+"answers": ["life","gay","dying","better","not a sport","like church","90 mental","fun","a white man's game","the best sport"]}, 
+{"questionName": "football is", "questionDisplayText": "Football is", "questionID": "q017", 
+"answers": ["back","life","family","gay","back commercial","here","my life","a game of inches","dangerous","so boring"]}, 
+{"questionName": "wrestling is", "questionDisplayText": "Wrestling is", "questionID": "q018", 
+"answers": ["fake","real","wrestling","life","dead","an art","fun","still real to me","fake video","strange"]}, 
+{"questionName": "sports are", "questionDisplayText": "Sports are", "questionID": "q019", 
+"answers": ["stupid","gay","described in this chapter as sites where","rigged","boring","a distraction","fun","a waste of time","good","bad"]}, 
+{"questionName": "barack obama is a", "questionDisplayText": "Barack Obama is a", "questionID": "q020", 
+"answers": ["leo","good leader","woman","great leader","great man","kenyan","marxist","democrat","socialist","mack daddy"]}, 
+{"questionName": "sparkling", "questionDisplayText": "Sparkling", "questionID": "q021", 
+"answers": ["water","ice","wiggles","wine","water maker","cider","abode","apple cider","aria","apple juice"]}, 
+{"questionName": "mr.", "questionDisplayText": "Mr.", "questionID": "q022", 
+"answers": ["robot","pizza","church","b's","bean","pita","t","roof","alan's","rogers"]}, 
+{"questionName": "coconut", "questionDisplayText": "Coconut", "questionID": "q023", 
+"answers": ["oil","crab","oil for hair","head","milk","water","cream","oil uses","macaroons","aminos"]}, 
+{"questionName": "mrs.", "questionDisplayText": "Mrs.", "questionID": "q024", 
+"answers": ["maddox","fields","potato head","doubtfire","robinson","meyers","beasley","dalloway","el-mubarak","brown's boys"]}, 
+{"questionName": "cars are too", "questionDisplayText": "Cars are too", "questionID": "q025", 
+"answers": ["expensive","expensive now","big","expensive in australia","mainstream","complicated","dangerous","heavy","complex","fast"]}, 
+{"questionName": "giraffes are", "questionDisplayText": "Giraffes are", "questionID": "q026", 
+"answers": ["gay","aliens","heartless","dumb","selfish","awesome","cool","4 species","4 different species","a myth"]}, 
+{"questionName": "facebook is", "questionDisplayText": "Facebook is", "questionID": "q027", 
+"answers": ["down","for losers","dying","not working","slow","dead","bad","depressing","now a public entity","hiring"]}, 
+{"questionName": "rap is", "questionDisplayText": "Rap is", "questionID": "q028", 
+"answers": ["dead","a man's soul","poetry","something i do on the side","bad","dying","life","now","not pop","trash"]}, 
+{"questionName": "buy stock in", "questionDisplayText": "Buy stock in", "questionID": "q029", 
+"answers": ["water","tesla","aldi","apple","amazon","waffles","nike","google","netflix","disney"]}, 
+{"questionName": "the great", "questionDisplayText": "The great", "questionID": "q030", 
+"answers": ["gatsby","depression","escape","lakes","escape room","indoors","compromise","awakening","american baking show","wall of china"]}, 
+{"questionName": "muppet", "questionDisplayText": "Muppet", "questionID": "q031", 
+"answers": ["christmas carol","babies","family christmas","treasure island","show","chef","movie","necking","characters","eagle"]}, 
+{"questionName": "biography of", "questionDisplayText": "Biography of", "questionID": "q032", 
+"answers": ["donald trump","abraham lincoln","edgar allan poe","hillary clinton","george washington","mother teresa","barack obama","benjamin franklin","walt disney","carmen harlan"]}, 
+{"questionName": "recipe for", "questionDisplayText": "Recipe for", "questionID": "q033", 
+"answers": ["chili","meatloaf","apple crisp","stuffed peppers","goulash","banana bread","peanut butter cookies","lasagna","no bake cookies","peach cobbler"]}, 
+{"questionName": "all the way to", "questionDisplayText": "All the way to", "questionID": "q034", 
+"answers": ["me","victory town","reno","memphis","heaven","the top","tacoma","the ocean","the bank","galway"]}, 
+{"questionName": "how to tie a", "questionDisplayText": "How to tie a", "questionID": "q035", 
+"answers": ["tie","noose","bow tie","scarf","slip knot","blanket scarf","bandana","toga","windsor knot","knot"]}, 
+{"questionName": "who sells the best", "questionDisplayText": "Who sells the best", "questionID": "q036", 
+"answers": ["kratom","leggings","bras","gas","potato salad","jeans","furniture","sheets","mattress","car batteries"]}, 
+{"questionName": "island of", "questionDisplayText": "Island of", "questionID": "q037", 
+"answers": ["misfit toys","the blue dolphins","the dolls","adventure","stability","dr moreau","glass","the blue dolphins movie","capri","terror"]}, 
+{"questionName": "famous celebrity", "questionDisplayText": "Famous celebrity", "questionID": "q038", 
+"answers": ["couples","deaths","deaths 2016","murders","photographers","death photos","siblings","costumes","feuds","outfits"]}, 
+{"questionName": "nickelback is", "questionDisplayText": "Nickelback is", "questionID": "q039", 
+"answers": ["awesome","good","bad","trash","that your hand","tired of your jokes","underrated","the greatest band ever","better than the beatles","hated"]}, 
+{"questionName": "powdered", "questionDisplayText": "Powdered", "questionID": "q040", 
+"answers": ["sugar","milk","eggs","alcohol","peanut butter","toast man","sugar frosting","wig","sugar glaze","donuts"]}, 
+{"questionName": "oh", "questionDisplayText": "Oh", "questionID": "q041", 
+"answers": ["my god","yeah","holy night","christmas tree","she glows","wonder","hello","canada","tokyo","yeah mr krabs"]}, 
+{"questionName": "star wars is", "questionDisplayText": "Star wars is", "questionID": "q042", 
+"answers": ["gay","real","overrated","dead","disney","life","ruined","lame","bad","finn dead"]}, 
+{"questionName": "star trek is", "questionDisplayText": "Star trek is", "questionID": "q043", 
+"answers": ["better","fascist","that classical music","real","awesome","dead","for nerds","bad","sulu gay","50"]}, 
+{"questionName": "app for", "questionDisplayText": "App for", "questionID": "q044", 
+"answers": ["facebook","flashlight","youtube","android","pinterest","selling stuff","making friends","pictures","instagram","free movies"]}, 
+{"questionName": "global warming is", "questionDisplayText": "Global warming is", "questionID": "q045", 
+"answers": ["fake","not real","real","occurring and human-caused","not occurring","a myth","caused by","bullshit","natural","a lie"]}, 
+{"questionName": "mcdonalds vs", "questionDisplayText": "mcdonalds vs", "questionID": "q046", 
+"answers": ["chick fil a","burger king","wendys","chicago","chipotle","subway","burger king sales","kfc","liebeck","burger king prices"]}, 
+{"questionName": "the oscars are", "questionDisplayText": "The oscars are", "questionID": "q047", 
+"answers": ["bullshit","so white","rigged","racist","too white","awarded on it crossword","white","a sham","a joke","always wrong"]}, 
+{"questionName": "the windy", "questionDisplayText": "The windy", "questionID": "q048", 
+"answers": ["city","baby","apple","thing","blonde","planet","city assassin","road","day","month"]}, 
+{"questionName": "cheat codes for nes", "questionDisplayText": "cheat codes for nes", "questionID": "q049", 
+"answers": ["games","classic","zelda","double dragon","remix","punch out","mario","ninja turtles","metroid","contra"]}, 
+{"questionName": "college is", "questionDisplayText": "college is", "questionID": "q050", 
+"answers": ["hard","a waste of time","power scholarship","too hard","too expensive","not worth it","worth it","making me depressed","bullshit","my life"]}, 
+{"questionName": "cucumbers are", "questionDisplayText": "cucumbers are", "questionID": "q051", 
+"answers": ["fruit","gross essay","good for","they good for you","white","bitter","pickles","water","gross","turning yellow"]}, 
+{"questionName": "lady gaga's", "questionDisplayText": "lady gaga's", "questionID": "q052", 
+"answers": ["fiance","meat dress","net worth","new album","house","mom","albums","dad","mother","new single"]}, 
+{"questionName": "how to grow", "questionDisplayText": "how to grow", "questionID": "q053", 
+"answers": ["a beard","taller","your hair","hair faster","garlic","facial hair","your hair out","pumpkins","mushrooms","hops"]}, 
+{"questionName": "beef jerky is", "questionDisplayText": "beef jerky is", "questionID": "q054", 
+"answers": ["it healthy","too expensive","too dry","bad for you","it good for you","white","made out of","just a meat raisin","like a meat raisin","raw meat"]}, 
+{"questionName": "kale is", "questionDisplayText": "kale is", "questionID": "q055", 
+"answers": ["good for","bad for you","good for you","not healthy","the new beef","nasty","bitter","a good source of","high in","gmo"]}, 
+{"questionName": "cursive is", "questionDisplayText": "cursive is", "questionID": "q056", 
+"answers": ["dead","cool contest","pointless","good for your brain","important","a waste of time","not important","dying","unnecessary","hard to read"]}, 
+{"questionName": "polar bears are", "questionDisplayText": "polar bears are", "questionID": "q057", 
+"answers": ["dying vine","left handed","black","dying","clear","not white","going extinct","thriving","carnivores","dangerous"]}, 
+{"questionName": "penguins are", "questionDisplayText": "penguins are", "questionID": "q058", 
+"answers": ["gay","you ready","birds","just panda chickens","mammals","jerks","evil","cute","awesome","not birds"]}, 
+{"questionName": "public schools are", "questionDisplayText": "public schools are", "questionID": "q059", 
+"answers": ["so random","better","evil","bad","failing","terrible","generally funded by","funded by","free","a joke"]}, 
+{"questionName": "soylent is", "questionDisplayText": "soylent is", "questionID": "q060", 
+"answers": ["people","bad","bullshit","this a joke","human","bad for you","not healthy","good for you","healthy","it safe"]}, 
+{"questionName": "is taylor swift", "questionDisplayText": "is taylor swift", "questionID": "q061", 
+"answers": ["married","single","engaged","releasing a new album","in this is what you came for","for trump","dead","country","on tour","touring in 2017"]}, 
+{"questionName": "donald trump looks like", "questionDisplayText": "donald trump looks like", "questionID": "q062", 
+"answers": ["hillary clinton","pokemon","corn","raw chicken","an orange","dr evil","purge","butter","grumpy cat","the joker"]}, 
+{"questionName": "hillary clinton looks like", "questionDisplayText": "hillary clinton looks like", "questionID": "q063", 
+"answers": ["george washington","chucky","harry potter","umbridge","maddie ziegler","a clown","saw","sharon stone","darth sidious","tom petty"]}]}}

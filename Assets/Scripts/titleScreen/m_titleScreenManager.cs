@@ -14,6 +14,14 @@ public class m_titleScreenManager : MonoBehaviour {
         else if (instance != this) Destroy(gameObject);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {//Android back button!
+            Application.Quit();
+        }
+    }
+
     public void startGameFromTitle(bool isMP)
     {
    //     Debug.Log("Button clicked; starting game from title");

@@ -23,6 +23,7 @@ public class m_gameManager : MonoBehaviour {
     public Text roundStatusText;
     bool processInput = true;
     bool gameIsLive = false;
+    public bool conditionalInputOverride = false;
 
     public m_roundAdvanceButton advanceButton;
 
@@ -101,9 +102,9 @@ public class m_gameManager : MonoBehaviour {
         }
     }
 
-    public void playerInputComplete()
+    public void playerInputComplete(bool conditionalOverride)
     {
-        if(processInput)
+        if(processInput && playerInput.text != "" || conditionalInputOverride == true)
             changePhase(roundPhases.validation);
     }
 
@@ -195,6 +196,9 @@ public class m_gameManager : MonoBehaviour {
     {
         pauseGame();
         playerInput.DeactivateInputField();
+    //    TouchScreenKeyboard kb = new TouchScreenKeyboard("",TouchScreenKeyboardType.Default,true,false,false,false,"");
+    //    kb.active = false;
+        
         if (appManager.curLiveGame.isMPGame)
         {
             Debug.Log("Ending MP Game");
@@ -256,6 +260,7 @@ public class m_gameManager : MonoBehaviour {
         {
             timer.stopTimer();
             playerInput.interactable = false; //Stops input. However, on DeactivateInputField() it flags the OnEndEdit event leading to double input. Could do a flag.
+            conditionalInputOverride = false;
             roundObjects[roundIndex].GetComponent<m_roundManager>().startValidationPhase();
         }
     }

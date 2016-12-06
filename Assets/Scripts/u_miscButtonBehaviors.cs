@@ -34,12 +34,16 @@ public class u_miscButtonBehaviors : MonoBehaviour {
                     m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.menuToIAPShop);
                 else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectSP || m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectMP)
                     m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.categoryToIAPShop);
+                else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.scoreComp)
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.scoreCompToIAP);
                 break;
             case buttonBehaviors.hideShop:
                 if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.titleScreen)
                     m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.IAPToMenu);
                 else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectSP || m_phaseManager.instance.thisPhase == m_phaseManager.phases.categorySelectMP)
                     m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.IAPToCatSelect);
+                else if (m_phaseManager.instance.thisPhase == m_phaseManager.phases.scoreComp)  
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.IAPToScoreComp);
                 m_iapShopPanelManager.instance.destroyLockedCatList();
                 break;
             case buttonBehaviors.showFriends:
@@ -106,5 +110,13 @@ public class u_miscButtonBehaviors : MonoBehaviour {
         }
         else
             appManager.iapManager.BuyProductID(u_iapManager.androidIAPID.ac_gp_categorycredit.ToString(), catName);
+    }
+
+    public void checkExistence()
+    {
+        if(gameObject.name == "scoreComp_RmvAds" && obj_playerIAPData.getAdStatus() == false)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

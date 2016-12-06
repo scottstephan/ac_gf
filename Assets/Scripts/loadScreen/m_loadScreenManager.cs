@@ -18,14 +18,14 @@ public class m_loadScreenManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        appManager.instance.startLoadWheel();
+        appManager.instance.stopLoadWHeel();
 
         u_acJsonUtility.instance.createImportDirectories(); //TO-DO: DO NOT NEED THIS WHENS HIPPING
         u_acJsonUtility.instance.checkFirstTimeCopy();
         appManager.instance.checkIAPConnection();
         obj_playerIAPData.initPlayerIAPData();
         appManager.instance.checkFBLoginStatus();
-        appManager.instance.startAdServices();
+ //       appManager.instance.startAdServices();
         u_acJsonUtility.instance.StartCoroutine("checkWebQDB");
     }
 

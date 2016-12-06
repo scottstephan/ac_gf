@@ -106,6 +106,9 @@ public class u_iapManager : IStoreListener
                 break;
             case "ac_gp_noads":
                 obj_playerIAPData.removeAds();
+                if (m_scoreCompManager.instance.IAPButton != null)
+                    m_scoreCompManager.instance.IAPButton.GetComponent<u_miscButtonBehaviors>().checkExistence();
+                m_iapShopPanelManager.instance.refreshIAPStore();
                 break;
         }
         // actOnPurchaseSuccess(IAPTypes.categoryCredit);

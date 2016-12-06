@@ -111,7 +111,9 @@ public class obj_Timer : MonoBehaviour {
 
     void timerHasReachedZero()
     {
+        m_gameManager.instance.conditionalInputOverride = true;
         m_gameManager.instance.playerInput.DeactivateInputField();
+      //  m_gameManager.instance.playerInputComplete(true);
        // m_gameManager.instance.playerInputComplete();
     }
 

@@ -43,6 +43,8 @@ namespace Assets.autoCompete.games
         public string categoryText;
         [DynamoDBProperty]
         public string categoryDisplayText;
+        [DynamoDBProperty]
+        public string lastDateTimeEdit;
 
         public void initGame(string gID, string p1Id, string p2Id, bool p1fin, bool p2fin, int p1Score, int p2Score, bool mp, string p1Name, string p2Name)
         {

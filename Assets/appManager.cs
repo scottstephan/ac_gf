@@ -15,7 +15,7 @@ public class appManager : MonoBehaviour
     public static appManager instance = null;
     public static entity_players devicePlayer;
     public static playerRoles devicePlayerRoleInCurGame;
-
+    
     public static entity_games curLiveGame;
     public static obj_Player roundPlayerObject;
     public static string currentPlayerID;
@@ -157,7 +157,7 @@ public class appManager : MonoBehaviour
 
     public void startAdServices()
     {
-        //   m_heyZapAdManager.instance.initHeyZap();
+        m_adsManager.instance.StartCoroutine("initAds");
     }
 
     public void actOnFBLoginStatus(bool loginStatus)
@@ -198,6 +198,8 @@ public class appManager : MonoBehaviour
     {
         curLiveGame = new entity_games();
         curLiveGame.initGame(appManager.generateUniqueGameID(), p1ID, p2ID, false, false, 0, 0, isMPGame, p1Name, p2Name);
+        DateTime now = DateTime.UtcNow;
+        curLiveGame.lastDateTimeEdit = now.ToString();
     }
 
     public static void saveCurGame()

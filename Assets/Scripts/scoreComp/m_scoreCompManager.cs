@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using Assets.autoCompete.games;
+using System;
 
 public class m_scoreCompManager : MonoBehaviour {
     public static m_scoreCompManager instance = null;
@@ -16,10 +17,12 @@ public class m_scoreCompManager : MonoBehaviour {
     string namesColor = "#08AF22FF"; //Google Green
     string googleRed = "#FF0000FF";
 
+    public ScrollRect listScrollRect;
     public GameObject listParent;
     public GameObject[] listItemsToInstantiate;
     public GameObject backToMenuButton;
-
+    public GameObject twitterButton;
+    public GameObject IAPButton;
     public enum mpGameState
     {
        waitingForP2ToFinishAndViewResult, //Most common- P1 is done, but waiting for P2 to play
@@ -55,10 +58,17 @@ public class m_scoreCompManager : MonoBehaviour {
     {
         for(int i = 0; i < listItemsToInstantiate.Length; i++)
         {
+            if(listItemsToInstantiate[i].name == "scoreComp_RmvAds")
+            {
+                IAPButton = listItemsToInstantiate[i];
+                listItemsToInstantiate[i].GetComponent<u_miscButtonBehaviors>().checkExistence();
+            }
             listItemsToInstantiate[i].transform.SetParent(listParent.transform, false);
         }
 
         backToMenuButton.GetComponent<obj_backToMenuBtn>().setText();
+        listScrollRect.verticalNormalizedPosition = 1;
+
     }
 
     public void updateScoreColors()
@@ -71,11 +81,14 @@ public class m_scoreCompManager : MonoBehaviour {
         if (!appManager.curLiveGame.isMPGame)
         {
             thisGameState = mpGameState.singlePlayerGame;
+            twitterButton.GetComponent<u_twitterButton>().setInfo(appManager.curLiveGame.p1_score, appManager.curLiveGame.categoryDisplayText);
             return;
         }
 
         if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.intiated)
         {//I am P1
+            twitterButton.GetComponent<u_twitterButton>().setInfo(appManager.curLiveGame.p1_score, appManager.curLiveGame.categoryDisplayText);
+
             if (appManager.curLiveGame.p2_Fin)
             {
                 appManager.curLiveGame.p1HasViewedResult = true; //Because we both have scores in
@@ -89,12 +102,15 @@ public class m_scoreCompManager : MonoBehaviour {
                 }
             }
             else
-            {
+            {//P1 just finished challenging P2, so...
+                appManager.curGameStatus = appManager.E_lobbyGameStatus.init_viewScore;
                 thisGameState = mpGameState.waitingForP2ToFinishAndViewResult;
             }
         }
         else if(appManager.devicePlayerRoleInCurGame == appManager.playerRoles.challenged)
         {
+            twitterButton.GetComponent<u_twitterButton>().setInfo(appManager.curLiveGame.p2_score, appManager.curLiveGame.categoryDisplayText);
+
             appManager.curLiveGame.p2HasViewedResult = true; //Because we both have scores in
 
             if (appManager.curLiveGame.p1HasViewedResult)
@@ -116,7 +132,7 @@ public class m_scoreCompManager : MonoBehaviour {
         string scorePrepend = " got \n <color=" + scoreColor + "><size=135><b>";
         string scoreAppend = "</b></size></color> \n points!";
         string waitingPrepend = "Waiting for <color=" + categoryColor + ">\n";
-        string waitingAppend = "</color>\nto finish";
+        string waitingAppend = "</color>\nto finish.";
 
         switch (state)
         {
@@ -126,11 +142,11 @@ public class m_scoreCompManager : MonoBehaviour {
 
                 if (appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
                 {
-                    resultText.text = "<color=" + namesColor + "> YOU WON!</color>";
+                    resultText.text = "<color=" + namesColor + ">YOU WON!</color>";
                 }
-                else if (appManager.curLiveGame.p1_score > appManager.curLiveGame.p2_score)
+                else if (appManager.curLiveGame.p1_score < appManager.curLiveGame.p2_score)
                 {
-                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player2_name.ToUpper()+ " WON!</color> \n";
+                    resultText.text = "<color="+googleRed+">YOU LOST!</color> \n";
                 }
                 else if (appManager.curLiveGame.p1_score == appManager.curLiveGame.p2_score)
                 {
@@ -147,7 +163,7 @@ public class m_scoreCompManager : MonoBehaviour {
                 }
                 else if (appManager.curLiveGame.p2_score < appManager.curLiveGame.p1_score)
                 {
-                    resultText.text = "<color=#08AF22FF>" + appManager.curLiveGame.player1_name.ToUpper() + " WON! </color>";
+                    resultText.text = "<color="+googleRed+">YOU LOST!</color>";
                 }
                 else if (appManager.curLiveGame.p1_score == appManager.curLiveGame.p2_score)
                 {
@@ -157,7 +173,7 @@ public class m_scoreCompManager : MonoBehaviour {
             case mpGameState.waitingForP2ToViewResult: //I must be P1, Viewing + Waiting for P2 to view because they abandoned
                 break;
             case mpGameState.waitingForP2ToFinishAndViewResult: //I must be P1, Viewing + Waiting for P2 to Play
-                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
+                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
                 cScore = appManager.curLiveGame.p1_score;
                 theirText.text = waitingPrepend + "<color=#08AF22FF>" + appManager.curLiveGame.player2_name + "</color>" + waitingAppend;
                 resultText.text = "";
@@ -165,7 +181,7 @@ public class m_scoreCompManager : MonoBehaviour {
             case mpGameState.singlePlayerGame:
                 resultText.text = "GAME OVER";
                 cScore = appManager.curLiveGame.p1_score;
-                yourText.text = "You " + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
+                yourText.text = "You" + scorePrepend + appManager.curLiveGame.p1_score.ToString("N0") + scoreAppend;
                 theirText.text = " ";
                 compHSValue(cScore);
                 break;
@@ -210,7 +226,10 @@ public class m_scoreCompManager : MonoBehaviour {
         else
         {//No need to save if we just viewed the score. 
             if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
+            {
+                appManager.curLiveGame.lastDateTimeEdit = DateTime.UtcNow.ToString();
                 appManager.saveCurGame();
+            }
         }
     }
 

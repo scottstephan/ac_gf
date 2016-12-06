@@ -71,7 +71,9 @@ public class m_panelManager : MonoBehaviour {
         highScoreToTitle,
         mainRoundToMenu,
         tutorialToCatselect,
-        tutorialToMPLobby
+        tutorialToMPLobby,
+        scoreCompToIAP,
+        IAPToScoreComp
     }
 
     public enum uiPanelTransitions{
@@ -183,6 +185,12 @@ public class m_panelManager : MonoBehaviour {
                 break;
             case phaseTransitions.tutorialToMPLobby:
                 anim_tutorialToMPLobby();
+                break;
+            case phaseTransitions.scoreCompToIAP:
+                anim_scoreCompToIAP();
+                break;
+            case phaseTransitions.IAPToScoreComp:
+                anim_IAPToScoreComp();
                 break;
         }
     }
@@ -374,6 +382,14 @@ public class m_panelManager : MonoBehaviour {
         StartCoroutine("playAnimSet", setToPlay);
     }
 
+    public void anim_scoreCompToIAP()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toLeft);
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
     public void anim_IAPToMenu()
     {
         animationSetToPlay setToPlay = new animationSetToPlay();
@@ -387,6 +403,14 @@ public class m_panelManager : MonoBehaviour {
         animationSetToPlay setToPlay = new animationSetToPlay();
         setToPlay.animsToPlayInOrder.Add(IAPPanel.toLeft);
         setToPlay.animsToPlayInOrder.Add(categorySelect.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
+    }
+
+    public void anim_IAPToScoreComp()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(IAPPanel.toLeft);
+        setToPlay.animsToPlayInOrder.Add(scoreComp.toMiddle);
         StartCoroutine("playAnimSet", setToPlay);
     }
 

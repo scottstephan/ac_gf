@@ -1,0 +1,261 @@
+{
+	"Category": {
+		"categoryName": "food",
+		"categoryDisplayText": "Food",
+		"categoryID": "002",
+		"colorValue": "#EE6C4D",
+		"imageValue": "food.png",
+		"unlockStatus": "locked",
+		"questions": [{
+			"questionName": "how long to grill",
+			"questionDisplayText": "how long to grill",
+			"questionID": "q051",
+			"answers": ["chicken", "steak", "salmon", "corn", "burgers", "pork chops", "brats", "chicken thighs", "chicken kabobs", "chicken legs"]
+		}, {
+			"questionName": "temperature for cooking",
+			"questionDisplayText": "temperature for cooking",
+			"questionID": "q052",
+			"answers": ["chicken", "pork", "salmon", "meatloaf", "steak", "fish", "bacon in the oven", "pork chops", "beef", "pizza"]
+		}, {
+			"questionName": "what spices to use in",
+			"questionDisplayText": "what spices to use in",
+			"questionID": "q053",
+			"answers": ["chili", "chicken soup", "beef stew", "stir fry", "alfredo sauce", "vegetable soup", "tuna salad", "chicken salad", "chicken stir fry", "salsa"]
+		}, {
+			"questionName": "how long to simmer",
+			"questionDisplayText": "how long to simmer",
+			"questionID": "q054",
+			"answers": ["chicken", "chili", "chicken stock", "chicken breast", "tomato sauce", "chicken thighs", "rice", "bone broth", "meatballs", "soup"]
+		}, {
+			"questionName": "how to slice a",
+			"questionDisplayText": "how to slice a",
+			"questionID": "q055",
+			"answers": ["mango", "tomato", "pineapple", "peach", "brisket", "watermelon", "leek", "bell pepper", "kiwi", "pear"]
+		}, {
+			"questionName": "how to choose a ripe",
+			"questionDisplayText": "how to choose a ripe",
+			"questionID": "q056",
+			"answers": ["watermelon", "honeydew", "avocado", "pineapple", "mango", "papaya", "peach", "plum", "plantain", "dragon fruit"]
+		}, {
+			"questionName": "how to eat a",
+			"questionDisplayText": "how to eat a",
+			"questionID": "q057",
+			"answers": ["mango", "fig", "peach", "dragon fruit", "kiwi", "guava", "papaya", "tamale", "cactus pear", "lobster"]
+		}, {
+			"questionName": "added too much water to",
+			"questionDisplayText": "added too much water to",
+			"questionID": "q058",
+			"answers": ["rice", "brownie mix", "pizza dough", "grout", "soup", "rice cooker", "jello", "chili", "mashed potatoes", "quikrete"]
+		}, {
+			"questionName": "is it wrong to eat",
+			"questionDisplayText": "is it wrong to eat",
+			"questionID": "q059",
+			"answers": ["meat", "animals", "pork", "eggs", "plants", "lamb", "octopus", "meat bible", "shrimp", "shellfish"]
+		}, {
+			"questionName": "is it okay to eat",
+			"questionDisplayText": "is it okay to eat",
+			"questionID": "q060",
+			"answers": ["raw eggs", "expired eggs", "grape seeds", "raw potatoes", "raw cookie dough", "moldy cheese", "raw salmon", "peanut shells", "apple seeds", "one meal a day"]
+		}, {
+			"questionName": "i ate too much",
+			"questionDisplayText": "i ate too much",
+			"questionID": "q061",
+			"answers": ["sugar", "meme", "salt", "today", "in spanish", "garlic", "fiber", "cheese", "pizza", "sodium"]
+		}, {
+			"questionName": "i fed my dog",
+			"questionDisplayText": "i fed my dog",
+			"questionID": "q062",
+			"answers": ["chocolate", "chocolate meme", "two grapes", "grapes", "peanut butter", "cooked bones", "a pork bone", "avocado", "too much", "raw salmon"]
+		}, {
+			"questionName": "tacos with",
+			"questionDisplayText": "tacos with",
+			"questionID": "q063",
+			"answers": ["ground beef", "cabbage", "pineapple", "potatoes", "cilantro", "rice", "corn tortillas", "avocado", "black beans", "chicken"]
+		}, {
+			"questionName": "can you reheat",
+			"questionDisplayText": "can you reheat",
+			"questionID": "q064",
+			"answers": ["eggs", "salmon", "shrimp", "formula", "coffee", "fish", "corn on the cob", "rice", "scrambled eggs", "popcorn"]
+		}, {
+			"questionName": "i overcooked my",
+			"questionDisplayText": "i overcooked my",
+			"questionID": "q065",
+			"answers": ["hard boiled eggs", "pork roast", "rice", "noodles", "chicken", "steak", "salmon", "potatoes for potato salad", "pulled pork", "quinoa"]
+		}, {
+			"questionName": "side dishes for",
+			"questionDisplayText": "side dishes for",
+			"questionID": "q066",
+			"answers": ["thanksgiving", "chicken", "bbq", "steak", "salmon", "ribs", "pork chops", "fish", "chili", "tacos"]
+		}, {
+			"questionName": "pasta salad with",
+			"questionDisplayText": "pasta salad with",
+			"questionID": "q067",
+			"answers": ["chicken", "shrimp", "pepperoni", "spinach", "tuna", "mayo", "broccoli", "peas", "pesto", "ham"]
+		}, {
+			"questionName": "how to set a table for",
+			"questionDisplayText": "how to set a table for",
+			"questionID": "q068",
+			"answers": ["dinner", "a tea party", "a wedding", "breakfast", "decoration", "a party", "thanksgiving", "lunch", "a wedding reception", "brunch"]
+		}, {
+			"questionName": "best kind of cheese for",
+			"questionDisplayText": "best kind of cheese for",
+			"questionID": "q069",
+			"answers": ["pizza", "nachos", "mac and cheese", "weight loss", "grilled cheese", "grilled cheese sandwiches", "quesadilla", "backpacking", "homemade mac and cheese", "turkey sandwich"]
+		}, {
+			"questionName": "sauce made with",
+			"questionDisplayText": "sauce made with",
+			"questionID": "q070",
+			"answers": ["pine nuts", "fresh tomatoes", "basil", "sour cream", "greek yogurt", "mayo", "heavy cream", "milk", "half and half", "ricotta cheese"]
+		}, {
+			"questionName": "low fat",
+			"questionDisplayText": "low fat",
+			"questionID": "q071",
+			"answers": ["diet", "foods", "recipes", "cheese", "meals", "snacks", "dog food", "desserts", "milk", "ice cream"]
+		}, {
+			"questionName": "low carb",
+			"questionDisplayText": "low carb",
+			"questionID": "q072",
+			"answers": ["diet", "foods", "recipes", "snacks", "breakfast", "bread", "meals", "fruits", "desserts", "pasta"]
+		}, {
+			"questionName": "add salt to",
+			"questionDisplayText": "add salt to",
+			"questionID": "q073",
+			"answers": ["coffee", "water", "ice", "the wound", "pool", "drinking water", "beer", "injury", "unsalted butter", "my shopping list"]
+		}, {
+			"questionName": "add coffee to",
+			"questionDisplayText": "add coffee to",
+			"questionID": "q074",
+			"answers": ["brownie mix", "my grocery list", "beer", "chili", "chocolate cake", "brownies", "cake mix", "soil", "soylent", "the shopping list"]
+		}, {
+			"questionName": "add sugar to",
+			"questionDisplayText": "add sugar to",
+			"questionID": "q075",
+			"answers": ["wine", "strawberries", "my shopping list", "the grocery list", "the shopping list", "chili", "tea", "corn", "pancake mix", "sourdough starter"]
+		}, {
+			"questionName": "add milk to",
+			"questionDisplayText": "add milk to",
+			"questionID": "q076",
+			"answers": ["my shopping list", "shopping list", "eggs", "tea", "the grocery list", "coffee", "corn on the cob", "cake mix", "green tea", "ramen"]
+		}, {
+			"questionName": "best milk for",
+			"questionDisplayText": "best milk for",
+			"questionID": "q077",
+			"answers": ["diabetics", "weight loss", "toddlers", "babies", "latte", "you", "protein", "coffee", "latte art", "smoothies"]
+		}, {
+			"questionName": "can you eat expired",
+			"questionDisplayText": "can you eat expired",
+			"questionID": "q078",
+			"answers": ["eggs", "soup", "bread", "peanut butter", "chocolate", "butter", "chips", "cheese", "bacon", "yogurt"]
+		}, {
+			"questionName": "can you drink expired",
+			"questionDisplayText": "can you drink expired",
+			"questionID": "q079",
+			"answers": ["beer", "soda", "protein powder", "coffee", "tea", "juice", "shakeology", "water", "nyquil", "milk"]
+		}, {
+			"questionName": "can you eat",
+			"questionDisplayText": "can you eat",
+			"questionID": "q080",
+			"answers": ["acorns", "cactus", "weed", "wild grapes", "carp", "salmon skin", "raw shrimp", "gourds", "raw eggs", "puff balls"]
+		}, {
+			"questionName": "can you get sick from eating",
+			"questionDisplayText": "can you get sick from eating",
+			"questionID": "q081",
+			"answers": ["moldy bread", "mold", "raw flour", "moldy cheese", "raw shrimp", "poop", "maggots", "raw fish", "ants", "too much"]
+		}, {
+			"questionName": "how to poach",
+			"questionDisplayText": "how to poach",
+			"questionID": "q082",
+			"answers": ["an egg", "chicken", "salmon", "fish", "pears", "chicken thighs", "an egg video", "an egg in microwave", "an egg in ramen", "shrimp"]
+		}, {
+			"questionName": "i can't digest",
+			"questionDisplayText": "i can't digest",
+			"questionID": "q083",
+			"answers": ["my food", "vegetables", "fat", "meat anymore", "nuts", "beans", "apples", "anything i eat", "salad", "protein"]
+		}, {
+			"questionName": "i swallowed a small",
+			"questionDisplayText": "i swallowed a small",
+			"questionID": "q084",
+			"answers": ["piece of metal", "piece of glass", "amount of hydrogen peroxide", "bone", "piece of aluminum foil", "magnet", "screw", "chicken bone", "piece of toothpick", "sharp chicken bone"]
+		}, {
+			"questionName": "i ate a small piece of",
+			"questionDisplayText": "i ate a small piece of",
+			"questionID": "q085",
+			"answers": ["plastic", "plastic fork", "undercooked chicken", "plastic bag", "weed brownie", "eggshell", "aluminum foil", "glass", "moldy bread", "styrofoam"]
+		}, {
+			"questionName": "i want to start eating",
+			"questionDisplayText": "i want to start eating",
+			"questionID": "q086",
+			"answers": ["healthy", "meat again", "vegan", "clean", "vegetarian", "eggs", "vegetables", "fish", "healthy and exercising", "gluten free"]
+		}, {
+			"questionName": "best cake for a",
+			"questionDisplayText": "Best cake for a",
+			"questionID": "q087",
+			"answers": ["crowd", "diabetic", "wedding cake", "bake sale", "baby shower", "birthday", "party", "coffee morning", "picnic", "best friend"]
+		}, {
+			"questionName": "best recipe for",
+			"questionDisplayText": "best recipe for",
+			"questionID": "q088",
+			"answers": ["chili", "zucchini bread", "meatloaf", "salmon", "banana bread", "baked beans", "macaroni and cheese", "chicken thighs", "acorn squash", "pork chops"]
+		}, {
+			"questionName": "secret recipe of",
+			"questionDisplayText": "secret recipe of",
+			"questionID": "q089",
+			"answers": ["kfc", "coke", "coca cola", "starbucks", "being a bear", "kfc revealed", "kfc chicken coating", "beef pares", "krabby patty", "mang inasal"]
+		}, {
+			"questionName": "secret ingredient for",
+			"questionDisplayText": "secret ingredient for",
+			"questionID": "q090",
+			"answers": ["chili", "spaghetti", "brownies", "chicken noodle soup", "salsa", "pancakes", "krabby patty", "moist cupcakes", "marinara sauce", "mashed potatoes"]
+		}, {
+			"questionName": "my mom eats",
+			"questionDisplayText": "my mom eats",
+			"questionID": "q091",
+			"answers": ["too much", "so unhealthy", "all my food", "like a pig", "her boogers", "rocks", "tofu", "too loud", "poop", "so loud"]
+		}, {
+			"questionName": "my dad eats",
+			"questionDisplayText": "my dad eats",
+			"questionID": "q092",
+			"answers": ["vegetables in spanish", "too much", "loudly", "sugar with his nose", "everything in the house", "smoke from a gatorade bottle", "unhealthy", "like a pig", "all the food", "my food"]
+		}, {
+			"questionName": "what to do with leftover",
+			"questionDisplayText": "what to do with leftover",
+			"questionID": "q093",
+			"answers": ["steak", "rice", "salmon", "pork chops", "taco meat", "pork roast", "ham", "chicken", "chili", "pulled pork"]
+		}, {
+			"questionName": "green smoothie without",
+			"questionDisplayText": "Green smoothie without",
+			"questionID": "q094",
+			"answers": ["fruit", "banana", "spinach", "yogurt", "kale", "protein powder", "milk", "blender", "almond milk", "kale or spinach"]
+		}, {
+			"questionName": "my blender",
+			"questionDisplayText": "my blender",
+			"questionID": "q095",
+			"answers": ["smells", "is smoking", "won't work", "leaks from the bottom", "broke", "smells like burning", "won't crush ice", "isn't blending", "stopped working", "won't blend"]
+		}, {
+			"questionName": "my oven is",
+			"questionDisplayText": "my oven is",
+			"questionID": "q096",
+			"answers": ["smoking", "too hot", "flashing f10", "not working", "locked", "making noises", "not getting hot enough", "beeping", "on fire", "not cooking evenly"]
+		}, {
+			"questionName": "my microwave is",
+			"questionDisplayText": "my microwave is",
+			"questionID": "q097",
+			"answers": ["sparking and flashing", "not heating", "making a crackling noise", "broken", "smoking", "not spinning", "beeping", "not heating but the timer is working", "locked", "burning food"]
+		}, {
+			"questionName": "how many calories are there in",
+			"questionDisplayText": "how many calories are there in",
+			"questionID": "q098",
+			"answers": ["a banana", "an ear of corn", "an avocado", "watermelon", "an egg", "a pound", "an apple", "grapes", "a big mac", "a peach"]
+		}, {
+			"questionName": "how much fat is there in",
+			"questionDisplayText": "how much fat is there in",
+			"questionID": "q099",
+			"answers": ["an egg", "whole milk", "an avocado", "a banana", "hummus", "chicken", "milk", "cheese", "beer", "salmon"]
+		}, {
+			"questionName": "how much sugar is there in",
+			"questionDisplayText": "how much sugar is there in",
+			"questionID": "q100",
+			"answers": ["watermelon", "beer", "a banana", "vodka", "an apple", "wine", "a can of coke", "grapes", "strawberries", "milk"]
+		}]
+	}
+}

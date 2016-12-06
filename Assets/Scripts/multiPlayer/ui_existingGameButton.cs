@@ -114,8 +114,15 @@ public class ui_existingGameButton : MonoBehaviour {
         determineGameState();
     }
 
-    void determineGameState()
+    public void determineGameState()
     {
+        //Determine player role
+        if (appManager.FB_ID == thisGame.player1_id)
+            appManager.devicePlayerRoleInCurGame = appManager.playerRoles.intiated;
+        else if (appManager.FB_ID == thisGame.player2_id)
+            appManager.devicePlayerRoleInCurGame = appManager.playerRoles.challenged;
+
+        devicePlayerRole = appManager.devicePlayerRoleInCurGame;
         // Some sort logic:
         //If my role is init && p2 is not finished, I can view score, but am waiting
         //If my role is init && p2 IS finished, I need to view final comp and mark me as done

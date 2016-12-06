@@ -5,6 +5,8 @@ using System.Collections;
 public class m_adsManager : MonoBehaviour {
     static public m_adsManager instance = null;
     public bool useAds = true;
+    public string gameId; // Set this value from the inspector.
+    public bool enableTestMode = true;
     // Use this for initialization
 
     void Awake()
@@ -30,4 +32,5 @@ public class m_adsManager : MonoBehaviour {
     {
         //load json iap, flag ads on/off
     }
+
 }
