@@ -24,7 +24,8 @@ public class m_phaseManager : MonoBehaviour {
         toHighScore,
         highScoreToMenu,
         mainRoundToMenu,
-        scoreCompToMPLobby
+        scoreCompToMPLobby,
+        catSelectToFriendPanel
     }
 
     public phases thisPhase = phases.loadScreen;
@@ -101,6 +102,10 @@ public class m_phaseManager : MonoBehaviour {
                 thisPhase = phases.MPLobby;
                 m_phaseManager.instance.transitionToMPLObbyFromScoreComp();
                 break;
+            case phases.catSelectToFriendPanel:
+                thisPhase = phases.friendPanel;
+                m_phaseManager.instance.transitionToFriendPanelFromCatSelect();
+                break;
         }
     }
 
@@ -137,6 +142,12 @@ public class m_phaseManager : MonoBehaviour {
     {
         m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.scoreCompToMPLobby);
         m_MPLobby_Matchmake.instance.init_MPLobby();
+
+    }
+
+    public void transitionToFriendPanelFromCatSelect()
+    {
+        m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.mp_CatSelectToFriendList);
 
     }
 

@@ -8,6 +8,7 @@ public class u_backArrowManager : MonoBehaviour {
         mp_lobbyToTitle,
         mp_friendPanelToLobby,
         mp_catSelectToLobby,
+        mp_catSelectToFriendList,
         highScoreToMenu,
         mainRoundToMenu,
         skip_mainRoundToScore,
@@ -36,8 +37,10 @@ public class u_backArrowManager : MonoBehaviour {
                     if (!appManager.curLiveGame.isMPGame)
                         m_phaseManager.instance.backUpPhase(m_phaseManager.phases.titleScreen);
                     else
-                        m_phaseManager.instance.backUpPhase(m_phaseManager.phases.MPLobby);
-                    break;
+                    // m_phaseManager.instance.backUpPhase(m_phaseManager.phases.MPLobby);
+                    m_phaseManager.instance.changePhase(m_phaseManager.phases.catSelectToFriendPanel);
+
+                break;
                 case (backArrowDirection.mp_lobbyToTitle):
                     m_phaseManager.instance.backUpPhase(m_phaseManager.phases.titleScreen);
                     break;
@@ -58,10 +61,10 @@ public class u_backArrowManager : MonoBehaviour {
                     m_gameManager.instance.quitGame();
                     break;
                 case (backArrowDirection.tutorialToCatSelect):
-                if (!appManager.curLiveGame.isMPGame)
+               // if (!appManager.curLiveGame.isMPGame)
                     m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.tutorialToCatselect);
-                else
-                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.tutorialToMPLobby);
+               /* else
+                    m_panelManager.instance.animatePanelsByPhase(m_panelManager.phaseTransitions.tutorialToMPLobby);*/
                      break;
                 case (backArrowDirection.scoreViewToMPLobby):
                     if (m_phaseManager.instance.previousPhase == m_phaseManager.phases.MPLobby)
@@ -71,11 +74,14 @@ public class u_backArrowManager : MonoBehaviour {
                     }
                     
                     break;
+                case (backArrowDirection.mp_catSelectToFriendList):
+                    m_phaseManager.instance.changePhase(m_phaseManager.phases.catSelectToFriendPanel);
+                    break;
          }
         
     }
 
-     void Update()
+     void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

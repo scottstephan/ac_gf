@@ -73,7 +73,8 @@ public class m_panelManager : MonoBehaviour {
         tutorialToCatselect,
         tutorialToMPLobby,
         scoreCompToIAP,
-        IAPToScoreComp
+        IAPToScoreComp,
+        mp_CatSelectToFriendList
     }
 
     public enum uiPanelTransitions{
@@ -192,7 +193,18 @@ public class m_panelManager : MonoBehaviour {
             case phaseTransitions.IAPToScoreComp:
                 anim_IAPToScoreComp();
                 break;
+            case phaseTransitions.mp_CatSelectToFriendList:
+                anim_catSelectToFriendPanel();
+                break;
         }
+    }
+
+    public void anim_catSelectToFriendPanel()
+    {
+        animationSetToPlay setToPlay = new animationSetToPlay();
+        setToPlay.animsToPlayInOrder.Add(categorySelect.toLeft);
+        setToPlay.animsToPlayInOrder.Add(friendPanel.toMiddle);
+        StartCoroutine("playAnimSet", setToPlay);
     }
 
     public void anim_tutorialToMPLobby()

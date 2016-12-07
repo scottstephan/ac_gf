@@ -14,6 +14,7 @@ public class m_gameManager : MonoBehaviour {
     public int roundIndex = 0;
     public int maxNumMisses = 4;
     int playerMisses = 0;
+    int playerHits = 0;
     public List<GameObject> lightBulbs = new List<GameObject>();
 
     public InputField playerInput;
@@ -81,6 +82,7 @@ public class m_gameManager : MonoBehaviour {
 
         roundIndex = 0;
         playerMisses = 0;
+        playerHits = 0;
         playerScoreText.text = "0";
         roundNumberText.text = "ROUND 1" + "/" + numRounds;
         roundStatusText.text = "";
@@ -135,6 +137,7 @@ public class m_gameManager : MonoBehaviour {
     {
         roundObjects[roundIndex].GetComponent<m_roundManager>().revealAllAnswers();
         incrementRoundsPlayed();
+        playerHits = 0;
         if (roundIndex < numRounds && gameIsLive)
         {
             advanceButton.myButtonRole = m_roundAdvanceButton.buttonRole.advanceToNextRound;
@@ -348,9 +351,12 @@ public class m_gameManager : MonoBehaviour {
     public void incrementScore(int scoreAmt)
     {
         storedScoreVal += scoreAmt;
-       // int tS = int.Parse(playerScoreText.text);
-       // tS += scoreAmt;
         playerScoreText.text = storedScoreVal.ToString("N0");
+    }
+
+    public void incrementHits(int numHits)
+    {
+        playerHits += numHits;
     }
 
     public void incrementMisses()

@@ -271,7 +271,7 @@ public class appManager : MonoBehaviour
             return;
         }
         Debug.Log("***GAME REMOVED FROM PG TABLE***");
-        appManager.curLiveGame = null;
+     //   appManager.curLiveGame = null;
     }
 
 
@@ -283,7 +283,7 @@ public class appManager : MonoBehaviour
             return;
         }
         Debug.Log("***CUR GAME REMOVED FROM DB***");
-        appManager.curLiveGame = null;
+        //appManager.curLiveGame = null;
     }
 
     public static void loadGameEntity(string gameID)

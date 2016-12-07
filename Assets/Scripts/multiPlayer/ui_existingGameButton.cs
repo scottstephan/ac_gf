@@ -41,11 +41,23 @@ public class ui_existingGameButton : MonoBehaviour {
     {
         ColorBlock tCB = uiButtonManager.colors;
         if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewScore)
+        {
             tCB.normalColor = viewScoreColor;
+            tCB.pressedColor = viewScoreColor;
+            tCB.highlightedColor = viewScoreColor;
+        }
         else if (thisGameStatus == appManager.E_lobbyGameStatus.init_viewFinal)
+        {
             tCB.normalColor = theirTurnColor;
+            tCB.pressedColor = theirTurnColor;
+            tCB.highlightedColor = theirTurnColor;
+        }
         else if (thisGameStatus == appManager.E_lobbyGameStatus.challenged_playGame)
+        {
             tCB.normalColor = yourTurnColor;
+            tCB.pressedColor = yourTurnColor;
+            tCB.highlightedColor = yourTurnColor;
+        }
 
         uiButtonManager.colors = tCB;
     }
@@ -77,6 +89,7 @@ public class ui_existingGameButton : MonoBehaviour {
 
     public void onButtonClick()
     {
+        appManager.flushReferences();
         //If info is loaded etc....
         appManager.setCurGame(thisGame, devicePlayerRole);
      //   appManager.loadGameQuestions();

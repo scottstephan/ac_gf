@@ -24,7 +24,8 @@ public class m_titleScreenManager : MonoBehaviour {
 
     public void startGameFromTitle(bool isMP)
     {
-   //     Debug.Log("Button clicked; starting game from title");
+        appManager.flushReferences();
+
         if (!isMP)
         {
             appManager.createGameObject(appManager.devicePlayer.playerID, "none", appManager.devicePlayer.playerName, "none", false);

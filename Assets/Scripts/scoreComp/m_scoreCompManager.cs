@@ -225,11 +225,11 @@ public class m_scoreCompManager : MonoBehaviour {
         }
         else
         {//No need to save if we just viewed the score. 
-            if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
-            {
+          /*  if (appManager.curGameStatus != appManager.E_lobbyGameStatus.init_viewScore)
+            { */
                 appManager.curLiveGame.lastDateTimeEdit = DateTime.UtcNow.ToString();
                 appManager.saveCurGame();
-            }
+          //  }
         }
     }
 
