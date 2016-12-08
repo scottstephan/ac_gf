@@ -54,7 +54,8 @@ public class m_phaseManager : MonoBehaviour {
                 thisPhase = phases.titleScreen;
                 m_phaseManager.instance.transitionToTitleScreen();
                 break;
-            case phases.MPLobby:
+            case phases.MPLobby:;
+                Debug.Log("Phase is now MP lobby!");
                 thisPhase = phases.MPLobby;
                 m_phaseManager.instance.transitionToMPLobby();
                 break;

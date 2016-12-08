@@ -162,19 +162,17 @@ public class appManager : MonoBehaviour
 
     public void actOnFBLoginStatus(bool loginStatus)
     {
+        Debug.Log("ACTING ON FB LOGIN STATUS");
+
         FB_LOGINSTATUS = loginStatus;
         if (loginStatus)
         {
             appManager.FB_ID = m_fbStatusManager.instance.returnFBUserID();
-            m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads
-                                                                  // m_headerManager.instance.setHeaderToLoggedIn();
-                                                                  //m_loadScreenManager.instance.appInitComplete();
+            m_fbStatusManager.instance.LoadPlayerName(setFBName); //Set the player object once it loads                                                        
         }
         else
         {
-            //  m_headerManager.instance.setHeaderToLoggedOut();
             appManager.instance.createAndSetPlayer("NLI", "NLI");
-            // m_loadScreenManager.instance.appInitComplete();
         }
     }
 

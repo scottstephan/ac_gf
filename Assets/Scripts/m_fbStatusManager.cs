@@ -47,9 +47,11 @@ public class m_fbStatusManager : MonoBehaviour {
 
     public void promptForUserFBLogin(loginRequestSource requestSource)
     {
+        Debug.Log("PROMPTING FOR FB LOGIN");
         lastLoginRequestSource = requestSource;
         var perms = new List<string>() { "public_profile", "email", "user_friends" };
         FB.LogInWithReadPermissions(perms, loginAuthCallback);
+        
     }
 
     void loginAuthCallback(ILoginResult result)
